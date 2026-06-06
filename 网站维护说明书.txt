@@ -1,0 +1,171 @@
+星际斗地主第二届网站维护说明书
+更新时间：2026-06-06
+
+一、这个网站是怎样工作的
+
+本网站是一个静态网站，源码在 scdoudizhu-site 文件夹中。它使用 Astro + React 开发，构建后会生成一批普通的 HTML、CSS、JS 和 JSON 文件。GitHub Pages 会把这些静态文件发布到互联网上，域名为：
+
+https://scdoudizhu.com
+
+网站不需要服务器数据库。比赛数据先由 scdoudizhu_repparser.exe 解析 replay 并导出 zip 包，然后本网站的导入脚本把 zip 包转换成网页可读取的 JSON/CSV 数据。这样做的好处是：网站速度快，手机和电脑都能访问，维护时只需要更新文件并推送到 GitHub。
+
+二、最常用目录
+
+1. data-source/imports/season-2/
+   存放 scdoudizhu_repparser.exe 导出的原始 zip 包。导入脚本会自动把 zip 复制到这里。
+
+2. data-source/canonical/season-2/matches.json
+   网站内部的标准比赛数据。这里保留 sourceZip、sourceFileName 等定位原始 replay 的信息，方便你以后查错。
+
+3. public/data/seasons/season-2/
+   公开给网页使用的数据。这里不会公开 slotId、playerId、replay 文件名、EAPM、操作数等不需要展示的字段。
+
+4. public/downloads/maps/
+   地图下载目录。当前地图文件是：
+   public/downloads/maps/斗地主Doudizhu 1.70.scx
+
+5. src/pages/news/index.astro
+   新闻页面。现在已经有三个示例新闻：网站建立、比赛开始、06-03 战报。以后添加新闻时，复制一个 article 区块并修改日期、标题和正文即可。
+
+6. src/pages/maps.astro
+   地图下载页面。如果地图版本更新，需要把新地图放入 public/downloads/maps/，再修改这个页面里的版本号、文件名和更新说明。
+
+三、从 repparser 导出比赛结果后怎样更新网站
+
+第一步：在 scdoudizhu_repparser.exe 中解析 .rep 文件。
+
+第二步：管理员必须确认每一局的胜负结果。未确认全部对局时，repparser 不允许导出正式结果。
+
+第三步：点击 repparser 中的“保存和导出解析结果”，得到一个 zip 包。这个 zip 包里通常包含：
+项目 json 文件、csv 文件、原始 rep 文件。
+
+第四步：把 zip 包复制到 scdoudizhu-site 文件夹外或文件夹内任意位置，然后打开 PowerShell，进入 scdoudizhu-site：
+
+Set-Location F:\screp\scdoudizhu-site
+
+第五步：导入 zip。示例：
+
+python tools\import_parser_zip.py "F:\screp\斗地主解析结果0603.zip"
+
+导入脚本会自动：
+复制 zip 到 data-source/imports/season-2/；
+读取 zip 内的项目 json；
+过滤解析失败的局；
+生成 data-source/canonical/season-2/matches.json。
+
+第六步：验证并生成公开数据：
+
+python tools\validate_data.py
+python tools\build_site_data.py
+npm run build
+
+如果这三条命令都成功，说明网站数据没有明显错误。
+
+四、最简单的一键更新方式
+
+如果 zip 已经导入过，或者你已经把 zip 放在 data-source/imports/season-2/ 的子文件夹中，可以双击：
+
+tools\一键更新比赛数据.bat
+
+这个脚本会自动导入 imports 目录中的所有 zip、验证数据、生成公开数据、构建网站。
+
+五、一键部署到互联网
+
+网站仓库配置好 GitHub 之后，双击：
+
+一键部署网站.bat
+
+它会自动执行：
+1. 验证内部标准数据；
+2. 生成公开数据；
+3. 构建网站；
+4. git add 和 git commit；
+5. git push 到 GitHub。
+
+推送完成后，GitHub Actions 会自动部署 GitHub Pages。通常等待 1 到 3 分钟后，可以访问：
+
+https://scdoudizhu.com
+
+六、如果地图更新了怎样处理
+
+1. 把新地图文件复制到：
+public/downloads/maps/
+
+2. 修改：
+src/pages/maps.astro
+
+需要改的内容包括：
+地图版本号；
+下载链接文件名；
+更新说明。
+
+3. 双击 一键部署网站.bat。
+
+七、如果要添加或修改新闻
+
+打开：
+src/pages/news/index.astro
+
+页面里每一条新闻都是一个 article 区块。添加新闻时，复制一段现有 article，修改：
+time 日期；
+h2 标题；
+p 正文。
+
+保存后双击 一键部署网站.bat。
+
+八、如果网站上的比赛数据有错误怎样定位
+
+1. 在网站“比赛数据”页面找到出错的比赛日、选手、胜方或比赛 ID。
+
+2. 打开内部标准数据文件：
+data-source/canonical/season-2/matches.json
+
+3. 搜索网页上看到的 matchId，例如：
+season-2-20260603-001
+
+4. 在这一局的数据附近查看 sourceZip 和 sourceFileName。
+sourceZip 表示这局来自哪个 repparser 导出的 zip；
+sourceFileName 表示原始 replay 文件名。
+
+5. 找到对应 zip 后，建议回到 scdoudizhu_repparser.exe，使用“从解析结果导入项目”打开这个 zip，修正管理员确认结果或备注，然后重新“保存和导出解析结果”。
+
+6. 用新的 zip 替换旧 zip，重新运行：
+
+python tools\import_parser_zip.py "新的zip路径"
+python tools\validate_data.py
+python tools\build_site_data.py
+npm run build
+
+7. 确认无误后双击 一键部署网站.bat。
+
+九、当前网页功能
+
+首页：
+展示第二届星际斗地主网站入口。
+
+排行榜：
+位于导航栏“排行榜”。支持按选手名称、胜场、负场、总场、胜率、平均 APM 正序或倒序排序。支持搜索选手名，匹配选手会自动滚动定位并高亮。页面显示总榜、地主榜、农民榜，并显示地主胜率、农民胜率。
+
+数据中心：
+位于导航栏“数据中心”。支持按玩家查看，也支持按对局查看。可以按选手名、比赛 ID、比赛日、角色、胜负、胜方筛选。页面展示种族、角色、胜负、胜方、持续时间等信息，不展示 APM/EAPM、操作数和 replay 名称。
+
+地图下载：
+位于导航栏“地图下载”。当前发布 斗地主Doudizhu 1.70.scx。
+
+新闻：
+位于导航栏“新闻”。用于发布网站公告、比赛开赛公告、比赛日战报。
+
+日间/夜间模式：
+右上角按钮可以切换日间模式和夜间模式，浏览器会记住上一次选择。
+
+十、重要注意事项
+
+1. 第二届比赛只使用两个角色：地主、农民。网站数据不需要保留 slotId。
+
+2. slotId 只是房间位置，不是网页展示字段。网站公开数据不包含 slotId 和 playerId。
+
+3. repparser 导出的 zip 是最重要的原始证据，请不要随便删除 data-source/imports/season-2/ 里的 zip。
+
+4. 如果 GitHub Actions 部署失败，先在本机运行 npm run build。只要本机构建失败，GitHub 上通常也会失败。
+
+5. 你曾经在聊天中发过 GitHub 密码。为了安全，建议立刻在 GitHub 修改密码，并开启两步验证。以后不要把密码发给任何 AI 或聊天窗口，使用 GitHub CLI 登录即可。

@@ -1,0 +1,819 @@
+{
+  "overall": [
+    {
+      "playerName": "990",
+      "games": 1,
+      "wins": 1,
+      "losses": 0,
+      "winRate": 100.0,
+      "averageApm": 179,
+      "landlordWinRate": 100.0,
+      "farmerWinRate": null,
+      "raceWinRates": {
+        "P": {
+          "games": 1,
+          "wins": 1,
+          "winRate": 100.0
+        }
+      }
+    },
+    {
+      "playerName": "爬来爬去",
+      "games": 3,
+      "wins": 2,
+      "losses": 1,
+      "winRate": 66.6667,
+      "averageApm": 148,
+      "landlordWinRate": 100.0,
+      "farmerWinRate": 50.0,
+      "raceWinRates": {
+        "P": {
+          "games": 1,
+          "wins": 1,
+          "winRate": 100.0
+        },
+        "Z": {
+          "games": 2,
+          "wins": 1,
+          "winRate": 50.0
+        }
+      }
+    },
+    {
+      "playerName": "GGrush_Doudizhu",
+      "games": 6,
+      "wins": 3,
+      "losses": 3,
+      "winRate": 50.0,
+      "averageApm": 163,
+      "landlordWinRate": 100.0,
+      "farmerWinRate": 25.0,
+      "raceWinRates": {
+        "P": {
+          "games": 3,
+          "wins": 1,
+          "winRate": 33.3333
+        },
+        "T": {
+          "games": 2,
+          "wins": 1,
+          "winRate": 50.0
+        },
+        "Z": {
+          "games": 1,
+          "wins": 1,
+          "winRate": 100.0
+        }
+      }
+    },
+    {
+      "playerName": "地主3V5速度来",
+      "games": 2,
+      "wins": 1,
+      "losses": 1,
+      "winRate": 50.0,
+      "averageApm": 146,
+      "landlordWinRate": 100.0,
+      "farmerWinRate": 0.0,
+      "raceWinRates": {
+        "P": {
+          "games": 1,
+          "wins": 1,
+          "winRate": 100.0
+        },
+        "Z": {
+          "games": 1,
+          "wins": 0,
+          "winRate": 0.0
+        }
+      }
+    },
+    {
+      "playerName": "fly",
+      "games": 5,
+      "wins": 2,
+      "losses": 3,
+      "winRate": 40.0,
+      "averageApm": 224,
+      "landlordWinRate": 66.6667,
+      "farmerWinRate": 0.0,
+      "raceWinRates": {
+        "P": {
+          "games": 1,
+          "wins": 0,
+          "winRate": 0.0
+        },
+        "Z": {
+          "games": 3,
+          "wins": 2,
+          "winRate": 66.6667
+        },
+        "T": {
+          "games": 1,
+          "wins": 0,
+          "winRate": 0.0
+        }
+      }
+    },
+    {
+      "playerName": "do''do来叫地主",
+      "games": 5,
+      "wins": 2,
+      "losses": 3,
+      "winRate": 40.0,
+      "averageApm": 153,
+      "landlordWinRate": 66.6667,
+      "farmerWinRate": 0.0,
+      "raceWinRates": {
+        "P": {
+          "games": 2,
+          "wins": 1,
+          "winRate": 50.0
+        },
+        "T": {
+          "games": 1,
+          "wins": 0,
+          "winRate": 0.0
+        },
+        "Z": {
+          "games": 2,
+          "wins": 1,
+          "winRate": 50.0
+        }
+      }
+    },
+    {
+      "playerName": "9527",
+      "games": 6,
+      "wins": 2,
+      "losses": 4,
+      "winRate": 33.3333,
+      "averageApm": 103,
+      "landlordWinRate": 100.0,
+      "farmerWinRate": 20.0,
+      "raceWinRates": {
+        "P": {
+          "games": 4,
+          "wins": 2,
+          "winRate": 50.0
+        },
+        "Z": {
+          "games": 2,
+          "wins": 0,
+          "winRate": 0.0
+        }
+      }
+    },
+    {
+      "playerName": "商女不知亡国恨",
+      "games": 4,
+      "wins": 1,
+      "losses": 3,
+      "winRate": 25.0,
+      "averageApm": 92,
+      "landlordWinRate": null,
+      "farmerWinRate": 25.0,
+      "raceWinRates": {
+        "T": {
+          "games": 1,
+          "wins": 0,
+          "winRate": 0.0
+        },
+        "P": {
+          "games": 2,
+          "wins": 1,
+          "winRate": 50.0
+        },
+        "Z": {
+          "games": 1,
+          "wins": 0,
+          "winRate": 0.0
+        }
+      }
+    },
+    {
+      "playerName": "7788",
+      "games": 4,
+      "wins": 1,
+      "losses": 3,
+      "winRate": 25.0,
+      "averageApm": 205,
+      "landlordWinRate": null,
+      "farmerWinRate": 25.0,
+      "raceWinRates": {
+        "Z": {
+          "games": 2,
+          "wins": 1,
+          "winRate": 50.0
+        },
+        "P": {
+          "games": 2,
+          "wins": 0,
+          "winRate": 0.0
+        }
+      }
+    },
+    {
+      "playerName": "花样",
+      "games": 5,
+      "wins": 1,
+      "losses": 4,
+      "winRate": 20.0,
+      "averageApm": 126,
+      "landlordWinRate": null,
+      "farmerWinRate": 20.0,
+      "raceWinRates": {
+        "P": {
+          "games": 5,
+          "wins": 1,
+          "winRate": 20.0
+        }
+      }
+    },
+    {
+      "playerName": "谢沛林",
+      "games": 2,
+      "wins": 0,
+      "losses": 2,
+      "winRate": 0.0,
+      "averageApm": 45,
+      "landlordWinRate": null,
+      "farmerWinRate": 0.0,
+      "raceWinRates": {
+        "T": {
+          "games": 2,
+          "wins": 0,
+          "winRate": 0.0
+        }
+      }
+    },
+    {
+      "playerName": "逗地主 剑圣  激情对战 战到最后一兵",
+      "games": 1,
+      "wins": 0,
+      "losses": 1,
+      "winRate": 0.0,
+      "averageApm": 84,
+      "landlordWinRate": null,
+      "farmerWinRate": 0.0,
+      "raceWinRates": {
+        "P": {
+          "games": 1,
+          "wins": 0,
+          "winRate": 0.0
+        }
+      }
+    },
+    {
+      "playerName": "猫粮不够",
+      "games": 1,
+      "wins": 0,
+      "losses": 1,
+      "winRate": 0.0,
+      "averageApm": 96,
+      "landlordWinRate": null,
+      "farmerWinRate": 0.0,
+      "raceWinRates": {
+        "Z": {
+          "games": 1,
+          "wins": 0,
+          "winRate": 0.0
+        }
+      }
+    },
+    {
+      "playerName": "红莲逗地主业火焚天",
+      "games": 1,
+      "wins": 0,
+      "losses": 1,
+      "winRate": 0.0,
+      "averageApm": 60,
+      "landlordWinRate": null,
+      "farmerWinRate": 0.0,
+      "raceWinRates": {
+        "P": {
+          "games": 1,
+          "wins": 0,
+          "winRate": 0.0
+        }
+      }
+    },
+    {
+      "playerName": "羿剑鬼",
+      "games": 1,
+      "wins": 0,
+      "losses": 1,
+      "winRate": 0.0,
+      "averageApm": 103,
+      "landlordWinRate": null,
+      "farmerWinRate": 0.0,
+      "raceWinRates": {
+        "P": {
+          "games": 1,
+          "wins": 0,
+          "winRate": 0.0
+        }
+      }
+    },
+    {
+      "playerName": "ffs9525",
+      "games": 1,
+      "wins": 0,
+      "losses": 1,
+      "winRate": 0.0,
+      "averageApm": 51,
+      "landlordWinRate": null,
+      "farmerWinRate": 0.0,
+      "raceWinRates": {
+        "P": {
+          "games": 1,
+          "wins": 0,
+          "winRate": 0.0
+        }
+      }
+    }
+  ],
+  "landlord": [
+    {
+      "playerName": "GGrush_Doudizhu",
+      "games": 2,
+      "wins": 2,
+      "losses": 0,
+      "winRate": 100.0,
+      "averageApm": 188,
+      "landlordWinRate": 100.0,
+      "farmerWinRate": 25.0,
+      "raceWinRates": {
+        "P": {
+          "games": 3,
+          "wins": 1,
+          "winRate": 33.3333
+        },
+        "T": {
+          "games": 2,
+          "wins": 1,
+          "winRate": 50.0
+        },
+        "Z": {
+          "games": 1,
+          "wins": 1,
+          "winRate": 100.0
+        }
+      }
+    },
+    {
+      "playerName": "爬来爬去",
+      "games": 1,
+      "wins": 1,
+      "losses": 0,
+      "winRate": 100.0,
+      "averageApm": 181,
+      "landlordWinRate": 100.0,
+      "farmerWinRate": 50.0,
+      "raceWinRates": {
+        "P": {
+          "games": 1,
+          "wins": 1,
+          "winRate": 100.0
+        },
+        "Z": {
+          "games": 2,
+          "wins": 1,
+          "winRate": 50.0
+        }
+      }
+    },
+    {
+      "playerName": "地主3V5速度来",
+      "games": 1,
+      "wins": 1,
+      "losses": 0,
+      "winRate": 100.0,
+      "averageApm": 165,
+      "landlordWinRate": 100.0,
+      "farmerWinRate": 0.0,
+      "raceWinRates": {
+        "P": {
+          "games": 1,
+          "wins": 1,
+          "winRate": 100.0
+        },
+        "Z": {
+          "games": 1,
+          "wins": 0,
+          "winRate": 0.0
+        }
+      }
+    },
+    {
+      "playerName": "9527",
+      "games": 1,
+      "wins": 1,
+      "losses": 0,
+      "winRate": 100.0,
+      "averageApm": 111,
+      "landlordWinRate": 100.0,
+      "farmerWinRate": 20.0,
+      "raceWinRates": {
+        "P": {
+          "games": 4,
+          "wins": 2,
+          "winRate": 50.0
+        },
+        "Z": {
+          "games": 2,
+          "wins": 0,
+          "winRate": 0.0
+        }
+      }
+    },
+    {
+      "playerName": "990",
+      "games": 1,
+      "wins": 1,
+      "losses": 0,
+      "winRate": 100.0,
+      "averageApm": 179,
+      "landlordWinRate": 100.0,
+      "farmerWinRate": null,
+      "raceWinRates": {
+        "P": {
+          "games": 1,
+          "wins": 1,
+          "winRate": 100.0
+        }
+      }
+    },
+    {
+      "playerName": "fly",
+      "games": 3,
+      "wins": 2,
+      "losses": 1,
+      "winRate": 66.6667,
+      "averageApm": 206,
+      "landlordWinRate": 66.6667,
+      "farmerWinRate": 0.0,
+      "raceWinRates": {
+        "P": {
+          "games": 1,
+          "wins": 0,
+          "winRate": 0.0
+        },
+        "Z": {
+          "games": 3,
+          "wins": 2,
+          "winRate": 66.6667
+        },
+        "T": {
+          "games": 1,
+          "wins": 0,
+          "winRate": 0.0
+        }
+      }
+    },
+    {
+      "playerName": "do''do来叫地主",
+      "games": 3,
+      "wins": 2,
+      "losses": 1,
+      "winRate": 66.6667,
+      "averageApm": 165,
+      "landlordWinRate": 66.6667,
+      "farmerWinRate": 0.0,
+      "raceWinRates": {
+        "P": {
+          "games": 2,
+          "wins": 1,
+          "winRate": 50.0
+        },
+        "T": {
+          "games": 1,
+          "wins": 0,
+          "winRate": 0.0
+        },
+        "Z": {
+          "games": 2,
+          "wins": 1,
+          "winRate": 50.0
+        }
+      }
+    }
+  ],
+  "farmer": [
+    {
+      "playerName": "爬来爬去",
+      "games": 2,
+      "wins": 1,
+      "losses": 1,
+      "winRate": 50.0,
+      "averageApm": 132,
+      "landlordWinRate": 100.0,
+      "farmerWinRate": 50.0,
+      "raceWinRates": {
+        "P": {
+          "games": 1,
+          "wins": 1,
+          "winRate": 100.0
+        },
+        "Z": {
+          "games": 2,
+          "wins": 1,
+          "winRate": 50.0
+        }
+      }
+    },
+    {
+      "playerName": "商女不知亡国恨",
+      "games": 4,
+      "wins": 1,
+      "losses": 3,
+      "winRate": 25.0,
+      "averageApm": 92,
+      "landlordWinRate": null,
+      "farmerWinRate": 25.0,
+      "raceWinRates": {
+        "T": {
+          "games": 1,
+          "wins": 0,
+          "winRate": 0.0
+        },
+        "P": {
+          "games": 2,
+          "wins": 1,
+          "winRate": 50.0
+        },
+        "Z": {
+          "games": 1,
+          "wins": 0,
+          "winRate": 0.0
+        }
+      }
+    },
+    {
+      "playerName": "GGrush_Doudizhu",
+      "games": 4,
+      "wins": 1,
+      "losses": 3,
+      "winRate": 25.0,
+      "averageApm": 151,
+      "landlordWinRate": 100.0,
+      "farmerWinRate": 25.0,
+      "raceWinRates": {
+        "P": {
+          "games": 3,
+          "wins": 1,
+          "winRate": 33.3333
+        },
+        "T": {
+          "games": 2,
+          "wins": 1,
+          "winRate": 50.0
+        },
+        "Z": {
+          "games": 1,
+          "wins": 1,
+          "winRate": 100.0
+        }
+      }
+    },
+    {
+      "playerName": "7788",
+      "games": 4,
+      "wins": 1,
+      "losses": 3,
+      "winRate": 25.0,
+      "averageApm": 205,
+      "landlordWinRate": null,
+      "farmerWinRate": 25.0,
+      "raceWinRates": {
+        "Z": {
+          "games": 2,
+          "wins": 1,
+          "winRate": 50.0
+        },
+        "P": {
+          "games": 2,
+          "wins": 0,
+          "winRate": 0.0
+        }
+      }
+    },
+    {
+      "playerName": "9527",
+      "games": 5,
+      "wins": 1,
+      "losses": 4,
+      "winRate": 20.0,
+      "averageApm": 101,
+      "landlordWinRate": 100.0,
+      "farmerWinRate": 20.0,
+      "raceWinRates": {
+        "P": {
+          "games": 4,
+          "wins": 2,
+          "winRate": 50.0
+        },
+        "Z": {
+          "games": 2,
+          "wins": 0,
+          "winRate": 0.0
+        }
+      }
+    },
+    {
+      "playerName": "花样",
+      "games": 5,
+      "wins": 1,
+      "losses": 4,
+      "winRate": 20.0,
+      "averageApm": 126,
+      "landlordWinRate": null,
+      "farmerWinRate": 20.0,
+      "raceWinRates": {
+        "P": {
+          "games": 5,
+          "wins": 1,
+          "winRate": 20.0
+        }
+      }
+    },
+    {
+      "playerName": "fly",
+      "games": 2,
+      "wins": 0,
+      "losses": 2,
+      "winRate": 0.0,
+      "averageApm": 250,
+      "landlordWinRate": 66.6667,
+      "farmerWinRate": 0.0,
+      "raceWinRates": {
+        "P": {
+          "games": 1,
+          "wins": 0,
+          "winRate": 0.0
+        },
+        "Z": {
+          "games": 3,
+          "wins": 2,
+          "winRate": 66.6667
+        },
+        "T": {
+          "games": 1,
+          "wins": 0,
+          "winRate": 0.0
+        }
+      }
+    },
+    {
+      "playerName": "do''do来叫地主",
+      "games": 2,
+      "wins": 0,
+      "losses": 2,
+      "winRate": 0.0,
+      "averageApm": 136,
+      "landlordWinRate": 66.6667,
+      "farmerWinRate": 0.0,
+      "raceWinRates": {
+        "P": {
+          "games": 2,
+          "wins": 1,
+          "winRate": 50.0
+        },
+        "T": {
+          "games": 1,
+          "wins": 0,
+          "winRate": 0.0
+        },
+        "Z": {
+          "games": 2,
+          "wins": 1,
+          "winRate": 50.0
+        }
+      }
+    },
+    {
+      "playerName": "谢沛林",
+      "games": 2,
+      "wins": 0,
+      "losses": 2,
+      "winRate": 0.0,
+      "averageApm": 45,
+      "landlordWinRate": null,
+      "farmerWinRate": 0.0,
+      "raceWinRates": {
+        "T": {
+          "games": 2,
+          "wins": 0,
+          "winRate": 0.0
+        }
+      }
+    },
+    {
+      "playerName": "逗地主 剑圣  激情对战 战到最后一兵",
+      "games": 1,
+      "wins": 0,
+      "losses": 1,
+      "winRate": 0.0,
+      "averageApm": 84,
+      "landlordWinRate": null,
+      "farmerWinRate": 0.0,
+      "raceWinRates": {
+        "P": {
+          "games": 1,
+          "wins": 0,
+          "winRate": 0.0
+        }
+      }
+    },
+    {
+      "playerName": "地主3V5速度来",
+      "games": 1,
+      "wins": 0,
+      "losses": 1,
+      "winRate": 0.0,
+      "averageApm": 127,
+      "landlordWinRate": 100.0,
+      "farmerWinRate": 0.0,
+      "raceWinRates": {
+        "P": {
+          "games": 1,
+          "wins": 1,
+          "winRate": 100.0
+        },
+        "Z": {
+          "games": 1,
+          "wins": 0,
+          "winRate": 0.0
+        }
+      }
+    },
+    {
+      "playerName": "猫粮不够",
+      "games": 1,
+      "wins": 0,
+      "losses": 1,
+      "winRate": 0.0,
+      "averageApm": 96,
+      "landlordWinRate": null,
+      "farmerWinRate": 0.0,
+      "raceWinRates": {
+        "Z": {
+          "games": 1,
+          "wins": 0,
+          "winRate": 0.0
+        }
+      }
+    },
+    {
+      "playerName": "红莲逗地主业火焚天",
+      "games": 1,
+      "wins": 0,
+      "losses": 1,
+      "winRate": 0.0,
+      "averageApm": 60,
+      "landlordWinRate": null,
+      "farmerWinRate": 0.0,
+      "raceWinRates": {
+        "P": {
+          "games": 1,
+          "wins": 0,
+          "winRate": 0.0
+        }
+      }
+    },
+    {
+      "playerName": "羿剑鬼",
+      "games": 1,
+      "wins": 0,
+      "losses": 1,
+      "winRate": 0.0,
+      "averageApm": 103,
+      "landlordWinRate": null,
+      "farmerWinRate": 0.0,
+      "raceWinRates": {
+        "P": {
+          "games": 1,
+          "wins": 0,
+          "winRate": 0.0
+        }
+      }
+    },
+    {
+      "playerName": "ffs9525",
+      "games": 1,
+      "wins": 0,
+      "losses": 1,
+      "winRate": 0.0,
+      "averageApm": 51,
+      "landlordWinRate": null,
+      "farmerWinRate": 0.0,
+      "raceWinRates": {
+        "P": {
+          "games": 1,
+          "wins": 0,
+          "winRate": 0.0
+        }
+      }
+    }
+  ]
+}

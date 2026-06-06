@@ -1,0 +1,716 @@
+[
+  {
+    "matchId": "season-2-20260603-001",
+    "season": "season-2",
+    "matchday": "2026-06-03",
+    "sourceFileName": "202857,斗地主Doudizhu 1.70.rep",
+    "sourceZip": "斗地主解析结果0603.zip",
+    "mapName": "斗地主Doudizhu 1.70",
+    "mapVersion": "1.70",
+    "gameStartTime": "2026-06-03T20:11:52+08:00",
+    "gameEndTime": "2026-06-03T20:27:47.500000+08:00",
+    "durationSeconds": 955.5,
+    "durationText": "15:56",
+    "winner": "地主",
+    "confirmed": true,
+    "excluded": false,
+    "publicNote": "",
+    "internalNote": "",
+    "host": "GGrush_Doudizhu",
+    "repSaver": "GGrush_Doudizhu",
+    "players": [
+      {
+        "name": "爬来爬去",
+        "role": "地主",
+        "result": "胜",
+        "race": "P",
+        "apm": 181,
+        "eapm": 156,
+        "cmdCount": 2893,
+        "effectiveCmdCount": 2497
+      },
+      {
+        "name": "地主3V5速度来",
+        "role": "地主",
+        "result": "胜",
+        "race": "P",
+        "apm": 165,
+        "eapm": 132,
+        "cmdCount": 2631,
+        "effectiveCmdCount": 2097
+      },
+      {
+        "name": "9527",
+        "role": "农民",
+        "result": "负",
+        "race": "P",
+        "apm": 107,
+        "eapm": 92,
+        "cmdCount": 1712,
+        "effectiveCmdCount": 1467
+      },
+      {
+        "name": "fly",
+        "role": "农民",
+        "result": "负",
+        "race": "P",
+        "apm": 225,
+        "eapm": 154,
+        "cmdCount": 3608,
+        "effectiveCmdCount": 2469
+      },
+      {
+        "name": "商女不知亡国恨",
+        "role": "农民",
+        "result": "负",
+        "race": "T",
+        "apm": 102,
+        "eapm": 96,
+        "cmdCount": 1641,
+        "effectiveCmdCount": 1541
+      },
+      {
+        "name": "GGrush_Doudizhu",
+        "role": "农民",
+        "result": "负",
+        "race": "P",
+        "apm": 141,
+        "eapm": 109,
+        "cmdCount": 2240,
+        "effectiveCmdCount": 1732
+      },
+      {
+        "name": "逗地主 剑圣  激情对战 战到最后一兵",
+        "role": "农民",
+        "result": "负",
+        "race": "P",
+        "apm": 84,
+        "eapm": 80,
+        "cmdCount": 1339,
+        "effectiveCmdCount": 1280
+      },
+      {
+        "name": "花样",
+        "role": "农民",
+        "result": "负",
+        "race": "P",
+        "apm": 113,
+        "eapm": 97,
+        "cmdCount": 1807,
+        "effectiveCmdCount": 1553
+      }
+    ]
+  },
+  {
+    "matchId": "season-2-20260603-002",
+    "season": "season-2",
+    "matchday": "2026-06-03",
+    "sourceFileName": "203925,斗地主Doudizhu 1.70.rep",
+    "sourceZip": "斗地主解析结果0603.zip",
+    "mapName": "斗地主Doudizhu 1.70",
+    "mapVersion": "1.70",
+    "gameStartTime": "2026-06-03T20:30:13+08:00",
+    "gameEndTime": "2026-06-03T20:39:07.833333+08:00",
+    "durationSeconds": 534.833,
+    "durationText": "8:55",
+    "winner": "农民",
+    "confirmed": true,
+    "excluded": false,
+    "publicNote": "",
+    "internalNote": "",
+    "host": "GGrush_Doudizhu",
+    "repSaver": "GGrush_Doudizhu",
+    "players": [
+      {
+        "name": "fly",
+        "role": "地主",
+        "result": "负",
+        "race": "Z",
+        "apm": 209,
+        "eapm": 120,
+        "cmdCount": 1874,
+        "effectiveCmdCount": 1076
+      },
+      {
+        "name": "do''do来叫地主",
+        "role": "地主",
+        "result": "负",
+        "race": "P",
+        "apm": 132,
+        "eapm": 110,
+        "cmdCount": 1176,
+        "effectiveCmdCount": 979
+      },
+      {
+        "name": "GGrush_Doudizhu",
+        "role": "农民",
+        "result": "胜",
+        "race": "T",
+        "apm": 184,
+        "eapm": 127,
+        "cmdCount": 1649,
+        "effectiveCmdCount": 1143
+      },
+      {
+        "name": "爬来爬去",
+        "role": "农民",
+        "result": "胜",
+        "race": "Z",
+        "apm": 134,
+        "eapm": 111,
+        "cmdCount": 1204,
+        "effectiveCmdCount": 1001
+      },
+      {
+        "name": "花样",
+        "role": "农民",
+        "result": "胜",
+        "race": "P",
+        "apm": 157,
+        "eapm": 122,
+        "cmdCount": 1415,
+        "effectiveCmdCount": 1095
+      },
+      {
+        "name": "7788",
+        "role": "农民",
+        "result": "胜",
+        "race": "Z",
+        "apm": 178,
+        "eapm": 133,
+        "cmdCount": 1594,
+        "effectiveCmdCount": 1196
+      },
+      {
+        "name": "商女不知亡国恨",
+        "role": "农民",
+        "result": "胜",
+        "race": "P",
+        "apm": 95,
+        "eapm": 89,
+        "cmdCount": 852,
+        "effectiveCmdCount": 797
+      },
+      {
+        "name": "9527",
+        "role": "农民",
+        "result": "胜",
+        "race": "P",
+        "apm": 95,
+        "eapm": 86,
+        "cmdCount": 856,
+        "effectiveCmdCount": 773
+      }
+    ]
+  },
+  {
+    "matchId": "season-2-20260603-003",
+    "season": "season-2",
+    "matchday": "2026-06-03",
+    "sourceFileName": "204930,斗地主Doudizhu 1.70.rep",
+    "sourceZip": "斗地主解析结果0603.zip",
+    "mapName": "斗地主Doudizhu 1.70",
+    "mapVersion": "1.70",
+    "gameStartTime": "2026-06-03T20:40:34+08:00",
+    "gameEndTime": "2026-06-03T20:48:23.625000+08:00",
+    "durationSeconds": 469.625,
+    "durationText": "7:50",
+    "winner": "地主",
+    "confirmed": true,
+    "excluded": false,
+    "publicNote": "",
+    "internalNote": "",
+    "host": "GGrush_Doudizhu",
+    "repSaver": "GGrush_Doudizhu",
+    "players": [
+      {
+        "name": "do''do来叫地主",
+        "role": "地主",
+        "result": "胜",
+        "race": "P",
+        "apm": 196,
+        "eapm": 166,
+        "cmdCount": 1542,
+        "effectiveCmdCount": 1307
+      },
+      {
+        "name": "GGrush_Doudizhu",
+        "role": "地主",
+        "result": "胜",
+        "race": "Z",
+        "apm": 193,
+        "eapm": 144,
+        "cmdCount": 1512,
+        "effectiveCmdCount": 1125
+      },
+      {
+        "name": "花样",
+        "role": "农民",
+        "result": "负",
+        "race": "P",
+        "apm": 111,
+        "eapm": 81,
+        "cmdCount": 866,
+        "effectiveCmdCount": 633
+      },
+      {
+        "name": "9527",
+        "role": "农民",
+        "result": "负",
+        "race": "P",
+        "apm": 88,
+        "eapm": 79,
+        "cmdCount": 692,
+        "effectiveCmdCount": 621
+      },
+      {
+        "name": "爬来爬去",
+        "role": "农民",
+        "result": "负",
+        "race": "Z",
+        "apm": 130,
+        "eapm": 116,
+        "cmdCount": 1006,
+        "effectiveCmdCount": 897
+      },
+      {
+        "name": "商女不知亡国恨",
+        "role": "农民",
+        "result": "负",
+        "race": "P",
+        "apm": 92,
+        "eapm": 84,
+        "cmdCount": 725,
+        "effectiveCmdCount": 661
+      },
+      {
+        "name": "fly",
+        "role": "农民",
+        "result": "负",
+        "race": "T",
+        "apm": 276,
+        "eapm": 139,
+        "cmdCount": 2152,
+        "effectiveCmdCount": 1085
+      },
+      {
+        "name": "7788",
+        "role": "农民",
+        "result": "负",
+        "race": "P",
+        "apm": 289,
+        "eapm": 118,
+        "cmdCount": 1401,
+        "effectiveCmdCount": 571
+      }
+    ]
+  },
+  {
+    "matchId": "season-2-20260603-004",
+    "season": "season-2",
+    "matchday": "2026-06-03",
+    "sourceFileName": "211144,斗地主Doudizhu 1.70.rep",
+    "sourceZip": "斗地主解析结果0603.zip",
+    "mapName": "斗地主Doudizhu 1.70",
+    "mapVersion": "1.70",
+    "gameStartTime": "2026-06-03T20:50:26+08:00",
+    "gameEndTime": "2026-06-03T21:10:23.125000+08:00",
+    "durationSeconds": 1197.125,
+    "durationText": "19:57",
+    "winner": "地主",
+    "confirmed": true,
+    "excluded": false,
+    "publicNote": "",
+    "internalNote": "",
+    "host": "GGrush_Doudizhu",
+    "repSaver": "GGrush_Doudizhu",
+    "players": [
+      {
+        "name": "9527",
+        "role": "地主",
+        "result": "胜",
+        "race": "P",
+        "apm": 111,
+        "eapm": 105,
+        "cmdCount": 2225,
+        "effectiveCmdCount": 2097
+      },
+      {
+        "name": "fly",
+        "role": "地主",
+        "result": "胜",
+        "race": "Z",
+        "apm": 198,
+        "eapm": 130,
+        "cmdCount": 3958,
+        "effectiveCmdCount": 2586
+      },
+      {
+        "name": "地主3V5速度来",
+        "role": "农民",
+        "result": "负",
+        "race": "Z",
+        "apm": 127,
+        "eapm": 88,
+        "cmdCount": 2541,
+        "effectiveCmdCount": 1757
+      },
+      {
+        "name": "do''do来叫地主",
+        "role": "农民",
+        "result": "负",
+        "race": "T",
+        "apm": 163,
+        "eapm": 132,
+        "cmdCount": 3282,
+        "effectiveCmdCount": 2643
+      },
+      {
+        "name": "7788",
+        "role": "农民",
+        "result": "负",
+        "race": "P",
+        "apm": 225,
+        "eapm": 124,
+        "cmdCount": 4524,
+        "effectiveCmdCount": 2494
+      },
+      {
+        "name": "花样",
+        "role": "农民",
+        "result": "负",
+        "race": "P",
+        "apm": 114,
+        "eapm": 100,
+        "cmdCount": 2294,
+        "effectiveCmdCount": 2008
+      },
+      {
+        "name": "GGrush_Doudizhu",
+        "role": "农民",
+        "result": "负",
+        "race": "T",
+        "apm": 133,
+        "eapm": 117,
+        "cmdCount": 2681,
+        "effectiveCmdCount": 2346
+      },
+      {
+        "name": "猫粮不够",
+        "role": "农民",
+        "result": "负",
+        "race": "Z",
+        "apm": 96,
+        "eapm": 86,
+        "cmdCount": 1929,
+        "effectiveCmdCount": 1734
+      }
+    ]
+  },
+  {
+    "matchId": "season-2-20260603-005",
+    "season": "season-2",
+    "matchday": "2026-06-03",
+    "sourceFileName": "211434,斗地主Doudizhu 1.70.rep",
+    "sourceZip": "斗地主解析结果0603.zip",
+    "mapName": "斗地主Doudizhu 1.70",
+    "mapVersion": "1.70",
+    "gameStartTime": "2026-06-03T21:14:12+08:00",
+    "gameEndTime": "2026-06-03T21:14:26.583333+08:00",
+    "durationSeconds": 14.583,
+    "durationText": "0:15",
+    "winner": "未知",
+    "confirmed": true,
+    "excluded": true,
+    "publicNote": "",
+    "internalNote": "",
+    "host": "GGrush_Doudizhu",
+    "repSaver": "GGrush_Doudizhu",
+    "players": [
+      {
+        "name": "fly",
+        "role": "地主",
+        "result": "未知",
+        "race": "Z",
+        "apm": 209,
+        "eapm": 161,
+        "cmdCount": 48,
+        "effectiveCmdCount": 37
+      },
+      {
+        "name": "GGrush_Doudizhu",
+        "role": "地主",
+        "result": "未知",
+        "race": "P",
+        "apm": 134,
+        "eapm": 112,
+        "cmdCount": 30,
+        "effectiveCmdCount": 25
+      },
+      {
+        "name": "保持乐观心态",
+        "role": "农民",
+        "result": "未知",
+        "race": "T",
+        "apm": 9,
+        "eapm": 9,
+        "cmdCount": 1,
+        "effectiveCmdCount": 1
+      },
+      {
+        "name": "9527",
+        "role": "农民",
+        "result": "未知",
+        "race": "T",
+        "apm": 66,
+        "eapm": 66,
+        "cmdCount": 14,
+        "effectiveCmdCount": 14
+      },
+      {
+        "name": "花样",
+        "role": "农民",
+        "result": "未知",
+        "race": "P",
+        "apm": 176,
+        "eapm": 121,
+        "cmdCount": 42,
+        "effectiveCmdCount": 29
+      },
+      {
+        "name": "do''do来叫地主",
+        "role": "农民",
+        "result": "未知",
+        "race": "Z",
+        "apm": 246,
+        "eapm": 205,
+        "cmdCount": 48,
+        "effectiveCmdCount": 40
+      },
+      {
+        "name": "7788",
+        "role": "农民",
+        "result": "未知",
+        "race": "Z",
+        "apm": 353,
+        "eapm": 123,
+        "cmdCount": 86,
+        "effectiveCmdCount": 30
+      },
+      {
+        "name": "商女不知亡国恨",
+        "role": "农民",
+        "result": "未知",
+        "race": "Z",
+        "apm": 139,
+        "eapm": 127,
+        "cmdCount": 34,
+        "effectiveCmdCount": 31
+      }
+    ]
+  },
+  {
+    "matchId": "season-2-20260603-006",
+    "season": "season-2",
+    "matchday": "2026-06-03",
+    "sourceFileName": "212950,斗地主Doudizhu 1.70.rep",
+    "sourceZip": "斗地主解析结果0603.zip",
+    "mapName": "斗地主Doudizhu 1.70",
+    "mapVersion": "1.70",
+    "gameStartTime": "2026-06-03T21:19:58+08:00",
+    "gameEndTime": "2026-06-03T21:29:35.916667+08:00",
+    "durationSeconds": 577.917,
+    "durationText": "9:38",
+    "winner": "地主",
+    "confirmed": true,
+    "excluded": false,
+    "publicNote": "",
+    "internalNote": "",
+    "host": "GGrush_Doudizhu",
+    "repSaver": "GGrush_Doudizhu",
+    "players": [
+      {
+        "name": "fly",
+        "role": "地主",
+        "result": "胜",
+        "race": "Z",
+        "apm": 211,
+        "eapm": 142,
+        "cmdCount": 2044,
+        "effectiveCmdCount": 1375
+      },
+      {
+        "name": "GGrush_Doudizhu",
+        "role": "地主",
+        "result": "胜",
+        "race": "P",
+        "apm": 183,
+        "eapm": 151,
+        "cmdCount": 1762,
+        "effectiveCmdCount": 1452
+      },
+      {
+        "name": "9527",
+        "role": "农民",
+        "result": "负",
+        "race": "Z",
+        "apm": 96,
+        "eapm": 80,
+        "cmdCount": 923,
+        "effectiveCmdCount": 775
+      },
+      {
+        "name": "红莲逗地主业火焚天",
+        "role": "农民",
+        "result": "负",
+        "race": "P",
+        "apm": 60,
+        "eapm": 60,
+        "cmdCount": 580,
+        "effectiveCmdCount": 575
+      },
+      {
+        "name": "花样",
+        "role": "农民",
+        "result": "负",
+        "race": "P",
+        "apm": 134,
+        "eapm": 108,
+        "cmdCount": 1275,
+        "effectiveCmdCount": 1026
+      },
+      {
+        "name": "谢沛林",
+        "role": "农民",
+        "result": "负",
+        "race": "T",
+        "apm": 54,
+        "eapm": 54,
+        "cmdCount": 519,
+        "effectiveCmdCount": 515
+      },
+      {
+        "name": "do''do来叫地主",
+        "role": "农民",
+        "result": "负",
+        "race": "Z",
+        "apm": 109,
+        "eapm": 93,
+        "cmdCount": 1054,
+        "effectiveCmdCount": 894
+      },
+      {
+        "name": "商女不知亡国恨",
+        "role": "农民",
+        "result": "负",
+        "race": "Z",
+        "apm": 81,
+        "eapm": 72,
+        "cmdCount": 776,
+        "effectiveCmdCount": 691
+      }
+    ]
+  },
+  {
+    "matchId": "season-2-20260603-007",
+    "season": "season-2",
+    "matchday": "2026-06-03",
+    "sourceFileName": "214328,斗地主Doudizhu 1.70.rep",
+    "sourceZip": "斗地主解析结果0603.zip",
+    "mapName": "斗地主Doudizhu 1.70",
+    "mapVersion": "1.70",
+    "gameStartTime": "2026-06-03T21:35:25+08:00",
+    "gameEndTime": "2026-06-03T21:43:13.250000+08:00",
+    "durationSeconds": 468.25,
+    "durationText": "7:48",
+    "winner": "地主",
+    "confirmed": true,
+    "excluded": false,
+    "publicNote": "",
+    "internalNote": "",
+    "host": "GGrush_Doudizhu",
+    "repSaver": "GGrush_Doudizhu",
+    "players": [
+      {
+        "name": "do''do来叫地主",
+        "role": "地主",
+        "result": "胜",
+        "race": "Z",
+        "apm": 167,
+        "eapm": 129,
+        "cmdCount": 1305,
+        "effectiveCmdCount": 1009
+      },
+      {
+        "name": "990",
+        "role": "地主",
+        "result": "胜",
+        "race": "P",
+        "apm": 179,
+        "eapm": 161,
+        "cmdCount": 1404,
+        "effectiveCmdCount": 1268
+      },
+      {
+        "name": "GGrush_Doudizhu",
+        "role": "农民",
+        "result": "负",
+        "race": "P",
+        "apm": 145,
+        "eapm": 125,
+        "cmdCount": 1137,
+        "effectiveCmdCount": 980
+      },
+      {
+        "name": "9527",
+        "role": "农民",
+        "result": "负",
+        "race": "Z",
+        "apm": 120,
+        "eapm": 105,
+        "cmdCount": 941,
+        "effectiveCmdCount": 828
+      },
+      {
+        "name": "羿剑鬼",
+        "role": "农民",
+        "result": "负",
+        "race": "P",
+        "apm": 103,
+        "eapm": 87,
+        "cmdCount": 808,
+        "effectiveCmdCount": 684
+      },
+      {
+        "name": "谢沛林",
+        "role": "农民",
+        "result": "负",
+        "race": "T",
+        "apm": 36,
+        "eapm": 36,
+        "cmdCount": 156,
+        "effectiveCmdCount": 156
+      },
+      {
+        "name": "ffs9525",
+        "role": "农民",
+        "result": "负",
+        "race": "P",
+        "apm": 51,
+        "eapm": 42,
+        "cmdCount": 395,
+        "effectiveCmdCount": 327
+      },
+      {
+        "name": "7788",
+        "role": "农民",
+        "result": "负",
+        "race": "Z",
+        "apm": 128,
+        "eapm": 84,
+        "cmdCount": 1000,
+        "effectiveCmdCount": 660
+      }
+    ]
+  }
+]

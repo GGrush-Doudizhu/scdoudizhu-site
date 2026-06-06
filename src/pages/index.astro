@@ -1,0 +1,50 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="星际斗地主 | 第二届比赛官网">
+  <section class="hero">
+    <div class="hero-visual" aria-hidden="true">
+      <div class="score-panel">
+        <span>2 地主</span>
+        <strong>VS</strong>
+        <span>6 农民</span>
+      </div>
+      <div class="race-strip">
+        <i>P</i><i>T</i><i>Z</i><i>P</i><i>Z</i><i>T</i><i>P</i><i>Z</i>
+      </div>
+    </div>
+    <div class="hero-content">
+      <p class="eyebrow">StarCraft Brood War · 2v6 Doudizhu</p>
+      <h1>第二届星际斗地主</h1>
+      <p class="hero-copy">地图下载、社区公告和比赛数据统一发布。所有比赛结果来自管理员确认后的 replay 解析数据。</p>
+      <div class="hero-actions">
+        <a class="button primary" href="/rankings">查看排行榜</a>
+        <a class="button" href="/data">进入数据中心</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-grid">
+    <a class="feature-card" href="/rankings">
+      <span>排行榜</span>
+      <strong>总榜、地主榜、农民榜</strong>
+      <p>根据已确认且纳入统计的对局自动生成。</p>
+    </a>
+    <a class="feature-card" href="/data">
+      <span>数据中心</span>
+      <strong>按玩家或按对局查询</strong>
+      <p>第二届固定为地主 / 农民双角色模型，支持 PC 和手机浏览器查看。</p>
+    </a>
+    <a class="feature-card" href="/maps">
+      <span>地图</span>
+      <strong>版本文件和更新日志</strong>
+      <p>集中发布当前推荐版本和历史版本说明。</p>
+    </a>
+    <a class="feature-card" href="/news">
+      <span>新闻</span>
+      <strong>公告、赛程和社区动态</strong>
+      <p>用 Markdown 管理内容，避免手工维护多个 HTML 页面。</p>
+    </a>
+  </section>
+</BaseLayout>

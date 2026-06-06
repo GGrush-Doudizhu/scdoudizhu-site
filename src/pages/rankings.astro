@@ -1,0 +1,13 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import RankingTable from "../components/RankingTable";
+---
+
+<BaseLayout title="排行榜 | 星际斗地主">
+  <section class="page-heading">
+    <p class="eyebrow">Rankings</p>
+    <h1>排行榜</h1>
+    <p>总榜、地主榜和农民榜均由公开 JSON 数据自动生成。</p>
+  </section>
+  <RankingTable client:load />
+</BaseLayout>

@@ -1,0 +1,13 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import DataExplorer from "../components/DataExplorer";
+---
+
+<BaseLayout title="比赛数据 | 星际斗地主">
+  <section class="page-heading">
+    <p class="eyebrow">Match Data</p>
+    <h1>比赛数据中心</h1>
+    <p>查询第二届所有已发布的比赛结果。公开数据不包含 slotId、playerId 等底层房间位置字段。</p>
+  </section>
+  <DataExplorer client:load />
+</BaseLayout>
