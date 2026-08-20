@@ -1,0 +1,28 @@
+# 依赖与构建产物
+node_modules/
+dist/
+build/
+.cache/
+.parcel-cache/
+.next/
+
+# 本地配置与敏感信息
+.env
+.env.*
+!.env.example
+
+# 日志与测试产物
+*.log
+coverage/
+playwright-report/
+test-results/
+
+# 编辑器与操作系统文件
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# 临时审计工作区
+.audit-tmp/
