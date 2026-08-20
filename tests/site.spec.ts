@@ -113,6 +113,35 @@ test("积分榜展示 DSL1 换算预览、前三名与完整前二十五名", as
       items.map((item) => getComputedStyle(item).borderLeftColor),
     );
   expect(new Set(tierColors).size).toBe(7);
+
+  const tierShapes = await page
+    .locator(".tier-emblem .tier-crest-icon")
+    .evaluateAll((items) =>
+      items.map((item) => getComputedStyle(item).clipPath),
+    );
+  expect(new Set(tierShapes).size).toBe(7);
+});
+
+test("奖励页合并韩服并列奖金并显示最新赞助答谢说明", async ({ page }) => {
+  await page.goto("/rewards/");
+  await expect(
+    page.getByRole("heading", { name: "感谢以下赞助支持的老板" }),
+  ).toBeVisible();
+  await expect(
+    page.getByText("（老板答谢名单会随着众筹的进行更新上来）"),
+  ).toBeVisible();
+
+  const koreanReward = page.locator(".reward-card").nth(2);
+  await expect(koreanReward.locator(".reward-split li")).toHaveCount(4);
+  await expect(koreanReward.locator(".reward-split li").last()).toContainText(
+    "第四、第五名各 50 元",
+  );
+
+  await page.goto("/playoffs/");
+  await expect(
+    page.locator('.prize-list[aria-label="韩服 8R 奖金"] li'),
+  ).toHaveCount(4);
+  await expect(page.getByText("第四、第五名各 50元")).toBeVisible();
 });
 
 test("规则总览使用单一表格且地图页标明 8R 地图缺位", async ({ page }) => {
@@ -143,7 +172,11 @@ test("新闻中的赛事方案可直接阅读且奖金已经同步", async ({ re
   const html = await response.text();
   expect(html).toContain("常规赛不设置现金奖金");
   expect(html).toContain("1200 元");
-  expect(html).toContain("第四名 50 元");
+  expect(html).toContain("第四、第五名各 50 元");
+  expect(html).toMatch(/网站维护与赛事组织<\/td>\s*<td>500 元<\/td>/);
+  expect(html).toMatch(/合计<\/td>\s*<td>2800 元<\/td>/);
+  expect(html).toContain("以上奖金及经费均为众筹目标，应以实际众筹情况为准");
+  expect(html).not.toContain("<span>第五名 50 元</span>");
   expect(html).not.toContain("暂未建设完毕");
 });
 
