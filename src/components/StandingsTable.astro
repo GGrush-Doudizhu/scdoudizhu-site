@@ -10,30 +10,66 @@ const { limit, compact = false } = Astro.props;
 const rows = limit
   ? publicStandings.entries.slice(0, limit)
   : publicStandings.entries;
+const leaders = publicStandings.entries.slice(0, 3);
+const isPreview = publicStandings.exportId.startsWith("dsl1-preview-");
 
 const dateFormatter = new Intl.DateTimeFormat("zh-CN", {
-  dateStyle: "medium",
-  timeStyle: "short",
+  year: "numeric",
+  month: "long",
+  day: "numeric",
   timeZone: "Asia/Singapore",
 });
 
 const standingsAsOf = publicStandings.standingsAsOf
   ? dateFormatter.format(new Date(publicStandings.standingsAsOf))
   : null;
+
+const podiumOrder = [leaders[1], leaders[0], leaders[2]].filter(Boolean);
 ---
 
 <div class:list={["standings-block", { "standings-block--compact": compact }]}>
   {
     rows.length === 0 ? (
       <div class="empty-state">
-        <span class="empty-orbit" aria-hidden="true" />
-        <p class="empty-title">正式积分尚未发布</p>
-        <p>
-          这里不会使用示例选手或虚构成绩。首个比赛日完成复核后，积分榜才会出现。
-        </p>
+        <p class="empty-title">积分榜将在比赛开始后更新</p>
+        <p>每次积分复核完成后，最新名次与段位将在这里发布。</p>
       </div>
     ) : (
       <>
+        {!compact && (
+          <div class="podium" aria-label="积分榜前三名">
+            {podiumOrder.map((entry) => (
+              <article
+                class:list={["podium-card", `podium-card--${entry.rank}`]}
+              >
+                <div class="podium-rank" aria-label={`第 ${entry.rank} 名`}>
+                  {entry.rank === 1 ? "王者" : `第 ${entry.rank} 名`}
+                </div>
+                <div class="podium-suit" aria-hidden="true">
+                  {entry.rank === 1 ? "♠" : entry.rank === 2 ? "♦" : "♣"}
+                </div>
+                <h2>{entry.displayName}</h2>
+                <p class="podium-points">
+                  {entry.points.toLocaleString("zh-CN")}
+                </p>
+                <p class="podium-unit">累计积分</p>
+                <span class="tier-badge" data-tier={entry.tier}>
+                  {entry.tier}
+                </span>
+              </article>
+            ))}
+          </div>
+        )}
+
+        {isPreview && (
+          <div class="preview-note">
+            <strong>榜单效果预览</strong>
+            <span>
+              第一届对局数据按第二届积分规则换算，不代表第二届正式成绩。
+            </span>
+          </div>
+        )}
+
         <div class="table-wrap">
           <table class="standings-table">
             <thead>
@@ -48,19 +84,27 @@ const standingsAsOf = publicStandings.standingsAsOf
             </thead>
             <tbody>
               {rows.map((entry) => (
-                <tr>
-                  <td class="rank-cell">#{entry.rank}</td>
+                <tr data-rank={entry.rank}>
+                  <td class="rank-cell">
+                    <span>{entry.rank}</span>
+                  </td>
                   <th scope="row">{entry.displayName}</th>
-                  <td class="numeric points-total">{entry.points}</td>
+                  <td class="numeric points-total">
+                    {entry.points.toLocaleString("zh-CN")}
+                  </td>
                   <td>
-                    <span class="tier-badge">{entry.tier}</span>
+                    <span class="tier-badge" data-tier={entry.tier}>
+                      {entry.tier}
+                    </span>
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
-        <p class="data-time">统计截至：{standingsAsOf}</p>
+        <p class="data-time">
+          {isPreview ? "示例数据截至" : "统计截至"}：{standingsAsOf}
+        </p>
       </>
     )
   }

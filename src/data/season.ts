@@ -1,8 +1,10 @@
 export const season = {
   id: "dsl2",
   name: "第二届 DSL 斗地主星际联赛",
-  status: "筹备中",
   timezone: "Asia/Singapore",
+  startDate: "2026年8月24日",
+  regularSeasonRange: "8月24日至10月3日",
+  playoffRange: "10月5日至10月31日",
   startTime: "20:00",
   endTime: "22:00",
   regularSeasonWeeks: 6,
@@ -32,11 +34,11 @@ export const servicePoints = [
 ] as const;
 
 export const tiers = [
-  { name: "王者", range: "第 1 名", status: "confirmed" },
-  { name: "星耀", range: "第 2—5 名", status: "confirmed" },
-  { name: "钻石", range: "第 6—15 名", status: "confirmed" },
-  { name: "铂金", range: "第 16—25 名", status: "confirmed" },
-  { name: "黄金", range: "分界线待公布", status: "pending" },
-  { name: "白银", range: "分界线待公布", status: "pending" },
-  { name: "青铜", range: "其余名次", status: "confirmed" },
+  { name: "王者", range: "第 1 名", symbol: "♠" },
+  { name: "星耀", range: "第 2—5 名", symbol: "★" },
+  { name: "钻石", range: "第 6—15 名", symbol: "◆" },
+  { name: "铂金", range: "第 16—25 名", symbol: "♛" },
+  { name: "黄金", range: "赛季成长段位", symbol: "♦" },
+  { name: "白银", range: "赛季成长段位", symbol: "♣" },
+  { name: "青铜", range: "积分征程起点", symbol: "♥" },
 ] as const;

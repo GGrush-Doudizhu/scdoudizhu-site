@@ -1,24 +1,23 @@
 ---
 interface Props {
-  eyebrow: string;
+  eyebrow?: string;
   title: string;
   description: string;
+  image?: string;
 }
 
-const { eyebrow, title, description } = Astro.props;
+const { eyebrow, title, description, image } = Astro.props;
 ---
 
-<section class="page-hero">
+<section
+  class:list={["page-hero", { "page-hero--image": image }]}
+  style={image ? `--page-art: url('${image}')` : undefined}
+>
   <div class="container page-hero-inner">
     <div>
-      <p class="eyebrow">{eyebrow}</p>
+      {eyebrow && <p class="eyebrow">{eyebrow}</p>}
       <h1>{title}</h1>
       <p class="lede">{description}</p>
-    </div>
-    <div class="hero-signal hero-signal--compact" aria-hidden="true">
-      <span class="signal-ring signal-ring--one"></span>
-      <span class="signal-ring signal-ring--two"></span>
-      <span class="signal-core">DSL<span>02</span></span>
     </div>
   </div>
 </section>

@@ -1,38 +1,40 @@
 ---
 import PageHero from "../components/PageHero.astro";
 import PointsTables from "../components/PointsTables.astro";
-import { season, tiers } from "../data/season";
+import { season } from "../data/season";
 import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
 <BaseLayout
-  title="规则"
-  description="第二届 DSL 参赛方式、积分规则、段位划分与数据公开原则。"
+  title="比赛规则"
+  description="第二届 DSL 的参赛方式、积分规则与常规赛段位说明。"
 >
   <PageHero
-    eyebrow="RULES"
-    title="参加、贡献、累计"
-    description="DSL2 采用个人累计积分制。无论参加对局还是承担主机、主播、统计工作，都能为自己的赛季积分留下记录。"
+    eyebrow="参赛与计分"
+    title="第二届比赛规则"
+    description="常规赛采用个人累计积分制。参加对局或承担赛事工作，都能获得对应积分。"
+    image="/news/assets/sc-zerg-swarm.png"
   />
 
   <section class="section">
     <div class="container content-grid">
       <article class="prose">
         <p class="eyebrow">参赛方式</p>
-        <h2>常规赛无需提前报名</h2>
+        <h2>无需提前报名，按时进入比赛房</h2>
         <p>{season.registration}</p>
         <p>
           每周一、三、五、六的 {season.startTime}—{season.endTime} 进行比赛。KK 安排在周一、周五，韩服安排在周三、周六。
         </p>
 
-        <h2>积分不是胜率</h2>
+        <h2>累计积分，鼓励持续参与</h2>
         <p>
-          失利仍会获得参与积分，主机、主播和统计也会获得赛事工作积分。因此，高积分反映的是整个赛季中的累计参与和赛事贡献，不应解释为单纯的竞技实力。
+          地主与农民按身份和对局结果获得积分，失利也有参与分。主机、主播和统计人员同样可获得赛事工作积分。
         </p>
 
-        <h2>积分录入与纠错</h2>
+        <h2>段位与季后赛资格</h2>
         <p>
-          主机或统计人员记录每局参赛者及胜方，赛事组织者复核后生成公开积分。正式的漏录、错录、改判与补录流程仍待公布；在流程确认前，不开放人工直接修改公开总分。
+          常规赛按照累计积分排名划分段位。黄金及以上选手可进入 KK
+          战队联赛选拔范围。
         </p>
       </article>
 
@@ -40,15 +42,15 @@ import BaseLayout from "../layouts/BaseLayout.astro";
         <div class="panel-body">
           <h3>规则摘要</h3>
           <ul class="fact-list">
-            <li><span>赛季</span><strong>{season.totalWeeks} 周</strong></li>
-            <li><span>每周</span><strong>4 个比赛日</strong></li>
+            <li><span>开赛</span><strong>{season.startDate}</strong></li>
+            <li><span>常规赛</span><strong>6 周</strong></li>
+            <li><span>比赛日</span><strong>周一、三、五、六</strong></li>
             <li>
               <span>时段</span><strong
                 >{season.startTime}—{season.endTime}</strong
               >
             </li>
-            <li><span>报名</span><strong>常规赛免预报名</strong></li>
-            <li><span>核心结果</span><strong>累计积分</strong></li>
+            <li><span>报名</span><strong>无需预报名</strong></li>
           </ul>
         </div>
       </aside>
@@ -59,58 +61,14 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     <div class="container">
       <div class="section-heading">
         <div>
-          <p class="eyebrow">计分表</p>
-          <h2>规则明确，来源可复核</h2>
+          <p class="eyebrow">积分规则</p>
+          <h2>对局与赛事工作积分</h2>
         </div>
       </div>
       <PointsTables />
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="container">
-      <div class="section-heading">
-        <div>
-          <p class="eyebrow">段位</p>
-          <h2>按当前积分名次划分</h2>
-        </div>
-        <p>黄金及以上是 KK 战队联赛门槛；最终分界线与并列规则待公布。</p>
-      </div>
-      <div class="tier-list">
-        {
-          tiers.map((tier) => (
-            <article class="tier-card" data-pending={tier.status === "pending"}>
-              <h3>{tier.name}</h3>
-              <p>{tier.range}</p>
-            </article>
-          ))
-        }
-      </div>
-      <div class="callout" style="margin-top: 1rem;">
-        <p><strong>请注意：</strong>段位只代表积分排名，不代表竞技水平。</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="section section--tint" id="data-boundary">
-    <div class="container content-grid">
-      <div class="prose">
-        <p class="eyebrow">公开原则</p>
-        <h2>内部记录完整，公开结果克制</h2>
-        <p>
-          内部对局记录用于计算和复核；公开网站只输出名次、显示名、总积分、段位与统计时间。胜负、场次、胜率、APM、回放和底层平台
-          ID 均不公开。
-        </p>
-      </div>
-      <aside class="panel side-panel">
-        <div class="panel-body">
-          <h3>方案修订状态</h3>
-          <p>
-            当前页面依据 2026-08-19
-            的第二届方案基线。未确认规则均明确标为待公布。
-          </p>
-        </div>
-      </aside>
+      <p class="privacy-line">
+        公开积分榜只展示累计积分与段位，不展示个人胜负记录。
+      </p>
     </div>
   </section>
 </BaseLayout>

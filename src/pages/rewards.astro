@@ -5,56 +5,63 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
 <BaseLayout
   title="奖励与赞助"
-  description="第二届 DSL 常规赛、KK 战队联赛和韩服 8R 的众筹目标与奖金说明。"
+  description="第二届 DSL 的常规赛荣誉、季后赛奖金与赞助致谢。"
 >
   <PageHero
-    eyebrow="REWARDS"
-    title="目标金额，不等于实收金额"
-    description="三项赛事奖励分别设有众筹目标。正式页面会把目标、实际收到和最终分配分开呈现。"
+    eyebrow="荣誉与支持"
+    title="奖励与赞助"
+    description="常规赛以积分、名次与段位为核心荣誉；季后赛设置现金奖金。"
+    image="/news/assets/sc-cosmic-rift.png"
   />
 
-  <section class="section">
-    <div class="container info-grid">
-      <article class="info-card">
-        <p class="info-card-index">常规赛</p>
-        <h2>800 元</h2>
-        <p>目标奖励铂金及以上选手，最终分配方法与实际金额待公布。</p>
-      </article>
-      <article class="info-card">
-        <p class="info-card-index">KK 战队联赛</p>
-        <h2>1,000 元</h2>
-        <p>目标分配：冠军队 500 元、亚军队 300 元、季军队 200 元。</p>
-      </article>
-      <article class="info-card">
-        <p class="info-card-index">韩服 8R</p>
-        <h2>500 元</h2>
-        <p>目标分配：冠军 250 元、亚军 150 元、季军 100 元。</p>
-      </article>
+  <section class="sponsor-tribute">
+    <div class="container sponsor-tribute-inner">
+      <img
+        src="/assets/dsl-spade-command.png"
+        alt=""
+        width="140"
+        height="140"
+      />
+      <div>
+        <p class="eyebrow">特别致谢</p>
+        <h2>感谢每一位支持赛事的老板</h2>
+        <p>
+          各位老板的赞助让选手奖励、直播解说和赛事组织得以顺利进行。每一份支持，都是第二届联赛重要的一部分。
+        </p>
+      </div>
     </div>
   </section>
 
-  <section class="section section--tint">
-    <div class="container content-grid">
-      <div class="prose">
-        <p class="eyebrow">公开原则</p>
-        <h2>赞助致谢需要重新确认</h2>
+  <section class="section">
+    <div class="container rewards-grid">
+      <article class="reward-card reward-card--honor">
+        <p class="eyebrow">常规赛</p>
+        <h2>积分 · 段位 · 荣誉</h2>
         <p>
-          DSL1
-          曾公开赞助者姓名或昵称、金额、头像和联系方式。新站不会自动迁移这些资料；只有明确同意在
-          DSL2 继续公开的内容才会进入致谢页面。
+          常规赛不设置现金奖金。持续参赛、提升名次、冲击高段位，让自己的名字留在赛季积分榜上。
         </p>
-      </div>
-      <aside class="panel side-panel">
-        <div class="panel-body">
-          <h3>正式发布时将区分</h3>
-          <ul>
-            <li>众筹目标</li>
-            <li>实际收到</li>
-            <li>必要费用</li>
-            <li>最终奖金</li>
-          </ul>
-        </div>
-      </aside>
+        <a href="/standings/">前往常规赛积分榜 →</a>
+      </article>
+      <article class="reward-card">
+        <p class="eyebrow">KK 战队联赛</p>
+        <p class="reward-amount">1,200 <span>元</span></p>
+        <ul class="reward-split">
+          <li><span>冠军队</span><strong>600 元</strong></li>
+          <li><span>亚军队</span><strong>400 元</strong></li>
+          <li><span>季军队</span><strong>200 元</strong></li>
+        </ul>
+      </article>
+      <article class="reward-card">
+        <p class="eyebrow">韩服 8R</p>
+        <p class="reward-amount">600 <span>元</span></p>
+        <ul class="reward-split">
+          <li><span>冠军</span><strong>250 元</strong></li>
+          <li><span>亚军</span><strong>150 元</strong></li>
+          <li><span>季军</span><strong>100 元</strong></li>
+          <li><span>第四名</span><strong>50 元</strong></li>
+          <li><span>第五名</span><strong>50 元</strong></li>
+        </ul>
+      </article>
     </div>
   </section>
 </BaseLayout>

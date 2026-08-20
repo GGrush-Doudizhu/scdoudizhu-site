@@ -6,18 +6,12 @@ const maps = [
   {
     name: "斗地主重制版 c1.1",
     fileName: "斗地主重制版c1.1.scx",
-    mode: "适用模式待确认",
-    size: "256,878 字节",
-    sourceUpdatedAt: "2026-08-19 16:48",
-    sha256: "617BECFFFD9A72911388F0E1C89D6B33C4015A324ED3187423F5CC3BA8E4BD7A",
+    mode: "比赛地图",
   },
   {
     name: "斗地主 3v5 5.6",
     fileName: "斗地主Doudizhu 5.6.scx",
-    mode: "3v5",
-    size: "255,674 字节",
-    sourceUpdatedAt: "2026-08-19 17:04",
-    sha256: "C1BD89DFC739E71902381756244BB34F0DABE5F0BAF8CCA1A3B014B08601A887",
+    mode: "3v5 地图",
   },
 ].map((map) => ({
   ...map,
@@ -25,69 +19,32 @@ const maps = [
 }));
 ---
 
-<BaseLayout
-  title="地图与下载"
-  description="第二届 DSL 正式地图版本、校验值和更新说明。"
->
+<BaseLayout title="地图与下载" description="第二届 DSL 比赛地图下载。">
   <PageHero
-    eyebrow="MAPS"
-    title="DSL2 当前比赛地图"
-    description="两份地图均直接复制自第二届 DSL 资料目录，并提供原始文件名、大小与 SHA-256，下载后可自行核对。"
+    eyebrow="比赛文件"
+    title="地图与下载"
+    description="下载第二届斗地主星际联赛使用的比赛地图。"
+    image="/news/assets/sc-terran-fleet.png"
   />
 
   <section class="section">
-    <div class="container">
-      <div class="section-heading">
-        <div>
-          <p class="eyebrow">CURRENT FILES</p>
-          <h2>第二届资料目录中的当前版本</h2>
-        </div>
-        <p>本页只提供 DSL2 文件，不移植 DSL1 地图或当前旧版网站的历史下载。</p>
-      </div>
-
-      <div class="split-feature">
-        {
-          maps.map((map) => (
-            <article class="feature-card map-card">
-              <p class="eyebrow">{map.mode}</p>
-              <h2>{map.name}</h2>
-              <dl class="map-details">
-                <div>
-                  <dt>文件名</dt>
-                  <dd>{map.fileName}</dd>
-                </div>
-                <div>
-                  <dt>文件大小</dt>
-                  <dd>{map.size}</dd>
-                </div>
-                <div>
-                  <dt>源文件时间</dt>
-                  <dd>{map.sourceUpdatedAt}</dd>
-                </div>
-              </dl>
-              <p class="file-hash">
-                <strong>SHA-256</strong>
-                <code>{map.sha256}</code>
-              </p>
-              <a
-                class="button button--primary"
-                href={map.href}
-                download={map.fileName}
-              >
-                下载 {map.fileName}
-              </a>
-            </article>
-          ))
-        }
-      </div>
-
-      <div class="callout" style="margin-top: 1rem;">
-        <p>
-          <strong>关于 c1.1：</strong
-          >现有最终方案没有明确写出它对应的比赛模式，因此网站先如实标为“适用模式待确认”，但文件本身可以正常下载。5.6
-          的同目录更新说明明确标注为 3v5。
-        </p>
-      </div>
+    <div class="container split-feature">
+      {
+        maps.map((map) => (
+          <article class="feature-card map-card">
+            <p class="eyebrow">{map.mode}</p>
+            <h2>{map.name}</h2>
+            <p>下载后在星际争霸中载入地图，即可进入对应模式。</p>
+            <a
+              class="button button--primary"
+              href={map.href}
+              download={map.fileName}
+            >
+              下载地图
+            </a>
+          </article>
+        ))
+      }
     </div>
   </section>
 </BaseLayout>
