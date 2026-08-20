@@ -3,7 +3,7 @@ import { createHash } from "node:crypto";
 import { expect, test } from "@playwright/test";
 
 const pages = [
-  { path: "/", heading: "斗地主星际联赛" },
+  { path: "/", heading: "星际斗地主联赛" },
   { path: "/standings/", heading: "常规赛积分榜" },
   { path: "/schedule/", heading: "第二届联赛赛程" },
   { path: "/rules/", heading: "第二届比赛规则" },
@@ -23,6 +23,8 @@ const forbiddenPublicCopy = [
   "赞助致谢需要重新确认",
   "本页只提供 DSL2 文件",
   "数据公开说明",
+  "下载后在星际争霸中载入地图",
+  "每周四晚",
 ];
 
 const mapDownloads = [
@@ -72,11 +74,11 @@ for (const currentPage of pages) {
   });
 }
 
-test("页头使用新的星际黑桃图标与中文导航", async ({ page }) => {
+test("页头使用包含三个种族花色的新图标与中文导航", async ({ page }) => {
   await page.goto("/");
   await expect(page.locator(".brand-mark")).toHaveAttribute(
     "src",
-    "/assets/dsl-spade-command.png",
+    "/assets/dsl-three-races-suits.png",
   );
   const primaryNavigation = page.getByRole("navigation", { name: "主导航" });
   await expect(
@@ -101,6 +103,29 @@ test("积分榜展示 DSL1 换算预览、前三名与完整前二十五名", as
     "1,375",
   );
   await expect(page.getByText("胜率")).toHaveCount(0);
+  await expect(page.locator(".podium-card--2 .podium-suit")).toHaveText("♥");
+  await expect(page.locator(".podium-card--3 .podium-suit")).toHaveText("♣");
+  await expect(page.locator(".page-hero .eyebrow")).toHaveCount(0);
+
+  const tierColors = await page
+    .locator(".tier-emblem")
+    .evaluateAll((items) =>
+      items.map((item) => getComputedStyle(item).borderLeftColor),
+    );
+  expect(new Set(tierColors).size).toBe(7);
+});
+
+test("规则总览使用单一表格且地图页标明 8R 地图缺位", async ({ page }) => {
+  await page.goto("/rules/");
+  await expect(page.locator(".rules-overview tbody tr")).toHaveCount(8);
+  await expect(page.locator("main .content-grid")).toHaveCount(0);
+  await expect(page.getByText("游戏角色积分规则")).toBeVisible();
+  await expect(page.getByText("成为赛事志愿者加分更多")).toBeVisible();
+
+  await page.goto("/maps/");
+  await expect(page.getByText("2v6经典老图重制")).toBeVisible();
+  await expect(page.getByText("地图缺，之后会补上")).toBeVisible();
+  await expect(page.locator(".map-card")).toHaveCount(3);
 });
 
 test("赛程明确开赛日期且不显示状态图例", async ({ page }) => {
@@ -160,6 +185,17 @@ for (const map of mapDownloads) {
     );
   });
 }
+
+test("首页积分榜入口使用仓库内逐字节一致的指定壁纸副本", async ({
+  request,
+}) => {
+  const response = await request.get("/assets/protoss-wallpaper-4.png");
+  expect(response.status()).toBe(200);
+  const body = await response.body();
+  expect(createHash("sha256").update(body).digest("hex").toUpperCase()).toBe(
+    "4CE3E0AC6CA59EC095ED60ACD27DDB2B0D90CBFE64EB564A1E5DA4972C4B8A63",
+  );
+});
 
 test("未知路径返回自定义 404 页面", async ({ page }) => {
   const response = await page.goto("/this-page-does-not-exist/");
