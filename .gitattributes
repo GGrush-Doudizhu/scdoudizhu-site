@@ -1,0 +1,2 @@
+# 只读来源快照必须保持原始字节，避免 Git 自动转换 HTML 等文本文件的换行符。
+/references/source-materials/** -text

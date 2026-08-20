@@ -1,0 +1,1726 @@
+<!doctype html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="description" content="第二届 DSL 斗地主星际联赛完整赛事方案">
+  <title>第二届 DSL 斗地主星际联赛方案</title>
+  <style>
+    :root {
+      --space: #02060d;
+      --space-2: #050b13;
+      --panel: #07141f;
+      --panel-2: #0b1d29;
+      --panel-3: #0d1824;
+      --line: rgba(143, 197, 220, .18);
+      --line-strong: rgba(88, 217, 255, .38);
+      --text: #eef6f9;
+      --muted: #a8bec8;
+      --faint: #7f9aa7;
+      --cyan: #58d9ff;
+      --green: #69edc4;
+      --violet: #a47aff;
+      --orange: #dc743d;
+      --gold: #f3c96b;
+      --radius: 24px;
+      --shadow: 0 24px 70px rgba(0, 0, 0, .30);
+      --mono: Bahnschrift, Consolas, "Microsoft YaHei UI", sans-serif;
+      --sans: "Microsoft YaHei UI", "Microsoft YaHei", "PingFang SC", system-ui, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-width: 320px;
+      min-height: 100vh;
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.68;
+      background:
+        radial-gradient(circle at 11% 5%, rgba(42, 113, 159, .15), transparent 29rem),
+        radial-gradient(circle at 90% 63%, rgba(117, 59, 158, .10), transparent 31rem),
+        linear-gradient(180deg, var(--space), var(--space-2) 42%, var(--space));
+    }
+
+    a {
+      color: inherit;
+    }
+
+    a:focus-visible,
+    button:focus-visible {
+      outline: 3px solid var(--gold);
+      outline-offset: 4px;
+    }
+
+    .skip-link {
+      position: fixed;
+      z-index: 20;
+      left: 18px;
+      top: 14px;
+      transform: translateY(-180%);
+      padding: 9px 13px;
+      color: #071018;
+      background: var(--gold);
+      border-radius: 8px;
+      font-weight: 800;
+      text-decoration: none;
+      transition: transform .18s ease;
+    }
+
+    .skip-link:focus {
+      transform: translateY(0);
+    }
+
+    .shell {
+      width: min(1180px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 28px 0 64px;
+    }
+
+    .hero {
+      min-height: 620px;
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end;
+      border: 1px solid rgba(88, 217, 255, .30);
+      border-radius: 32px 32px 12px 32px;
+      box-shadow: var(--shadow);
+      background: #06101a;
+    }
+
+    .hero-art {
+      position: absolute;
+      z-index: -3;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      z-index: -2;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(2, 8, 14, .97) 0%, rgba(2, 8, 14, .79) 43%, rgba(2, 8, 14, .18) 79%),
+        linear-gradient(0deg, rgba(2, 8, 14, .94), transparent 58%);
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      inset: 18px;
+      pointer-events: none;
+      border: 1px solid rgba(255, 255, 255, .075);
+      border-radius: 21px 21px 5px 21px;
+    }
+
+    .hero-code {
+      position: absolute;
+      left: 50px;
+      top: 40px;
+      color: var(--cyan);
+      font: 800 12px/1.4 var(--mono);
+      letter-spacing: .19em;
+      text-transform: uppercase;
+    }
+
+    .hero-season {
+      position: absolute;
+      right: 42px;
+      top: 34px;
+      padding: 7px 13px;
+      color: var(--cyan);
+      border: 1px solid rgba(88, 217, 255, .42);
+      background: rgba(2, 9, 15, .55);
+      font: 800 12px/1.4 var(--mono);
+      letter-spacing: .14em;
+    }
+
+    .hero-content {
+      width: 850px;
+      max-width: 88%;
+      padding: 58px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(48px, 6.2vw, 80px);
+      line-height: 1.08;
+      letter-spacing: -.025em;
+      text-shadow: 0 8px 34px #000;
+    }
+
+    h1 span {
+      display: block;
+      color: var(--cyan);
+    }
+
+    .hero-lead {
+      max-width: 720px;
+      margin: 20px 0 26px;
+      color: #cedde4;
+    }
+
+    .hero-data {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .datum {
+      min-width: 146px;
+      padding: 12px 15px;
+      border-left: 3px solid var(--cyan);
+      background: rgba(3, 14, 23, .76);
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .055);
+    }
+
+    .datum b {
+      display: block;
+      font: 800 19px/1.25 var(--mono);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .datum small {
+      color: var(--muted);
+    }
+
+    .card-stack {
+      position: absolute;
+      right: 48px;
+      bottom: 52px;
+      width: 185px;
+      height: 180px;
+      opacity: .92;
+    }
+
+    .playing-card {
+      position: absolute;
+      width: 106px;
+      height: 150px;
+      padding: 10px 12px;
+      color: #182032;
+      background: linear-gradient(150deg, #fff, #dce9f6);
+      border: 3px solid rgba(255, 255, 255, .72);
+      border-radius: 14px;
+      box-shadow: 0 22px 35px rgba(0, 0, 0, .32);
+      font: 900 24px/1 Georgia, serif;
+    }
+
+    .playing-card::after {
+      content: attr(data-suit);
+      display: grid;
+      place-items: center;
+      height: 92px;
+      font-size: 48px;
+    }
+
+    .playing-card:nth-child(1) {
+      left: 3px;
+      top: 18px;
+      transform: rotate(-15deg);
+      color: #e33d55;
+    }
+
+    .playing-card:nth-child(2) {
+      left: 43px;
+      top: 2px;
+      transform: rotate(1deg);
+    }
+
+    .playing-card:nth-child(3) {
+      left: 82px;
+      top: 20px;
+      transform: rotate(16deg);
+      color: #e33d55;
+    }
+
+    .quick-nav {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      margin: 14px 0 24px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      background: var(--line);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, .18);
+    }
+
+    .quick-nav a {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      min-height: 62px;
+      padding: 13px 17px;
+      text-decoration: none;
+      background: rgba(6, 18, 29, .96);
+      transition: background-color .18s ease, color .18s ease;
+    }
+
+    .quick-nav a:hover {
+      color: var(--cyan);
+      background: #0a2030;
+    }
+
+    .quick-nav b {
+      color: var(--cyan);
+      font: 800 12px var(--mono);
+    }
+
+    .stack {
+      display: grid;
+      gap: 24px;
+    }
+
+    .mission {
+      scroll-margin-top: 16px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: linear-gradient(145deg, rgba(9, 27, 40, .98), rgba(4, 13, 22, .98));
+      box-shadow: var(--shadow);
+    }
+
+    .mission:target {
+      border-color: rgba(88, 217, 255, .50);
+    }
+
+    .mission-heading {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+
+    .mission-heading .index {
+      display: grid;
+      place-items: center;
+      width: 44px;
+      height: 44px;
+      flex: 0 0 auto;
+      color: var(--cyan);
+      border: 1px solid var(--line-strong);
+      border-radius: 50%;
+      font: 900 15px var(--mono);
+    }
+
+    .mission-heading h2 {
+      margin: 0;
+      font-size: 30px;
+      line-height: 1.25;
+    }
+
+    .mission-heading small {
+      margin-left: auto;
+      color: var(--faint);
+      font: 700 12px var(--mono);
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .cinema {
+      position: relative;
+      margin: 0;
+      aspect-ratio: 16 / 8.7;
+      overflow: hidden;
+      background: #07111a;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .cinema img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      object-position: 50% 44%;
+    }
+
+    .cinema::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(0deg, rgba(4, 13, 22, .48), transparent 35%);
+    }
+
+    .schedule-body {
+      padding: 32px;
+    }
+
+    .time-focus {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      align-items: center;
+      gap: 24px;
+      margin-bottom: 16px;
+      padding: 16px 20px;
+      border: 1px solid rgba(88, 217, 255, .26);
+      border-radius: 14px;
+      background: linear-gradient(90deg, rgba(88, 217, 255, .09), transparent);
+    }
+
+    .time-focus strong {
+      color: var(--cyan);
+      font: 900 28px var(--mono);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .time-focus span {
+      color: var(--muted);
+      text-align: right;
+      font-size: 14px;
+    }
+
+    .phase-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .phase {
+      padding: 22px;
+      border: 1px solid var(--line);
+      border-top: 3px solid var(--cyan);
+      border-radius: 16px;
+      background: rgba(2, 10, 17, .52);
+      transition: transform .18s ease, border-color .18s ease;
+    }
+
+    .phase:last-child {
+      border-top-color: var(--violet);
+    }
+
+    .phase:hover {
+      transform: translateY(-2px);
+      border-color: rgba(88, 217, 255, .33);
+    }
+
+    .phase-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .phase h3 {
+      margin: 0;
+      font-size: 22px;
+    }
+
+    .phase-head b {
+      color: var(--cyan);
+      font: 900 28px var(--mono);
+    }
+
+    .phase:last-child .phase-head b {
+      color: #c5a9ff;
+    }
+
+    .days {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 7px;
+    }
+
+    .day {
+      min-height: 84px;
+      display: grid;
+      place-content: center;
+      padding: 9px 5px;
+      text-align: center;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, .045);
+    }
+
+    .day span {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .day b {
+      color: var(--cyan);
+      font-size: 13px;
+      line-height: 1.35;
+    }
+
+    .day:nth-child(even) b {
+      color: #d0b5ff;
+    }
+
+    .regular-visual {
+      min-height: 430px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end;
+      border-bottom: 1px solid var(--line);
+      background: #07111a;
+    }
+
+    .regular-visual img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 52% 42%;
+    }
+
+    .regular-visual::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, rgba(3, 10, 18, .93), rgba(3, 10, 18, .15) 68%), linear-gradient(0deg, rgba(3, 10, 18, .78), transparent 60%);
+    }
+
+    .regular-title {
+      position: relative;
+      z-index: 1;
+      max-width: 560px;
+      padding: 38px;
+    }
+
+    .regular-title b {
+      color: var(--green);
+      font: 800 12px var(--mono);
+      letter-spacing: .14em;
+    }
+
+    .regular-title h2 {
+      margin: 6px 0 9px;
+      font-size: 35px;
+    }
+
+    .regular-title p {
+      margin: 0;
+      color: #cbd9df;
+    }
+
+    .regular-body {
+      padding: 32px;
+    }
+
+    .regular-grid {
+      display: grid;
+      grid-template-columns: 1.08fr .92fr;
+      gap: 14px;
+    }
+
+    .info-card {
+      padding: 22px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: rgba(2, 10, 17, .54);
+    }
+
+    .info-card h3 {
+      margin: 0 0 14px;
+      font-size: 21px;
+    }
+
+    .clean-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 11px;
+    }
+
+    .clean-list li {
+      position: relative;
+      padding-left: 22px;
+      color: #d3e0e5;
+    }
+
+    .clean-list li::before {
+      content: "";
+      position: absolute;
+      left: 1px;
+      top: .72em;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--cyan);
+      box-shadow: 0 0 10px rgba(88, 217, 255, .48);
+    }
+
+    .score-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 9px;
+    }
+
+    .score-card {
+      padding: 17px;
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      background: rgba(255, 255, 255, .035);
+    }
+
+    .score-card h4 {
+      margin: 0 0 8px;
+      font-size: 18px;
+    }
+
+    .score-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-top: 1px solid rgba(255, 255, 255, .07);
+      color: var(--muted);
+    }
+
+    .score-row b {
+      color: var(--green);
+      font: 900 22px var(--mono);
+    }
+
+    .score-row:last-child b {
+      color: var(--gold);
+    }
+
+    .jobs {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 9px;
+      margin-top: 14px;
+    }
+
+    .job {
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      background: linear-gradient(135deg, rgba(88, 217, 255, .06), rgba(164, 122, 255, .04));
+    }
+
+    .job-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 5px;
+    }
+
+    .job-head b:last-child {
+      color: var(--cyan);
+      font-family: var(--mono);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .job p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    .record-note {
+      margin: 12px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .progression {
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 14px;
+      margin-top: 14px;
+    }
+
+    .ladder {
+      padding: 22px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: rgba(2, 10, 17, .54);
+    }
+
+    .ladder h3 {
+      margin: 0 0 15px;
+      font-size: 21px;
+    }
+
+    .rank-list {
+      display: grid;
+      gap: 6px;
+    }
+
+    .rank {
+      --inset: 0%;
+      display: grid;
+      grid-template-columns: 82px 1fr;
+      gap: 10px;
+      margin-inline: var(--inset);
+      padding: 8px 11px;
+      border-left: 2px solid #6f7f87;
+      background: rgba(255, 255, 255, .04);
+    }
+
+    .rank span {
+      color: var(--muted);
+    }
+
+    .rank.king {
+      --inset: 31%;
+      border-color: var(--gold);
+    }
+
+    .rank.king b {
+      color: var(--gold);
+    }
+
+    .rank.star {
+      --inset: 25%;
+      border-color: #c4a2ff;
+    }
+
+    .rank.star b {
+      color: #c4a2ff;
+    }
+
+    .rank.diamond {
+      --inset: 19%;
+      border-color: var(--cyan);
+    }
+
+    .rank.diamond b {
+      color: var(--cyan);
+    }
+
+    .rank.platinum {
+      --inset: 13%;
+      border-color: #8cabff;
+    }
+
+    .rank.platinum b {
+      color: #8cabff;
+    }
+
+    .rank.gold {
+      --inset: 8%;
+      border-color: #e6bc61;
+    }
+
+    .rank.gold b {
+      color: #e6bc61;
+    }
+
+    .rank.silver {
+      --inset: 4%;
+      border-color: #bdc9d1;
+    }
+
+    .rank.silver b {
+      color: #bdc9d1;
+    }
+
+    .rank.bronze {
+      border-color: #c87a51;
+    }
+
+    .rank.bronze b {
+      color: #d98a5e;
+    }
+
+    .reward-card {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 27px;
+      border: 1px solid rgba(243, 201, 107, .28);
+      border-radius: 16px;
+      background: radial-gradient(circle at 82% 12%, rgba(243, 201, 107, .13), transparent 38%), rgba(9, 14, 21, .70);
+    }
+
+    .reward-card .label {
+      color: var(--gold);
+      font-weight: 800;
+    }
+
+    .reward-card .amount {
+      margin: 2px 0 12px;
+      font: 900 54px/1.1 var(--mono);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .reward-card .amount small {
+      color: var(--muted);
+      font-size: 18px;
+    }
+
+    .reward-card p {
+      margin: 0 0 11px;
+      color: #c0ced4;
+    }
+
+    .ticket {
+      padding: 13px 14px;
+      border: 1px solid rgba(88, 217, 255, .28);
+      border-radius: 11px;
+      background: rgba(88, 217, 255, .075);
+    }
+
+    .ticket strong {
+      color: var(--cyan);
+    }
+
+    .playoffs-body {
+      padding: 32px;
+    }
+
+    .playoff-intro {
+      max-width: 760px;
+      margin: -8px 0 24px 58px;
+      color: var(--muted);
+    }
+
+    .event-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .event-card {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: #06111c;
+      transition: transform .18s ease, border-color .18s ease;
+    }
+
+    .event-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(164, 122, 255, .45);
+    }
+
+    .event-card.zerg:hover {
+      border-color: rgba(220, 116, 61, .48);
+    }
+
+    .event-art {
+      position: relative;
+      margin: 0;
+      aspect-ratio: 16/8.2;
+      overflow: hidden;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .event-art img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .event-art::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(0deg, rgba(6, 17, 28, .60), transparent 52%);
+    }
+
+    .zerg .event-art::after {
+      background: linear-gradient(0deg, rgba(22, 11, 6, .60), transparent 52%);
+    }
+
+    .event-content {
+      padding: 24px;
+    }
+
+    .event-kicker {
+      color: var(--violet);
+      font: 800 12px var(--mono);
+      letter-spacing: .12em;
+    }
+
+    .zerg .event-kicker {
+      color: var(--orange);
+    }
+
+    .event-content h3 {
+      margin: 5px 0 14px;
+      font-size: 25px;
+    }
+
+    .event-content .clean-list li {
+      font-size: 14px;
+    }
+
+    .event-content .clean-list li::before {
+      background: var(--violet);
+      box-shadow: none;
+    }
+
+    .zerg .event-content .clean-list li::before {
+      background: var(--orange);
+    }
+
+    .prize-block {
+      margin-top: 18px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255, 255, 255, .09);
+    }
+
+    .prize-total {
+      color: var(--gold);
+      font: 900 28px var(--mono);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .prize-total small {
+      color: var(--muted);
+      font: 700 13px var(--sans);
+    }
+
+    .medals {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-top: 9px;
+    }
+
+    .medals span {
+      padding: 6px 9px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, .065);
+      color: #d7e1e5;
+      font-size: 12px;
+    }
+
+    .budget-body {
+      padding: 32px;
+    }
+
+    .budget-grid {
+      display: grid;
+      grid-template-columns: 1.12fr .88fr;
+      gap: 14px;
+    }
+
+    .table-wrap {
+      padding: 18px 22px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: rgba(2, 10, 17, .52);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    caption {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    th,
+    td {
+      padding: 13px 11px;
+      border-bottom: 1px solid rgba(255, 255, 255, .08);
+      text-align: left;
+    }
+
+    th {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    td:last-child,
+    th:last-child {
+      text-align: right;
+      white-space: nowrap;
+      font-variant-numeric: tabular-nums;
+    }
+
+    tbody tr:last-child td {
+      border-bottom: 0;
+      color: var(--gold);
+      font-size: 18px;
+      font-weight: 900;
+    }
+
+    .sponsor {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 28px;
+      border: 1px solid rgba(243, 201, 107, .28);
+      border-radius: 16px;
+      background: radial-gradient(circle at 84% 16%, rgba(243, 201, 107, .16), transparent 34%), linear-gradient(145deg, #1a1a1c, #091019);
+    }
+
+    .sponsor-tag {
+      color: var(--gold);
+      font: 800 11px var(--mono);
+      letter-spacing: .14em;
+    }
+
+    .sponsor h3 {
+      margin: 8px 0 12px;
+      font-size: 27px;
+      line-height: 1.3;
+    }
+
+    .sponsor p {
+      margin: 0 0 13px;
+      color: #cbd3d5;
+    }
+
+    .sponsor-message {
+      padding: 13px 14px;
+      border-left: 3px solid var(--gold);
+      background: rgba(243, 201, 107, .07);
+      color: #e2d6bd;
+    }
+
+    .thanks {
+      margin: 14px 0 0 !important;
+      color: var(--gold) !important;
+      font-weight: 800;
+    }
+
+    .budget-note {
+      margin-top: 14px;
+      padding: 15px 19px;
+      text-align: center;
+      color: var(--muted);
+      border: 1px solid var(--line);
+      border-radius: 11px;
+      background: rgba(2, 10, 17, .50);
+    }
+
+    .budget-note strong {
+      color: var(--gold);
+    }
+
+    .meta-footer {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 9px 22px;
+      margin-top: 24px;
+      padding: 17px 20px;
+      color: #829da9;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: rgba(3, 10, 17, .72);
+      font: 700 12px var(--mono);
+      letter-spacing: .07em;
+    }
+
+    .meta-footer a {
+      color: var(--cyan);
+      text-decoration: none;
+    }
+
+    .meta-footer a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 860px) {
+      .shell {
+        width: min(100% - 24px, 720px);
+        padding-top: 12px;
+      }
+
+      .hero {
+        min-height: 610px;
+      }
+
+      .hero-art {
+        object-position: 58% center;
+      }
+
+      .hero-content {
+        max-width: 100%;
+        padding: 40px 30px;
+      }
+
+      .hero-code {
+        left: 30px;
+        top: 30px;
+      }
+
+      .hero-season {
+        right: 28px;
+        top: 25px;
+      }
+
+      .card-stack {
+        display: none;
+      }
+
+      .regular-grid,
+      .progression,
+      .event-grid,
+      .budget-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .regular-visual {
+        min-height: 440px;
+      }
+
+      .regular-visual img {
+        object-position: 60% 42%;
+      }
+
+      .regular-title {
+        padding: 30px;
+      }
+
+      .playoff-intro {
+        margin-left: 0;
+      }
+
+      .reward-card,
+      .sponsor {
+        min-height: 290px;
+      }
+
+      .rank.king {
+        --inset: 24%;
+      }
+
+      .rank.star {
+        --inset: 20%;
+      }
+
+      .rank.diamond {
+        --inset: 16%;
+      }
+
+      .rank.platinum {
+        --inset: 12%;
+      }
+    }
+
+    @media (max-width: 640px) {
+      body {
+        font-size: 15px;
+      }
+
+      .shell {
+        width: calc(100% - 20px);
+      }
+
+      .hero {
+        min-height: 650px;
+        border-radius: 23px 23px 8px 23px;
+      }
+
+      h1 {
+        font-size: 44px;
+      }
+
+      .hero-code {
+        max-width: 190px;
+      }
+
+      .hero-content {
+        padding: 34px 22px;
+      }
+
+      .hero-data {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .datum {
+        min-width: 0;
+      }
+
+      .quick-nav {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .quick-nav a {
+        min-height: 56px;
+      }
+
+      .mission-heading small {
+        display: none;
+      }
+
+      .cinema {
+        aspect-ratio: 16/10;
+      }
+
+      .cinema img {
+        object-position: 50% 42%;
+      }
+
+      .schedule-body,
+      .regular-body,
+      .playoffs-body,
+      .budget-body {
+        padding: 22px 16px;
+      }
+
+      .time-focus {
+        grid-template-columns: 1fr;
+        gap: 3px;
+      }
+
+      .time-focus span {
+        text-align: left;
+      }
+
+      .phase-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .days {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .regular-visual {
+        min-height: 430px;
+      }
+
+      .regular-visual::after {
+        background: linear-gradient(0deg, rgba(3, 10, 18, .92), rgba(3, 10, 18, .16) 78%);
+      }
+
+      .regular-title {
+        padding: 24px 20px;
+      }
+
+      .regular-title h2 {
+        font-size: 29px;
+      }
+
+      .score-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .jobs {
+        grid-template-columns: 1fr;
+      }
+
+      .rank {
+        --inset: 0% !important;
+        grid-template-columns: 74px 1fr;
+      }
+
+      .event-art {
+        aspect-ratio: 16/9.4;
+      }
+
+      .event-content {
+        padding: 21px 18px;
+      }
+
+      .table-wrap {
+        padding: 11px 12px;
+        overflow-x: auto;
+      }
+
+      th,
+      td {
+        padding-inline: 8px;
+      }
+
+      .sponsor {
+        padding: 23px 20px;
+      }
+
+      .meta-footer {
+        align-items: stretch;
+        flex-direction: column;
+        text-align: center;
+        font-size: 12px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        transition-duration: .01ms !important;
+      }
+    }
+
+    @media print {
+      @page {
+        size: A4;
+        margin: 11mm;
+      }
+
+      * {
+        box-shadow: none !important;
+        text-shadow: none !important;
+      }
+
+      html,
+      body {
+        color-scheme: light;
+        color: #15222a;
+        background: #fff !important;
+        font-size: 10.5pt;
+      }
+
+      .shell {
+        width: 100%;
+        padding: 0;
+      }
+
+      .skip-link,
+      .quick-nav,
+      .hero-art,
+      .regular-visual img,
+      .cinema,
+      .event-art {
+        display: none !important;
+      }
+
+      .hero {
+        min-height: auto;
+        display: block;
+        color: #15222a;
+        border: 1px solid #9eb0b8;
+        background: #fff;
+      }
+
+      .hero::before,
+      .hero::after {
+        display: none;
+      }
+
+      .hero-code,
+      .hero-season {
+        position: static;
+        display: inline-block;
+        margin: 18px 0 0 24px;
+        color: #245f78;
+        border-color: #8fb6c5;
+      }
+
+      .hero-content {
+        width: auto;
+        max-width: none;
+        padding: 22px 24px 26px;
+      }
+
+      h1 span {
+        color: #176987;
+      }
+
+      .hero-lead,
+      .datum small {
+        color: #40545d;
+      }
+
+      .datum {
+        color: #15222a;
+        border-color: #176987;
+        background: #f1f6f8;
+      }
+
+      .stack {
+        gap: 12px;
+      }
+
+      .mission {
+        overflow: visible;
+        color: #15222a;
+        border: 1px solid #9eb0b8;
+        background: #fff;
+        break-inside: auto;
+      }
+
+      .mission-heading {
+        break-after: avoid;
+      }
+
+      .mission-heading .index {
+        color: #176987;
+        border-color: #70a4b6;
+      }
+
+      .mission-heading small,
+      .time-focus span,
+      .clean-list li,
+      .rank span,
+      .record-note,
+      .reward-card p,
+      .sponsor p,
+      .budget-note,
+      .meta-footer {
+        color: #40545d;
+      }
+
+      .schedule-body,
+      .regular-body,
+      .playoffs-body,
+      .budget-body {
+        padding: 20px;
+      }
+
+      .regular-visual {
+        min-height: auto;
+        display: block;
+        color: #15222a;
+        background: #eef4f6;
+      }
+
+      .regular-visual::after {
+        display: none;
+      }
+
+      .regular-title {
+        max-width: none;
+        padding: 20px;
+      }
+
+      .regular-title p {
+        color: #40545d;
+      }
+
+      .phase,
+      .info-card,
+      .job,
+      .ladder,
+      .reward-card,
+      .event-card,
+      .table-wrap,
+      .sponsor,
+      .budget-note {
+        color: #15222a;
+        border-color: #aebdc3;
+        background: #fff;
+        break-inside: avoid;
+      }
+
+      .day,
+      .score-card,
+      .rank,
+      .medals span,
+      .sponsor-message,
+      .ticket {
+        color: #15222a;
+        background: #edf3f5;
+      }
+
+      .event-grid {
+        break-before: avoid;
+      }
+
+      .event-content {
+        padding: 18px;
+      }
+
+      th {
+        color: #40545d;
+      }
+
+      th,
+      td {
+        border-color: #ccd6da;
+      }
+
+      thead {
+        display: table-header-group;
+      }
+
+      tr {
+        break-inside: avoid;
+      }
+
+      .meta-footer {
+        border-color: #b8c4c9;
+        background: #fff;
+      }
+
+      .meta-footer a {
+        color: #176987;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <a class="skip-link" href="#main-content">跳到赛事方案正文</a>
+
+  <main class="shell" id="main-content">
+    <header class="hero" id="top">
+      <img class="hero-art" src="./assets/sc-terran-fleet.png" alt="星际舰队驶过红蓝色星云">
+      <div class="hero-code" aria-hidden="true">Doudizhu StarCraft League</div>
+      <div class="hero-season" aria-hidden="true">Season 02</div>
+      <div class="hero-content">
+        <h1>第二届<span>斗地主星际联赛</span></h1>
+        <p class="hero-lead">DSL（Doudizhu StarCraft League）即“斗地主星际联赛”。本届联赛共 10 周，分为常规赛和季后赛；如赛程与社区重要活动冲突，以临时通知为准。</p>
+        <div class="hero-data" aria-label="赛事概要">
+          <div class="datum"><b>10 周</b><small>完整赛程</small></div>
+          <div class="datum"><b>每周 4 场</b><small>周一、三、五、六</small></div>
+          <div class="datum"><b>KK · 韩服</b><small>双赛区</small></div>
+          <div class="datum"><b>20:00—22:00</b><small>统一比赛时段</small></div>
+        </div>
+      </div>
+      <div class="card-stack" aria-hidden="true">
+        <div class="playing-card" data-suit="♥">A</div>
+        <div class="playing-card" data-suit="♠">K</div>
+        <div class="playing-card" data-suit="♦">Q</div>
+      </div>
+    </header>
+
+    <nav class="quick-nav" aria-label="方案章节目录">
+      <a href="#schedule"><span>赛程安排</span><b>01</b></a>
+      <a href="#regular"><span>常规赛</span><b>02</b></a>
+      <a href="#playoffs"><span>季后赛</span><b>03</b></a>
+      <a href="#budget"><span>经费与赞助</span><b>04</b></a>
+    </nav>
+
+    <div class="stack">
+      <section class="mission" id="schedule">
+        <figure class="cinema">
+          <img src="./assets/sc-protoss-carrier.png" alt="神族航母悬停在山谷上空">
+        </figure>
+        <div class="schedule-body">
+          <div class="mission-heading"><span class="index">01</span>
+            <h2>赛程安排</h2><small aria-hidden="true">Mission Schedule</small>
+          </div>
+          <div class="time-focus"><strong>20:00—22:00</strong><span>所有比赛日统一时段；如与社区重要活动冲突，以临时通知为准</span></div>
+          <div class="phase-grid">
+            <article class="phase">
+              <div class="phase-head">
+                <h3>常规赛</h3><b>6 周</b>
+              </div>
+              <div class="days">
+                <div class="day"><span>周一</span><b>KK</b></div>
+                <div class="day"><span>周三</span><b>韩服</b></div>
+                <div class="day"><span>周五</span><b>KK</b></div>
+                <div class="day"><span>周六</span><b>韩服</b></div>
+              </div>
+            </article>
+            <article class="phase">
+              <div class="phase-head">
+                <h3>季后赛</h3><b>4 周</b>
+              </div>
+              <div class="days">
+                <div class="day"><span>周一</span><b>KK<br>战队联赛</b></div>
+                <div class="day"><span>周三</span><b>韩服<br>8R 竞技</b></div>
+                <div class="day"><span>周五</span><b>KK<br>战队联赛</b></div>
+                <div class="day"><span>周六</span><b>韩服<br>8R 竞技</b></div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="mission" id="regular">
+        <div class="regular-visual">
+          <img src="./assets/sc-protoss-warrior.png" alt="神族战士在风雪中手持绿色能量武器">
+          <div class="regular-title"><b aria-hidden="true">REGULAR SEASON</b>
+            <h2>常规赛</h2>
+            <p>无需提前报名，以个人积分记录每一次参赛与赛事工作。</p>
+          </div>
+        </div>
+        <div class="regular-body">
+          <div class="regular-grid">
+            <article class="info-card">
+              <h3>参赛方式</h3>
+              <ul class="clean-list">
+                <li><strong>无需报名</strong>，在比赛时段进入比赛房即可参加。</li>
+                <li>采用个人积分制，只公布积分与积分排名，不公布胜负场数和胜率。</li>
+                <li>同时使用 2v6 与 3v5 地图，每周各安排 2 个比赛日，具体轮换另行通知。</li>
+              </ul>
+            </article>
+            <article class="info-card">
+              <h3>对局积分</h3>
+              <div class="score-grid">
+                <div class="score-card">
+                  <h4>地主</h4>
+                  <div class="score-row"><span>获胜</span><b>+12</b></div>
+                  <div class="score-row"><span>失利</span><b>+3</b></div>
+                </div>
+                <div class="score-card">
+                  <h4>农民</h4>
+                  <div class="score-row"><span>获胜</span><b>+8</b></div>
+                  <div class="score-row"><span>失利</span><b>+2</b></div>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <div class="jobs" aria-label="赛事工作积分">
+            <article class="job">
+              <div class="job-head"><b>主机</b><b>+30 分</b></div>
+              <p>负责当晚比赛房，可同时参赛。</p>
+            </article>
+            <article class="job">
+              <div class="job-head"><b>主播</b><b>+30 分</b></div>
+              <p>直播当晚比赛；常规赛不强制安排。</p>
+            </article>
+            <article class="job">
+              <div class="job-head"><b>统计</b><b>+20 分</b></div>
+              <p>按模板将当晚赛果录入腾讯文档。</p>
+            </article>
+          </div>
+          <p class="record-note">当日主机或统计人员须按照作者给的模板记录每局参赛者及胜方，作者据此更新网站积分榜。</p>
+
+          <div class="progression">
+            <article class="ladder">
+              <h3>段位阶梯</h3>
+              <div class="rank-list">
+                <div class="rank king"><b>王者</b><span>第 1 名</span></div>
+                <div class="rank star"><b>星耀</b><span>第 2—5 名</span></div>
+                <div class="rank diamond"><b>钻石</b><span>第 6—15 名</span></div>
+                <div class="rank platinum"><b>铂金</b><span>第 16—25 名</span></div>
+                <div class="rank gold"><b>黄金</b><span>分界线待定</span></div>
+                <div class="rank silver"><b>白银</b><span>分界线待定</span></div>
+                <div class="rank bronze"><b>青铜</b><span>其他</span></div>
+              </div>
+            </article>
+            <article class="reward-card">
+              <span class="label">常规赛众筹目标</span>
+              <div class="amount">800 <small>元</small></div>
+              <p>拟奖励铂金及以上选手；具体奖金按实际众筹金额分配。</p>
+              <p>常规赛段位只代表积分排名，不代表水平；参赛和承担赛事工作均可获得积分。</p>
+              <div class="ticket"><strong>黄金及以上</strong>是参加季后赛战队联赛的入场券，白银和青铜选手原则上不可参加。</div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="mission" id="playoffs">
+        <div class="playoffs-body">
+          <div class="mission-heading"><span class="index">03</span>
+            <h2>季后赛：进入高强度对抗</h2><small aria-hidden="true">Playoffs</small>
+          </div>
+          <p class="playoff-intro">KK 战队联赛与韩服 8R 个人争霸赛同步展开。</p>
+          <div class="event-grid">
+            <article class="event-card">
+              <figure class="event-art"><img src="./assets/sc-cosmic-rift.png" alt="蓝紫色能量环绕星球与星云"></figure>
+              <div class="event-content">
+                <span class="event-kicker" aria-hidden="true">KK / TEAM LEAGUE</span>
+                <h3>战队联赛</h3>
+                <ul class="clean-list">
+                  <li>组成 4 支战队。</li>
+                  <li>暂定四个队长分别为“老板代表”、“常规赛王者”、“人气谐星”和“组委会特邀”，最终名单在常规赛结束时公布。</li>
+                  <li>4 队进行单循环赛，共 6 个比赛日；第 7 个比赛日进行季军争夺赛，第 8 个比赛日进行冠军争夺赛。</li>
+                </ul>
+                <div class="prize-block">
+                  <div class="prize-total">1000 元 <small>众筹目标奖金</small></div>
+                  <div class="medals"><span>冠军队 500 元</span><span>亚军队 300 元</span><span>季军队 200 元</span></div>
+                </div>
+              </div>
+            </article>
+
+            <article class="event-card zerg">
+              <figure class="event-art"><img src="./assets/sc-zerg-swarm.png" alt="虫群单位在山谷战场集结"></figure>
+              <div class="event-content">
+                <span class="event-kicker" aria-hidden="true">韩服 / 8R</span>
+                <h3>个人争霸赛</h3>
+                <ul class="clean-list">
+                  <li>8R 指<strong>角色随机、队友随机，种族可自选</strong>。</li>
+                  <li>每个比赛日当天报名，每场 8—10 人。</li>
+                </ul>
+                <div class="prize-block">
+                  <div class="prize-total">500 元 <small>众筹目标奖金</small></div>
+                  <div class="medals"><span>冠军 250 元</span><span>亚军 150 元</span><span>季军 100 元</span></div>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="mission" id="budget">
+        <div class="budget-body">
+          <div class="mission-heading"><span class="index">04</span>
+            <h2>经费与赞助</h2><small aria-hidden="true">Resource Allocation</small>
+          </div>
+          <div class="budget-grid">
+            <div class="table-wrap">
+              <table>
+                <caption>第二届 DSL 斗地主星际联赛经费预算</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">项目</th>
+                    <th scope="col">预算</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>常规赛奖励</td>
+                    <td>800 元</td>
+                  </tr>
+                  <tr>
+                    <td>战队联赛奖励</td>
+                    <td>1000 元</td>
+                  </tr>
+                  <tr>
+                    <td>8R 个人争霸赛奖励</td>
+                    <td>500 元</td>
+                  </tr>
+                  <tr>
+                    <td>季后赛直播解说</td>
+                    <td>约 500 元<br><small>16 场 × 30 元，实际 480 元</small></td>
+                  </tr>
+                  <tr>
+                    <td>网站维护与赛事组织</td>
+                    <td>200 元</td>
+                  </tr>
+                  <tr>
+                    <td>合计</td>
+                    <td>约 3000 元</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <aside class="sponsor">
+              <span class="sponsor-tag" aria-hidden="true">SPONSORSHIP</span>
+              <h3>诚邀赞助 · 感谢支持</h3>
+              <p>感谢各位老板对星际斗地主的赞助与支持，诚邀各位共同支持本届赛事。</p>
+              <div class="sponsor-message">每一份赞助都会用于选手奖励、直播解说与赛事组织，让比赛办得更好。</div>
+              <p class="thanks">感谢每一位支持赛事的老板！</p>
+            </aside>
+          </div>
+          <div class="budget-note">所有众筹奖金均以<strong>最终实收金额</strong>为准；未确定事项及后续调整，以赛事群内最新通知为准。</div>
+        </div>
+      </section>
+    </div>
+
+    <footer class="meta-footer">
+      <span>DSL · SEASON 02</span>
+      <span>比赛时段 20:00—22:00</span>
+      <span>更新于 2026-08-19</span>
+      <a href="https://scdoudizhu.com" target="_blank" rel="noopener" aria-label="访问 scdoudizhu.com（在新窗口打开）">网站
+        scdoudizhu.com (暂未建设完毕)</a>
+    </footer>
+  </main>
+</body>
+
+</html>
