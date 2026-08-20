@@ -1,0 +1,63 @@
+---
+import { matchPoints, servicePoints } from "../data/season";
+---
+
+<div class="points-grid">
+  <section class="panel">
+    <div class="panel-heading">
+      <p class="eyebrow">对局积分</p>
+      <h2>身份与结果</h2>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">身份</th>
+            <th scope="col">结果</th>
+            <th scope="col" class="numeric">积分</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            matchPoints.map((item) => (
+              <tr>
+                <th scope="row">{item.role}</th>
+                <td>{item.result}</td>
+                <td class="numeric points-value">+{item.points}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="panel-heading">
+      <p class="eyebrow">赛事工作</p>
+      <h2>参与不只在牌桌</h2>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">职责</th>
+            <th scope="col" class="numeric">积分</th>
+            <th scope="col">说明</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            servicePoints.map((item) => (
+              <tr>
+                <th scope="row">{item.role}</th>
+                <td class="numeric points-value">+{item.points}</td>
+                <td>{item.note}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+  </section>
+</div>

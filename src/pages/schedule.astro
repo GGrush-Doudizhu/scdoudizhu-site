@@ -1,0 +1,83 @@
+---
+import PageHero from "../components/PageHero.astro";
+import WeeklyPattern from "../components/WeeklyPattern.astro";
+import { season } from "../data/season";
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="赛程"
+  description="第二届 DSL 十周赛程结构、每周比赛日与临时调整状态。"
+>
+  <PageHero
+    eyebrow="SCHEDULE"
+    title="十周，四十个比赛日"
+    description="常规赛六周，季后赛四周。每周一、三、五、六晚进行；实际日期、地图轮换与临时调整将在确认后逐日发布。"
+  />
+
+  <section class="section">
+    <div class="container">
+      <div class="notice-card" style="margin-bottom: 1rem;">
+        <span class="notice-mark" aria-hidden="true">!</span>
+        <div>
+          <h3>正式起止日期待公布</h3>
+          <p>当前只展示已确认的每周节奏，不会用占位日期制造已经排定的假象。</p>
+        </div>
+      </div>
+      <WeeklyPattern />
+      <ul class="legend" aria-label="未来赛程状态图例">
+        <li><span class="planned"></span>计划</li>
+        <li><span class="changed"></span>改期</li>
+        <li><span class="cancelled"></span>取消</li>
+        <li><span></span>已结束</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section section--tint">
+    <div class="container">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">赛季时间线</p>
+          <h2>{season.totalWeeks} 周分为三个清晰阶段</h2>
+        </div>
+      </div>
+      <div class="timeline">
+        <article class="timeline-phase">
+          <div class="timeline-label">W01—W06</div>
+          <div>
+            <h3>常规赛 · 个人累计积分</h3>
+            <p>
+              共 24 个比赛日。KK 与韩服同步进行，2v6、3v5 每周各两个比赛日。
+            </p>
+          </div>
+        </article>
+        <article class="timeline-phase">
+          <div class="timeline-label">W07—W10</div>
+          <div>
+            <h3>KK · 四队战队联赛</h3>
+            <p>周一、周五，共 8 个比赛日：六场单循环日、季军赛日和冠军赛日。</p>
+          </div>
+        </article>
+        <article class="timeline-phase">
+          <div class="timeline-label">W07—W10</div>
+          <div>
+            <h3>韩服 · 8R 个人争霸赛</h3>
+            <p>周三、周六，共 8 个比赛日；每个比赛日当天报名。</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="callout">
+        <p>
+          <strong>临时调整：</strong
+          >若与社区重要活动冲突，比赛日可能改期。正式赛程上线后，每次调整都会显示状态、更新时间和关联通知。
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

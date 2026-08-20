@@ -1,0 +1,75 @@
+---
+import PageHero from "../components/PageHero.astro";
+import StandingsTable from "../components/StandingsTable.astro";
+import { tiers } from "../data/season";
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="积分榜"
+  description="第二届 DSL 个人累计积分榜，只公开名次、选手显示名、总积分、段位和统计时间。"
+>
+  <PageHero
+    eyebrow="STANDINGS"
+    title="每一分都有出处"
+    description="DSL2 的积分同时记录对局参与和赛事工作。榜单只公开累计总分与名次，不展示胜负、场次、胜率或 APM。"
+  />
+
+  <section class="section">
+    <div class="container">
+      <StandingsTable />
+      <div class="callout" style="margin-top: 1rem;">
+        <p>
+          <strong>如何理解段位：</strong
+          >段位只代表当前积分名次的分层，不代表竞技水平。
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tint">
+    <div class="container">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">段位划分</p>
+          <h2>按名次分层，而非固定积分线</h2>
+        </div>
+        <p>黄金与白银分界线、同分名次和资格边界仍待主办方确认。</p>
+      </div>
+      <div class="tier-list">
+        {
+          tiers.map((tier) => (
+            <article class="tier-card" data-pending={tier.status === "pending"}>
+              <h3>{tier.name}</h3>
+              <p>{tier.range}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="data-boundary">
+    <div class="container content-grid">
+      <div class="prose">
+        <p class="eyebrow">数据边界</p>
+        <h2>公开结果与内部证据分开保存</h2>
+        <p>
+          赛事内部仍需记录参赛者、身份和胜方，以便计算、复核和纠错。但公开网站采用最小字段白名单，不会发布单局流水、回放或底层平台标识。
+        </p>
+      </div>
+      <aside class="panel side-panel">
+        <div class="panel-body">
+          <h3>公开字段</h3>
+          <ul>
+            <li>名次</li>
+            <li>公开显示名</li>
+            <li>累计总积分</li>
+            <li>段位</li>
+            <li>统计时间</li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,17 @@
+{
+  "name": "斗地主星际联赛 · 第二届",
+  "short_name": "DSL2",
+  "description": "第二届 DSL 斗地主星际联赛官方网站",
+  "lang": "zh-CN",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#061117",
+  "theme_color": "#07151b",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

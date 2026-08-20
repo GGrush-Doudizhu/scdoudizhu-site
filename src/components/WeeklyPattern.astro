@@ -1,0 +1,27 @@
+---
+import { season, weeklySlots } from "../data/season";
+
+interface Props {
+  compact?: boolean;
+}
+
+const { compact = false } = Astro.props;
+---
+
+<div class:list={["weekly-pattern", { "weekly-pattern--compact": compact }]}>
+  {
+    weeklySlots.map((slot, index) => (
+      <article class="day-card">
+        <div class="day-index" aria-hidden="true">
+          0{index + 1}
+        </div>
+        <p class="day-name">{slot.weekday}</p>
+        <p class="day-platform">{slot.platform}</p>
+        <p class="day-time">
+          {season.startTime}—{season.endTime}
+        </p>
+        {!compact && <p class="day-phase">{slot.phase}</p>}
+      </article>
+    ))
+  }
+</div>

@@ -1,0 +1,60 @@
+---
+import PageHero from "../components/PageHero.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="奖励与赞助"
+  description="第二届 DSL 常规赛、KK 战队联赛和韩服 8R 的众筹目标与奖金说明。"
+>
+  <PageHero
+    eyebrow="REWARDS"
+    title="目标金额，不等于实收金额"
+    description="三项赛事奖励分别设有众筹目标。正式页面会把目标、实际收到和最终分配分开呈现。"
+  />
+
+  <section class="section">
+    <div class="container info-grid">
+      <article class="info-card">
+        <p class="info-card-index">常规赛</p>
+        <h2>800 元</h2>
+        <p>目标奖励铂金及以上选手，最终分配方法与实际金额待公布。</p>
+      </article>
+      <article class="info-card">
+        <p class="info-card-index">KK 战队联赛</p>
+        <h2>1,000 元</h2>
+        <p>目标分配：冠军队 500 元、亚军队 300 元、季军队 200 元。</p>
+      </article>
+      <article class="info-card">
+        <p class="info-card-index">韩服 8R</p>
+        <h2>500 元</h2>
+        <p>目标分配：冠军 250 元、亚军 150 元、季军 100 元。</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section section--tint">
+    <div class="container content-grid">
+      <div class="prose">
+        <p class="eyebrow">公开原则</p>
+        <h2>赞助致谢需要重新确认</h2>
+        <p>
+          DSL1
+          曾公开赞助者姓名或昵称、金额、头像和联系方式。新站不会自动迁移这些资料；只有明确同意在
+          DSL2 继续公开的内容才会进入致谢页面。
+        </p>
+      </div>
+      <aside class="panel side-panel">
+        <div class="panel-body">
+          <h3>正式发布时将区分</h3>
+          <ul>
+            <li>众筹目标</li>
+            <li>实际收到</li>
+            <li>必要费用</li>
+            <li>最终奖金</li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </section>
+</BaseLayout>

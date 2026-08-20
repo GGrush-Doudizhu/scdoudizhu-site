@@ -1,0 +1,67 @@
+---
+import { publicStandings } from "../schemas/public-standings";
+
+interface Props {
+  limit?: number;
+  compact?: boolean;
+}
+
+const { limit, compact = false } = Astro.props;
+const rows = limit
+  ? publicStandings.entries.slice(0, limit)
+  : publicStandings.entries;
+
+const dateFormatter = new Intl.DateTimeFormat("zh-CN", {
+  dateStyle: "medium",
+  timeStyle: "short",
+  timeZone: "Asia/Singapore",
+});
+
+const standingsAsOf = publicStandings.standingsAsOf
+  ? dateFormatter.format(new Date(publicStandings.standingsAsOf))
+  : null;
+---
+
+<div class:list={["standings-block", { "standings-block--compact": compact }]}>
+  {
+    rows.length === 0 ? (
+      <div class="empty-state">
+        <span class="empty-orbit" aria-hidden="true" />
+        <p class="empty-title">正式积分尚未发布</p>
+        <p>
+          这里不会使用示例选手或虚构成绩。首个比赛日完成复核后，积分榜才会出现。
+        </p>
+      </div>
+    ) : (
+      <>
+        <div class="table-wrap">
+          <table class="standings-table">
+            <thead>
+              <tr>
+                <th scope="col">名次</th>
+                <th scope="col">选手</th>
+                <th scope="col" class="numeric">
+                  积分
+                </th>
+                <th scope="col">段位</th>
+              </tr>
+            </thead>
+            <tbody>
+              {rows.map((entry) => (
+                <tr>
+                  <td class="rank-cell">#{entry.rank}</td>
+                  <th scope="row">{entry.displayName}</th>
+                  <td class="numeric points-total">{entry.points}</td>
+                  <td>
+                    <span class="tier-badge">{entry.tier}</span>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p class="data-time">统计截至：{standingsAsOf}</p>
+      </>
+    )
+  }
+</div>

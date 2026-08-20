@@ -1,0 +1,49 @@
+---
+import { navigation, site } from "../data/site";
+
+interface Props {
+  currentPath: string;
+}
+
+const { currentPath } = Astro.props;
+
+function isCurrent(href: string) {
+  if (href === "/") return currentPath === "/";
+  return currentPath.startsWith(href);
+}
+---
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="/" aria-label={`${site.name}首页`}>
+      <span class="brand-mark" aria-hidden="true">
+        <span></span>
+        <span></span>
+        <span></span>
+      </span>
+      <span class="brand-copy">
+        <strong>{site.shortName}</strong>
+        <small>{site.seasonName}</small>
+      </span>
+    </a>
+
+    <nav class="primary-nav" aria-label="主导航">
+      <ul>
+        {
+          navigation.map((item) => (
+            <li>
+              <a
+                href={item.href}
+                aria-current={isCurrent(item.href) ? "page" : undefined}
+              >
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <span class="season-status"><span aria-hidden="true"></span>筹备中</span>
+  </div>
+</header>

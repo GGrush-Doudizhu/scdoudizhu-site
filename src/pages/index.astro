@@ -1,0 +1,139 @@
+---
+import PointsTables from "../components/PointsTables.astro";
+import StandingsTable from "../components/StandingsTable.astro";
+import WeeklyPattern from "../components/WeeklyPattern.astro";
+import { season } from "../data/season";
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout>
+  <section class="home-hero">
+    <div class="container home-hero-grid">
+      <div>
+        <p class="hero-kicker">DSL · SEASON 02 · 筹备中</p>
+        <h1>
+          积分决定席位，<br /><span class="hero-highlight">参与定义赛季。</span>
+        </h1>
+        <p class="lede">
+          第二届斗地主星际联赛以累计积分连接每一局比赛与每一份赛事工作。无需提前报名，在比赛时段进入房间即可加入。
+        </p>
+        <div class="hero-actions">
+          <a class="button button--primary" href="/standings/">查看积分榜</a>
+          <a class="button button--secondary" href="/rules/">了解积分规则</a>
+        </div>
+      </div>
+
+      <div class="hero-signal" aria-hidden="true">
+        <span class="signal-ring signal-ring--one"></span>
+        <span class="signal-ring signal-ring--two"></span>
+        <span class="signal-core">DSL<span>02</span></span>
+        <span class="signal-node signal-node--one">P</span>
+        <span class="signal-node signal-node--two">T</span>
+        <span class="signal-node signal-node--three">Z</span>
+        <span class="signal-node signal-node--four">3v5</span>
+        <span class="signal-node signal-node--five">2v6</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="container status-strip" aria-label="赛事概览">
+    <div class="status-item">
+      <p class="status-label">总赛程</p>
+      <p class="status-value">{season.totalWeeks} 周</p>
+    </div>
+    <div class="status-item">
+      <p class="status-label">常规赛 / 季后赛</p>
+      <p class="status-value">
+        {season.regularSeasonWeeks} + {season.playoffWeeks} 周
+      </p>
+    </div>
+    <div class="status-item">
+      <p class="status-label">每周比赛日</p>
+      <p class="status-value">4 个</p>
+    </div>
+    <div class="status-item">
+      <p class="status-label">统一时段</p>
+      <p class="status-value">{season.startTime}—{season.endTime}</p>
+    </div>
+  </div>
+
+  <section class="section section--tight">
+    <div class="container">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">本周节奏</p>
+          <h2>四个比赛日，两条平台线</h2>
+        </div>
+        <p>实际开赛日期与每个比赛日的 2v6 / 3v5 轮换尚待主办方公布。</p>
+      </div>
+      <WeeklyPattern />
+      <div class="notice-card" style="margin-top: 1rem;">
+        <span class="notice-mark" aria-hidden="true">!</span>
+        <div>
+          <h3>下一比赛日：待公布</h3>
+          <p>
+            赛程与社区重要活动冲突时可能临时调整。正式日期发布后，此处将显示最新状态与关联通知。
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tint">
+    <div class="container">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">积分榜</p>
+          <h2>只展示积分，不展示胜负战绩</h2>
+        </div>
+        <a href="/standings/">查看完整积分说明 →</a>
+      </div>
+      <StandingsTable limit={5} compact />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">每一分的来源</p>
+          <h2>参赛、主持、直播与统计共同组成赛季</h2>
+        </div>
+        <p>高积分反映累计参与和赛事贡献，不等同于胜率或纯竞技水平。</p>
+      </div>
+      <PointsTables />
+    </div>
+  </section>
+
+  <section class="section section--tint">
+    <div class="container">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">十周路径</p>
+          <h2>从开放常规赛进入双线季后赛</h2>
+        </div>
+      </div>
+      <div class="info-grid">
+        <article class="info-card">
+          <p class="info-card-index">WEEK 01—06</p>
+          <h3>个人累计积分</h3>
+          <p>无需提前报名。2v6 与 3v5 每周各安排两个比赛日。</p>
+        </article>
+        <article class="info-card">
+          <p class="info-card-index">KK · WEEK 07—10</p>
+          <h3>四队战队联赛</h3>
+          <p>六个单循环比赛日，加季军赛与冠军赛。</p>
+        </article>
+        <article class="info-card">
+          <p class="info-card-index">KR · WEEK 07—10</p>
+          <h3>韩服 8R 个人赛</h3>
+          <p>角色与队友随机，种族可选；每个比赛日当天报名。</p>
+        </article>
+      </div>
+      <div class="hero-actions">
+        <a class="button button--primary" href="/playoffs/">查看季后赛结构</a>
+        <a class="button button--secondary" href="/schedule/">查看十周赛程</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
