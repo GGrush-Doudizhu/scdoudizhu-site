@@ -1,0 +1,36 @@
+---
+import { dsl1Sponsors } from "../data/dsl1-sponsors";
+---
+
+<section class="section home-sponsor-tribute" aria-labelledby="dsl1-sponsors">
+  <div class="container">
+    <div class="home-sponsor-heading">
+      <div>
+        <p class="eyebrow">第一届赞助鸣谢</p>
+        <h2 id="dsl1-sponsors">感谢一路支持 DSL 的老板</h2>
+        <p>
+          第一届联赛离不开这些社区伙伴的支持。谨在此展示他们的昵称与头像，向每一份信任郑重致谢。
+        </p>
+      </div>
+      <a href="/rewards/">第二届赞助与答谢 →</a>
+    </div>
+
+    <div class="home-sponsor-grid" aria-label="第一届 DSL 赞助伙伴名单">
+      {
+        dsl1Sponsors.map((sponsor) => (
+          <article class="home-sponsor-card">
+            <img
+              src={sponsor.avatar}
+              alt={`${sponsor.name} 的头像`}
+              width="72"
+              height="72"
+              loading="lazy"
+              decoding="async"
+            />
+            <strong>{sponsor.name}</strong>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>

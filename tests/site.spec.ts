@@ -2,6 +2,8 @@ import { createHash } from "node:crypto";
 
 import { expect, test } from "@playwright/test";
 
+import { dsl1Sponsors } from "../src/data/dsl1-sponsors";
+
 const pages = [
   { path: "/", heading: "星际斗地主联赛" },
   { path: "/standings/", heading: "常规赛积分榜" },
@@ -29,11 +31,11 @@ const forbiddenPublicCopy = [
 
 const mapDownloads = [
   {
-    path: encodeURI("/downloads/maps/斗地主Doudizhu 5.6.scx"),
+    path: "/downloads/maps/doudizhu-3v5-5.6.scx",
     sha256: "C1BD89DFC739E71902381756244BB34F0DABE5F0BAF8CCA1A3B014B08601A887",
   },
   {
-    path: encodeURI("/downloads/maps/斗地主重制版c1.1.scx"),
+    path: "/downloads/maps/doudizhu-2v6-remake-c1.1.scx",
     sha256: "617BECFFFD9A72911388F0E1C89D6B33C4015A324ED3187423F5CC3BA8E4BD7A",
   },
 ];
@@ -70,6 +72,50 @@ for (const currentPage of pages) {
     }));
     expect(overflow.body).toBeLessThanOrEqual(1);
     expect(overflow.root).toBeLessThanOrEqual(1);
+
+    const tooSmallText = await page.locator("body").evaluate((body) =>
+      Array.from(body.querySelectorAll<HTMLElement>("*"))
+        .filter((element) =>
+          Array.from(element.childNodes).some(
+            (node) =>
+              node.nodeType === Node.TEXT_NODE &&
+              Boolean(node.textContent?.trim()),
+          ),
+        )
+        .filter((element) => {
+          const style = getComputedStyle(element);
+          const rect = element.getBoundingClientRect();
+          return (
+            style.display !== "none" &&
+            style.visibility !== "hidden" &&
+            Number.parseFloat(style.opacity) > 0 &&
+            rect.width > 0 &&
+            rect.height > 0
+          );
+        })
+        .map((element) => ({
+          selector: `${element.tagName.toLowerCase()}.${element.className}`,
+          text: element.textContent?.trim().slice(0, 40),
+          size: Number.parseFloat(getComputedStyle(element).fontSize),
+        }))
+        .filter((item) => item.size < 14),
+    );
+    expect(tooSmallText).toEqual([]);
+
+    const publicUrls = await page
+      .locator("a[href], img[src], link[href], script[src]")
+      .evaluateAll((elements) =>
+        elements
+          .map(
+            (element) =>
+              element.getAttribute("href") ?? element.getAttribute("src") ?? "",
+          )
+          .filter((value) => value && !value.startsWith("data:")),
+      );
+    for (const publicUrl of publicUrls) {
+      expect(publicUrl).not.toMatch(/[\u3400-\u9fff]/u);
+      expect(publicUrl).not.toMatch(/%[0-9a-f]{2}/iu);
+    }
     expect(consoleErrors).toEqual([]);
   });
 }
@@ -89,6 +135,37 @@ test("页头使用包含三个种族花色的新图标与中文导航", async ({
   ).toBeVisible();
   await expect(page.locator(".season-status")).toHaveCount(0);
   await expect(page.locator(".hero-signal")).toHaveCount(0);
+});
+
+test("首页以昵称字母顺序完整致谢第一届赞助伙伴", async ({ page, request }) => {
+  await page.goto("/");
+  const tribute = page.locator(".home-sponsor-tribute");
+  await expect(
+    tribute.getByRole("heading", { name: "感谢一路支持 DSL 的老板" }),
+  ).toBeVisible();
+  await expect(tribute.locator(".home-sponsor-card")).toHaveCount(24);
+
+  const displayedNames = await tribute
+    .locator(".home-sponsor-card strong")
+    .allTextContents();
+  expect(displayedNames).toEqual(dsl1Sponsors.map((sponsor) => sponsor.name));
+  expect(displayedNames).toEqual(
+    [...displayedNames].sort((left, right) =>
+      left.localeCompare(right, "en", { sensitivity: "base" }),
+    ),
+  );
+  expect(new Set(displayedNames).size).toBe(24);
+
+  const tributeText = await tribute.innerText();
+  expect(tributeText).not.toContain("金额");
+  expect(tributeText).not.toContain("赞助明细");
+  expect(tributeText).not.toMatch(/\d+(?:\.\d+)?\s*元/u);
+
+  for (const sponsor of dsl1Sponsors) {
+    const avatar = await request.get(sponsor.avatar);
+    expect(avatar.status()).toBe(200);
+    expect(avatar.headers()["content-type"]).toBe("image/jpeg");
+  }
 });
 
 test("积分榜展示 DSL1 换算预览、前三名与完整前二十五名", async ({ page }) => {
@@ -164,10 +241,8 @@ test("赛程明确开赛日期且不显示状态图例", async ({ page }) => {
   await expect(page.locator(".legend")).toHaveCount(0);
 });
 
-test("新闻中的赛事方案可直接阅读且奖金已经同步", async ({ request }) => {
-  const response = await request.get(
-    encodeURI("/news/第二届DSL斗地主星际联赛方案.html"),
-  );
+test("新闻中的赛事方案可直接阅读且奖金已经同步", async ({ request, page }) => {
+  const response = await request.get("/news/dsl2-league-plan.html");
   expect(response.status()).toBe(200);
   const html = await response.text();
   expect(html).toContain("常规赛不设置现金奖金");
@@ -178,6 +253,30 @@ test("新闻中的赛事方案可直接阅读且奖金已经同步", async ({ re
   expect(html).toContain("以上奖金及经费均为众筹目标，应以实际众筹情况为准");
   expect(html).not.toContain("<span>第五名 50 元</span>");
   expect(html).not.toContain("暂未建设完毕");
+
+  await page.goto("/news/dsl2-league-plan.html");
+  const schemeTextSizes = await page.locator("body").evaluate((body) =>
+    Array.from(body.querySelectorAll<HTMLElement>("*"))
+      .filter((element) =>
+        Array.from(element.childNodes).some(
+          (node) =>
+            node.nodeType === Node.TEXT_NODE &&
+            Boolean(node.textContent?.trim()),
+        ),
+      )
+      .filter((element) => {
+        const style = getComputedStyle(element);
+        const rect = element.getBoundingClientRect();
+        return (
+          style.display !== "none" &&
+          style.visibility !== "hidden" &&
+          rect.width > 0 &&
+          rect.height > 0
+        );
+      })
+      .map((element) => Number.parseFloat(getComputedStyle(element).fontSize)),
+  );
+  expect(Math.min(...schemeTextSizes)).toBeGreaterThanOrEqual(14);
 });
 
 test("核心内容在禁用 JavaScript 时仍可阅读", async ({ browser }) => {

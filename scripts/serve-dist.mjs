@@ -13,7 +13,9 @@ const port = Number.parseInt(process.argv[2] ?? "4321", 10);
 const contentTypes = new Map([
   [".css", "text/css; charset=utf-8"],
   [".html", "text/html; charset=utf-8"],
+  [".jpeg", "image/jpeg"],
   [".js", "text/javascript; charset=utf-8"],
+  [".jpg", "image/jpeg"],
   [".json", "application/json; charset=utf-8"],
   [".svg", "image/svg+xml"],
   [".txt", "text/plain; charset=utf-8"],

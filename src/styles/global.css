@@ -51,6 +51,7 @@ body {
     ),
     linear-gradient(180deg, #07121a 0%, var(--bg) 50%, var(--bg-deep) 100%);
   font-family: var(--font-sans);
+  font-size: 1rem;
   line-height: 1.68;
   text-rendering: optimizeLegibility;
 }
@@ -193,7 +194,7 @@ h3 {
 .brand-copy small {
   margin-top: 0.34rem;
   color: var(--gold);
-  font-size: 0.72rem;
+  font-size: 0.9rem;
   font-weight: 700;
   letter-spacing: 0.14em;
 }
@@ -221,7 +222,7 @@ h3 {
   padding: 0.62rem 0.8rem;
   border-radius: 999px;
   color: var(--muted);
-  font-size: 0.88rem;
+  font-size: 0.95rem;
   font-weight: 700;
   text-decoration: none;
   white-space: nowrap;
@@ -290,7 +291,7 @@ h3 {
 .eyebrow {
   margin-bottom: 0.9rem;
   color: var(--cyan);
-  font-size: 0.78rem;
+  font-size: 0.9rem;
   font-weight: 850;
   letter-spacing: 0.17em;
 }
@@ -326,7 +327,7 @@ h3 {
   display: block;
   margin-top: 0.55rem;
   color: #d7e5ea;
-  font-size: clamp(0.8rem, 0.22em, 1.2rem);
+  font-size: clamp(0.9rem, 0.22em, 1.2rem);
   font-weight: 700;
   letter-spacing: 0.08em;
 }
@@ -440,7 +441,7 @@ h3 {
 .playing-card small {
   z-index: 1;
   align-self: flex-end;
-  font-size: 0.72rem;
+  font-size: 0.9rem;
   letter-spacing: 0.12em;
 }
 
@@ -490,7 +491,7 @@ h3 {
 .status-label {
   margin-bottom: 0.24rem;
   color: var(--muted);
-  font-size: 0.73rem;
+  font-size: 0.9rem;
   letter-spacing: 0.08em;
 }
 
@@ -576,7 +577,7 @@ h3 {
 .day-name {
   margin-bottom: 0.15rem;
   color: var(--muted);
-  font-size: 0.8rem;
+  font-size: 0.95rem;
 }
 
 .day-platform {
@@ -594,7 +595,7 @@ h3 {
 .day-phase {
   margin-bottom: 0;
   color: var(--muted);
-  font-size: 0.82rem;
+  font-size: 0.95rem;
 }
 
 .weekly-pattern--compact .day-card {
@@ -630,7 +631,7 @@ h3 {
 
 .portal-card span {
   color: var(--gold);
-  font-size: 0.76rem;
+  font-size: 0.9rem;
   font-weight: 850;
   letter-spacing: 0.12em;
 }
@@ -649,6 +650,101 @@ h3 {
   background:
     linear-gradient(90deg, rgba(7, 20, 29, 0.96), rgba(7, 20, 29, 0.48)),
     url("/assets/protoss-wallpaper-4.png") 62% 42% / cover;
+}
+
+.home-sponsor-tribute {
+  padding-block: 4.4rem;
+  border-block: 1px solid rgba(245, 189, 85, 0.28);
+  background:
+    radial-gradient(
+      circle at 12% 20%,
+      rgba(245, 189, 85, 0.14),
+      transparent 30rem
+    ),
+    linear-gradient(180deg, rgba(12, 29, 38, 0.92), rgba(4, 13, 20, 0.96));
+}
+
+.home-sponsor-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  gap: 2rem;
+}
+
+.home-sponsor-heading h2 {
+  margin-bottom: 0.65rem;
+}
+
+.home-sponsor-heading p:last-child {
+  max-width: 48rem;
+  margin-bottom: 0;
+  color: #c7d7dd;
+}
+
+.home-sponsor-heading > a {
+  flex: 0 0 auto;
+  color: var(--gold-bright);
+  font-weight: 800;
+}
+
+.home-sponsor-grid {
+  display: grid;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.home-sponsor-card {
+  display: flex;
+  min-width: 0;
+  min-height: 132px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0.9rem 0.45rem;
+  border: 1px solid var(--line);
+  border-top-color: rgba(245, 189, 85, 0.62);
+  border-radius: 14px;
+  background: linear-gradient(
+    155deg,
+    rgba(23, 48, 61, 0.84),
+    rgba(6, 18, 26, 0.94)
+  );
+  text-align: center;
+}
+
+.home-sponsor-card:nth-child(3n + 2) {
+  border-top-color: rgba(86, 212, 231, 0.66);
+}
+
+.home-sponsor-card:nth-child(3n) {
+  border-top-color: rgba(199, 140, 255, 0.62);
+}
+
+.home-sponsor-card img {
+  width: 72px;
+  height: 72px;
+  border: 3px solid rgba(245, 189, 85, 0.74);
+  border-radius: 50%;
+  background: #0b1d27;
+  box-shadow: 0 0 20px rgba(245, 189, 85, 0.13);
+  object-fit: cover;
+}
+
+.home-sponsor-card:nth-child(3n + 2) img {
+  border-color: rgba(86, 212, 231, 0.72);
+}
+
+.home-sponsor-card:nth-child(3n) img {
+  border-color: rgba(199, 140, 255, 0.7);
+}
+
+.home-sponsor-card strong {
+  width: 100%;
+  margin-top: 0.65rem;
+  color: var(--text);
+  font-size: 0.95rem;
+  overflow-wrap: anywhere;
 }
 
 .page-hero {
@@ -817,7 +913,7 @@ h3 {
 table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 0.94rem;
+  font-size: 1rem;
 }
 
 th,
@@ -831,7 +927,7 @@ thead th {
   border-top: 0;
   color: var(--muted);
   background: rgba(0, 0, 0, 0.14);
-  font-size: 0.72rem;
+  font-size: 0.9rem;
   letter-spacing: 0.08em;
 }
 
@@ -932,7 +1028,7 @@ tbody th {
 
 .podium-rank {
   color: var(--gold);
-  font-size: 0.78rem;
+  font-size: 0.9rem;
   font-weight: 850;
   letter-spacing: 0.12em;
 }
@@ -977,7 +1073,7 @@ tbody th {
 .podium-unit {
   margin: 0.35rem 0 0.9rem;
   color: var(--muted);
-  font-size: 0.72rem;
+  font-size: 0.9rem;
 }
 
 .preview-note {
@@ -1146,14 +1242,14 @@ tbody th {
 .tier-crest-icon span {
   position: relative;
   z-index: 1;
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   font-weight: 950;
   line-height: 1;
 }
 
 .tier-crest strong {
   color: var(--tier-accent);
-  font-size: 0.8rem;
+  font-size: 0.95rem;
   white-space: nowrap;
 }
 
@@ -1195,7 +1291,7 @@ tbody th {
   padding: 0.85rem 1.2rem;
   border-top: 1px solid var(--line);
   color: var(--muted);
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   text-align: right;
 }
 
@@ -1269,7 +1365,7 @@ tbody th {
 
 .tier-emblem p {
   color: var(--muted);
-  font-size: 0.83rem;
+  font-size: 1rem;
 }
 
 .tier-note {
@@ -1296,7 +1392,7 @@ tbody th {
 
 .date-banner span {
   color: var(--gold);
-  font-size: 0.78rem;
+  font-size: 0.9rem;
   font-weight: 850;
   letter-spacing: 0.12em;
 }
@@ -1339,7 +1435,7 @@ tbody th {
 .phase-date {
   margin-bottom: 0.25rem;
   color: var(--cyan) !important;
-  font-size: 0.78rem;
+  font-size: 0.9rem;
   font-weight: 800;
 }
 
@@ -1612,7 +1708,7 @@ tbody th {
 .footer-note,
 .footer-meta {
   margin-bottom: 0;
-  font-size: 0.82rem;
+  font-size: 0.95rem;
 }
 
 .site-footer nav {
@@ -1622,7 +1718,7 @@ tbody th {
 }
 
 .site-footer nav a {
-  font-size: 0.84rem;
+  font-size: 0.95rem;
 }
 
 .footer-meta {
@@ -1678,6 +1774,10 @@ tbody th {
   .portal-grid,
   .rewards-grid {
     grid-template-columns: 1fr 1fr;
+  }
+
+  .home-sponsor-grid {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
   }
 
   .map-grid {
@@ -1753,6 +1853,28 @@ tbody th {
   .split-feature,
   .rewards-grid {
     grid-template-columns: 1fr;
+  }
+
+  .home-sponsor-heading {
+    display: block;
+  }
+
+  .home-sponsor-heading > a {
+    display: inline-block;
+    margin-top: 1rem;
+  }
+
+  .home-sponsor-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .home-sponsor-card {
+    min-height: 122px;
+  }
+
+  .home-sponsor-card img {
+    width: 64px;
+    height: 64px;
   }
 
   .map-grid .map-card:last-child {
