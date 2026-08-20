@@ -1,8 +1,159 @@
 {
   "schemaVersion": 1,
   "season": "dsl2",
-  "exportId": "dsl2-preseason-empty",
-  "standingsAsOf": null,
-  "publishedAt": null,
-  "entries": []
+  "exportId": "dsl1-preview-20250506-20250612",
+  "standingsAsOf": "2025-06-12T22:00:00+08:00",
+  "publishedAt": "2026-08-20T14:00:00+08:00",
+  "entries": [
+    {
+      "rank": 1,
+      "displayName": "lansoov",
+      "points": 1375,
+      "tier": "王者"
+    },
+    {
+      "rank": 2,
+      "displayName": "VGer_Whc",
+      "points": 911,
+      "tier": "星耀"
+    },
+    {
+      "rank": 3,
+      "displayName": "GGrush_Doudizhu",
+      "points": 819,
+      "tier": "星耀"
+    },
+    {
+      "rank": 4,
+      "displayName": "FFS-fly",
+      "points": 602,
+      "tier": "星耀"
+    },
+    {
+      "rank": 5,
+      "displayName": "FoR_TVSPZ",
+      "points": 539,
+      "tier": "星耀"
+    },
+    {
+      "rank": 6,
+      "displayName": "lxllll",
+      "points": 537,
+      "tier": "钻石"
+    },
+    {
+      "rank": 7,
+      "displayName": "Luckyy2023",
+      "points": 502,
+      "tier": "钻石"
+    },
+    {
+      "rank": 8,
+      "displayName": "mosuo",
+      "points": 478,
+      "tier": "钻石"
+    },
+    {
+      "rank": 9,
+      "displayName": "9527mog",
+      "points": 475,
+      "tier": "钻石"
+    },
+    {
+      "rank": 10,
+      "displayName": "feifeiht",
+      "points": 469,
+      "tier": "钻石"
+    },
+    {
+      "rank": 11,
+      "displayName": "FFS-Open-1",
+      "points": 445,
+      "tier": "钻石"
+    },
+    {
+      "rank": 12,
+      "displayName": "SC==G0D~",
+      "points": 436,
+      "tier": "钻石"
+    },
+    {
+      "rank": 13,
+      "displayName": "IKILllIII",
+      "points": 427,
+      "tier": "钻石"
+    },
+    {
+      "rank": 14,
+      "displayName": "nianqing",
+      "points": 427,
+      "tier": "钻石"
+    },
+    {
+      "rank": 15,
+      "displayName": "44ikljli",
+      "points": 379,
+      "tier": "钻石"
+    },
+    {
+      "rank": 16,
+      "displayName": "do''do",
+      "points": 325,
+      "tier": "铂金"
+    },
+    {
+      "rank": 17,
+      "displayName": "FFS-DBS",
+      "points": 322,
+      "tier": "铂金"
+    },
+    {
+      "rank": 18,
+      "displayName": "DDR[Pro]",
+      "points": 287,
+      "tier": "铂金"
+    },
+    {
+      "rank": 19,
+      "displayName": "tuyukoreasex",
+      "points": 274,
+      "tier": "铂金"
+    },
+    {
+      "rank": 20,
+      "displayName": "SupeRocK",
+      "points": 262,
+      "tier": "铂金"
+    },
+    {
+      "rank": 21,
+      "displayName": "TianW",
+      "points": 256,
+      "tier": "铂金"
+    },
+    {
+      "rank": 22,
+      "displayName": "FFS-no.1",
+      "points": 238,
+      "tier": "铂金"
+    },
+    {
+      "rank": 23,
+      "displayName": "CLOSE777",
+      "points": 216,
+      "tier": "铂金"
+    },
+    {
+      "rank": 24,
+      "displayName": "FF-GBLW",
+      "points": 156,
+      "tier": "铂金"
+    },
+    {
+      "rank": 25,
+      "displayName": "BangZiJi999",
+      "points": 150,
+      "tier": "铂金"
+    }
+  ]
 }
