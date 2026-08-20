@@ -97,10 +97,12 @@
 
 - 只读来源页面：`D:\MyGitHubWebsite\scdoudizhu\index.html`
 - 只读头像目录：`D:\MyGitHubWebsite\scdoudizhu\sponsor\profile`
+- 只读排序来源：`D:\MyGitHubWebsite\scdoudizhu\sponsor\details\donate_sort.csv`
 - 网站副本目录：`public/assets/sponsors/dsl1`
 - 复制日期：2026-08-20
 - 复制范围：DSL1 首页公开展示的 24 个赞助伙伴昵称及其对应头像。
-- 公开边界：新站只展示昵称和头像，不复制或发布金额、事项、备注、联系方式与赞助明细；名单按昵称字母顺序重新排列，不沿用旧页面可能体现贡献大小的顺序。
+- 公开边界：新站只展示昵称、头像、赞助等级与等级内顺序，不复制或发布金额、事项、备注、联系方式与赞助明细。
+- 展示规则：按上述 CSV 的赞助量顺序设置四档荣誉；DBS 为铂金赞助商，TianW、zhendeniu 为钻石赞助商，第 4—10 名为黄金赞助商，其余为白银赞助商。代码仅登记由此产生的顺序与档次，不保存 CSV 中的具体金额。
 - 完整性检查：24 张头像均逐文件核对 SHA-256，网站副本与只读来源文件一致；旧页面和旧头像目录保持原状。
 
 ## 尚未复制的资料

@@ -1,35 +1,54 @@
 ---
-import { dsl1Sponsors } from "../data/dsl1-sponsors";
+import { dsl1Sponsors, dsl1SponsorTiers } from "../data/dsl1-sponsors";
 ---
 
 <section class="section home-sponsor-tribute" aria-labelledby="dsl1-sponsors">
   <div class="container">
     <div class="home-sponsor-heading">
-      <div>
-        <p class="eyebrow">第一届赞助鸣谢</p>
-        <h2 id="dsl1-sponsors">感谢一路支持 DSL 的老板</h2>
-        <p>
-          第一届联赛离不开这些社区伙伴的支持。谨在此展示他们的昵称与头像，向每一份信任郑重致谢。
-        </p>
-      </div>
-      <a href="/rewards/">第二届赞助与答谢 →</a>
+      <p class="eyebrow">第一届 DSL 赞助鸣谢</p>
+      <h2 id="dsl1-sponsors">感谢一路支持 DSL 的老板</h2>
+      <p>
+        第一届联赛离不开各位老板们的支持。谨在此向每一份支持致以最真挚的感谢。
+      </p>
     </div>
 
-    <div class="home-sponsor-grid" aria-label="第一届 DSL 赞助伙伴名单">
+    <div class="home-sponsor-groups">
       {
-        dsl1Sponsors.map((sponsor) => (
-          <article class="home-sponsor-card">
-            <img
-              src={sponsor.avatar}
-              alt={`${sponsor.name} 的头像`}
-              width="72"
-              height="72"
-              loading="lazy"
-              decoding="async"
-            />
-            <strong>{sponsor.name}</strong>
-          </article>
-        ))
+        dsl1SponsorTiers.map((tier) => {
+          const sponsors = dsl1Sponsors.filter(
+            (sponsor) => sponsor.tier === tier.id,
+          );
+
+          return (
+            <section
+              class={`home-sponsor-tier home-sponsor-tier--${tier.id}`}
+              aria-labelledby={`dsl1-sponsor-tier-${tier.id}`}
+            >
+              <div class="home-sponsor-tier-heading">
+                <h3 id={`dsl1-sponsor-tier-${tier.id}`}>{tier.name}</h3>
+                <span>{tier.range}</span>
+              </div>
+              <div class="home-sponsor-grid">
+                {sponsors.map((sponsor) => (
+                  <article
+                    class="home-sponsor-card"
+                    data-sponsor-tier={sponsor.tier}
+                  >
+                    <img
+                      src={sponsor.avatar}
+                      alt={`${sponsor.name} 的头像`}
+                      width="104"
+                      height="104"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <strong>{sponsor.name}</strong>
+                  </article>
+                ))}
+              </div>
+            </section>
+          );
+        })
       }
     </div>
   </div>

@@ -137,24 +137,51 @@ test("页头使用包含三个种族花色的新图标与中文导航", async ({
   await expect(page.locator(".hero-signal")).toHaveCount(0);
 });
 
-test("首页以昵称字母顺序完整致谢第一届赞助伙伴", async ({ page, request }) => {
+test("首页按四档赞助荣誉完整致谢第一届赞助伙伴", async ({ page, request }) => {
   await page.goto("/");
   const tribute = page.locator(".home-sponsor-tribute");
   await expect(
     tribute.getByRole("heading", { name: "感谢一路支持 DSL 的老板" }),
   ).toBeVisible();
+  await expect(tribute.getByText("第一届 DSL 赞助鸣谢")).toBeVisible();
+  await expect(
+    tribute.getByText(
+      "第一届联赛离不开各位老板们的支持。谨在此向每一份支持致以最真挚的感谢。",
+    ),
+  ).toBeVisible();
+  await expect(tribute.getByRole("link")).toHaveCount(0);
   await expect(tribute.locator(".home-sponsor-card")).toHaveCount(24);
 
   const displayedNames = await tribute
     .locator(".home-sponsor-card strong")
     .allTextContents();
   expect(displayedNames).toEqual(dsl1Sponsors.map((sponsor) => sponsor.name));
-  expect(displayedNames).toEqual(
-    [...displayedNames].sort((left, right) =>
-      left.localeCompare(right, "en", { sensitivity: "base" }),
-    ),
-  );
+  expect(displayedNames.slice(0, 3)).toEqual(["DBS", "TianW", "zhendeniu"]);
   expect(new Set(displayedNames).size).toBe(24);
+
+  const expectedTierCounts = {
+    platinum: 1,
+    diamond: 2,
+    gold: 7,
+    silver: 14,
+  } as const;
+  for (const [tier, count] of Object.entries(expectedTierCounts)) {
+    await expect(tribute.locator(`[data-sponsor-tier="${tier}"]`)).toHaveCount(
+      count,
+    );
+  }
+  await expect(
+    tribute.getByRole("heading", { name: "铂金赞助商" }),
+  ).toBeVisible();
+  await expect(
+    tribute.getByRole("heading", { name: "钻石赞助商" }),
+  ).toBeVisible();
+  await expect(
+    tribute.getByRole("heading", { name: "黄金赞助商" }),
+  ).toBeVisible();
+  await expect(
+    tribute.getByRole("heading", { name: "白银赞助商" }),
+  ).toBeVisible();
 
   const tributeText = await tribute.innerText();
   expect(tributeText).not.toContain("金额");
