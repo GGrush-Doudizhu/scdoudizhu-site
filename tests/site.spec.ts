@@ -3,14 +3,26 @@ import { createHash } from "node:crypto";
 import { expect, test } from "@playwright/test";
 
 const pages = [
-  { path: "/", heading: "积分决定席位" },
-  { path: "/standings/", heading: "每一分都有出处" },
-  { path: "/schedule/", heading: "十周，四十个比赛日" },
-  { path: "/rules/", heading: "参加、贡献、累计" },
-  { path: "/playoffs/", heading: "两条赛道，同步决战" },
-  { path: "/announcements/", heading: "所有变化，都有明确记录" },
-  { path: "/rewards/", heading: "目标金额，不等于实收金额" },
-  { path: "/maps/", heading: "DSL2 当前比赛地图" },
+  { path: "/", heading: "斗地主星际联赛" },
+  { path: "/standings/", heading: "常规赛积分榜" },
+  { path: "/schedule/", heading: "第二届联赛赛程" },
+  { path: "/rules/", heading: "第二届比赛规则" },
+  { path: "/playoffs/", heading: "第二届季后赛" },
+  { path: "/announcements/", heading: "赛事新闻" },
+  { path: "/rewards/", heading: "奖励与赞助" },
+  { path: "/maps/", heading: "地图与下载" },
+];
+
+const forbiddenPublicCopy = [
+  "筹备中",
+  "未开始",
+  "待公布",
+  "待确认",
+  "不会替主办方",
+  "虚构成绩",
+  "赞助致谢需要重新确认",
+  "本页只提供 DSL2 文件",
+  "数据公开说明",
 ];
 
 const mapDownloads = [
@@ -25,7 +37,7 @@ const mapDownloads = [
 ];
 
 for (const currentPage of pages) {
-  test(`${currentPage.path} 提供完整静态页面结构`, async ({ page }) => {
+  test(`${currentPage.path} 提供面向参赛者的完整静态页面`, async ({ page }) => {
     const consoleErrors: string[] = [];
     page.on("console", (message) => {
       if (message.type() === "error") consoleErrors.push(message.text());
@@ -43,6 +55,11 @@ for (const currentPage of pages) {
       new RegExp(`${currentPage.path.replaceAll("/", "\\/")}$`),
     );
 
+    const publicText = await page.locator("body").innerText();
+    for (const forbidden of forbiddenPublicCopy) {
+      expect(publicText).not.toContain(forbidden);
+    }
+
     const overflow = await page.evaluate(() => ({
       body: document.body.scrollWidth - document.body.clientWidth,
       root:
@@ -55,10 +72,54 @@ for (const currentPage of pages) {
   });
 }
 
-test("积分榜保持真实空状态且没有虚构选手", async ({ page }) => {
+test("页头使用新的星际黑桃图标与中文导航", async ({ page }) => {
+  await page.goto("/");
+  await expect(page.locator(".brand-mark")).toHaveAttribute(
+    "src",
+    "/assets/dsl-spade-command.png",
+  );
+  const primaryNavigation = page.getByRole("navigation", { name: "主导航" });
+  await expect(
+    primaryNavigation.getByRole("link", { name: "常规赛积分榜" }),
+  ).toBeVisible();
+  await expect(
+    primaryNavigation.getByRole("link", { name: "新闻", exact: true }),
+  ).toBeVisible();
+  await expect(page.locator(".season-status")).toHaveCount(0);
+  await expect(page.locator(".hero-signal")).toHaveCount(0);
+});
+
+test("积分榜展示 DSL1 换算预览、前三名与完整前二十五名", async ({ page }) => {
   await page.goto("/standings/");
-  await expect(page.getByText("正式积分尚未发布")).toBeVisible();
-  await expect(page.locator(".standings-table tbody tr")).toHaveCount(0);
+  await expect(page.getByText("榜单效果预览")).toBeVisible();
+  await expect(page.locator(".podium-card")).toHaveCount(3);
+  await expect(page.locator(".standings-table tbody tr")).toHaveCount(25);
+  await expect(page.locator(".standings-table tbody tr").first()).toContainText(
+    "lansoov",
+  );
+  await expect(page.locator(".standings-table tbody tr").first()).toContainText(
+    "1,375",
+  );
+  await expect(page.getByText("胜率")).toHaveCount(0);
+});
+
+test("赛程明确开赛日期且不显示状态图例", async ({ page }) => {
+  await page.goto("/schedule/");
+  await expect(page.getByText("2026年8月24日", { exact: true })).toBeVisible();
+  await expect(page.getByText("第一周至第六周")).toBeVisible();
+  await expect(page.locator(".legend")).toHaveCount(0);
+});
+
+test("新闻中的赛事方案可直接阅读且奖金已经同步", async ({ request }) => {
+  const response = await request.get(
+    encodeURI("/news/第二届DSL斗地主星际联赛方案.html"),
+  );
+  expect(response.status()).toBe(200);
+  const html = await response.text();
+  expect(html).toContain("常规赛不设置现金奖金");
+  expect(html).toContain("1200 元");
+  expect(html).toContain("第四名 50 元");
+  expect(html).not.toContain("暂未建设完毕");
 });
 
 test("核心内容在禁用 JavaScript 时仍可阅读", async ({ browser }) => {
@@ -67,7 +128,7 @@ test("核心内容在禁用 JavaScript 时仍可阅读", async ({ browser }) => 
 
   await page.goto("http://127.0.0.1:4321/rules/");
   await expect(page.getByRole("heading", { level: 1 })).toContainText(
-    "参加、贡献、累计",
+    "第二届比赛规则",
   );
   await expect(page.getByText("地主", { exact: true }).first()).toBeVisible();
   await expect(page.getByText("主机", { exact: true }).first()).toBeVisible();

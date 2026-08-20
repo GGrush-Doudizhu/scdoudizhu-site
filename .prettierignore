@@ -3,6 +3,7 @@ dist/
 node_modules/
 docs/
 references/source-materials/
+public/news/*.html
 references/SOURCES.md
 AGENTS.md
 README.md
