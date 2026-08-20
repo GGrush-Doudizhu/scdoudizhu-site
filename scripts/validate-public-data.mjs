@@ -90,22 +90,22 @@ const standings = JSON.parse(rawText);
 
 assertExactKeys(standings, allowedRootKeys, "积分榜根对象");
 scanKeys(standings);
-assert(standings.schemaVersion === 1, "schemaVersion 必须为 1。 ");
-assert(standings.season === "dsl2", "season 必须为 dsl2。 ");
+assert(standings.schemaVersion === 1, "schemaVersion 必须为 1。");
+assert(standings.season === "dsl2", "season 必须为 dsl2。");
 assert(
   typeof standings.exportId === "string" && standings.exportId.trim(),
-  "exportId 不能为空。 ",
+  "exportId 不能为空。",
 );
-assert(Array.isArray(standings.entries), "entries 必须是数组。 ");
+assert(Array.isArray(standings.entries), "entries 必须是数组。");
 
 if (standings.entries.length > 0) {
   assert(
     typeof standings.standingsAsOf === "string",
-    "非空积分榜必须有 standingsAsOf。 ",
+    "非空积分榜必须有 standingsAsOf。",
   );
   assert(
     typeof standings.publishedAt === "string",
-    "非空积分榜必须有 publishedAt。 ",
+    "非空积分榜必须有 publishedAt。",
   );
 }
 

@@ -13,6 +13,9 @@
     "preview": "astro preview",
     "check": "astro check",
     "validate:data": "node scripts/validate-public-data.mjs",
+    "test:e2e": "pnpm run build && playwright test",
+    "serve:test": "node scripts/serve-dist.mjs 4321",
+    "capture": "node scripts/capture-preview.mjs",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "verify": "pnpm run validate:data && pnpm run check && pnpm run format:check && pnpm run build"
@@ -24,6 +27,7 @@
   },
   "devDependencies": {
     "@astrojs/check": "0.9.10",
+    "@playwright/test": "1.62.1",
     "prettier": "3.9.6",
     "prettier-plugin-astro": "0.14.1",
     "typescript": "5.9.3"
