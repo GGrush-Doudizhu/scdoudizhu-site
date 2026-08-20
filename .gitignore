@@ -2,6 +2,8 @@
 node_modules/
 dist/
 build/
+.astro/
+.pnpm-store/
 .cache/
 .parcel-cache/
 .next/

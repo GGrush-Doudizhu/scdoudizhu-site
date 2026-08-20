@@ -1,0 +1,9 @@
+.astro/
+dist/
+node_modules/
+docs/
+references/source-materials/
+references/SOURCES.md
+AGENTS.md
+README.md
+pnpm-lock.yaml
