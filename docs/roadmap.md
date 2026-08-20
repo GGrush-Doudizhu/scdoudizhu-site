@@ -78,7 +78,7 @@
 
 ## 阶段 6：部署与域名切换
 
-状态：待开始。
+状态：进行中。
 
 - 新建或确认目标 GitHub 仓库和公开权限。
 - 配置 GitHub Actions 与 GitHub Pages 预览。

@@ -44,6 +44,12 @@ $env:PLAYWRIGHT_EXECUTABLE_PATH = 'C:\Program Files (x86)\Microsoft\Edge\Applica
 pnpm test:e2e
 ```
 
+## 自动部署
+
+`main` 分支推送到 `GGrush-Doudizhu/scdoudizhu-site` 后，GitHub Actions 会按锁文件安装依赖，执行 `pnpm verify`，安装 Chromium，运行桌面与移动端浏览器验收，最后把 `dist` 发布到已经启用 HTTPS 的 `scdoudizhu.com`。任何校验或测试失败都会阻止部署。
+
+仓库保留 `public/CNAME`，确保静态构建产物持续声明正式域名。部署完成后需要在线复核首页、积分榜、规则、地图下载、404、HTTPS 与移动端布局。
+
 ## 已知只读资料源
 
 - 当前线上 DSL2 雏形：<https://scdoudizhu.com/>
