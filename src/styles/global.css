@@ -1038,36 +1038,78 @@ tbody th {
 [data-tier="王者"] {
   --tier-accent: #ffd56f;
   --tier-deep: #5c3b08;
+  --tier-shape: polygon(
+    50% 0,
+    82% 12%,
+    100% 44%,
+    84% 86%,
+    50% 100%,
+    16% 86%,
+    0 44%,
+    18% 12%
+  );
 }
 
 [data-tier="星耀"] {
   --tier-accent: #c78cff;
   --tier-deep: #4a2272;
+  --tier-shape: polygon(
+    50% 0,
+    61% 31%,
+    92% 17%,
+    69% 43%,
+    100% 50%,
+    69% 58%,
+    83% 91%,
+    57% 69%,
+    50% 100%,
+    42% 69%,
+    17% 91%,
+    31% 58%,
+    0 50%,
+    31% 43%,
+    8% 17%,
+    39% 31%
+  );
 }
 
 [data-tier="钻石"] {
   --tier-accent: #53d7f5;
   --tier-deep: #075575;
+  --tier-shape: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
 }
 
 [data-tier="铂金"] {
   --tier-accent: #d2edf3;
   --tier-deep: #506f7b;
+  --tier-shape: polygon(
+    25% 0,
+    75% 0,
+    100% 25%,
+    100% 75%,
+    75% 100%,
+    25% 100%,
+    0 75%,
+    0 25%
+  );
 }
 
 [data-tier="黄金"] {
   --tier-accent: #e5ad3d;
   --tier-deep: #67440d;
+  --tier-shape: polygon(50% 0, 100% 36%, 81% 100%, 19% 100%, 0 36%);
 }
 
 [data-tier="白银"] {
   --tier-accent: #9eb4c4;
   --tier-deep: #435462;
+  --tier-shape: circle(50% at 50% 50%);
 }
 
 [data-tier="青铜"] {
   --tier-accent: #c87848;
   --tier-deep: #64341f;
+  --tier-shape: polygon(50% 0, 100% 100%, 0 100%);
 }
 
 .tier-crest {
@@ -1086,7 +1128,7 @@ tbody th {
   flex: 0 0 auto;
   color: var(--tier-accent);
   background: linear-gradient(145deg, var(--tier-accent), var(--tier-deep));
-  clip-path: polygon(50% 0, 92% 22%, 84% 78%, 50% 100%, 16% 78%, 8% 22%);
+  clip-path: var(--tier-shape);
   filter: drop-shadow(
     0 0 7px color-mix(in srgb, var(--tier-accent) 48%, transparent)
   );
@@ -1358,8 +1400,8 @@ tbody th {
   list-style: none;
 }
 
-.prize-list--five {
-  grid-template-columns: repeat(5, 1fr);
+.prize-list--four {
+  grid-template-columns: repeat(4, 1fr);
 }
 
 .prize-list li {
@@ -1660,7 +1702,7 @@ tbody th {
     position: static;
   }
 
-  .prize-list--five {
+  .prize-list--four {
     grid-template-columns: repeat(3, 1fr);
   }
 
@@ -1814,7 +1856,7 @@ tbody th {
   }
 
   .prize-list,
-  .prize-list--five {
+  .prize-list--four {
     grid-template-columns: repeat(2, 1fr);
   }
 
