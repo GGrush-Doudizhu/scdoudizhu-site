@@ -1,6 +1,7 @@
 ---
 import PageHero from "../components/PageHero.astro";
 import StandingsTable from "../components/StandingsTable.astro";
+import TierCrest from "../components/TierCrest.astro";
 import { tiers } from "../data/season";
 import BaseLayout from "../layouts/BaseLayout.astro";
 ---
@@ -10,9 +11,8 @@ import BaseLayout from "../layouts/BaseLayout.astro";
   description="第二届 DSL 常规赛个人累计积分榜与荣誉段位。"
 >
   <PageHero
-    eyebrow="赛季荣誉中心"
     title="常规赛积分榜"
-    description="每次参赛与赛事贡献都会累积积分。向更高名次发起冲击，把自己的名字留在赛季荣誉榜上。"
+    description="每次参赛与赛事贡献都会累积积分。向更高名次发起冲击，把自己的名字留在赛季荣耀榜上。"
     image="/news/assets/sc-protoss-warrior.png"
   />
 
@@ -20,7 +20,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     <div class="container">
       <StandingsTable />
       <p class="privacy-line">
-        榜单只展示积分，不展示胜负，让每位玩家都能轻松参与、专注积累。
+        榜单只展示积分，不展示胜负，让每位玩家都能轻松参与
       </p>
     </div>
   </section>
@@ -40,18 +40,15 @@ import BaseLayout from "../layouts/BaseLayout.astro";
               <span class="tier-position">
                 {String(index + 1).padStart(2, "0")}
               </span>
-              <span class="tier-symbol" aria-hidden="true">
-                {tier.symbol}
-              </span>
+              <TierCrest tier={tier.name} large />
               <div>
-                <h3>{tier.name}</h3>
                 <p>{tier.range}</p>
               </div>
             </article>
           ))
         }
       </div>
-      <p class="tier-note">黄金及以上选手可进入 KK 战队联赛选拔范围。</p>
+      <p class="tier-note">原则上黄金及以上选手方能获得进入季后赛的资格</p>
     </div>
   </section>
 </BaseLayout>

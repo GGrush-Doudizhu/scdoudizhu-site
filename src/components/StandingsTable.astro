@@ -1,5 +1,6 @@
 ---
 import { publicStandings } from "../schemas/public-standings";
+import TierCrest from "./TierCrest.astro";
 
 interface Props {
   limit?: number;
@@ -46,16 +47,14 @@ const podiumOrder = [leaders[1], leaders[0], leaders[2]].filter(Boolean);
                   {entry.rank === 1 ? "王者" : `第 ${entry.rank} 名`}
                 </div>
                 <div class="podium-suit" aria-hidden="true">
-                  {entry.rank === 1 ? "♠" : entry.rank === 2 ? "♦" : "♣"}
+                  {entry.rank === 1 ? "♠" : entry.rank === 2 ? "♥" : "♣"}
                 </div>
                 <h2>{entry.displayName}</h2>
                 <p class="podium-points">
                   {entry.points.toLocaleString("zh-CN")}
                 </p>
                 <p class="podium-unit">累计积分</p>
-                <span class="tier-badge" data-tier={entry.tier}>
-                  {entry.tier}
-                </span>
+                <TierCrest tier={entry.tier} />
               </article>
             ))}
           </div>
@@ -65,7 +64,7 @@ const podiumOrder = [leaders[1], leaders[0], leaders[2]].filter(Boolean);
           <div class="preview-note">
             <strong>榜单效果预览</strong>
             <span>
-              第一届对局数据按第二届积分规则换算，不代表第二届正式成绩。
+              此榜单仅为预览效果，是第一届DSL数据按第二届积分规则换算，与第二届无关。
             </span>
           </div>
         )}
@@ -84,7 +83,7 @@ const podiumOrder = [leaders[1], leaders[0], leaders[2]].filter(Boolean);
             </thead>
             <tbody>
               {rows.map((entry) => (
-                <tr data-rank={entry.rank}>
+                <tr data-rank={entry.rank} data-tier={entry.tier}>
                   <td class="rank-cell">
                     <span>{entry.rank}</span>
                   </td>
@@ -93,9 +92,7 @@ const podiumOrder = [leaders[1], leaders[0], leaders[2]].filter(Boolean);
                     {entry.points.toLocaleString("zh-CN")}
                   </td>
                   <td>
-                    <span class="tier-badge" data-tier={entry.tier}>
-                      {entry.tier}
-                    </span>
+                    <TierCrest tier={entry.tier} />
                   </td>
                 </tr>
               ))}

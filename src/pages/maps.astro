@@ -2,46 +2,59 @@
 import PageHero from "../components/PageHero.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 
-const maps = [
+interface MapEntry {
+  name: string;
+  mode: string;
+  fileName?: string;
+  href?: string;
+}
+
+const maps: MapEntry[] = [
   {
     name: "斗地主重制版 c1.1",
     fileName: "斗地主重制版c1.1.scx",
-    mode: "比赛地图",
+    mode: "2v6经典老图重制",
+    href: encodeURI("/downloads/maps/斗地主重制版c1.1.scx"),
   },
   {
     name: "斗地主 3v5 5.6",
     fileName: "斗地主Doudizhu 5.6.scx",
     mode: "3v5 地图",
+    href: encodeURI("/downloads/maps/斗地主Doudizhu 5.6.scx"),
   },
-].map((map) => ({
-  ...map,
-  href: encodeURI(`/downloads/maps/${map.fileName}`),
-}));
+  {
+    name: "8R 比赛地图",
+    mode: "韩服 8R",
+  },
+];
 ---
 
 <BaseLayout title="地图与下载" description="第二届 DSL 比赛地图下载。">
   <PageHero
     eyebrow="比赛文件"
     title="地图与下载"
-    description="下载第二届斗地主星际联赛使用的比赛地图。"
+    description="下载第二届星际斗地主联赛使用的比赛地图。"
     image="/news/assets/sc-terran-fleet.png"
   />
 
   <section class="section">
-    <div class="container split-feature">
+    <div class="container map-grid">
       {
         maps.map((map) => (
           <article class="feature-card map-card">
             <p class="eyebrow">{map.mode}</p>
             <h2>{map.name}</h2>
-            <p>下载后在星际争霸中载入地图，即可进入对应模式。</p>
-            <a
-              class="button button--primary"
-              href={map.href}
-              download={map.fileName}
-            >
-              下载地图
-            </a>
+            {map.href && map.fileName ? (
+              <a
+                class="button button--primary"
+                href={map.href}
+                download={map.fileName}
+              >
+                下载地图
+              </a>
+            ) : (
+              <p class="map-status">地图缺，之后会补上</p>
+            )}
           </article>
         ))
       }

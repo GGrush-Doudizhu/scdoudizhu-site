@@ -1,9 +1,9 @@
 export const site = {
-  name: "斗地主星际联赛",
+  name: "星际斗地主联赛",
   shortName: "DSL",
   seasonName: "第二届",
   description:
-    "第二届 DSL 斗地主星际联赛官方网站：查看常规赛积分榜、赛程、比赛规则、季后赛与赛事新闻。",
+    "第二届 DSL 星际斗地主联赛官方网站：查看常规赛积分榜、赛程、比赛规则、季后赛与赛事新闻。",
   url: "https://scdoudizhu.com",
   locale: "zh-CN",
 } as const;

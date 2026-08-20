@@ -1,0 +1,28 @@
+---
+interface Props {
+  tier: string;
+  large?: boolean;
+}
+
+const { tier, large = false } = Astro.props;
+
+const tierMarks: Record<string, string> = {
+  王者: "♛",
+  星耀: "✦",
+  钻石: "◆",
+  铂金: "⬢",
+  黄金: "▲",
+  白银: "▲",
+  青铜: "▲",
+};
+---
+
+<span
+  class:list={["tier-crest", { "tier-crest--large": large }]}
+  data-tier={tier}
+>
+  <span class="tier-crest-icon" aria-hidden="true">
+    <span>{tierMarks[tier] ?? "◆"}</span>
+  </span>
+  <strong>{tier}</strong>
+</span>

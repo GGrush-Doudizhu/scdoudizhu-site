@@ -34,11 +34,11 @@ export const servicePoints = [
 ] as const;
 
 export const tiers = [
-  { name: "王者", range: "第 1 名", symbol: "♠" },
-  { name: "星耀", range: "第 2—5 名", symbol: "★" },
-  { name: "钻石", range: "第 6—15 名", symbol: "◆" },
-  { name: "铂金", range: "第 16—25 名", symbol: "♛" },
-  { name: "黄金", range: "赛季成长段位", symbol: "♦" },
-  { name: "白银", range: "赛季成长段位", symbol: "♣" },
-  { name: "青铜", range: "积分征程起点", symbol: "♥" },
+  { name: "王者", range: "第 1 名" },
+  { name: "星耀", range: "第 2—5 名" },
+  { name: "钻石", range: "第 6—15 名" },
+  { name: "铂金", range: "第 16—25 名" },
+  { name: "黄金", range: "赛季成长段位" },
+  { name: "白银", range: "赛季成长段位" },
+  { name: "青铜", range: "积分征程起点" },
 ] as const;

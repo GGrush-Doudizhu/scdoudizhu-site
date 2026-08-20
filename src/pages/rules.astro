@@ -17,43 +17,42 @@ import BaseLayout from "../layouts/BaseLayout.astro";
   />
 
   <section class="section">
-    <div class="container content-grid">
-      <article class="prose">
-        <p class="eyebrow">参赛方式</p>
-        <h2>无需提前报名，按时进入比赛房</h2>
-        <p>{season.registration}</p>
-        <p>
-          每周一、三、五、六的 {season.startTime}—{season.endTime} 进行比赛。KK 安排在周一、周五，韩服安排在周三、周六。
-        </p>
-
-        <h2>累计积分，鼓励持续参与</h2>
-        <p>
-          地主与农民按身份和对局结果获得积分，失利也有参与分。主机、主播和统计人员同样可获得赛事工作积分。
-        </p>
-
-        <h2>段位与季后赛资格</h2>
-        <p>
-          常规赛按照累计积分排名划分段位。黄金及以上选手可进入 KK
-          战队联赛选拔范围。
-        </p>
-      </article>
-
-      <aside class="panel side-panel">
-        <div class="panel-body">
-          <h3>规则摘要</h3>
-          <ul class="fact-list">
-            <li><span>开赛</span><strong>{season.startDate}</strong></li>
-            <li><span>常规赛</span><strong>6 周</strong></li>
-            <li><span>比赛日</span><strong>周一、三、五、六</strong></li>
-            <li>
-              <span>时段</span><strong
-                >{season.startTime}—{season.endTime}</strong
-              >
-            </li>
-            <li><span>报名</span><strong>无需预报名</strong></li>
-          </ul>
-        </div>
-      </aside>
+    <div class="container">
+      <div class="table-wrap rules-overview-wrap">
+        <table class="rules-overview">
+          <caption>常规赛基本规则</caption>
+          <tbody>
+            <tr><th scope="row">开赛日期</th><td>{season.startDate}</td></tr>
+            <tr><th scope="row">常规赛</th><td>共 6 周</td></tr>
+            <tr><th scope="row">比赛日期</th><td>每周一、三、五、六</td></tr>
+            <tr
+              ><th scope="row">比赛时段</th><td
+                >{season.startTime}—{season.endTime}</td
+              ></tr
+            >
+            <tr
+              ><th scope="row">平台安排</th><td
+                >KK：周一、周五；韩服：周三、周六</td
+              ></tr
+            >
+            <tr
+              ><th scope="row">报名方式</th><td
+                >无需提前报名，比赛时段进入比赛房即可参加</td
+              ></tr
+            >
+            <tr
+              ><th scope="row">积分方式</th><td
+                >参加对局或承担主机、主播、统计工作，均可累计个人积分</td
+              ></tr
+            >
+            <tr
+              ><th scope="row">季后赛资格</th><td
+                >原则上黄金及以上选手方能获得进入季后赛的资格</td
+              ></tr
+            >
+          </tbody>
+        </table>
+      </div>
     </div>
   </section>
 
