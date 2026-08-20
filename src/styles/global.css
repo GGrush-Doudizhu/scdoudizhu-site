@@ -747,12 +747,6 @@ h3 {
   content: "●";
 }
 
-.home-sponsor-tier-heading span {
-  order: 3;
-  color: #a9bec7;
-  font-size: 0.95rem;
-}
-
 .home-sponsor-grid {
   display: grid;
   grid-template-columns: repeat(7, minmax(0, 1fr));

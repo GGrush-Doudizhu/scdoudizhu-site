@@ -1,8 +1,8 @@
 export const dsl1SponsorTiers = [
-  { id: "platinum", name: "铂金赞助商", range: "第 1 名" },
-  { id: "diamond", name: "钻石赞助商", range: "第 2—3 名" },
-  { id: "gold", name: "黄金赞助商", range: "第 4—10 名" },
-  { id: "silver", name: "白银赞助商", range: "其余赞助老板" },
+  { id: "platinum", name: "铂金赞助商" },
+  { id: "diamond", name: "钻石赞助商" },
+  { id: "gold", name: "黄金赞助商" },
+  { id: "silver", name: "白银赞助商" },
 ] as const;
 
 export type Dsl1SponsorTier = (typeof dsl1SponsorTiers)[number]["id"];

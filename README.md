@@ -1,67 +1,29 @@
-# 星际斗地主 DSL 第二届官方网站
+# 星际斗地主联赛 DSL
 
-这是第二届 DSL 斗地主星际联赛官方网站的全新工作区。
+第二届星际斗地主联赛（Doudizhu Starcraft League）是面向星际争霸玩家的社区赛事。常规赛累计个人积分，无需提前报名，在比赛时段进入比赛房即可参加。
 
-本项目采用“另起炉灶”的方式建设，不直接修改第一届网站及其历史仓库。旧网站、旧仓库和旧数据只作为只读资料源；所有需要复用的内容都必须先复制到本仓库，并记录来源、用途和筛选理由。
+## 访问官网
 
-## 当前阶段
+**[scdoudizhu.com](https://scdoudizhu.com/)**
 
-旧系统审计、产品需求、源码/网站构建边界和公开网站第一版骨架已经完成。当前站点采用 Astro 7 静态生成与 TypeScript，从空项目实现，不复制旧站组件或排行榜逻辑。
+官网提供常规赛积分榜、赛程、比赛规则、季后赛信息、赛事新闻和比赛地图下载。
 
-已经具备：
+## 比赛安排
 
-- 首页、积分榜、赛程、规则、季后赛、通知、奖励与赞助、地图及 404 页面。
-- 只允许名次、公开显示名、累计总积分、段位和统计时间的公开数据契约。
-- 明确的无积分、无通知、日期待公布和地图版本待确认状态。
-- 数据越界扫描、类型检查、格式检查、静态构建和桌面/移动端浏览器验收。
-- favicon、Web App Manifest、robots、sitemap、canonical 和基础分享元数据。
+- 开赛日期：2026 年 8 月 24 日
+- 常规赛：6 周
+- 季后赛：4 周
+- 比赛时间：每周一、三、五、六的 20:00—22:00
+- 比赛平台：KK 与韩服
+- 报名方式：无需预报名，按时进入比赛房
 
-项目采用单一公开仓库。为了方便赛事开发，原始对局、解析结果、别名和复核资料以后可以保存在仓库的 `data-source/` 中；只有经过整理的数据才会进入 `src/` 或 `public/` 并出现在面向用户的网站。访问令牌、账号凭据和私钥仍不得提交。
+## 常用入口
 
-新站已于 2026-08-20 推送到公开仓库 `GGrush-Doudizhu/scdoudizhu-site`，并通过 GitHub Actions 部署到 `https://scdoudizhu.com/`。两张 DSL2 当前地图已经开放下载；正式积分和实际开赛日期尚未产生或公布，因此页面继续显示真实空状态和“待公布”，不使用虚构内容填充。
+- [常规赛积分榜](https://scdoudizhu.com/standings/)
+- [完整赛程](https://scdoudizhu.com/schedule/)
+- [比赛规则](https://scdoudizhu.com/rules/)
+- [季后赛](https://scdoudizhu.com/playoffs/)
+- [赛事新闻](https://scdoudizhu.com/announcements/)
+- [地图下载](https://scdoudizhu.com/maps/)
 
-实施路线见 `docs/roadmap.md`，未决赛事规则见 `docs/open-questions.md`。
-
-## 本地运行
-
-项目要求 Node.js 22.12 以上与 pnpm 11.19.0。
-
-```powershell
-pnpm install
-pnpm dev
-```
-
-执行公开数据校验、Astro 检查、格式检查和静态构建：
-
-```powershell
-pnpm verify
-```
-
-浏览器验收需要可用的 Chromium 浏览器。Windows 本机可显式指定 Edge：
-
-```powershell
-$env:PLAYWRIGHT_EXECUTABLE_PATH = 'C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe'
-pnpm test:e2e
-```
-
-## 自动部署
-
-`main` 分支推送到 `GGrush-Doudizhu/scdoudizhu-site` 后，GitHub Actions 会按锁文件安装依赖，执行 `pnpm verify`，安装 Chromium，运行桌面与移动端浏览器验收，最后把 `dist` 发布到已经启用 HTTPS 的 `scdoudizhu.com`。任何校验或测试失败都会阻止部署。
-
-仓库保留 `public/CNAME`，确保静态构建产物持续声明正式域名。部署完成后需要在线复核首页、积分榜、规则、地图下载、404、HTTPS 与移动端布局。
-
-## 已知只读资料源
-
-- 当前线上 DSL2 网站：<https://scdoudizhu.com/>
-- 网站解析数据实际位置：`E:\download from Edge\scdoudizhu.com_1787193537917.xlsx`
-- 第一届资料：`E:\DSL1`
-- 历史本地仓库：`D:\MyGitHubWebsite\ggrush-doudizhu.github.io`
-- 历史本地仓库：`D:\MyGitHubWebsite\scdoudizhu`
-- 第二届赛事资料：`F:\星际斗地主DSL联赛第二届`
-- 第二届赛事方案：`F:\星际斗地主DSL联赛第二届\docs\第二届DSL斗地主星际联赛方案.html`
-- 当前部署仓库及旧线上版本历史：`GGrush-Doudizhu/scdoudizhu-site`
-- GitHub 历史仓库：`GGrush-Doudizhu/scdoudizhu`
-
-## 版本管理原则
-
-本仓库中的所有有效修改都必须纳入 Git，并按逻辑阶段提交。提交信息使用清晰、详细的中文，说明修改内容、原因、影响范围以及必要的验证结果。每个阶段结束时必须保持工作树干净。
+网站积分榜只展示积分，不展示单局胜负，让每位玩家都能轻松参与。赛事安排如有调整，以赛事群内最新通知为准。

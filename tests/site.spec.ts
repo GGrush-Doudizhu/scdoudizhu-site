@@ -186,6 +186,8 @@ test("首页按四档赞助荣誉完整致谢第一届赞助伙伴", async ({ pa
   const tributeText = await tribute.innerText();
   expect(tributeText).not.toContain("金额");
   expect(tributeText).not.toContain("赞助明细");
+  expect(tributeText).not.toContain("其余赞助老板");
+  expect(tributeText).not.toMatch(/第\s*\d/u);
   expect(tributeText).not.toMatch(/\d+(?:\.\d+)?\s*元/u);
 
   for (const sponsor of dsl1Sponsors) {
