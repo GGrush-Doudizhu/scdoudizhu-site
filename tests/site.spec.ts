@@ -1,3 +1,5 @@
+import { createHash } from "node:crypto";
+
 import { expect, test } from "@playwright/test";
 
 const pages = [
@@ -8,7 +10,18 @@ const pages = [
   { path: "/playoffs/", heading: "两条赛道，同步决战" },
   { path: "/announcements/", heading: "所有变化，都有明确记录" },
   { path: "/rewards/", heading: "目标金额，不等于实收金额" },
-  { path: "/maps/", heading: "只发布确认过的正式版本" },
+  { path: "/maps/", heading: "DSL2 当前比赛地图" },
+];
+
+const mapDownloads = [
+  {
+    path: encodeURI("/downloads/maps/斗地主Doudizhu 5.6.scx"),
+    sha256: "C1BD89DFC739E71902381756244BB34F0DABE5F0BAF8CCA1A3B014B08601A887",
+  },
+  {
+    path: encodeURI("/downloads/maps/斗地主重制版c1.1.scx"),
+    sha256: "617BECFFFD9A72911388F0E1C89D6B33C4015A324ED3187423F5CC3BA8E4BD7A",
+  },
 ];
 
 for (const currentPage of pages) {
@@ -75,6 +88,17 @@ test("robots 与 sitemap 可被搜索引擎读取", async ({ request }) => {
     "https://scdoudizhu.com/sitemap-0.xml",
   );
 });
+
+for (const map of mapDownloads) {
+  test(`${map.path} 提供完整地图文件`, async ({ request }) => {
+    const response = await request.get(map.path);
+    expect(response.status()).toBe(200);
+    const body = await response.body();
+    expect(createHash("sha256").update(body).digest("hex").toUpperCase()).toBe(
+      map.sha256,
+    );
+  });
+}
 
 test("未知路径返回自定义 404 页面", async ({ page }) => {
   const response = await page.goto("/this-page-does-not-exist/");

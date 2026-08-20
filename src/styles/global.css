@@ -1150,6 +1150,64 @@ tbody th {
   color: var(--text);
 }
 
+.map-card {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+}
+
+.map-details {
+  display: grid;
+  margin: 1.5rem 0;
+  gap: 0.65rem;
+}
+
+.map-details div {
+  display: grid;
+  padding-top: 0.65rem;
+  border-top: 1px solid var(--line);
+  grid-template-columns: 7rem minmax(0, 1fr);
+  gap: 1rem;
+}
+
+.map-details dt {
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+.map-details dd {
+  min-width: 0;
+  margin: 0;
+  font-weight: 750;
+  overflow-wrap: anywhere;
+}
+
+.file-hash {
+  margin-bottom: 1.4rem;
+}
+
+.file-hash strong,
+.file-hash code {
+  display: block;
+}
+
+.file-hash strong {
+  margin-bottom: 0.35rem;
+  font-size: 0.82rem;
+}
+
+.file-hash code {
+  color: var(--cyan);
+  font-size: 0.72rem;
+  line-height: 1.55;
+  overflow-wrap: anywhere;
+}
+
+.map-card .button {
+  align-self: flex-start;
+  margin-top: auto;
+}
+
 .prize-list {
   display: grid;
   margin: 1.4rem 0 0;

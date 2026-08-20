@@ -1,6 +1,28 @@
 ---
 import PageHero from "../components/PageHero.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
+
+const maps = [
+  {
+    name: "斗地主重制版 c1.1",
+    fileName: "斗地主重制版c1.1.scx",
+    mode: "适用模式待确认",
+    size: "256,878 字节",
+    sourceUpdatedAt: "2026-08-19 16:48",
+    sha256: "617BECFFFD9A72911388F0E1C89D6B33C4015A324ED3187423F5CC3BA8E4BD7A",
+  },
+  {
+    name: "斗地主 3v5 5.6",
+    fileName: "斗地主Doudizhu 5.6.scx",
+    mode: "3v5",
+    size: "255,674 字节",
+    sourceUpdatedAt: "2026-08-19 17:04",
+    sha256: "C1BD89DFC739E71902381756244BB34F0DABE5F0BAF8CCA1A3B014B08601A887",
+  },
+].map((map) => ({
+  ...map,
+  href: encodeURI(`/downloads/maps/${map.fileName}`),
+}));
 ---
 
 <BaseLayout
@@ -9,25 +31,61 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 >
   <PageHero
     eyebrow="MAPS"
-    title="只发布确认过的正式版本"
-    description="地图页将提供当前推荐版本、发布日期、适用赛事、SHA-256 与更新说明。正式文件确认前不开放下载。"
+    title="DSL2 当前比赛地图"
+    description="两份地图均直接复制自第二届 DSL 资料目录，并提供原始文件名、大小与 SHA-256，下载后可自行核对。"
   />
 
   <section class="section">
     <div class="container">
-      <div class="empty-state panel">
-        <span class="empty-orbit" aria-hidden="true"></span>
-        <p class="empty-title">DSL2 正式地图版本待确认</p>
-        <p>
-          新方案目录中已有 c1.1 与 5.6 两份候选文件，其中 5.6 的更新说明标注为
-          3v5；c1.1 的适用模式以及两份文件的正式发布状态仍待确认。 DSL1 旧站的
-          4.47 与当前线上原型的 1.70 也不会被自动沿用。
-        </p>
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">CURRENT FILES</p>
+          <h2>第二届资料目录中的当前版本</h2>
+        </div>
+        <p>本页只提供 DSL2 文件，不移植 DSL1 地图或当前旧版网站的历史下载。</p>
       </div>
+
+      <div class="split-feature">
+        {
+          maps.map((map) => (
+            <article class="feature-card map-card">
+              <p class="eyebrow">{map.mode}</p>
+              <h2>{map.name}</h2>
+              <dl class="map-details">
+                <div>
+                  <dt>文件名</dt>
+                  <dd>{map.fileName}</dd>
+                </div>
+                <div>
+                  <dt>文件大小</dt>
+                  <dd>{map.size}</dd>
+                </div>
+                <div>
+                  <dt>源文件时间</dt>
+                  <dd>{map.sourceUpdatedAt}</dd>
+                </div>
+              </dl>
+              <p class="file-hash">
+                <strong>SHA-256</strong>
+                <code>{map.sha256}</code>
+              </p>
+              <a
+                class="button button--primary"
+                href={map.href}
+                download={map.fileName}
+              >
+                下载 {map.fileName}
+              </a>
+            </article>
+          ))
+        }
+      </div>
+
       <div class="callout" style="margin-top: 1rem;">
         <p>
-          <strong>下载安全：</strong>正式文件发布时将同时提供文件大小与
-          SHA-256，便于参赛者核对完整性。
+          <strong>关于 c1.1：</strong
+          >现有最终方案没有明确写出它对应的比赛模式，因此网站先如实标为“适用模式待确认”，但文件本身可以正常下载。5.6
+          的同目录更新说明明确标注为 3v5。
         </p>
       </div>
     </div>
