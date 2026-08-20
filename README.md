@@ -18,7 +18,7 @@
 
 项目采用单一公开仓库。为了方便赛事开发，原始对局、解析结果、别名和复核资料以后可以保存在仓库的 `data-source/` 中；只有经过整理的数据才会进入 `src/` 或 `public/` 并出现在面向用户的网站。访问令牌、账号凭据和私钥仍不得提交。
 
-当前尚未设置 GitHub 远端、自动部署或 `scdoudizhu.com` 切换。现有线上站保持不变。正式积分、实际赛程和地图下载也不会在主办方确认前发布。
+新站已于 2026-08-20 推送到公开仓库 `GGrush-Doudizhu/scdoudizhu-site`，并通过 GitHub Actions 部署到 `https://scdoudizhu.com/`。两张 DSL2 当前地图已经开放下载；正式积分和实际开赛日期尚未产生或公布，因此页面继续显示真实空状态和“待公布”，不使用虚构内容填充。
 
 实施路线见 `docs/roadmap.md`，未决赛事规则见 `docs/open-questions.md`。
 
@@ -52,14 +52,14 @@ pnpm test:e2e
 
 ## 已知只读资料源
 
-- 当前线上 DSL2 雏形：<https://scdoudizhu.com/>
+- 当前线上 DSL2 网站：<https://scdoudizhu.com/>
 - 网站解析数据实际位置：`E:\download from Edge\scdoudizhu.com_1787193537917.xlsx`
 - 第一届资料：`E:\DSL1`
 - 历史本地仓库：`D:\MyGitHubWebsite\ggrush-doudizhu.github.io`
 - 历史本地仓库：`D:\MyGitHubWebsite\scdoudizhu`
 - 第二届赛事资料：`F:\星际斗地主DSL联赛第二届`
 - 第二届赛事方案：`F:\星际斗地主DSL联赛第二届\docs\第二届DSL斗地主星际联赛方案.html`
-- GitHub 历史仓库：`GGrush-Doudizhu/scdoudizhu-site`
+- 当前部署仓库及旧线上版本历史：`GGrush-Doudizhu/scdoudizhu-site`
 - GitHub 历史仓库：`GGrush-Doudizhu/scdoudizhu`
 
 ## 版本管理原则
