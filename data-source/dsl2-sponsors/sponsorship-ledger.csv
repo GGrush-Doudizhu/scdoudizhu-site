@@ -1,0 +1,6 @@
+transaction_id,sponsor_name,amount_cny,currency,purpose,status,received_date,recorded_date,public_tier,public_display
+DSL2-SPONSOR-0001,DBS,200.00,CNY,专用于网站域名续费,已收到,,2026-08-24,铂金赞助商,是
+DSL2-SPONSOR-0002,WoShiLaoCaiNiao,1000.00,CNY,"专用于老鸟杯，DSL预热",已收到,,2026-08-24,钻石赞助商,是
+DSL2-SPONSOR-0003,DBS,1500.00,CNY,用于DSL,已收到,,2026-08-24,铂金赞助商,是
+DSL2-SPONSOR-0004,Fly,500.00,CNY,用于DSL,已收到,,2026-08-24,黄金赞助商,是
+DSL2-SPONSOR-0005,KaKaRu,18.88,CNY,用于作者辛苦费,已收到,,2026-08-24,白银赞助商,是

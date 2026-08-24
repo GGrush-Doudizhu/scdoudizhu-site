@@ -270,33 +270,60 @@ test("首页鸣谢第二届首批赞助老板并继续邀请众筹", async ({ pa
   await expect(
     tribute.getByText("当前支持尚未达到赛事目标", { exact: false }),
   ).toBeVisible();
+  await expect(
+    tribute.getByText("感谢四位老板率先支持", { exact: false }),
+  ).toBeVisible();
   await expect(tribute.locator('[data-sponsor-tier="platinum"]')).toContainText(
     "DBS",
   );
   await expect(tribute.locator('[data-sponsor-tier="diamond"]')).toContainText(
     "WoShiLaoCaiNiao",
   );
+  await expect(tribute.locator('[data-sponsor-tier="gold"]')).toContainText(
+    "Fly",
+  );
+  await expect(tribute.locator('[data-sponsor-tier="silver"]')).toContainText(
+    "KaKaRu",
+  );
+  await expect(tribute.locator(".home-sponsor-card")).toHaveCount(4);
 
-  const diamondGrid = tribute
-    .locator(".home-sponsor-tier--diamond .home-sponsor-grid")
-    .first();
-  const diamondCard = diamondGrid.locator(".home-sponsor-card").first();
-  const [gridBox, cardBox] = await Promise.all([
-    diamondGrid.boundingBox(),
-    diamondCard.boundingBox(),
-  ]);
-  expect(gridBox).not.toBeNull();
-  expect(cardBox).not.toBeNull();
-  expect(
-    Math.abs(
-      cardBox!.x + cardBox!.width / 2 - (gridBox!.x + gridBox!.width / 2),
-    ),
-  ).toBeLessThanOrEqual(1);
+  const displayedNames = await tribute
+    .locator(".home-sponsor-card strong")
+    .allTextContents();
+  expect(displayedNames).toEqual(["DBS", "WoShiLaoCaiNiao", "Fly", "KaKaRu"]);
+
+  for (const tier of ["diamond", "gold", "silver"]) {
+    const sponsorGrid = tribute
+      .locator(`.home-sponsor-tier--${tier} .home-sponsor-grid`)
+      .first();
+    const sponsorCard = sponsorGrid.locator(".home-sponsor-card").first();
+    const [gridBox, cardBox] = await Promise.all([
+      sponsorGrid.boundingBox(),
+      sponsorCard.boundingBox(),
+    ]);
+    expect(gridBox).not.toBeNull();
+    expect(cardBox).not.toBeNull();
+    expect(
+      Math.abs(
+        cardBox!.x + cardBox!.width / 2 - (gridBox!.x + gridBox!.width / 2),
+      ),
+    ).toBeLessThanOrEqual(1);
+  }
 
   const tributeText = await tribute.innerText();
   expect(tributeText).not.toMatch(/\d+(?:\.\d+)?\s*元/u);
-  expect(tributeText).not.toContain("1700");
-  expect(tributeText).not.toContain("1000");
+  for (const privateDetail of [
+    "200",
+    "1000",
+    "1500",
+    "500",
+    "18.88",
+    "域名续费",
+    "老鸟杯",
+    "作者辛苦费",
+  ]) {
+    expect(tributeText).not.toContain(privateDetail);
+  }
 
   for (const sponsor of dsl2Sponsors) {
     const avatar = await request.get(sponsor.avatar);
@@ -348,6 +375,26 @@ test("奖励页合并韩服并列奖金并显示最新赞助答谢说明", async
   await expect(
     page.getByText("钻石赞助商 WoShiLaoCaiNiao", { exact: false }),
   ).toBeVisible();
+  await expect(
+    page.getByText("黄金赞助商 Fly", { exact: false }),
+  ).toBeVisible();
+  await expect(
+    page.getByText("白银赞助商 KaKaRu", { exact: false }),
+  ).toBeVisible();
+
+  const publicSponsorText = await page.locator(".sponsor-tribute").innerText();
+  for (const privateDetail of [
+    "200",
+    "1000",
+    "1500",
+    "500",
+    "18.88",
+    "域名续费",
+    "老鸟杯",
+    "作者辛苦费",
+  ]) {
+    expect(publicSponsorText).not.toContain(privateDetail);
+  }
 
   const koreanReward = page.locator(".reward-card").nth(2);
   await expect(koreanReward.locator(".reward-split li")).toHaveCount(4);

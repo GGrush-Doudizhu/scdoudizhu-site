@@ -788,6 +788,14 @@ h3 {
   justify-self: center;
 }
 
+.home-sponsor-tier--gold .home-sponsor-card:only-child,
+.home-sponsor-tier--silver .home-sponsor-card:only-child {
+  width: 100%;
+  max-width: 180px;
+  grid-column: 1 / -1;
+  justify-self: center;
+}
+
 .home-sponsor-card {
   display: flex;
   min-width: 0;
