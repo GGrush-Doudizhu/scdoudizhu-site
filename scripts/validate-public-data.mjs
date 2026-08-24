@@ -134,10 +134,7 @@ standings.entries.forEach((entry, index) => {
     !/[\u0000-\u001f\u007f]/u.test(entry.displayName),
     `${location}.displayName 含控制字符。`,
   );
-  assert(
-    Number.isInteger(entry.points) && entry.points >= 0,
-    `${location}.points 必须是非负整数。`,
-  );
+  assert(Number.isInteger(entry.points), `${location}.points 必须是整数。`);
   assert(allowedTiers.has(entry.tier), `${location}.tier 不是允许的段位。`);
 
   const normalizedName = entry.displayName.trim().toLocaleLowerCase("zh-CN");

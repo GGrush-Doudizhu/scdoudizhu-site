@@ -9,9 +9,9 @@
   "theme_color": "#07151b",
   "icons": [
     {
-      "src": "/assets/dsl-three-races-suits.png",
-      "sizes": "1536x1536",
-      "type": "image/png"
+      "src": "/assets/dsl-three-races-suits-512.webp",
+      "sizes": "512x512",
+      "type": "image/webp"
     }
   ]
 }

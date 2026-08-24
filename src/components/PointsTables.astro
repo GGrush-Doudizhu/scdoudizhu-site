@@ -1,5 +1,5 @@
 ---
-import { matchPoints, servicePoints } from "../data/season";
+import { bonusPoints, matchPoints } from "../data/season";
 ---
 
 <div class="points-grid">
@@ -34,24 +34,27 @@ import { matchPoints, servicePoints } from "../data/season";
 
   <section class="panel">
     <div class="panel-heading">
-      <p class="eyebrow">赛事工作</p>
-      <h2>成为赛事志愿者加分更多</h2>
+      <p class="eyebrow">额外积分</p>
+      <h2>直播与赛事志愿工作</h2>
     </div>
     <div class="table-wrap">
       <table>
         <thead>
           <tr>
-            <th scope="col">职责</th>
+            <th scope="col">方式 / 职责</th>
             <th scope="col" class="numeric">积分</th>
             <th scope="col">说明</th>
           </tr>
         </thead>
         <tbody>
           {
-            servicePoints.map((item) => (
+            bonusPoints.map((item) => (
               <tr>
                 <th scope="row">{item.role}</th>
-                <td class="numeric points-value">+{item.points}</td>
+                <td class="numeric points-value">
+                  +{item.points}
+                  <small> / {item.unit}</small>
+                </td>
                 <td>{item.note}</td>
               </tr>
             ))

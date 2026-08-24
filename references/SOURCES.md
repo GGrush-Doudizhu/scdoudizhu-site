@@ -11,37 +11,39 @@
 - SHA-256：`AF4A928B55819C5C627CB90ABFED00A8FC0529D89908FCABDD2C5301021B45C5`
 - 复制日期：2026-08-20
 - 用途：作为 DSL2 赛制、积分规则、赛程结构、季后赛安排和网站内容需求的首要依据。
-- 完整性检查：初始副本与源文件的 SHA-256 一致。2026-08-20 按主办方最新决定，只在仓库副本中取消常规赛现金奖金、更新两项季后赛奖金与预算；随后将网站维护与赛事组织目标调整为 500 元、众筹目标总额调整为 2800 元，并明确最终执行以实际众筹情况为准。源文件始终保持原状。
+- 完整性检查：初始副本与源文件的 SHA-256 一致。2026-08-20 按主办方最新决定，只在仓库副本中取消常规赛现金奖金、更新两项季后赛奖金与预算；随后将网站维护与赛事组织目标调整为 500 元、众筹目标总额调整为 2800 元，并明确最终执行以实际众筹情况为准。2026-08-24 又将开播加分改为每盘 2 分，并增加掉线扣分与周内禁赛规则。源文件始终保持原状。
 - 网站新闻副本：`public/news/dsl2-league-plan.html`，由修订后的仓库副本生成；公开 URL 使用纯英文路径，避免中文百分号编码导致链接过长。
 
 ## 第二届方案配套视觉素材
 
 - 源目录：`F:\星际斗地主DSL联赛第二届\docs\assets`
 - 网站副本：`public/news/assets`
-- 文件：`sc-terran-fleet.png`、`sc-protoss-carrier.png`、`sc-protoss-warrior.png`、`sc-cosmic-rift.png`、`sc-zerg-swarm.png`
+- 初始复制文件：`sc-terran-fleet.png`、`sc-protoss-carrier.png`、`sc-protoss-warrior.png`、`sc-cosmic-rift.png`、`sc-zerg-swarm.png`
+- 当前网站文件：五张源图分别生成同名 `.avif` 与 `.webp` 文件；页面优先加载 AVIF，并为不支持 AVIF 的浏览器提供 WebP 回退。
 - 复制日期：2026-08-20
 - 用途：恢复赛事方案 HTML 的完整视觉效果，并作为新站首页、积分榜与赛事页面的统一星际主题背景。
-- 完整性检查：五份网站副本与源文件逐字节一致；源目录保持原状。
+- 完整性检查：五份初始网站副本与源文件逐字节一致；2026-08-24 在新仓库内缩放至最长边不超过 1600 像素并压缩，确认十份衍生图均可读取后，删除公开目录中的大体积 PNG。源目录保持原状，初始副本仍可从 Git 历史恢复。
 
 ## 新站原创图标
 
-- 第一版副本：`public/assets/dsl-spade-command.png`
-- 当前副本：`public/assets/dsl-three-races-suits.png`
+- 第一版副本：`public/assets/dsl-spade-command.png`（已停止使用并从当前公开目录移除，可从 Git 历史恢复）
+- 当前网站文件：`public/assets/dsl-three-races-suits.webp` 与 `public/assets/dsl-three-races-suits-512.webp`
 - 生成日期：2026-08-20
-- 生成方式：OpenAI ImageGen，全新生成透明 PNG。
+- 生成方式：OpenAI ImageGen 全新生成透明 PNG；2026-08-24 在新仓库内生成 256 与 512 像素透明 WebP，确认衍生图后移除公开 PNG。
 - 用途：网站品牌图标与浏览器图标。当前版本由三枚花色组成：黑桃对应 Protoss 风格的灵能装甲，红桃对应 Zerg 风格的有机甲壳，梅花对应 Terran 风格的机械装甲。
 - 约束：三个种族视觉权重一致；无文字、无现有游戏商标或阵营标志、透明背景，适合小尺寸识别。
 
 ## 首页积分榜入口壁纸
 
 - 源文件：`E:\Documents\WeChat Files\wxid_enex9tvecgnu22\FileStorage\File\2023-04\SC高清壁纸\4.png`
-- 网站副本：`public/assets/protoss-wallpaper-4.png`
+- 初始网站副本：`public/assets/protoss-wallpaper-4.png`
+- 当前网站文件：`public/assets/protoss-wallpaper-4.avif` 与 `public/assets/protoss-wallpaper-4.webp`
 - 源文件最后修改时间：2023-03-31 22:16:44（本机时间）
 - 文件大小：2,841,267 字节
 - SHA-256：`4CE3E0AC6CA59EC095ED60ACD27DDB2B0D90CBFE64EB564A1E5DA4972C4B8A63`
 - 复制日期：2026-08-20
 - 用途：首页常规赛积分榜入口卡片背景。
-- 完整性检查：网站副本与用户指定的源文件逐字节一致；源文件保持原状。
+- 完整性检查：初始网站副本与用户指定的源文件逐字节一致；2026-08-24 在新仓库内生成 AVIF 与 WebP 并确认可读取后移除公开 PNG。源文件保持原状，初始副本可从 Git 历史恢复。
 
 ## `scdoudizhu.com` DNS 记录导出
 
@@ -103,7 +105,16 @@
 - 复制范围：DSL1 首页公开展示的 24 个赞助伙伴昵称及其对应头像。
 - 公开边界：新站只展示昵称、头像、赞助等级与等级内顺序，不复制或发布金额、事项、备注、联系方式与赞助明细。
 - 展示规则：按上述 CSV 的赞助量顺序设置四档荣誉；DBS 为铂金赞助商，TianW、zhendeniu 为钻石赞助商，第 4—10 名为黄金赞助商，其余为白银赞助商。代码仅登记由此产生的顺序与档次，不保存 CSV 中的具体金额。
-- 完整性检查：24 张头像均逐文件核对 SHA-256，网站副本与只读来源文件一致；旧页面和旧头像目录保持原状。
+- 完整性检查：24 张初始头像均逐文件核对 SHA-256，网站副本与只读来源文件一致；2026-08-24 在新仓库内统一裁切为 192×192 WebP，确认衍生图后移除公开 JPG。旧页面和旧头像目录保持原状，初始副本可从 Git 历史恢复。
+
+## 第二届赞助伙伴头像
+
+- 用户放置目录：`D:\scdoudizhu-dsl2\public\assets\sponsors\dsl2`
+- 当前网站目录：`public/assets/sponsors/dsl2`
+- 加入日期：2026-08-24
+- 当前公开范围：铂金赞助商 DBS、钻石赞助商 WoShiLaoCaiNiao 的昵称、头像与赞助等级。
+- 公开边界：赞助金额仅用于主办方确认赞助等级，不在网站组件、公开数据文件或页面文案中保存和展示。
+- 图片处理：用户提供的 DBS JPG 与 WoShiLaoCaiNiao PNG 均在新仓库内统一生成 192×192 WebP，确认衍生图后移除公开目录中的原格式文件。
 
 ## 尚未复制的资料
 

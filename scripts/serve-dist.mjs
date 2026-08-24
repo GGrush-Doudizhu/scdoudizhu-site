@@ -11,6 +11,7 @@ const distRoot = path.join(projectRoot, "dist");
 const port = Number.parseInt(process.argv[2] ?? "4321", 10);
 
 const contentTypes = new Map([
+  [".avif", "image/avif"],
   [".css", "text/css; charset=utf-8"],
   [".html", "text/html; charset=utf-8"],
   [".jpeg", "image/jpeg"],
@@ -20,6 +21,7 @@ const contentTypes = new Map([
   [".svg", "image/svg+xml"],
   [".txt", "text/plain; charset=utf-8"],
   [".webmanifest", "application/manifest+json; charset=utf-8"],
+  [".webp", "image/webp"],
   [".xml", "application/xml; charset=utf-8"],
 ]);
 

@@ -27,10 +27,25 @@ export const matchPoints = [
   { role: "农民", result: "失利", points: 2 },
 ] as const;
 
-export const servicePoints = [
-  { role: "主机", points: 30, note: "负责当晚比赛房，可同时参赛" },
-  { role: "主播", points: 30, note: "常规赛不强制安排" },
-  { role: "统计", points: 20, note: "按模板录入当晚赛果" },
+export const bonusPoints = [
+  {
+    role: "开播参赛",
+    points: 2,
+    unit: "每盘",
+    note: "当盘开播，无论胜负均额外加分",
+  },
+  {
+    role: "主机",
+    points: 30,
+    unit: "每晚",
+    note: "负责当晚比赛房，可同时参赛",
+  },
+  {
+    role: "统计",
+    points: 20,
+    unit: "每晚",
+    note: "按模板录入当晚赛果",
+  },
 ] as const;
 
 export const tiers = [

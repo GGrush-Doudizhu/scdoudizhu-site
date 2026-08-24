@@ -12,8 +12,8 @@ import BaseLayout from "../layouts/BaseLayout.astro";
   <PageHero
     eyebrow="参赛与计分"
     title="第二届比赛规则"
-    description="常规赛采用个人累计积分制。参加对局或承担赛事工作，都能获得对应积分。"
-    image="/news/assets/sc-zerg-swarm.png"
+    description="常规赛采用个人累计积分制。参加对局、开播参赛或承担赛事工作，都能获得对应积分。"
+    image="/news/assets/sc-zerg-swarm"
   />
 
   <section class="section">
@@ -42,7 +42,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
             >
             <tr
               ><th scope="row">积分方式</th><td
-                >参加对局或承担主机、主播、统计工作，均可累计个人积分</td
+                >参加对局、开播参赛或承担主机、统计工作，均可累计个人积分</td
               ></tr
             >
             <tr
@@ -65,6 +65,21 @@ import BaseLayout from "../layouts/BaseLayout.astro";
         </div>
       </div>
       <PointsTables />
+      <article class="disconnect-rule" aria-labelledby="disconnect-rule-title">
+        <div>
+          <p class="eyebrow">异常处理</p>
+          <h2 id="disconnect-rule-title">掉线判罚规则</h2>
+        </div>
+        <ul>
+          <li>发生掉线时，掉线方无条件判负。</li>
+          <li>掉线者扣除 30 点积分，积分允许扣至负数。</li>
+          <li>其余 7 名玩家仍按照本盘正常胜负结算积分。</li>
+          <li>
+            同一周内累计超过 2 次掉线，即第 3
+            次掉线后，本周禁止再次参赛；下周恢复参赛资格。
+          </li>
+        </ul>
+      </article>
       <p class="privacy-line">
         公开积分榜只展示累计积分与段位，不展示个人胜负记录。
       </p>

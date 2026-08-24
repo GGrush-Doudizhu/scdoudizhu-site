@@ -3,6 +3,7 @@ import { createHash } from "node:crypto";
 import { expect, test } from "@playwright/test";
 
 import { dsl1Sponsors } from "../src/data/dsl1-sponsors";
+import { dsl2Sponsors } from "../src/data/dsl2-sponsors";
 
 const pages = [
   { path: "/", heading: "星际斗地主联赛" },
@@ -124,7 +125,7 @@ test("页头使用包含三个种族花色的新图标与中文导航", async ({
   await page.goto("/");
   await expect(page.locator(".brand-mark")).toHaveAttribute(
     "src",
-    "/assets/dsl-three-races-suits.png",
+    "/assets/dsl-three-races-suits.webp",
   );
   const primaryNavigation = page.getByRole("navigation", { name: "主导航" });
   await expect(
@@ -139,7 +140,9 @@ test("页头使用包含三个种族花色的新图标与中文导航", async ({
 
 test("首页按四档赞助荣誉完整致谢第一届赞助伙伴", async ({ page, request }) => {
   await page.goto("/");
-  const tribute = page.locator(".home-sponsor-tribute");
+  const tribute = page.locator(
+    'section.home-sponsor-tribute[aria-labelledby="dsl1-sponsors"]',
+  );
   await expect(
     tribute.getByRole("heading", { name: "感谢一路支持 DSL 的老板" }),
   ).toBeVisible();
@@ -193,7 +196,41 @@ test("首页按四档赞助荣誉完整致谢第一届赞助伙伴", async ({ pa
   for (const sponsor of dsl1Sponsors) {
     const avatar = await request.get(sponsor.avatar);
     expect(avatar.status()).toBe(200);
-    expect(avatar.headers()["content-type"]).toBe("image/jpeg");
+    expect(avatar.headers()["content-type"]).toBe("image/webp");
+    expect((await avatar.body()).byteLength).toBeLessThan(20_000);
+  }
+});
+
+test("首页鸣谢第二届首批赞助老板并继续邀请众筹", async ({ page, request }) => {
+  await page.goto("/");
+  const tribute = page.locator(
+    'section.home-sponsor-tribute[aria-labelledby="dsl2-sponsors"]',
+  );
+
+  await expect(
+    tribute.getByRole("heading", { name: "感谢支持第二届联赛的老板" }),
+  ).toBeVisible();
+  await expect(tribute.getByText("第二届 DSL 赞助鸣谢")).toBeVisible();
+  await expect(
+    tribute.getByText("当前支持尚未达到赛事目标", { exact: false }),
+  ).toBeVisible();
+  await expect(tribute.locator('[data-sponsor-tier="platinum"]')).toContainText(
+    "DBS",
+  );
+  await expect(tribute.locator('[data-sponsor-tier="diamond"]')).toContainText(
+    "WoShiLaoCaiNiao",
+  );
+
+  const tributeText = await tribute.innerText();
+  expect(tributeText).not.toMatch(/\d+(?:\.\d+)?\s*元/u);
+  expect(tributeText).not.toContain("1700");
+  expect(tributeText).not.toContain("1000");
+
+  for (const sponsor of dsl2Sponsors) {
+    const avatar = await request.get(sponsor.avatar);
+    expect(avatar.status()).toBe(200);
+    expect(avatar.headers()["content-type"]).toBe("image/webp");
+    expect((await avatar.body()).byteLength).toBeLessThan(20_000);
   }
 });
 
@@ -234,7 +271,10 @@ test("奖励页合并韩服并列奖金并显示最新赞助答谢说明", async
     page.getByRole("heading", { name: "感谢以下赞助支持的老板" }),
   ).toBeVisible();
   await expect(
-    page.getByText("（老板答谢名单会随着众筹的进行更新上来）"),
+    page.getByText("铂金赞助商 DBS", { exact: false }),
+  ).toBeVisible();
+  await expect(
+    page.getByText("钻石赞助商 WoShiLaoCaiNiao", { exact: false }),
   ).toBeVisible();
 
   const koreanReward = page.locator(".reward-card").nth(2);
@@ -255,7 +295,17 @@ test("规则总览使用单一表格且地图页标明 8R 地图缺位", async (
   await expect(page.locator(".rules-overview tbody tr")).toHaveCount(8);
   await expect(page.locator("main .content-grid")).toHaveCount(0);
   await expect(page.getByText("游戏角色积分规则")).toBeVisible();
-  await expect(page.getByText("成为赛事志愿者加分更多")).toBeVisible();
+  await expect(page.getByText("直播与赛事志愿工作")).toBeVisible();
+  await expect(page.getByText("开播参赛", { exact: true })).toBeVisible();
+  await expect(page.getByText("当盘开播，无论胜负均额外加分")).toBeVisible();
+  await expect(
+    page.getByText("掉线者扣除 30 点积分", { exact: false }),
+  ).toBeVisible();
+  await expect(
+    page.getByText("积分允许扣至负数", { exact: false }),
+  ).toBeVisible();
+  await expect(page.getByText("其余 7 名玩家", { exact: false })).toBeVisible();
+  await expect(page.getByText("第 3 次掉线后", { exact: false })).toBeVisible();
 
   await page.goto("/maps/");
   await expect(page.getByText("2v6经典老图重制")).toBeVisible();
@@ -280,6 +330,10 @@ test("新闻中的赛事方案可直接阅读且奖金已经同步", async ({ re
   expect(html).toMatch(/网站维护与赛事组织<\/td>\s*<td>500 元<\/td>/);
   expect(html).toMatch(/合计<\/td>\s*<td>2800 元<\/td>/);
   expect(html).toContain("以上奖金及经费均为众筹目标，应以实际众筹情况为准");
+  expect(html).toContain("开播参赛");
+  expect(html).toContain("+2 分 / 盘");
+  expect(html).toContain("掉线者扣除 30 点积分且允许扣至负数");
+  expect(html).not.toContain("<b>主播</b><b>+30 分</b>");
   expect(html).not.toContain("<span>第五名 50 元</span>");
   expect(html).not.toContain("暂未建设完毕");
 
@@ -347,15 +401,13 @@ for (const map of mapDownloads) {
   });
 }
 
-test("首页积分榜入口使用仓库内逐字节一致的指定壁纸副本", async ({
-  request,
-}) => {
-  const response = await request.get("/assets/protoss-wallpaper-4.png");
-  expect(response.status()).toBe(200);
-  const body = await response.body();
-  expect(createHash("sha256").update(body).digest("hex").toUpperCase()).toBe(
-    "4CE3E0AC6CA59EC095ED60ACD27DDB2B0D90CBFE64EB564A1E5DA4972C4B8A63",
-  );
+test("背景图提供小体积 AVIF 与 WebP 浏览器格式", async ({ request }) => {
+  for (const format of ["avif", "webp"] as const) {
+    const response = await request.get(`/assets/protoss-wallpaper-4.${format}`);
+    expect(response.status()).toBe(200);
+    expect(response.headers()["content-type"]).toBe(`image/${format}`);
+    expect((await response.body()).byteLength).toBeLessThan(150_000);
+  }
 });
 
 test("未知路径返回自定义 404 页面", async ({ page }) => {

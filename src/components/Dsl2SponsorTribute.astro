@@ -1,0 +1,57 @@
+---
+import { dsl2Sponsors, dsl2SponsorTiers } from "../data/dsl2-sponsors";
+---
+
+<section
+  class="section home-sponsor-tribute home-sponsor-tribute--dsl2"
+  aria-labelledby="dsl2-sponsors"
+>
+  <div class="container">
+    <div class="home-sponsor-heading">
+      <p class="eyebrow">第二届 DSL 赞助鸣谢</p>
+      <h2 id="dsl2-sponsors">感谢支持第二届联赛的老板</h2>
+      <p>
+        第二届联赛众筹仍在进行，当前支持尚未达到赛事目标。感谢两位老板率先支持，也诚邀更多社区伙伴共同助力赛事。
+      </p>
+    </div>
+
+    <div class="home-sponsor-groups">
+      {
+        dsl2SponsorTiers.map((tier) => {
+          const sponsors = dsl2Sponsors.filter(
+            (sponsor) => sponsor.tier === tier.id,
+          );
+
+          return (
+            <section
+              class={`home-sponsor-tier home-sponsor-tier--${tier.id}`}
+              aria-labelledby={`dsl2-sponsor-tier-${tier.id}`}
+            >
+              <div class="home-sponsor-tier-heading">
+                <h3 id={`dsl2-sponsor-tier-${tier.id}`}>{tier.name}</h3>
+              </div>
+              <div class="home-sponsor-grid">
+                {sponsors.map((sponsor) => (
+                  <article
+                    class="home-sponsor-card"
+                    data-sponsor-tier={sponsor.tier}
+                  >
+                    <img
+                      src={sponsor.avatar}
+                      alt={`${sponsor.name} 的头像`}
+                      width="104"
+                      height="104"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <strong>{sponsor.name}</strong>
+                  </article>
+                ))}
+              </div>
+            </section>
+          );
+        })
+      }
+    </div>
+  </div>
+</section>

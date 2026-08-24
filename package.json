@@ -15,6 +15,7 @@
     "validate:data": "node scripts/validate-public-data.mjs",
     "build:preview-standings": "node scripts/build-preview-standings.mjs",
     "check:preview-standings": "node scripts/build-preview-standings.mjs --check",
+    "optimize:images": "node scripts/optimize-images.mjs",
     "test:e2e": "pnpm run build && playwright test",
     "serve:test": "node scripts/serve-dist.mjs 4321",
     "capture": "node scripts/capture-preview.mjs",
@@ -32,6 +33,7 @@
     "@playwright/test": "1.62.1",
     "prettier": "3.9.6",
     "prettier-plugin-astro": "0.14.1",
+    "sharp": "0.35.3",
     "typescript": "5.9.3"
   }
 }

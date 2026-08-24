@@ -11,7 +11,9 @@ const { eyebrow, title, description, image } = Astro.props;
 
 <section
   class:list={["page-hero", { "page-hero--image": image }]}
-  style={image ? `--page-art: url('${image}')` : undefined}
+  style={image
+    ? `--page-art: image-set(url('${image}.avif') type('image/avif'), url('${image}.webp') type('image/webp'))`
+    : undefined}
 >
   <div class="container page-hero-inner">
     <div>

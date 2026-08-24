@@ -16,7 +16,7 @@ const entrySchema = z
   .object({
     rank: z.number().int().positive(),
     displayName: z.string().trim().min(1).max(40),
-    points: z.number().int().nonnegative(),
+    points: z.number().int(),
     tier: tierSchema,
   })
   .strict();
