@@ -1613,6 +1613,60 @@ tbody th {
   gap: 1rem;
 }
 
+.map-download-guide {
+  display: flex;
+  margin-bottom: 1rem;
+  padding: clamp(1.25rem, 3vw, 1.8rem);
+  border: 1px solid rgba(245, 189, 85, 0.58);
+  border-left: 5px solid var(--gold);
+  border-radius: var(--radius-md);
+  background:
+    linear-gradient(100deg, rgba(245, 189, 85, 0.13), transparent 58%),
+    rgba(8, 25, 35, 0.92);
+  box-shadow: var(--shadow);
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.map-download-guide__mark {
+  display: grid;
+  width: 3.25rem;
+  height: 3.25rem;
+  flex: 0 0 auto;
+  border: 1px solid rgba(245, 189, 85, 0.7);
+  border-radius: 50%;
+  color: var(--ink);
+  background: var(--gold);
+  font-size: 1.7rem;
+  font-weight: 900;
+  line-height: 1;
+  place-items: center;
+}
+
+.map-download-guide .eyebrow {
+  margin-bottom: 0.35rem;
+}
+
+.map-download-guide h2 {
+  margin-bottom: 0.5rem;
+  font-size: clamp(1.45rem, 3vw, 2rem);
+}
+
+.map-download-guide p:last-child {
+  margin-bottom: 0;
+  color: var(--muted);
+}
+
+.map-download-guide code {
+  display: inline-block;
+  margin-left: 0.25rem;
+  color: var(--gold-bright);
+  font-family: inherit;
+  font-size: 1em;
+  font-weight: 900;
+  overflow-wrap: anywhere;
+}
+
 .feature-card {
   position: relative;
   padding: clamp(1.6rem, 4vw, 2.4rem);

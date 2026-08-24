@@ -38,26 +38,39 @@ const maps: MapEntry[] = [
   />
 
   <section class="section">
-    <div class="container map-grid">
-      {
-        maps.map((map) => (
-          <article class="feature-card map-card">
-            <p class="eyebrow">{map.mode}</p>
-            <h2>{map.name}</h2>
-            {map.href && map.fileName ? (
-              <a
-                class="button button--primary"
-                href={map.href}
-                download={map.fileName}
-              >
-                下载地图
-              </a>
-            ) : (
-              <p class="map-status">地图缺，之后会补上</p>
-            )}
-          </article>
-        ))
-      }
+    <div class="container">
+      <aside class="map-download-guide" aria-label="地图文件放置位置">
+        <span class="map-download-guide__mark" aria-hidden="true">↓</span>
+        <div>
+          <p class="eyebrow">下载后放在哪里？</p>
+          <h2>请将地图放入星际争霸地图目录</h2>
+          <p>
+            默认放置位置：<code>C盘\文档\StarCraft\Maps\Download</code>
+          </p>
+        </div>
+      </aside>
+
+      <div class="map-grid">
+        {
+          maps.map((map) => (
+            <article class="feature-card map-card">
+              <p class="eyebrow">{map.mode}</p>
+              <h2>{map.name}</h2>
+              {map.href && map.fileName ? (
+                <a
+                  class="button button--primary"
+                  href={map.href}
+                  download={map.fileName}
+                >
+                  下载地图
+                </a>
+              ) : (
+                <p class="map-status">地图缺，之后会补上</p>
+              )}
+            </article>
+          ))
+        }
+      </div>
     </div>
   </section>
 </BaseLayout>

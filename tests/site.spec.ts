@@ -337,6 +337,9 @@ test("规则总览使用单一表格且地图页标明 8R 地图缺位", async (
   await expect(page.getByText("斗地主重制版 c1.2")).toBeVisible();
   await expect(page.getByText("斗地主 3v5 5.7")).toBeVisible();
   await expect(page.getByText("地图缺，之后会补上")).toBeVisible();
+  await expect(
+    page.getByRole("complementary", { name: "地图文件放置位置" }),
+  ).toContainText("C盘\\文档\\StarCraft\\Maps\\Download");
   await expect(page.locator(".map-card")).toHaveCount(3);
   for (const map of mapDownloads) {
     await expect(page.locator(`a[download="${map.fileName}"]`)).toHaveAttribute(
