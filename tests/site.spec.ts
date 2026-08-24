@@ -32,13 +32,20 @@ const forbiddenPublicCopy = [
 
 const mapDownloads = [
   {
-    path: "/downloads/maps/doudizhu-3v5-5.6.scx",
-    sha256: "C1BD89DFC739E71902381756244BB34F0DABE5F0BAF8CCA1A3B014B08601A887",
+    path: "/downloads/maps/斗地主Doudizhu 5.7.scx",
+    fileName: "斗地主Doudizhu 5.7.scx",
+    sha256: "0BB93935F4DEA26837BC332F60530C9B7F60C31A622B7FF6DAE489B1318CD2DC",
   },
   {
-    path: "/downloads/maps/doudizhu-2v6-remake-c1.1.scx",
-    sha256: "617BECFFFD9A72911388F0E1C89D6B33C4015A324ED3187423F5CC3BA8E4BD7A",
+    path: "/downloads/maps/斗地主重制版c1.2.scx",
+    fileName: "斗地主重制版c1.2.scx",
+    sha256: "E841B0892A8DDB81F5D717DD1B138F2458DC3A7337F31AA8C83F86E826FF1421",
   },
+];
+
+const retiredMapPaths = [
+  "/downloads/maps/doudizhu-3v5-5.6.scx",
+  "/downloads/maps/doudizhu-2v6-remake-c1.1.scx",
 ];
 
 for (const currentPage of pages) {
@@ -114,8 +121,10 @@ for (const currentPage of pages) {
           .filter((value) => value && !value.startsWith("data:")),
       );
     for (const publicUrl of publicUrls) {
-      expect(publicUrl).not.toMatch(/[\u3400-\u9fff]/u);
-      expect(publicUrl).not.toMatch(/%[0-9a-f]{2}/iu);
+      if (!publicUrl.endsWith(".scx")) {
+        expect(publicUrl).not.toMatch(/[\u3400-\u9fff]/u);
+        expect(publicUrl).not.toMatch(/%[0-9a-f]{2}/iu);
+      }
     }
     expect(consoleErrors).toEqual([]);
   });
@@ -221,6 +230,22 @@ test("首页鸣谢第二届首批赞助老板并继续邀请众筹", async ({ pa
     "WoShiLaoCaiNiao",
   );
 
+  const diamondGrid = tribute
+    .locator(".home-sponsor-tier--diamond .home-sponsor-grid")
+    .first();
+  const diamondCard = diamondGrid.locator(".home-sponsor-card").first();
+  const [gridBox, cardBox] = await Promise.all([
+    diamondGrid.boundingBox(),
+    diamondCard.boundingBox(),
+  ]);
+  expect(gridBox).not.toBeNull();
+  expect(cardBox).not.toBeNull();
+  expect(
+    Math.abs(
+      cardBox!.x + cardBox!.width / 2 - (gridBox!.x + gridBox!.width / 2),
+    ),
+  ).toBeLessThanOrEqual(1);
+
   const tributeText = await tribute.innerText();
   expect(tributeText).not.toMatch(/\d+(?:\.\d+)?\s*元/u);
   expect(tributeText).not.toContain("1700");
@@ -305,12 +330,20 @@ test("规则总览使用单一表格且地图页标明 8R 地图缺位", async (
     page.getByText("积分允许扣至负数", { exact: false }),
   ).toBeVisible();
   await expect(page.getByText("其余 7 名玩家", { exact: false })).toBeVisible();
-  await expect(page.getByText("第 3 次掉线后", { exact: false })).toBeVisible();
+  await expect(page.getByText("第 2 次掉线后", { exact: false })).toBeVisible();
 
   await page.goto("/maps/");
   await expect(page.getByText("2v6经典老图重制")).toBeVisible();
+  await expect(page.getByText("斗地主重制版 c1.2")).toBeVisible();
+  await expect(page.getByText("斗地主 3v5 5.7")).toBeVisible();
   await expect(page.getByText("地图缺，之后会补上")).toBeVisible();
   await expect(page.locator(".map-card")).toHaveCount(3);
+  for (const map of mapDownloads) {
+    await expect(page.locator(`a[download="${map.fileName}"]`)).toHaveAttribute(
+      "href",
+      map.path,
+    );
+  }
 });
 
 test("赛程明确开赛日期且不显示状态图例", async ({ page }) => {
@@ -333,6 +366,8 @@ test("新闻中的赛事方案可直接阅读且奖金已经同步", async ({ re
   expect(html).toContain("开播参赛");
   expect(html).toContain("+2 分 / 盘");
   expect(html).toContain("掉线者扣除 30 点积分且允许扣至负数");
+  expect(html).toContain("同一周内第 2 次掉线后");
+  expect(html).not.toContain("第 3 次掉线后");
   expect(html).not.toContain("<b>主播</b><b>+30 分</b>");
   expect(html).not.toContain("<span>第五名 50 元</span>");
   expect(html).not.toContain("暂未建设完毕");
@@ -398,6 +433,13 @@ for (const map of mapDownloads) {
     expect(createHash("sha256").update(body).digest("hex").toUpperCase()).toBe(
       map.sha256,
     );
+  });
+}
+
+for (const retiredMapPath of retiredMapPaths) {
+  test(`${retiredMapPath} 旧版地图已经下线`, async ({ request }) => {
+    const response = await request.get(retiredMapPath);
+    expect(response.status()).toBe(404);
   });
 }
 
