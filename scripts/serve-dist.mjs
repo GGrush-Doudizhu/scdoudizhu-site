@@ -18,6 +18,7 @@ const contentTypes = new Map([
   [".js", "text/javascript; charset=utf-8"],
   [".jpg", "image/jpeg"],
   [".json", "application/json; charset=utf-8"],
+  [".png", "image/png"],
   [".svg", "image/svg+xml"],
   [".txt", "text/plain; charset=utf-8"],
   [".webmanifest", "application/manifest+json; charset=utf-8"],

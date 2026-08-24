@@ -9,7 +9,12 @@
   "theme_color": "#07151b",
   "icons": [
     {
-      "src": "/assets/dsl-three-races-suits-512.webp",
+      "src": "/assets/dsl-official-logo.webp",
+      "sizes": "192x192",
+      "type": "image/webp"
+    },
+    {
+      "src": "/assets/dsl-official-logo-512.webp",
       "sizes": "512x512",
       "type": "image/webp"
     }

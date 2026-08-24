@@ -15,6 +15,7 @@ const pageTitle = title
   ? `${title}｜${site.name}`
   : `${site.name}｜${site.seasonName}`;
 const canonical = new URL(Astro.url.pathname, site.url);
+const socialLogo = new URL("/assets/dsl-official-logo-512.webp", site.url);
 ---
 
 <!doctype html>
@@ -28,11 +29,7 @@ const canonical = new URL(Astro.url.pathname, site.url);
     <meta name="description" content={description} />
     {noindex && <meta name="robots" content="noindex, nofollow" />}
     <link rel="canonical" href={canonical} />
-    <link
-      rel="icon"
-      type="image/webp"
-      href="/assets/dsl-three-races-suits.webp"
-    />
+    <link rel="icon" type="image/png" href="/assets/dsl-official-logo-64.png" />
     <link rel="manifest" href="/site.webmanifest" />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="zh_CN" />
@@ -40,7 +37,12 @@ const canonical = new URL(Astro.url.pathname, site.url);
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={socialLogo} />
+    <meta property="og:image:width" content="512" />
+    <meta property="og:image:height" content="512" />
+    <meta property="og:image:alt" content="星际斗地主联赛 DSL 徽章" />
     <meta name="twitter:card" content="summary" />
+    <meta name="twitter:image" content={socialLogo} />
     <title>{pageTitle}</title>
   </head>
   <body>

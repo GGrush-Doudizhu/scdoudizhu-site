@@ -130,12 +130,59 @@ for (const currentPage of pages) {
   });
 }
 
-test("页头使用包含三个种族花色的新图标与中文导航", async ({ page }) => {
+test("页头、标签页与分享信息统一使用正式赛事徽章", async ({
+  page,
+  request,
+}) => {
   await page.goto("/");
   await expect(page.locator(".brand-mark")).toHaveAttribute(
     "src",
-    "/assets/dsl-three-races-suits.webp",
+    "/assets/dsl-official-logo.webp",
   );
+  await expect(page.locator('link[rel="icon"]')).toHaveAttribute(
+    "href",
+    "/assets/dsl-official-logo-64.png",
+  );
+  await expect(page.locator('meta[property="og:image"]')).toHaveAttribute(
+    "content",
+    "https://scdoudizhu.com/assets/dsl-official-logo-512.webp",
+  );
+  await expect(page.locator('meta[name="twitter:image"]')).toHaveAttribute(
+    "content",
+    "https://scdoudizhu.com/assets/dsl-official-logo-512.webp",
+  );
+
+  const logoAssets = [
+    {
+      path: "/assets/dsl-official-logo.webp",
+      type: "image/webp",
+      maximumSize: 20_000,
+    },
+    {
+      path: "/assets/dsl-official-logo-512.webp",
+      type: "image/webp",
+      maximumSize: 80_000,
+    },
+    {
+      path: "/assets/dsl-official-logo-64.png",
+      type: "image/png",
+      maximumSize: 10_000,
+    },
+  ];
+  for (const asset of logoAssets) {
+    const response = await request.get(asset.path);
+    expect(response.status()).toBe(200);
+    expect(response.headers()["content-type"]).toBe(asset.type);
+    expect((await response.body()).byteLength).toBeLessThan(asset.maximumSize);
+  }
+
+  for (const retiredLogo of [
+    "/assets/dsl-three-races-suits.webp",
+    "/assets/dsl-three-races-suits-512.webp",
+  ]) {
+    expect((await request.get(retiredLogo)).status()).toBe(200);
+  }
+
   const primaryNavigation = page.getByRole("navigation", { name: "主导航" });
   await expect(
     primaryNavigation.getByRole("link", { name: "常规赛积分榜" }),
