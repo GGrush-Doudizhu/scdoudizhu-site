@@ -28,7 +28,7 @@ export const publicStandingsSchema = z
     exportId: z.string().trim().min(1).max(80),
     standingsAsOf: z.iso.datetime({ offset: true }).nullable(),
     publishedAt: z.iso.datetime({ offset: true }).nullable(),
-    entries: z.array(entrySchema),
+    entries: z.array(entrySchema).max(25),
   })
   .strict()
   .superRefine((data, context) => {
@@ -53,6 +53,22 @@ export const publicStandingsSchema = z
         });
       }
       names.add(normalizedName);
+
+      const expectedTier =
+        entry.rank === 1
+          ? "王者"
+          : entry.rank <= 5
+            ? "星耀"
+            : entry.rank <= 15
+              ? "钻石"
+              : "铂金";
+      if (entry.tier !== expectedTier) {
+        context.addIssue({
+          code: "custom",
+          message: "公开积分榜段位必须符合铂金及以上的名次分档。",
+          path: ["entries", index, "tier"],
+        });
+      }
 
       if (entry.rank < previousRank) {
         context.addIssue({

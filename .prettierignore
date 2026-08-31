@@ -1,6 +1,8 @@
 .astro/
 dist/
 node_modules/
+match-data/
+rep-parser/
 docs/
 references/source-materials/
 public/news/*.html

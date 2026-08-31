@@ -28,3 +28,9 @@ Desktop.ini
 
 # 临时审计工作区
 .audit-tmp/
+
+# 赛事原始资料与仅供管理使用的完整数据
+match-data/
+rep-parser/
+data-source/dsl2/dsl2-master.json
+data-source/dsl2/full-standings.csv

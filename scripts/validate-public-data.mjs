@@ -97,6 +97,10 @@ assert(
   "exportId 不能为空。",
 );
 assert(Array.isArray(standings.entries), "entries 必须是数组。");
+assert(
+  standings.entries.length <= 25,
+  "公开积分榜只允许展示铂金及铂金以上的前 25 名选手。",
+);
 
 if (standings.entries.length > 0) {
   assert(
@@ -136,6 +140,18 @@ standings.entries.forEach((entry, index) => {
   );
   assert(Number.isInteger(entry.points), `${location}.points 必须是整数。`);
   assert(allowedTiers.has(entry.tier), `${location}.tier 不是允许的段位。`);
+  const expectedTier =
+    entry.rank === 1
+      ? "王者"
+      : entry.rank <= 5
+        ? "星耀"
+        : entry.rank <= 15
+          ? "钻石"
+          : "铂金";
+  assert(
+    entry.tier === expectedTier,
+    `${location}.tier 与铂金及以上的名次分档不一致。`,
+  );
 
   const normalizedName = entry.displayName.trim().toLocaleLowerCase("zh-CN");
   assert(

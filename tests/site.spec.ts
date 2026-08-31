@@ -333,17 +333,25 @@ test("首页鸣谢第二届首批赞助老板并继续邀请众筹", async ({ pa
   }
 });
 
-test("积分榜展示 DSL1 换算预览、前三名与完整前二十五名", async ({ page }) => {
+test("积分榜展示第二届前五个比赛日累计积分与完整前二十五名", async ({
+  page,
+}) => {
   await page.goto("/standings/");
-  await expect(page.getByText("榜单效果预览")).toBeVisible();
+  await expect(page.getByText("榜单效果预览")).toHaveCount(0);
   await expect(page.locator(".podium-card")).toHaveCount(3);
   await expect(page.locator(".standings-table tbody tr")).toHaveCount(25);
   await expect(page.locator(".standings-table tbody tr").first()).toContainText(
-    "lansoov",
+    "GGrush",
   );
   await expect(page.locator(".standings-table tbody tr").first()).toContainText(
-    "1,375",
+    "300",
   );
+  await expect(
+    page.getByText("公开积分榜只展示铂金及铂金以上的选手", {
+      exact: false,
+    }),
+  ).toBeVisible();
+  await expect(page.getByText("统计截至：2026年8月31日")).toBeVisible();
   await expect(page.getByText("胜率")).toHaveCount(0);
   await expect(page.locator(".podium-card--2 .podium-suit")).toHaveText("♥");
   await expect(page.locator(".podium-card--3 .podium-suit")).toHaveText("♣");
@@ -362,6 +370,73 @@ test("积分榜展示 DSL1 换算预览、前三名与完整前二十五名", as
       items.map((item) => getComputedStyle(item).clipPath),
     );
   expect(new Set(tierShapes).size).toBe(7);
+});
+
+test("新闻页提供五个比赛日赛报及完整人员、积分和逐盘赛果", async ({ page }) => {
+  await page.goto("/announcements/");
+  const firstNewsCard = page.locator(".news-list > .news-card").first();
+  await expect(firstNewsCard).toHaveClass(/news-card--scheme/u);
+  await expect(firstNewsCard).toContainText("置顶 · 联赛方案");
+  await expect(
+    firstNewsCard.getByRole("link", { name: "阅读完整赛事方案" }),
+  ).toHaveAttribute("href", "/news/dsl2-league-plan.html");
+  const reportCards = page.locator(".news-card--match-report");
+  await expect(reportCards).toHaveCount(5);
+  await expect(reportCards.first()).toContainText(
+    /2026年8月31日\s+比赛数据赛报/u,
+  );
+  await expect(reportCards.first()).toContainText("星期一");
+  await expect(reportCards.first()).toContainText("KK赛区");
+  await expect(reportCards.first()).toContainText("房主：GGrush");
+  await expect(reportCards.first()).toContainText("主播：GGrush、lansoov");
+  await expect(reportCards.first()).toContainText("统计：GGrush");
+  await expect(reportCards.nth(1)).toContainText("韩服赛区");
+  const districtBackgrounds = await reportCards.evaluateAll((cards) =>
+    cards.slice(0, 2).map((card) => getComputedStyle(card).backgroundImage),
+  );
+  expect(districtBackgrounds[0]).not.toBe(districtBackgrounds[1]);
+
+  await page.goto("/announcements/2026-08-24/");
+  await expect(page.getByText("房主", { exact: true })).toBeVisible();
+  await expect(page.getByText("主播", { exact: true })).toBeVisible();
+  await expect(page.getByText("赛事数据统计员", { exact: true })).toBeVisible();
+  await expect(page.getByText("每人当晚固定 +20 分")).toHaveCount(2);
+  await expect(page.getByText("当晚固定 +5 分")).toBeVisible();
+  await expect(page.getByText("录像总时长")).toHaveCount(0);
+  await expect(page.locator(".report-points-table thead th")).toHaveCount(4);
+  await expect(page.getByText("开播加分", { exact: true })).toHaveCount(0);
+  await expect(page.locator(".report-points-table tbody tr")).toHaveCount(27);
+  await expect(page.locator(".report-game-card")).toHaveCount(14);
+  await expect(page.locator(".report-game-card").first()).toContainText(
+    "20:01",
+  );
+  await expect(page.locator(".report-game-card").first()).toContainText("地主");
+  await expect(page.locator(".report-game-card").first()).toContainText("富农");
+  await expect(page.locator(".report-game-card").first()).toContainText("贫农");
+  await expect(page.getByText(/Force\s*[123]/u)).toHaveCount(0);
+  await expect(
+    page.getByText("兼职封顶", { exact: false }).first(),
+  ).toBeVisible();
+  const reportText = await page.locator("main").innerText();
+  for (const mergedAlias of [
+    "GGrush_Doudizhu",
+    "逗地主比赛作者房",
+    "嘴哥逗地主宏图VS贫矿",
+    "爬来爬去",
+    "111",
+  ]) {
+    expect(reportText).not.toContain(mergedAlias);
+  }
+
+  await page.goto("/announcements/2026-08-28/");
+  const twoForceGame = page.locator(".report-game-card").first();
+  await expect(twoForceGame).toContainText("地主");
+  await expect(twoForceGame).toContainText("农民");
+  await expect(twoForceGame).not.toContainText("富农");
+  await expect(twoForceGame).not.toContainText("贫农");
+  await expect(page.getByText("逗地主羞大圣").first()).toBeVisible();
+  await expect(page.getByText("−30 分", { exact: false })).toBeVisible();
+  await expect(page.getByText("掉线", { exact: true })).toBeVisible();
 });
 
 test("奖励页合并韩服并列奖金并显示最新赞助答谢说明", async ({ page }) => {
@@ -412,11 +487,26 @@ test("奖励页合并韩服并列奖金并显示最新赞助答谢说明", async
 test("规则总览使用单一表格且地图页标明 8R 地图缺位", async ({ page }) => {
   await page.goto("/rules/");
   await expect(page.locator(".rules-overview tbody tr")).toHaveCount(8);
+  await expect(
+    page
+      .locator(".rules-scheme-callout")
+      .getByRole("link", { name: "阅读完整赛事方案" }),
+  ).toHaveAttribute("href", "/news/dsl2-league-plan.html");
   await expect(page.locator("main .content-grid")).toHaveCount(0);
   await expect(page.getByText("游戏角色积分规则")).toBeVisible();
   await expect(page.getByText("直播与赛事志愿工作")).toBeVisible();
-  await expect(page.getByText("开播参赛", { exact: true })).toBeVisible();
-  await expect(page.getByText("当盘开播，无论胜负均额外加分")).toBeVisible();
+  await expect(page.getByText("房主", { exact: true }).first()).toBeVisible();
+  await expect(page.getByText("主播", { exact: true }).first()).toBeVisible();
+  await expect(page.getByText("统计", { exact: true }).first()).toBeVisible();
+  const workPointValues = page.locator(
+    ".points-grid .panel:nth-child(2) .points-value",
+  );
+  await expect(workPointValues.nth(0)).toContainText("+20");
+  await expect(workPointValues.nth(1)).toContainText("+20");
+  await expect(workPointValues.nth(2)).toContainText("+5");
+  await expect(
+    page.getByText("赛事工作积分合计最高为", { exact: false }),
+  ).toBeVisible();
   await expect(
     page.getByText("掉线者扣除 30 点积分", { exact: false }),
   ).toBeVisible();
@@ -460,12 +550,14 @@ test("新闻中的赛事方案可直接阅读且奖金已经同步", async ({ re
   expect(html).toMatch(/网站维护与赛事组织<\/td>\s*<td>500 元<\/td>/);
   expect(html).toMatch(/合计<\/td>\s*<td>2800 元<\/td>/);
   expect(html).toContain("以上奖金及经费均为众筹目标，应以实际众筹情况为准");
-  expect(html).toContain("开播参赛");
-  expect(html).toContain("+2 分 / 盘");
+  expect(html).toContain("<b>房主</b><b>+20 分</b>");
+  expect(html).toContain("<b>主播</b><b>+20 分</b>");
+  expect(html).toContain("<b>统计</b><b>+5 分</b>");
+  expect(html).toContain("赛事工作积分合计最高为 30 分");
   expect(html).toContain("掉线者扣除 30 点积分且允许扣至负数");
   expect(html).toContain("同一周内第 2 次掉线后");
   expect(html).not.toContain("第 3 次掉线后");
-  expect(html).not.toContain("<b>主播</b><b>+30 分</b>");
+  expect(html).not.toContain("+2 分 / 盘");
   expect(html).not.toContain("<span>第五名 50 元</span>");
   expect(html).not.toContain("暂未建设完毕");
 
@@ -503,7 +595,7 @@ test("核心内容在禁用 JavaScript 时仍可阅读", async ({ browser }) => 
     "第二届比赛规则",
   );
   await expect(page.getByText("地主", { exact: true }).first()).toBeVisible();
-  await expect(page.getByText("主机", { exact: true }).first()).toBeVisible();
+  await expect(page.getByText("房主", { exact: true }).first()).toBeVisible();
 
   await context.close();
 });

@@ -1,5 +1,6 @@
 ---
 import PageHero from "../../components/PageHero.astro";
+import matchReports from "../../data/match-reports.json";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 
 const schemeUrl = "/news/dsl2-league-plan.html";
@@ -15,10 +16,10 @@ const schemeUrl = "/news/dsl2-league-plan.html";
 
   <section class="section">
     <div class="container news-list">
-      <article class="news-card news-card--lead">
+      <article class="news-card news-card--scheme news-card--pinned">
         <div class="news-date"><span>2026</span><strong>08.20</strong></div>
         <div>
-          <p class="eyebrow">联赛方案</p>
+          <p class="eyebrow">置顶 · 联赛方案</p>
           <h2>第二届 DSL 斗地主星际联赛方案发布</h2>
           <p>
             查看十周赛程、常规赛积分规则、段位体系、双线季后赛与最新奖金安排。
@@ -27,6 +28,47 @@ const schemeUrl = "/news/dsl2-league-plan.html";
           >
         </div>
       </article>
+
+      {
+        matchReports.matchDays.map((day) => (
+          <article
+            class:list={[
+              "news-card",
+              "news-card--match-report",
+              day.platform === "KK" ? "news-card--kk" : "news-card--korea",
+            ]}
+          >
+            <div class="news-date">
+              <span>{day.date.slice(0, 4)}</span>
+              <strong>{day.date.slice(5).replace("-", ".")}</strong>
+              <small>{day.weekday}</small>
+            </div>
+            <div>
+              <p class="eyebrow">
+                {day.platform}赛区 · 常规赛 · 第 {day.matchdayNumber} 比赛日
+              </p>
+              <h2>{day.dateLabel} 比赛数据赛报</h2>
+              <p>
+                当日共进行 {day.summary.matchCount} 盘，
+                {day.summary.participantCount}
+                名选手参赛；地主方 {day.summary.landlordWins} 胜，农民方
+                {day.summary.farmerWins} 胜。
+              </p>
+              <div class="news-staff-preview" aria-label="当日赛事工作人员">
+                <span>房主：{day.staff.hosts.join("、")}</span>
+                <span>主播：{day.staff.streamers.join("、")}</span>
+                <span>统计：{day.staff.statistician}</span>
+              </div>
+              <a
+                class="button button--primary"
+                href={`/announcements/${day.slug}/`}
+              >
+                查看积分变动与逐盘赛果
+              </a>
+            </div>
+          </article>
+        ))
+      }
     </div>
   </section>
 </BaseLayout>

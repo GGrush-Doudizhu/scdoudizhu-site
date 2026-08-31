@@ -29,21 +29,21 @@ export const matchPoints = [
 
 export const bonusPoints = [
   {
-    role: "开播参赛",
-    points: 2,
-    unit: "每盘",
-    note: "当盘开播，无论胜负均额外加分",
-  },
-  {
-    role: "主机",
-    points: 30,
-    unit: "每晚",
+    role: "房主",
+    points: 20,
+    unit: "每比赛日",
     note: "负责当晚比赛房，可同时参赛",
   },
   {
-    role: "统计",
+    role: "主播",
     points: 20,
-    unit: "每晚",
+    unit: "每比赛日",
+    note: "承担当晚赛事直播，固定获得工作积分",
+  },
+  {
+    role: "统计",
+    points: 5,
+    unit: "每比赛日",
     note: "按模板录入当晚赛果",
   },
 ] as const;

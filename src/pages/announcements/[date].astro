@@ -1,0 +1,188 @@
+---
+import PageHero from "../../components/PageHero.astro";
+import matchReports from "../../data/match-reports.json";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+type MatchDay = (typeof matchReports.matchDays)[number];
+
+export function getStaticPaths() {
+  return matchReports.matchDays.map((day) => ({
+    params: { date: day.slug },
+    props: { day },
+  }));
+}
+
+interface Props {
+  day: MatchDay;
+}
+
+const { day } = Astro.props;
+
+const signedPoints = (points: number) =>
+  points > 0 ? `+${points}` : points.toString();
+
+const resultLabel = (won: boolean) => (won ? "胜" : "负");
+const heroImage =
+  day.platform === "KK"
+    ? "/news/assets/sc-cosmic-rift"
+    : "/news/assets/sc-protoss-carrier";
+---
+
+<BaseLayout
+  title={`${day.dateLabel}比赛数据赛报`}
+  description={`DSL2 常规赛第 ${day.matchdayNumber} 比赛日数据摘要、积分变动与逐盘赛果。`}
+>
+  <PageHero
+    eyebrow={`${day.platform}赛区 · ${day.weekday} · 第 ${day.matchdayNumber} 比赛日`}
+    title={`${day.dateLabel}比赛数据赛报`}
+    description={`当日共进行 ${day.summary.matchCount} 盘，地主方 ${day.summary.landlordWins} 胜、农民方 ${day.summary.farmerWins} 胜。`}
+    image={heroImage}
+  />
+
+  <section class="section match-report-overview">
+    <div class="container report-container">
+      <a class="back-link" href="/announcements/">← 返回赛事新闻</a>
+
+      <div class="report-section-heading">
+        <p class="eyebrow">赛事人员</p>
+        <h2>当晚赛事工作记录</h2>
+      </div>
+      <div class="report-staff-grid">
+        <article>
+          <span>房主</span>
+          <strong>{day.staff.hosts.join("、")}</strong>
+          <small>每人当晚固定 +20 分</small>
+        </article>
+        <article>
+          <span>主播</span>
+          <strong>{day.staff.streamers.join("、")}</strong>
+          <small>每人当晚固定 +20 分</small>
+        </article>
+        <article>
+          <span>赛事数据统计员</span>
+          <strong>{day.staff.statistician}</strong>
+          <small>当晚固定 +5 分</small>
+        </article>
+      </div>
+
+      <div class="report-summary-grid" aria-label="当日比赛数据摘要">
+        <article>
+          <strong>{day.summary.matchCount}</strong><span>比赛盘数</span>
+        </article>
+        <article>
+          <strong>{day.summary.participantCount}</strong><span>参赛选手</span>
+        </article>
+        <article>
+          <strong>{day.summary.landlordWins}</strong><span>地主方获胜</span>
+        </article>
+        <article>
+          <strong>{day.summary.farmerWins}</strong><span>农民方获胜</span>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tint report-points-section">
+    <div class="container report-container">
+      <div class="report-section-heading">
+        <p class="eyebrow">积分结算</p>
+        <h2>每人当日积分变动</h2>
+        <p>
+          地主胜 / 负为 +12 / +3，农民胜 / 负为 +8 / +2；房主与主播各
+          +20、统计员 +5，兼职工作分合计最高 +30；文字标记为“掉线”的选手该盘按
+          −30 分结算。
+        </p>
+      </div>
+      <div class="table-wrap report-points-table-wrap">
+        <table class="report-points-table">
+          <thead>
+            <tr>
+              <th scope="col">选手</th>
+              <th scope="col" class="numeric">对局积分</th>
+              <th scope="col">赛事工作积分</th>
+              <th scope="col" class="numeric">当日变动</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              day.pointChanges.map((change) => (
+                <tr>
+                  <th scope="row">{change.displayName}</th>
+                  <td class="numeric">{signedPoints(change.matchPoints)}</td>
+                  <td>
+                    {change.contributions.length > 0
+                      ? `${change.contributions.join("、")}${change.workPointsCapped ? "（兼职封顶）" : ""} ${signedPoints(change.workPoints)}`
+                      : "—"}
+                  </td>
+                  <td
+                    class:list={[
+                      "numeric",
+                      "report-points-total",
+                      { "report-points-total--negative": change.total < 0 },
+                    ]}
+                  >
+                    {signedPoints(change.total)}
+                  </td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="section report-games-section">
+    <div class="container report-container">
+      <div class="report-section-heading">
+        <p class="eyebrow">逐盘赛果</p>
+        <h2>{day.summary.matchCount} 盘完整胜负记录</h2>
+        <p>三阵营地图依次展示地主、富农和贫农；双阵营地图展示地主与农民。</p>
+      </div>
+      <div class="report-games-list">
+        {
+          day.games.map((game) => (
+            <article class="report-game-card">
+              <header>
+                <div>
+                  <span class="game-number">第 {game.number} 盘</span>
+                  <strong>{game.time}</strong>
+                </div>
+                <p>{game.map}</p>
+                <span>用时 {game.duration}</span>
+              </header>
+              <div class="force-results">
+                {game.forces.map((force) => (
+                  <section
+                    class:list={[
+                      "force-result",
+                      force.won ? "force-result--won" : "force-result--lost",
+                    ]}
+                    aria-label={`${force.role}${resultLabel(force.won)}`}
+                  >
+                    <div class="force-result-heading">
+                      <span>{force.role}</span>
+                      <strong>{resultLabel(force.won)}</strong>
+                    </div>
+                    <ul>
+                      {force.players.map((player) => (
+                        <li
+                          class:list={{
+                            "player-disconnected": player.disconnected,
+                          }}
+                        >
+                          {player.displayName}
+                          {player.disconnected && <span>掉线</span>}
+                        </li>
+                      ))}
+                    </ul>
+                  </section>
+                ))}
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</BaseLayout>

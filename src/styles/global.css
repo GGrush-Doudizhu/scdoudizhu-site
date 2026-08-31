@@ -1762,6 +1762,41 @@ tbody th {
   box-shadow: var(--shadow);
 }
 
+.rules-scheme-callout {
+  display: flex;
+  margin-bottom: 1.5rem;
+  padding: clamp(1.4rem, 3vw, 2rem);
+  border: 1px solid rgba(245, 189, 85, 0.46);
+  border-left: 4px solid var(--gold);
+  border-radius: var(--radius-md);
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  background:
+    linear-gradient(90deg, rgba(26, 30, 25, 0.96), rgba(7, 20, 29, 0.74)),
+    image-set(
+        url("/news/assets/sc-terran-fleet.avif") type("image/avif"),
+        url("/news/assets/sc-terran-fleet.webp") type("image/webp")
+      )
+      right center / cover;
+  box-shadow: var(--shadow);
+}
+
+.rules-scheme-callout h2 {
+  margin-bottom: 0.55rem;
+  font-size: clamp(1.45rem, 3vw, 2.1rem);
+}
+
+.rules-scheme-callout p:last-child {
+  max-width: 45rem;
+  margin-bottom: 0;
+  color: #c5d3d9;
+}
+
+.rules-scheme-callout .button {
+  flex: 0 0 auto;
+}
+
 .rules-overview caption {
   padding: 1.4rem 1.5rem;
   color: var(--text);
@@ -1857,7 +1892,9 @@ tbody th {
 }
 
 .news-list {
+  display: grid;
   max-width: 980px;
+  gap: 1.2rem;
 }
 
 .news-card {
@@ -1891,6 +1928,314 @@ tbody th {
 .news-card p:not(.eyebrow) {
   max-width: 42rem;
   color: #c5d3d9;
+}
+
+.news-card--match-report {
+  border-left-color: var(--cyan);
+}
+
+.news-card--pinned {
+  order: -1;
+  border-color: rgba(245, 189, 85, 0.5);
+  border-left-color: var(--gold);
+}
+
+.news-card--kk {
+  background:
+    linear-gradient(90deg, rgba(7, 20, 29, 0.98), rgba(7, 20, 29, 0.78)),
+    image-set(
+        url("/news/assets/sc-cosmic-rift.avif") type("image/avif"),
+        url("/news/assets/sc-cosmic-rift.webp") type("image/webp")
+      )
+      right center / cover;
+}
+
+.news-card--korea {
+  background:
+    linear-gradient(90deg, rgba(7, 20, 29, 0.98), rgba(7, 20, 29, 0.74)),
+    image-set(
+        url("/news/assets/sc-protoss-carrier.avif") type("image/avif"),
+        url("/news/assets/sc-protoss-carrier.webp") type("image/webp")
+      )
+      right center / cover;
+}
+
+.news-card--match-report:first-child {
+  border-color: rgba(245, 189, 85, 0.5);
+  border-left-color: var(--gold);
+}
+
+.news-staff-preview {
+  display: flex;
+  margin: 1rem 0 1.25rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.news-date small {
+  margin-top: 0.3rem;
+  color: var(--cyan);
+  font-size: 0.9rem;
+  font-weight: 800;
+}
+
+.news-staff-preview span {
+  padding: 0.42rem 0.7rem;
+  border: 1px solid rgba(86, 212, 231, 0.22);
+  border-radius: 999px;
+  color: #d7e4e8;
+  background: rgba(86, 212, 231, 0.07);
+  font-size: 0.9rem;
+}
+
+.report-container {
+  max-width: 1120px;
+}
+
+.back-link {
+  display: inline-flex;
+  margin-bottom: 2rem;
+  color: var(--cyan);
+  font-weight: 800;
+}
+
+.report-section-heading {
+  max-width: 760px;
+  margin-bottom: 1.4rem;
+}
+
+.report-section-heading h2 {
+  margin-bottom: 0.65rem;
+}
+
+.report-section-heading > :last-child {
+  margin-bottom: 0;
+}
+
+.report-staff-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.report-staff-grid article {
+  display: flex;
+  min-height: 180px;
+  padding: 1.4rem;
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--cyan);
+  border-radius: var(--radius-md);
+  background: linear-gradient(
+    145deg,
+    rgba(17, 42, 54, 0.92),
+    rgba(6, 20, 29, 0.96)
+  );
+  box-shadow: var(--shadow);
+  flex-direction: column;
+}
+
+.report-staff-grid span,
+.report-staff-grid small {
+  color: var(--muted);
+}
+
+.report-staff-grid span {
+  font-size: 0.9rem;
+  font-weight: 850;
+  letter-spacing: 0.08em;
+}
+
+.report-staff-grid strong {
+  margin: 0.8rem 0;
+  color: var(--text);
+  font-size: clamp(1.15rem, 2vw, 1.45rem);
+  overflow-wrap: anywhere;
+}
+
+.report-staff-grid small {
+  margin-top: auto;
+  font-size: 0.9rem;
+}
+
+.report-summary-grid {
+  display: grid;
+  margin-top: 1.2rem;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.report-summary-grid article {
+  display: flex;
+  min-height: 125px;
+  padding: 1.1rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: rgba(5, 18, 26, 0.8);
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.4rem;
+}
+
+.report-summary-grid strong {
+  color: var(--gold-bright);
+  font-size: clamp(1.35rem, 2.6vw, 2rem);
+  line-height: 1.08;
+}
+
+.report-summary-grid span {
+  color: var(--muted);
+}
+
+.report-points-table-wrap {
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--gold);
+  border-radius: var(--radius-lg);
+  background: rgba(5, 18, 26, 0.88);
+  box-shadow: var(--shadow);
+}
+
+.report-points-table th,
+.report-points-table td {
+  white-space: nowrap;
+}
+
+.report-points-table tbody tr:hover {
+  background: rgba(86, 212, 231, 0.05);
+}
+
+.report-points-total {
+  color: var(--gold-bright);
+  font-weight: 900;
+}
+
+.report-points-total--negative {
+  color: #ff8c80;
+}
+
+.report-games-list {
+  display: grid;
+  gap: 1rem;
+}
+
+.report-game-card {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: linear-gradient(
+    145deg,
+    rgba(17, 42, 54, 0.9),
+    rgba(5, 17, 25, 0.96)
+  );
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.report-game-card > header {
+  display: grid;
+  padding: 1rem 1.2rem;
+  border-bottom: 1px solid var(--line);
+  background: rgba(0, 0, 0, 0.16);
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 1rem;
+}
+
+.report-game-card > header > div {
+  display: flex;
+  align-items: baseline;
+  gap: 0.7rem;
+}
+
+.report-game-card > header p {
+  margin: 0;
+  color: #c4d3d9;
+  overflow-wrap: anywhere;
+}
+
+.report-game-card > header > span,
+.game-number {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.report-game-card > header strong {
+  color: var(--gold-bright);
+}
+
+.force-results {
+  display: grid;
+  padding: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 0.8rem;
+}
+
+.force-result {
+  padding: 1rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: rgba(2, 12, 18, 0.64);
+}
+
+.force-result--won {
+  border-color: rgba(91, 218, 167, 0.46);
+  background: rgba(43, 133, 100, 0.1);
+}
+
+.force-result--lost {
+  opacity: 0.84;
+}
+
+.force-result-heading {
+  display: flex;
+  margin-bottom: 0.8rem;
+  padding-bottom: 0.7rem;
+  border-bottom: 1px solid var(--line);
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.force-result-heading span {
+  color: var(--muted);
+  font-size: 0.9rem;
+  font-weight: 800;
+}
+
+.force-result-heading strong {
+  color: #aebec4;
+}
+
+.force-result--won .force-result-heading strong {
+  color: #72e2b7;
+}
+
+.force-result ul {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  gap: 0.48rem;
+}
+
+.force-result li {
+  display: flex;
+  min-width: 0;
+  color: #dce7ea;
+  justify-content: space-between;
+  overflow-wrap: anywhere;
+  gap: 0.6rem;
+}
+
+.force-result li span {
+  flex: 0 0 auto;
+  padding: 0.1rem 0.4rem;
+  border: 1px solid rgba(255, 111, 98, 0.5);
+  border-radius: 999px;
+  color: #ff9d94;
+  font-size: 0.8rem;
+}
+
+.player-disconnected {
+  color: #ffb2aa !important;
 }
 
 .empty-page {
@@ -2046,6 +2391,10 @@ tbody th {
   .footer-meta {
     grid-column: 1 / -1;
     text-align: left;
+  }
+
+  .report-summary-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
@@ -2223,6 +2572,16 @@ tbody th {
     width: 7.5rem;
   }
 
+  .rules-scheme-callout {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+
+  .rules-scheme-callout .button {
+    align-self: flex-start;
+  }
+
   .date-banner {
     grid-template-columns: 1fr;
     gap: 0.25rem;
@@ -2252,6 +2611,33 @@ tbody th {
     flex-direction: row;
     align-items: baseline;
     gap: 0.5rem;
+  }
+
+  .news-date small {
+    margin-top: 0;
+  }
+
+  .report-staff-grid,
+  .report-summary-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .report-staff-grid article,
+  .report-summary-grid article {
+    min-height: 0;
+  }
+
+  .report-game-card > header {
+    grid-template-columns: 1fr auto;
+  }
+
+  .report-game-card > header p {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+
+  .force-results {
+    grid-template-columns: 1fr;
   }
 
   .footer-grid {
