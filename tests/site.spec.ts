@@ -344,7 +344,7 @@ test("积分榜展示第二届前五个比赛日累计积分与完整前二十�
     "GGrush",
   );
   await expect(page.locator(".standings-table tbody tr").first()).toContainText(
-    "300",
+    "260",
   );
   await expect(
     page.getByText("公开积分榜只展示铂金及铂金以上的选手", {
@@ -380,8 +380,23 @@ test("新闻页提供五个比赛日赛报及完整人员、积分和逐盘赛�
   await expect(
     firstNewsCard.getByRole("link", { name: "阅读完整赛事方案" }),
   ).toHaveAttribute("href", "/news/dsl2-league-plan.html");
+  const timelineLinks = page.locator(".news-timeline a");
+  await expect(timelineLinks).toHaveCount(6);
+  await expect(timelineLinks.first()).toHaveAttribute("href", "#news-scheme");
+  await expect(timelineLinks.nth(1)).toContainText("2026年8月31日比赛数据赛报");
+  await expect(timelineLinks.nth(1)).toHaveAttribute(
+    "href",
+    "#news-2026-08-31",
+  );
+  await timelineLinks.nth(2).click();
+  await expect(page).toHaveURL(/#news-2026-08-29$/u);
+  await expect(page.locator("#news-2026-08-29")).toBeInViewport();
   const reportCards = page.locator(".news-card--match-report");
   await expect(reportCards).toHaveCount(5);
+  await expect(page.locator(".news-staff-thanks")).toHaveCount(5);
+  await expect(reportCards.first()).toContainText(
+    "感谢以上赛事工作人员的辛苦付出",
+  );
   await expect(reportCards.first()).toContainText(
     /2026年8月31日\s+比赛数据赛报/u,
   );
@@ -400,8 +415,15 @@ test("新闻页提供五个比赛日赛报及完整人员、积分和逐盘赛�
   await expect(page.getByText("房主", { exact: true })).toBeVisible();
   await expect(page.getByText("主播", { exact: true })).toBeVisible();
   await expect(page.getByText("赛事数据统计员", { exact: true })).toBeVisible();
-  await expect(page.getByText("每人当晚固定 +20 分")).toHaveCount(2);
+  await expect(page.getByText("每人当晚固定 +10 分")).toHaveCount(2);
   await expect(page.getByText("当晚固定 +5 分")).toBeVisible();
+  const sponsorThanks = page.locator(".match-sponsor-thanks");
+  await expect(sponsorThanks).toContainText(
+    "感谢赞助商的慷慨支持，让每一个比赛日得以顺利举行。",
+  );
+  await expect(
+    sponsorThanks.getByRole("link", { name: "查看赞助商鸣谢" }),
+  ).toHaveAttribute("href", "/rewards/#sponsor-thanks");
   await expect(page.getByText("录像总时长")).toHaveCount(0);
   await expect(page.locator(".report-points-table thead th")).toHaveCount(4);
   await expect(page.getByText("开播加分", { exact: true })).toHaveCount(0);
@@ -435,7 +457,7 @@ test("新闻页提供五个比赛日赛报及完整人员、积分和逐盘赛�
   await expect(twoForceGame).not.toContainText("富农");
   await expect(twoForceGame).not.toContainText("贫农");
   await expect(page.getByText("逗地主羞大圣").first()).toBeVisible();
-  await expect(page.getByText("−30 分", { exact: false })).toBeVisible();
+  await expect(page.getByText("−20 分", { exact: false })).toBeVisible();
   await expect(page.getByText("掉线", { exact: true })).toBeVisible();
 });
 
@@ -444,6 +466,7 @@ test("奖励页合并韩服并列奖金并显示最新赞助答谢说明", async
   await expect(
     page.getByRole("heading", { name: "感谢以下赞助支持的老板" }),
   ).toBeVisible();
+  await expect(page.locator("#sponsor-thanks")).toBeVisible();
   await expect(
     page.getByText("铂金赞助商 DBS", { exact: false }),
   ).toBeVisible();
@@ -501,14 +524,14 @@ test("规则总览使用单一表格且地图页标明 8R 地图缺位", async (
   const workPointValues = page.locator(
     ".points-grid .panel:nth-child(2) .points-value",
   );
-  await expect(workPointValues.nth(0)).toContainText("+20");
-  await expect(workPointValues.nth(1)).toContainText("+20");
+  await expect(workPointValues.nth(0)).toContainText("+10");
+  await expect(workPointValues.nth(1)).toContainText("+10");
   await expect(workPointValues.nth(2)).toContainText("+5");
   await expect(
     page.getByText("赛事工作积分合计最高为", { exact: false }),
   ).toBeVisible();
   await expect(
-    page.getByText("掉线者扣除 30 点积分", { exact: false }),
+    page.getByText("掉线者扣除 20 点积分", { exact: false }),
   ).toBeVisible();
   await expect(
     page.getByText("积分允许扣至负数", { exact: false }),
@@ -550,11 +573,11 @@ test("新闻中的赛事方案可直接阅读且奖金已经同步", async ({ re
   expect(html).toMatch(/网站维护与赛事组织<\/td>\s*<td>500 元<\/td>/);
   expect(html).toMatch(/合计<\/td>\s*<td>2800 元<\/td>/);
   expect(html).toContain("以上奖金及经费均为众筹目标，应以实际众筹情况为准");
-  expect(html).toContain("<b>房主</b><b>+20 分</b>");
-  expect(html).toContain("<b>主播</b><b>+20 分</b>");
+  expect(html).toContain("<b>房主</b><b>+10 分</b>");
+  expect(html).toContain("<b>主播</b><b>+10 分</b>");
   expect(html).toContain("<b>统计</b><b>+5 分</b>");
-  expect(html).toContain("赛事工作积分合计最高为 30 分");
-  expect(html).toContain("掉线者扣除 30 点积分且允许扣至负数");
+  expect(html).toContain("赛事工作积分合计最高为 15 分");
+  expect(html).toContain("掉线者扣除 20 点积分且允许扣至负数");
   expect(html).toContain("同一周内第 2 次掉线后");
   expect(html).not.toContain("第 3 次掉线后");
   expect(html).not.toContain("+2 分 / 盘");

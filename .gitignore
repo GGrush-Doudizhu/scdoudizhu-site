@@ -34,3 +34,4 @@ match-data/
 rep-parser/
 data-source/dsl2/dsl2-master.json
 data-source/dsl2/full-standings.csv
+data-source/dsl2/full-standings-latest.csv

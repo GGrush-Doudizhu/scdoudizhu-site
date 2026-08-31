@@ -43,6 +43,14 @@ const heroImage =
     <div class="container report-container">
       <a class="back-link" href="/announcements/">← 返回赛事新闻</a>
 
+      <aside class="match-sponsor-thanks" aria-label="赞助商鸣谢">
+        <div>
+          <p class="eyebrow">赞助鸣谢</p>
+          <p>感谢赞助商的慷慨支持，让每一个比赛日得以顺利举行。</p>
+        </div>
+        <a href="/rewards/#sponsor-thanks">查看赞助商鸣谢 →</a>
+      </aside>
+
       <div class="report-section-heading">
         <p class="eyebrow">赛事人员</p>
         <h2>当晚赛事工作记录</h2>
@@ -51,12 +59,12 @@ const heroImage =
         <article>
           <span>房主</span>
           <strong>{day.staff.hosts.join("、")}</strong>
-          <small>每人当晚固定 +20 分</small>
+          <small>每人当晚固定 +10 分</small>
         </article>
         <article>
           <span>主播</span>
           <strong>{day.staff.streamers.join("、")}</strong>
-          <small>每人当晚固定 +20 分</small>
+          <small>每人当晚固定 +10 分</small>
         </article>
         <article>
           <span>赛事数据统计员</span>
@@ -89,8 +97,8 @@ const heroImage =
         <h2>每人当日积分变动</h2>
         <p>
           地主胜 / 负为 +12 / +3，农民胜 / 负为 +8 / +2；房主与主播各
-          +20、统计员 +5，兼职工作分合计最高 +30；文字标记为“掉线”的选手该盘按
-          −30 分结算。
+          +10、统计员 +5，兼职工作分合计最高 +15；文字标记为“掉线”的选手该盘按
+          −20 分结算。
         </p>
       </div>
       <div class="table-wrap report-points-table-wrap">

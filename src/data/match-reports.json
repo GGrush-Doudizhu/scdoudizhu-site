@@ -25,18 +25,10 @@
         {
           "displayName": "lansoov",
           "matchPoints": 39,
-          "workPoints": 20,
-          "total": 59,
+          "workPoints": 10,
+          "total": 49,
           "contributions": ["主播"],
           "workPointsCapped": false
-        },
-        {
-          "displayName": "GGrush",
-          "matchPoints": 18,
-          "workPoints": 30,
-          "total": 48,
-          "contributions": ["房主", "主播", "赛事数据统计员"],
-          "workPointsCapped": true
         },
         {
           "displayName": "DR.Yang",
@@ -53,6 +45,14 @@
           "total": 41,
           "contributions": [],
           "workPointsCapped": false
+        },
+        {
+          "displayName": "GGrush",
+          "matchPoints": 18,
+          "workPoints": 15,
+          "total": 33,
+          "contributions": ["房主", "主播", "赛事数据统计员"],
+          "workPointsCapped": true
         },
         {
           "displayName": "年轻",
@@ -427,14 +427,6 @@
           "workPointsCapped": false
         },
         {
-          "displayName": "IKILllIII",
-          "matchPoints": 14,
-          "workPoints": 30,
-          "total": 44,
-          "contributions": ["房主", "主播"],
-          "workPointsCapped": true
-        },
-        {
           "displayName": "五社",
           "matchPoints": 39,
           "workPoints": 0,
@@ -443,10 +435,18 @@
           "workPointsCapped": false
         },
         {
+          "displayName": "IKILllIII",
+          "matchPoints": 14,
+          "workPoints": 15,
+          "total": 29,
+          "contributions": ["房主", "主播"],
+          "workPointsCapped": true
+        },
+        {
           "displayName": "FFS-Open-1",
           "matchPoints": 13,
-          "workPoints": 20,
-          "total": 33,
+          "workPoints": 10,
+          "total": 23,
           "contributions": ["主播"],
           "workPointsCapped": false
         },
@@ -727,8 +727,8 @@
         {
           "displayName": "GGrush",
           "matchPoints": 58,
-          "workPoints": 30,
-          "total": 88,
+          "workPoints": 15,
+          "total": 73,
           "contributions": ["房主", "主播", "赛事数据统计员"],
           "workPointsCapped": true
         },
@@ -741,19 +741,19 @@
           "workPointsCapped": false
         },
         {
-          "displayName": "lansoov",
-          "matchPoints": 33,
-          "workPoints": 20,
-          "total": 53,
-          "contributions": ["主播"],
-          "workPointsCapped": false
-        },
-        {
           "displayName": "lucky2023",
           "matchPoints": 44,
           "workPoints": 0,
           "total": 44,
           "contributions": [],
+          "workPointsCapped": false
+        },
+        {
+          "displayName": "lansoov",
+          "matchPoints": 33,
+          "workPoints": 10,
+          "total": 43,
+          "contributions": ["主播"],
           "workPointsCapped": false
         },
         {
@@ -862,9 +862,9 @@
         },
         {
           "displayName": "逗地主羞大圣",
-          "matchPoints": -30,
+          "matchPoints": -20,
           "workPoints": 0,
-          "total": -30,
+          "total": -20,
           "contributions": [],
           "workPointsCapped": false
         }
@@ -1169,17 +1169,9 @@
         {
           "displayName": "lansoov",
           "matchPoints": 46,
-          "workPoints": 20,
-          "total": 66,
+          "workPoints": 10,
+          "total": 56,
           "contributions": ["主播"],
-          "workPointsCapped": false
-        },
-        {
-          "displayName": "GGrush",
-          "matchPoints": 28,
-          "workPoints": 25,
-          "total": 53,
-          "contributions": ["主播", "赛事数据统计员"],
           "workPointsCapped": false
         },
         {
@@ -1188,6 +1180,14 @@
           "workPoints": 0,
           "total": 52,
           "contributions": [],
+          "workPointsCapped": false
+        },
+        {
+          "displayName": "GGrush",
+          "matchPoints": 28,
+          "workPoints": 15,
+          "total": 43,
+          "contributions": ["主播", "赛事数据统计员"],
           "workPointsCapped": false
         },
         {
@@ -1205,14 +1205,6 @@
           "total": 37,
           "contributions": [],
           "workPointsCapped": false
-        },
-        {
-          "displayName": "IKILllIII",
-          "matchPoints": 2,
-          "workPoints": 30,
-          "total": 32,
-          "contributions": ["房主", "主播"],
-          "workPointsCapped": true
         },
         {
           "displayName": "VGer_Whc",
@@ -1245,6 +1237,14 @@
           "total": 18,
           "contributions": [],
           "workPointsCapped": false
+        },
+        {
+          "displayName": "IKILllIII",
+          "matchPoints": 2,
+          "workPoints": 15,
+          "total": 17,
+          "contributions": ["房主", "主播"],
+          "workPointsCapped": true
         },
         {
           "displayName": "FFS-no.1",
@@ -1561,20 +1561,20 @@
           "workPointsCapped": false
         },
         {
-          "displayName": "IKILllIII",
-          "matchPoints": 42,
-          "workPoints": 30,
-          "total": 72,
-          "contributions": ["房主", "主播"],
-          "workPointsCapped": true
-        },
-        {
           "displayName": "lansoov",
           "matchPoints": 48,
-          "workPoints": 20,
-          "total": 68,
+          "workPoints": 10,
+          "total": 58,
           "contributions": ["主播"],
           "workPointsCapped": false
+        },
+        {
+          "displayName": "IKILllIII",
+          "matchPoints": 42,
+          "workPoints": 15,
+          "total": 57,
+          "contributions": ["房主", "主播"],
+          "workPointsCapped": true
         },
         {
           "displayName": "VGer_Whc",
@@ -1593,14 +1593,6 @@
           "workPointsCapped": false
         },
         {
-          "displayName": "do''do",
-          "matchPoints": 14,
-          "workPoints": 30,
-          "total": 44,
-          "contributions": ["房主", "主播"],
-          "workPointsCapped": true
-        },
-        {
           "displayName": "老全",
           "matchPoints": 39,
           "workPoints": 0,
@@ -1617,18 +1609,18 @@
           "workPointsCapped": false
         },
         {
-          "displayName": "DR.Yang",
-          "matchPoints": 18,
-          "workPoints": 20,
-          "total": 38,
-          "contributions": ["主播"],
-          "workPointsCapped": false
-        },
-        {
           "displayName": "FFS-no.1",
           "matchPoints": 38,
           "workPoints": 0,
           "total": 38,
+          "contributions": [],
+          "workPointsCapped": false
+        },
+        {
+          "displayName": "fly",
+          "matchPoints": 33,
+          "workPoints": 0,
+          "total": 33,
           "contributions": [],
           "workPointsCapped": false
         },
@@ -1641,18 +1633,26 @@
           "workPointsCapped": false
         },
         {
+          "displayName": "do''do",
+          "matchPoints": 14,
+          "workPoints": 15,
+          "total": 29,
+          "contributions": ["房主", "主播"],
+          "workPointsCapped": true
+        },
+        {
+          "displayName": "DR.Yang",
+          "matchPoints": 18,
+          "workPoints": 10,
+          "total": 28,
+          "contributions": ["主播"],
+          "workPointsCapped": false
+        },
+        {
           "displayName": "怕瓦落地",
           "matchPoints": 27,
           "workPoints": 0,
           "total": 27,
-          "contributions": [],
-          "workPointsCapped": false
-        },
-        {
-          "displayName": "fly",
-          "matchPoints": 23,
-          "workPoints": 0,
-          "total": 23,
           "contributions": [],
           "workPointsCapped": false
         },
@@ -1662,14 +1662,6 @@
           "workPoints": 0,
           "total": 21,
           "contributions": [],
-          "workPointsCapped": false
-        },
-        {
-          "displayName": "FFS-Open-1",
-          "matchPoints": 0,
-          "workPoints": 20,
-          "total": 20,
-          "contributions": ["主播"],
           "workPointsCapped": false
         },
         {
@@ -1718,6 +1710,14 @@
           "workPoints": 0,
           "total": 10,
           "contributions": [],
+          "workPointsCapped": false
+        },
+        {
+          "displayName": "FFS-Open-1",
+          "matchPoints": 0,
+          "workPoints": 10,
+          "total": 10,
+          "contributions": ["主播"],
           "workPointsCapped": false
         },
         {

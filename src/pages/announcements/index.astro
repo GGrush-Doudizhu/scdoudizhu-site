@@ -4,6 +4,21 @@ import matchReports from "../../data/match-reports.json";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 
 const schemeUrl = "/news/dsl2-league-plan.html";
+const schemeTitle = "第二届 DSL 斗地主星际联赛方案发布";
+const timelineItems = [
+  {
+    id: "news-scheme",
+    date: "08.20",
+    meta: "置顶 · 联赛方案",
+    title: schemeTitle,
+  },
+  ...matchReports.matchDays.map((day) => ({
+    id: `news-${day.slug}`,
+    date: day.date.slice(5).replace("-", "."),
+    meta: `${day.platform}赛区 · ${day.weekday}`,
+    title: `${day.dateLabel}比赛数据赛报`,
+  })),
+];
 ---
 
 <BaseLayout title="赛事新闻" description="第二届 DSL 的赛事方案与重要新闻。">
@@ -15,60 +30,91 @@ const schemeUrl = "/news/dsl2-league-plan.html";
   />
 
   <section class="section">
-    <div class="container news-list">
-      <article class="news-card news-card--scheme news-card--pinned">
-        <div class="news-date"><span>2026</span><strong>08.20</strong></div>
-        <div>
-          <p class="eyebrow">置顶 · 联赛方案</p>
-          <h2>第二届 DSL 斗地主星际联赛方案发布</h2>
-          <p>
-            查看十周赛程、常规赛积分规则、段位体系、双线季后赛与最新奖金安排。
-          </p>
-          <a class="button button--primary" href={schemeUrl}>阅读完整赛事方案</a
-          >
-        </div>
-      </article>
+    <div class="container news-archive-layout">
+      <aside class="news-timeline">
+        <p class="eyebrow">快速浏览</p>
+        <h2>新闻时间轴</h2>
+        <nav aria-label="赛事新闻目录">
+          <ol>
+            {
+              timelineItems.map((item) => (
+                <li>
+                  <a href={`#${item.id}`}>
+                    <time>{item.date}</time>
+                    <small>{item.meta}</small>
+                    <span>{item.title}</span>
+                  </a>
+                </li>
+              ))
+            }
+          </ol>
+        </nav>
+      </aside>
 
-      {
-        matchReports.matchDays.map((day) => (
-          <article
-            class:list={[
-              "news-card",
-              "news-card--match-report",
-              day.platform === "KK" ? "news-card--kk" : "news-card--korea",
-            ]}
-          >
-            <div class="news-date">
-              <span>{day.date.slice(0, 4)}</span>
-              <strong>{day.date.slice(5).replace("-", ".")}</strong>
-              <small>{day.weekday}</small>
-            </div>
-            <div>
-              <p class="eyebrow">
-                {day.platform}赛区 · 常规赛 · 第 {day.matchdayNumber} 比赛日
-              </p>
-              <h2>{day.dateLabel} 比赛数据赛报</h2>
-              <p>
-                当日共进行 {day.summary.matchCount} 盘，
-                {day.summary.participantCount}
-                名选手参赛；地主方 {day.summary.landlordWins} 胜，农民方
-                {day.summary.farmerWins} 胜。
-              </p>
-              <div class="news-staff-preview" aria-label="当日赛事工作人员">
-                <span>房主：{day.staff.hosts.join("、")}</span>
-                <span>主播：{day.staff.streamers.join("、")}</span>
-                <span>统计：{day.staff.statistician}</span>
+      <div class="news-list">
+        <article
+          id="news-scheme"
+          class="news-card news-card--scheme news-card--pinned"
+        >
+          <div class="news-date"><span>2026</span><strong>08.20</strong></div>
+          <div>
+            <p class="eyebrow">置顶 · 联赛方案</p>
+            <h2>{schemeTitle}</h2>
+            <p>
+              查看十周赛程、常规赛积分规则、段位体系、双线季后赛与最新奖金安排。
+            </p>
+            <a class="button button--primary" href={schemeUrl}
+              >阅读完整赛事方案</a
+            >
+          </div>
+        </article>
+
+        {
+          matchReports.matchDays.map((day) => (
+            <article
+              id={`news-${day.slug}`}
+              class:list={[
+                "news-card",
+                "news-card--match-report",
+                day.platform === "KK" ? "news-card--kk" : "news-card--korea",
+              ]}
+            >
+              <div class="news-date">
+                <span>{day.date.slice(0, 4)}</span>
+                <strong>{day.date.slice(5).replace("-", ".")}</strong>
+                <small>{day.weekday}</small>
               </div>
-              <a
-                class="button button--primary"
-                href={`/announcements/${day.slug}/`}
-              >
-                查看积分变动与逐盘赛果
-              </a>
-            </div>
-          </article>
-        ))
-      }
+              <div>
+                <p class="eyebrow">
+                  {day.platform}赛区 · 常规赛 · 第 {day.matchdayNumber} 比赛日
+                </p>
+                <h2>{day.dateLabel} 比赛数据赛报</h2>
+                <p>
+                  当日共进行 {day.summary.matchCount} 盘，
+                  {day.summary.participantCount}
+                  名选手参赛；地主方 {day.summary.landlordWins} 胜，农民方
+                  {day.summary.farmerWins} 胜。
+                </p>
+                <div class="news-staff-preview" aria-label="当日赛事工作人员">
+                  <span>房主：{day.staff.hosts.join("、")}</span>
+                  <span>主播：{day.staff.streamers.join("、")}</span>
+                  <span>统计：{day.staff.statistician}</span>
+                </div>
+                <p class="news-staff-thanks">
+                  <span aria-hidden="true">✦</span>{" "}
+                  感谢以上赛事工作人员的辛苦付出
+                </p>
+                <a
+                  class="button button--primary"
+                  href={`/announcements/${day.slug}/`}
+                >
+                  查看积分变动与逐盘赛果
+                </a>
+              </div>
+            </article>
+          ))
+        }
+      </div>
     </div>
   </section>
 </BaseLayout>

@@ -25,16 +25,16 @@ const dsl2DataOutputRoot = path.join(projectRoot, "data-source", "dsl2");
 const masterDataOutputPath = path.join(dsl2DataOutputRoot, "dsl2-master.json");
 const fullStandingsOutputPath = path.join(
   dsl2DataOutputRoot,
-  "full-standings.csv",
+  "full-standings-latest.csv",
 );
 const checkOnly = process.argv.includes("--check");
 
 const publishedAt = "2026-09-01T01:00:00+08:00";
 const publicStandingLimit = 25;
-const workPointCap = 30;
+const workPointCap = 15;
 const workRoleRules = {
-  host: { label: "房主", points: 20 },
-  streamer: { label: "主播", points: 20 },
+  host: { label: "房主", points: 10 },
+  streamer: { label: "主播", points: 10 },
   statistician: { label: "赛事数据统计员", points: 5 },
 };
 
@@ -73,7 +73,7 @@ function parseSameNameCsv(text) {
 }
 
 function pointsFor(force, won, disconnected) {
-  if (disconnected) return -30;
+  if (disconnected) return -20;
   if (force === 1) return won ? 12 : 3;
   if (force === 2 || force === 3) return won ? 8 : 2;
   throw new Error(`无法识别的 force/team：${force}`);
@@ -148,13 +148,15 @@ function initialPlayerTotal(displayName) {
     losses: 0,
     disconnects: 0,
     landlordGames: 0,
+    landlordWins: 0,
     richFarmerGames: 0,
+    richFarmerWins: 0,
     poorFarmerGames: 0,
+    poorFarmerWins: 0,
     farmerGames: 0,
     hostDays: 0,
     streamerDays: 0,
     statisticianDays: 0,
-    cappedWorkDays: 0,
   };
 }
 
@@ -193,7 +195,6 @@ function addWorkPoints(pointChanges, playerTotals, displayName, roleKeys) {
   if (roleKeys.includes("host")) total.hostDays += 1;
   if (roleKeys.includes("streamer")) total.streamerDays += 1;
   if (roleKeys.includes("statistician")) total.statisticianDays += 1;
-  if (capped) total.cappedWorkDays += 1;
   playerTotals.set(displayName, total);
 }
 
@@ -214,13 +215,15 @@ function standingsCsv(entries) {
     ["losses", "负"],
     ["disconnects", "掉线"],
     ["landlordGames", "地主盘数"],
+    ["landlordWins", "地主胜场"],
     ["richFarmerGames", "富农盘数"],
+    ["richFarmerWins", "富农胜场"],
     ["poorFarmerGames", "贫农盘数"],
+    ["poorFarmerWins", "贫农胜场"],
     ["farmerGames", "双阵营地图农民盘数"],
     ["hostDays", "担任房主比赛日"],
     ["streamerDays", "担任主播比赛日"],
     ["statisticianDays", "担任统计员比赛日"],
-    ["cappedWorkDays", "赛事工作封顶比赛日"],
     ["tier", "公开段位"],
     ["publiclyListed", "是否公开展示"],
   ];
@@ -322,8 +325,12 @@ async function buildData() {
               if (disconnected) {
                 total.disconnects += 1;
                 total.losses += 1;
-              } else if (rawTeam.winner) total.wins += 1;
-              else total.losses += 1;
+              } else if (rawTeam.winner) {
+                total.wins += 1;
+                if (role === "地主") total.landlordWins += 1;
+                if (role === "富农") total.richFarmerWins += 1;
+                if (role === "贫农") total.poorFarmerWins += 1;
+              } else total.losses += 1;
               if (role === "地主") total.landlordGames += 1;
               if (role === "富农") total.richFarmerGames += 1;
               if (role === "贫农") total.poorFarmerGames += 1;
@@ -485,11 +492,11 @@ async function buildData() {
         landlordLoss: 3,
         farmerWin: 8,
         farmerLoss: 2,
-        disconnect: -30,
+        disconnect: -20,
       },
       work: {
-        host: 20,
-        streamer: 20,
+        host: 10,
+        streamer: 10,
         statistician: 5,
         perPersonPerMatchdayCap: workPointCap,
       },

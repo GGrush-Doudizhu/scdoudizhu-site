@@ -30,13 +30,13 @@ export const matchPoints = [
 export const bonusPoints = [
   {
     role: "房主",
-    points: 20,
+    points: 10,
     unit: "每比赛日",
     note: "负责当晚比赛房，可同时参赛",
   },
   {
     role: "主播",
-    points: 20,
+    points: 10,
     unit: "每比赛日",
     note: "承担当晚赛事直播，固定获得工作积分",
   },
