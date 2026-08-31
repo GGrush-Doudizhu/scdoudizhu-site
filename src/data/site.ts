@@ -10,10 +10,10 @@ export const site = {
 
 export const navigation = [
   { href: "/", label: "首页" },
+  { href: "/rewards/", label: "赞助鸣谢" },
   { href: "/standings/", label: "常规赛积分榜" },
   { href: "/rules/", label: "赛程与规则" },
   { href: "/playoffs/", label: "季后赛" },
   { href: "/announcements/", label: "新闻" },
-  { href: "/rewards/", label: "赞助鸣谢" },
   { href: "/maps/", label: "地图下载" },
 ] as const;

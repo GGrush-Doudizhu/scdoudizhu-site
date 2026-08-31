@@ -190,6 +190,10 @@ test("页头、标签页与分享信息统一使用正式赛事徽章", async ({
     primaryNavigation.getByRole("link", { name: "新闻", exact: true }),
   ).toBeVisible();
   await expect(primaryNavigation.getByRole("link")).toHaveCount(7);
+  await expect(primaryNavigation.getByRole("link").nth(0)).toHaveText("首页");
+  await expect(primaryNavigation.getByRole("link").nth(1)).toHaveText(
+    "赞助鸣谢",
+  );
   await expect(
     primaryNavigation.getByRole("link", { name: "赛程与规则", exact: true }),
   ).toHaveAttribute("href", "/rules/");
@@ -364,7 +368,9 @@ test("积分榜展示第二届前五个比赛日累计积分与完整前二十�
     }),
   ).toBeVisible();
   await expect(page.getByText("统计截至：2026年8月31日")).toBeVisible();
-  await expect(page.locator(".podium-record")).toHaveCount(3);
+  await expect(page.locator(".podium-record")).toHaveCount(0);
+  await expect(page.locator(".podium")).not.toContainText("总场数");
+  await expect(page.locator(".podium")).not.toContainText("胜率");
   await expect(page.locator(".standing-elite-stats")).toHaveCount(5);
   await expect(
     page.locator('.standings-table tbody tr[data-rank="1"]'),
@@ -526,6 +532,9 @@ test("规则总览使用单一表格且地图页标明 8R 地图缺位", async (
   await expect(page.getByText("第一周至第六周")).toBeVisible();
   await expect(page.getByText("十周赛季，分为两个阶段")).toBeVisible();
   await expect(page.locator(".rules-overview tbody tr")).toHaveCount(8);
+  await expect(
+    page.locator("#schedule > .container > :first-child"),
+  ).toHaveClass(/rules-scheme-callout/u);
   await expect(
     page
       .locator(".rules-scheme-callout")

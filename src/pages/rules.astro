@@ -19,6 +19,18 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
   <section id="schedule" class="section">
     <div class="container">
+      <aside class="rules-scheme-callout" aria-labelledby="rules-scheme-title">
+        <div>
+          <p class="eyebrow">完整赛事文件</p>
+          <h2 id="rules-scheme-title">查看第二届 DSL 完整赛事方案</h2>
+          <p>
+            方案包含完整赛程、积分与段位体系、季后赛安排以及奖金说明，可与本页规则配合查阅。
+          </p>
+        </div>
+        <a class="button button--primary" href="/news/dsl2-league-plan.html"
+          >阅读完整赛事方案</a
+        >
+      </aside>
       <div class="date-banner">
         <span>正式开赛</span>
         <strong>{season.startDate}</strong>
@@ -62,18 +74,6 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
   <section class="section section--tint">
     <div class="container">
-      <aside class="rules-scheme-callout" aria-labelledby="rules-scheme-title">
-        <div>
-          <p class="eyebrow">完整赛事文件</p>
-          <h2 id="rules-scheme-title">查看第二届 DSL 完整赛事方案</h2>
-          <p>
-            方案包含完整赛程、积分与段位体系、季后赛安排以及奖金说明，可与本页规则配合查阅。
-          </p>
-        </div>
-        <a class="button button--primary" href="/news/dsl2-league-plan.html"
-          >阅读完整赛事方案</a
-        >
-      </aside>
       <div class="table-wrap rules-overview-wrap">
         <table class="rules-overview">
           <caption>常规赛基本规则</caption>

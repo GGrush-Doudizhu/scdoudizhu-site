@@ -58,13 +58,6 @@ const percentFormatter = new Intl.NumberFormat("zh-CN", {
                   {entry.points.toLocaleString("zh-CN")}
                 </p>
                 <p class="podium-unit">累计积分</p>
-                {entry.gamesPlayed !== undefined &&
-                  entry.winRate !== undefined && (
-                    <p class="podium-record">
-                      总场数 {entry.gamesPlayed} · 胜率{" "}
-                      {percentFormatter.format(entry.winRate)}
-                    </p>
-                  )}
                 <TierCrest tier={entry.tier} />
               </article>
             ))}

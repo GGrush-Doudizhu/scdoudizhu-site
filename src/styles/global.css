@@ -1241,13 +1241,6 @@ tbody th {
   font-size: 0.9rem;
 }
 
-.podium-record {
-  margin: -0.35rem 0 0.9rem;
-  color: #b9d8df;
-  font-size: 0.9rem;
-  font-weight: 750;
-}
-
 .preview-note {
   display: flex;
   padding: 0.95rem 1.2rem;
