@@ -18,6 +18,8 @@ const entrySchema = z
     displayName: z.string().trim().min(1).max(40),
     points: z.number().int(),
     tier: tierSchema,
+    gamesPlayed: z.number().int().positive().optional(),
+    winRate: z.number().min(0).max(1).optional(),
   })
   .strict();
 
@@ -67,6 +69,25 @@ export const publicStandingsSchema = z
           code: "custom",
           message: "公开积分榜段位必须符合铂金及以上的名次分档。",
           path: ["entries", index, "tier"],
+        });
+      }
+
+      if (entry.rank <= 5) {
+        if (entry.gamesPlayed === undefined || entry.winRate === undefined) {
+          context.addIssue({
+            code: "custom",
+            message: "王者和星耀选手必须展示总场数与总胜率。",
+            path: ["entries", index],
+          });
+        }
+      } else if (
+        entry.gamesPlayed !== undefined ||
+        entry.winRate !== undefined
+      ) {
+        context.addIssue({
+          code: "custom",
+          message: "钻石及以下选手不得公开总场数或胜率。",
+          path: ["entries", index],
         });
       }
 

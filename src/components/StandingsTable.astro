@@ -26,6 +26,10 @@ const standingsAsOf = publicStandings.standingsAsOf
   : null;
 
 const podiumOrder = [leaders[1], leaders[0], leaders[2]].filter(Boolean);
+const percentFormatter = new Intl.NumberFormat("zh-CN", {
+  style: "percent",
+  maximumFractionDigits: 1,
+});
 ---
 
 <div class:list={["standings-block", { "standings-block--compact": compact }]}>
@@ -54,6 +58,13 @@ const podiumOrder = [leaders[1], leaders[0], leaders[2]].filter(Boolean);
                   {entry.points.toLocaleString("zh-CN")}
                 </p>
                 <p class="podium-unit">累计积分</p>
+                {entry.gamesPlayed !== undefined &&
+                  entry.winRate !== undefined && (
+                    <p class="podium-record">
+                      总场数 {entry.gamesPlayed} · 胜率{" "}
+                      {percentFormatter.format(entry.winRate)}
+                    </p>
+                  )}
                 <TierCrest tier={entry.tier} />
               </article>
             ))}
@@ -87,7 +98,16 @@ const podiumOrder = [leaders[1], leaders[0], leaders[2]].filter(Boolean);
                   <td class="rank-cell">
                     <span>{entry.rank}</span>
                   </td>
-                  <th scope="row">{entry.displayName}</th>
+                  <th scope="row" class="standing-player">
+                    <span>{entry.displayName}</span>
+                    {entry.gamesPlayed !== undefined &&
+                      entry.winRate !== undefined && (
+                        <small class="standing-elite-stats">
+                          总场数 {entry.gamesPlayed} · 胜率{" "}
+                          {percentFormatter.format(entry.winRate)}
+                        </small>
+                      )}
+                  </th>
                   <td class="numeric points-total">
                     {entry.points.toLocaleString("zh-CN")}
                   </td>

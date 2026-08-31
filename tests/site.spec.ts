@@ -8,11 +8,10 @@ import { dsl2Sponsors } from "../src/data/dsl2-sponsors";
 const pages = [
   { path: "/", heading: "星际斗地主联赛" },
   { path: "/standings/", heading: "常规赛积分榜" },
-  { path: "/schedule/", heading: "第二届联赛赛程" },
-  { path: "/rules/", heading: "第二届比赛规则" },
+  { path: "/rules/", heading: "第二届赛程与规则" },
   { path: "/playoffs/", heading: "第二届季后赛" },
   { path: "/announcements/", heading: "赛事新闻" },
-  { path: "/rewards/", heading: "奖励与赞助" },
+  { path: "/rewards/", heading: "赞助鸣谢" },
   { path: "/maps/", heading: "地图与下载" },
 ];
 
@@ -190,6 +189,19 @@ test("页头、标签页与分享信息统一使用正式赛事徽章", async ({
   await expect(
     primaryNavigation.getByRole("link", { name: "新闻", exact: true }),
   ).toBeVisible();
+  await expect(primaryNavigation.getByRole("link")).toHaveCount(7);
+  await expect(
+    primaryNavigation.getByRole("link", { name: "赛程与规则", exact: true }),
+  ).toHaveAttribute("href", "/rules/");
+  await expect(
+    primaryNavigation.getByRole("link", { name: "赞助鸣谢", exact: true }),
+  ).toHaveAttribute("href", "/rewards/");
+  await expect(
+    primaryNavigation.getByRole("link", { name: "地图下载", exact: true }),
+  ).toHaveAttribute("href", "/maps/");
+  await expect(page.getByRole("navigation", { name: "补充导航" })).toHaveCount(
+    0,
+  );
   await expect(page.locator(".season-status")).toHaveCount(0);
   await expect(page.locator(".hero-signal")).toHaveCount(0);
 });
@@ -352,7 +364,17 @@ test("积分榜展示第二届前五个比赛日累计积分与完整前二十�
     }),
   ).toBeVisible();
   await expect(page.getByText("统计截至：2026年8月31日")).toBeVisible();
-  await expect(page.getByText("胜率")).toHaveCount(0);
+  await expect(page.locator(".podium-record")).toHaveCount(3);
+  await expect(page.locator(".standing-elite-stats")).toHaveCount(5);
+  await expect(
+    page.locator('.standings-table tbody tr[data-rank="1"]'),
+  ).toContainText("总场数 29 · 胜率 65.5%");
+  await expect(
+    page.locator('.standings-table tbody tr[data-rank="5"]'),
+  ).toContainText(/总场数 \d+ · 胜率 \d+(?:\.\d)?%/u);
+  await expect(
+    page.locator('.standings-table tbody tr[data-rank="6"]'),
+  ).not.toContainText("胜率");
   await expect(page.locator(".podium-card--2 .podium-suit")).toHaveText("♥");
   await expect(page.locator(".podium-card--3 .podium-suit")).toHaveText("♣");
   await expect(page.locator(".page-hero .eyebrow")).toHaveCount(0);
@@ -406,6 +428,10 @@ test("新闻页提供五个比赛日赛报及完整人员、积分和逐盘赛�
   await expect(reportCards.first()).toContainText("主播：GGrush、lansoov");
   await expect(reportCards.first()).toContainText("统计：GGrush");
   await expect(reportCards.nth(1)).toContainText("韩服赛区");
+  const districtMetaColors = await page
+    .locator(".news-timeline-meta--kk, .news-timeline-meta--korea")
+    .evaluateAll((items) => items.map((item) => getComputedStyle(item).color));
+  expect(new Set(districtMetaColors).size).toBe(2);
   const districtBackgrounds = await reportCards.evaluateAll((cards) =>
     cards.slice(0, 2).map((card) => getComputedStyle(card).backgroundImage),
   );
@@ -461,44 +487,32 @@ test("新闻页提供五个比赛日赛报及完整人员、积分和逐盘赛�
   await expect(page.getByText("掉线", { exact: true })).toBeVisible();
 });
 
-test("奖励页合并韩服并列奖金并显示最新赞助答谢说明", async ({ page }) => {
+test("赞助鸣谢页完整复用第一届与第二届赞助名单且移除旧奖励内容", async ({
+  page,
+}) => {
   await page.goto("/rewards/");
   await expect(
-    page.getByRole("heading", { name: "感谢以下赞助支持的老板" }),
+    page.getByRole("heading", { name: "感谢支持第二届联赛的老板" }),
   ).toBeVisible();
   await expect(page.locator("#sponsor-thanks")).toBeVisible();
   await expect(
-    page.getByText("铂金赞助商 DBS", { exact: false }),
+    page.getByRole("heading", { name: "感谢一路支持 DSL 的老板" }),
   ).toBeVisible();
   await expect(
-    page.getByText("钻石赞助商 WoShiLaoCaiNiao", { exact: false }),
-  ).toBeVisible();
+    page.locator(
+      '#sponsor-thanks [aria-labelledby="dsl2-sponsors"] .home-sponsor-card',
+    ),
+  ).toHaveCount(dsl2Sponsors.length);
   await expect(
-    page.getByText("黄金赞助商 Fly", { exact: false }),
-  ).toBeVisible();
-  await expect(
-    page.getByText("白银赞助商 KaKaRu", { exact: false }),
-  ).toBeVisible();
-
-  const publicSponsorText = await page.locator(".sponsor-tribute").innerText();
-  for (const privateDetail of [
-    "200",
-    "1000",
-    "1500",
-    "500",
-    "18.88",
-    "域名续费",
-    "老鸟杯",
-    "作者辛苦费",
-  ]) {
-    expect(publicSponsorText).not.toContain(privateDetail);
-  }
-
-  const koreanReward = page.locator(".reward-card").nth(2);
-  await expect(koreanReward.locator(".reward-split li")).toHaveCount(4);
-  await expect(koreanReward.locator(".reward-split li").last()).toContainText(
-    "第四、第五名各 50 元",
-  );
+    page.locator(
+      '#sponsor-thanks [aria-labelledby="dsl1-sponsors"] .home-sponsor-card',
+    ),
+  ).toHaveCount(dsl1Sponsors.length);
+  await expect(page.locator(".sponsor-tribute")).toHaveCount(0);
+  await expect(page.locator(".reward-card")).toHaveCount(0);
+  const sponsorPageText = await page.locator("main").innerText();
+  expect(sponsorPageText).not.toContain("奖励与赞助");
+  expect(sponsorPageText).not.toContain("1,200 元");
 
   await page.goto("/playoffs/");
   await expect(
@@ -509,6 +523,8 @@ test("奖励页合并韩服并列奖金并显示最新赞助答谢说明", async
 
 test("规则总览使用单一表格且地图页标明 8R 地图缺位", async ({ page }) => {
   await page.goto("/rules/");
+  await expect(page.getByText("第一周至第六周")).toBeVisible();
+  await expect(page.getByText("十周赛季，分为两个阶段")).toBeVisible();
   await expect(page.locator(".rules-overview tbody tr")).toHaveCount(8);
   await expect(
     page
@@ -556,9 +572,17 @@ test("规则总览使用单一表格且地图页标明 8R 地图缺位", async (
   }
 });
 
-test("赛程明确开赛日期且不显示状态图例", async ({ page }) => {
+test("旧赛程地址永久跳转到合并后的赛程与规则页面", async ({ page }) => {
   await page.goto("/schedule/");
-  await expect(page.getByText("2026年8月24日", { exact: true })).toBeVisible();
+  await expect(page).toHaveURL(/\/rules\/#schedule$/u);
+  await expect(page.getByRole("heading", { level: 1 })).toContainText(
+    "第二届赛程与规则",
+  );
+  await expect(
+    page.locator("#schedule .date-banner").getByText("2026年8月24日", {
+      exact: true,
+    }),
+  ).toBeVisible();
   await expect(page.getByText("第一周至第六周")).toBeVisible();
   await expect(page.locator(".legend")).toHaveCount(0);
 });
@@ -615,7 +639,7 @@ test("核心内容在禁用 JavaScript 时仍可阅读", async ({ browser }) => 
 
   await page.goto("http://127.0.0.1:4321/rules/");
   await expect(page.getByRole("heading", { level: 1 })).toContainText(
-    "第二届比赛规则",
+    "第二届赛程与规则",
   );
   await expect(page.getByText("地主", { exact: true }).first()).toBeVisible();
   await expect(page.getByText("房主", { exact: true }).first()).toBeVisible();

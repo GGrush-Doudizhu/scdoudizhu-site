@@ -1,22 +1,66 @@
 ---
 import PageHero from "../components/PageHero.astro";
 import PointsTables from "../components/PointsTables.astro";
+import WeeklyPattern from "../components/WeeklyPattern.astro";
 import { season } from "../data/season";
 import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
 <BaseLayout
-  title="比赛规则"
-  description="第二届 DSL 的参赛方式、积分规则与常规赛段位说明。"
+  title="赛程与规则"
+  description="第二届 DSL 的十周赛程、参赛方式、积分规则与常规赛段位说明。"
 >
   <PageHero
-    eyebrow="参赛与计分"
-    title="第二届比赛规则"
-    description="常规赛采用个人累计积分制。参加对局或承担房主、主播、统计工作，都能获得对应积分。"
+    eyebrow="赛事安排 · 参赛与计分"
+    title="第二届赛程与规则"
+    description="2026年8月24日开赛，常规赛六周、季后赛四周；常规赛采用个人累计积分制。"
     image="/news/assets/sc-zerg-swarm"
   />
 
-  <section class="section">
+  <section id="schedule" class="section">
+    <div class="container">
+      <div class="date-banner">
+        <span>正式开赛</span>
+        <strong>{season.startDate}</strong>
+        <p>{season.startTime}—{season.endTime}</p>
+      </div>
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">每周安排</p>
+          <h2>周一、周三、周五、周六</h2>
+        </div>
+      </div>
+      <WeeklyPattern />
+      <div class="section-heading rules-schedule-heading">
+        <div>
+          <p class="eyebrow">赛季时间线</p>
+          <h2>十周赛季，分为两个阶段</h2>
+        </div>
+      </div>
+      <div class="timeline">
+        <article class="timeline-phase timeline-phase--regular">
+          <div class="timeline-label">第一周至第六周</div>
+          <div>
+            <p class="phase-date">{season.regularSeasonRange}</p>
+            <h3>常规赛 · 个人累计积分</h3>
+            <p>
+              常规赛仅有六周。越早参与、越稳定出场，越有机会冲击高段位与季后赛席位。
+            </p>
+          </div>
+        </article>
+        <article class="timeline-phase">
+          <div class="timeline-label">第七周至第十周</div>
+          <div>
+            <p class="phase-date">{season.playoffRange}</p>
+            <h3>季后赛 · 双线决战</h3>
+            <p>KK 四队战队联赛与韩服 8R 个人争霸赛同步进行。</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tint">
     <div class="container">
       <aside class="rules-scheme-callout" aria-labelledby="rules-scheme-title">
         <div>
@@ -68,7 +112,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     </div>
   </section>
 
-  <section class="section section--tint">
+  <section class="section">
     <div class="container">
       <div class="section-heading">
         <div>
@@ -94,7 +138,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
         </ul>
       </article>
       <p class="privacy-line">
-        公开积分榜只展示铂金及铂金以上选手的累计积分与段位，不展示个人胜负记录。
+        公开积分榜只展示铂金及铂金以上选手；其中仅王者和星耀选手展示总场数与总胜率。
       </p>
     </div>
   </section>

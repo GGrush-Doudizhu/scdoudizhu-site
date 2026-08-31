@@ -28,7 +28,7 @@
 - 本地原始数据：`match-data/YYYYMMDD/YYYYMMDD.json` 与同目录 replay。
 - 昵称规则：`match-data/same_name.csv`，是昵称归并的唯一规则来源；每行第一个名称为网站与管理数据统一使用的主名称。
 - 规范化总数据：`data-source/dsl2/dsl2-master.json`，包含全部比赛日、逐盘数据、原始名称与主名称、计分规则、每日积分变动和完整累计积分榜。
-- 管理用完整积分榜：`data-source/dsl2/full-standings-latest.csv`，包含全部选手及管理统计字段。
+- 管理用唯一完整积分榜：`data-source/dsl2/full-standings.csv`，包含全部选手及管理统计字段（含总胜率、地主胜率、富农胜率与贫农胜率）。
 - 公开边界：网站积分榜只读取规范化结果中的前 25 名，即铂金及铂金以上选手；完整榜、原始名称、种族、退出顺序和 replay 不进入公开页面。
 - 更新方式：修改原始比赛 JSON 或 `same_name.csv` 后运行 `pnpm run build:match-reports`，不得手工修改生成结果。
 

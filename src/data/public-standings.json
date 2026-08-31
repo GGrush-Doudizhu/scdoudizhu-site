@@ -5,11 +5,46 @@
   "standingsAsOf": "2026-08-31T22:13:00+08:00",
   "publishedAt": "2026-09-01T01:00:00+08:00",
   "entries": [
-    { "rank": 1, "displayName": "GGrush", "points": 260, "tier": "王者" },
-    { "rank": 2, "displayName": "lansoov", "points": 253, "tier": "星耀" },
-    { "rank": 3, "displayName": "IKILllIII", "points": 154, "tier": "星耀" },
-    { "rank": 4, "displayName": "五社", "points": 135, "tier": "星耀" },
-    { "rank": 5, "displayName": "VGer_Whc", "points": 126, "tier": "星耀" },
+    {
+      "rank": 1,
+      "displayName": "GGrush",
+      "points": 260,
+      "tier": "王者",
+      "gamesPlayed": 29,
+      "winRate": 0.655172
+    },
+    {
+      "rank": 2,
+      "displayName": "lansoov",
+      "points": 253,
+      "tier": "星耀",
+      "gamesPlayed": 30,
+      "winRate": 0.6
+    },
+    {
+      "rank": 3,
+      "displayName": "IKILllIII",
+      "points": 154,
+      "tier": "星耀",
+      "gamesPlayed": 15,
+      "winRate": 0.733333
+    },
+    {
+      "rank": 4,
+      "displayName": "五社",
+      "points": 135,
+      "tier": "星耀",
+      "gamesPlayed": 18,
+      "winRate": 0.555556
+    },
+    {
+      "rank": 5,
+      "displayName": "VGer_Whc",
+      "points": 126,
+      "tier": "星耀",
+      "gamesPlayed": 19,
+      "winRate": 0.526316
+    },
     { "rank": 6, "displayName": "feifeiht", "points": 105, "tier": "钻石" },
     { "rank": 7, "displayName": "fly", "points": 99, "tier": "钻石" },
     { "rank": 8, "displayName": "lucky2023", "points": 87, "tier": "钻石" },

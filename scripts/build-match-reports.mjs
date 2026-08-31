@@ -25,7 +25,7 @@ const dsl2DataOutputRoot = path.join(projectRoot, "data-source", "dsl2");
 const masterDataOutputPath = path.join(dsl2DataOutputRoot, "dsl2-master.json");
 const fullStandingsOutputPath = path.join(
   dsl2DataOutputRoot,
-  "full-standings-latest.csv",
+  "full-standings.csv",
 );
 const checkOnly = process.argv.includes("--check");
 
@@ -203,6 +203,10 @@ function csvCell(value) {
   return /[",\r\n]/u.test(text) ? `"${text.replaceAll('"', '""')}"` : text;
 }
 
+function winRate(wins, games) {
+  return games === 0 ? null : Number((wins / games).toFixed(6));
+}
+
 function standingsCsv(entries) {
   const columns = [
     ["rank", "名次"],
@@ -213,13 +217,17 @@ function standingsCsv(entries) {
     ["gamesPlayed", "参赛盘数"],
     ["wins", "胜"],
     ["losses", "负"],
+    ["winRate", "总胜率"],
     ["disconnects", "掉线"],
     ["landlordGames", "地主盘数"],
     ["landlordWins", "地主胜场"],
+    ["landlordWinRate", "地主胜率"],
     ["richFarmerGames", "富农盘数"],
     ["richFarmerWins", "富农胜场"],
+    ["richFarmerWinRate", "富农胜率"],
     ["poorFarmerGames", "贫农盘数"],
     ["poorFarmerWins", "贫农胜场"],
+    ["poorFarmerWinRate", "贫农胜率"],
     ["farmerGames", "双阵营地图农民盘数"],
     ["hostDays", "担任房主比赛日"],
     ["streamerDays", "担任主播比赛日"],
@@ -450,6 +458,10 @@ async function buildData() {
     .map((entry, index) => ({
       rank: index + 1,
       ...entry,
+      winRate: winRate(entry.wins, entry.gamesPlayed),
+      landlordWinRate: winRate(entry.landlordWins, entry.landlordGames),
+      richFarmerWinRate: winRate(entry.richFarmerWins, entry.richFarmerGames),
+      poorFarmerWinRate: winRate(entry.poorFarmerWins, entry.poorFarmerGames),
       tier: tierForRank(index + 1),
       publiclyListed: index < publicStandingLimit,
     }));
@@ -461,11 +473,12 @@ async function buildData() {
     publishedAt,
     entries: fullStandings
       .filter((entry) => entry.publiclyListed)
-      .map(({ rank, displayName, points, tier }) => ({
+      .map(({ rank, displayName, points, tier, gamesPlayed, winRate }) => ({
         rank,
         displayName,
         points,
         tier,
+        ...(rank <= 5 ? { gamesPlayed, winRate } : {}),
       })),
   };
   const reports = {

@@ -1,67 +1,23 @@
 ---
 import PageHero from "../components/PageHero.astro";
+import Dsl1SponsorTribute from "../components/Dsl1SponsorTribute.astro";
+import Dsl2SponsorTribute from "../components/Dsl2SponsorTribute.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
 <BaseLayout
-  title="奖励与赞助"
-  description="第二届 DSL 的常规赛荣誉、季后赛奖金与赞助致谢。"
+  title="赞助鸣谢"
+  description="感谢支持第一届与第二届 DSL 星际斗地主联赛的赞助者。"
 >
   <PageHero
-    eyebrow="荣誉与支持"
-    title="奖励与赞助"
-    description="常规赛以积分、名次与段位为核心荣誉；季后赛设置现金奖金。"
+    eyebrow="联赛支持者"
+    title="赞助鸣谢"
+    description="每一场比赛都离不开赞助者的慷慨支持。谨向支持第一届与第二届 DSL 的老板们致以诚挚感谢。"
     image="/news/assets/sc-cosmic-rift"
   />
 
-  <section id="sponsor-thanks" class="sponsor-tribute">
-    <div class="container sponsor-tribute-inner">
-      <img
-        src="/assets/dsl-official-logo.webp"
-        alt=""
-        width="140"
-        height="140"
-      />
-      <div>
-        <p class="eyebrow">特别致谢</p>
-        <h2>感谢以下赞助支持的老板</h2>
-        <p>
-          特别感谢铂金赞助商 DBS、钻石赞助商 WoShiLaoCaiNiao、黄金赞助商 Fly
-          与白银赞助商 KaKaRu。第二届联赛众筹仍在进行，答谢名单将持续更新。
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="container rewards-grid">
-      <article class="reward-card reward-card--honor">
-        <p class="eyebrow">常规赛</p>
-        <h2>积分 · 段位 · 荣誉</h2>
-        <p>
-          常规赛不设置现金奖金。持续参赛、提升名次、冲击高段位，让自己的名字留在赛季积分榜上。
-        </p>
-        <a href="/standings/">前往常规赛积分榜 →</a>
-      </article>
-      <article class="reward-card">
-        <p class="eyebrow">KK 战队联赛</p>
-        <p class="reward-amount">1,200 <span>元</span></p>
-        <ul class="reward-split">
-          <li><span>冠军队</span><strong>600 元</strong></li>
-          <li><span>亚军队</span><strong>400 元</strong></li>
-          <li><span>季军队</span><strong>200 元</strong></li>
-        </ul>
-      </article>
-      <article class="reward-card">
-        <p class="eyebrow">韩服 8R</p>
-        <p class="reward-amount">600 <span>元</span></p>
-        <ul class="reward-split">
-          <li><span>冠军</span><strong>250 元</strong></li>
-          <li><span>亚军</span><strong>150 元</strong></li>
-          <li><span>季军</span><strong>100 元</strong></li>
-          <li><span>第四、第五名</span><strong>各 50 元</strong></li>
-        </ul>
-      </article>
-    </div>
-  </section>
+  <div id="sponsor-thanks" class="sponsor-archive">
+    <Dsl2SponsorTribute />
+    <Dsl1SponsorTribute />
+  </div>
 </BaseLayout>

@@ -11,12 +11,14 @@ const timelineItems = [
     date: "08.20",
     meta: "置顶 · 联赛方案",
     title: schemeTitle,
+    district: null,
   },
   ...matchReports.matchDays.map((day) => ({
     id: `news-${day.slug}`,
     date: day.date.slice(5).replace("-", "."),
     meta: `${day.platform}赛区 · ${day.weekday}`,
     title: `${day.dateLabel}比赛数据赛报`,
+    district: day.platform === "KK" ? "kk" : "korea",
   })),
 ];
 ---
@@ -41,7 +43,14 @@ const timelineItems = [
                 <li>
                   <a href={`#${item.id}`}>
                     <time>{item.date}</time>
-                    <small>{item.meta}</small>
+                    <small
+                      class:list={[
+                        "news-timeline-meta",
+                        item.district && `news-timeline-meta--${item.district}`,
+                      ]}
+                    >
+                      {item.meta}
+                    </small>
                     <span>{item.title}</span>
                   </a>
                 </li>

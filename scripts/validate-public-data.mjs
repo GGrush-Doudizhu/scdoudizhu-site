@@ -21,7 +21,8 @@ const allowedRootKeys = [
   "season",
   "standingsAsOf",
 ];
-const allowedEntryKeys = ["displayName", "points", "rank", "tier"];
+const baseEntryKeys = ["displayName", "points", "rank", "tier"];
+const eliteEntryKeys = [...baseEntryKeys, "gamesPlayed", "winRate"];
 const allowedTiers = new Set([
   "王者",
   "星耀",
@@ -118,7 +119,11 @@ let previousRank = 0;
 
 standings.entries.forEach((entry, index) => {
   const location = `entries[${index}]`;
-  assertExactKeys(entry, allowedEntryKeys, location);
+  assertExactKeys(
+    entry,
+    entry.rank <= 5 ? eliteEntryKeys : baseEntryKeys,
+    location,
+  );
   assert(
     Number.isInteger(entry.rank) && entry.rank > 0,
     `${location}.rank 必须是正整数。`,
@@ -152,6 +157,18 @@ standings.entries.forEach((entry, index) => {
     entry.tier === expectedTier,
     `${location}.tier 与铂金及以上的名次分档不一致。`,
   );
+  if (entry.rank <= 5) {
+    assert(
+      Number.isInteger(entry.gamesPlayed) && entry.gamesPlayed > 0,
+      `${location}.gamesPlayed 必须是正整数。`,
+    );
+    assert(
+      typeof entry.winRate === "number" &&
+        entry.winRate >= 0 &&
+        entry.winRate <= 1,
+      `${location}.winRate 必须是 0 到 1 之间的数字。`,
+    );
+  }
 
   const normalizedName = entry.displayName.trim().toLocaleLowerCase("zh-CN");
   assert(

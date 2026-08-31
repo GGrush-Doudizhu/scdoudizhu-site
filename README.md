@@ -20,7 +20,7 @@
 ## 常用入口
 
 - [常规赛积分榜](https://scdoudizhu.com/standings/)
-- [完整赛程](https://scdoudizhu.com/schedule/)
+- [赛程与规则](https://scdoudizhu.com/rules/#schedule)
 - [比赛规则](https://scdoudizhu.com/rules/)
 - [季后赛](https://scdoudizhu.com/playoffs/)
 - [赛事新闻](https://scdoudizhu.com/announcements/)

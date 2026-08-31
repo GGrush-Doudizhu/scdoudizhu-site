@@ -606,6 +606,10 @@ h3 {
   min-height: 155px;
 }
 
+.rules-schedule-heading {
+  margin-top: clamp(3rem, 7vw, 5rem);
+}
+
 .portal-grid {
   display: grid;
   grid-template-columns: 1.35fr 1fr 1fr;
@@ -1237,6 +1241,13 @@ tbody th {
   font-size: 0.9rem;
 }
 
+.podium-record {
+  margin: -0.35rem 0 0.9rem;
+  color: #b9d8df;
+  font-size: 0.9rem;
+  font-weight: 750;
+}
+
 .preview-note {
   display: flex;
   padding: 0.95rem 1.2rem;
@@ -1269,6 +1280,18 @@ tbody th {
 .standings-table tbody tr[data-rank="2"],
 .standings-table tbody tr[data-rank="3"] {
   background: rgba(245, 189, 85, 0.035);
+}
+
+.standing-player > span,
+.standing-elite-stats {
+  display: block;
+}
+
+.standing-elite-stats {
+  margin-top: 0.28rem;
+  color: #8eb5c0;
+  font-size: 0.875rem;
+  font-weight: 700;
 }
 
 .rank-cell {
@@ -1971,6 +1994,15 @@ tbody th {
   font-weight: 800;
 }
 
+.news-timeline-meta--kk {
+  color: #72d7ac !important;
+}
+
+.news-timeline-meta--korea {
+  color: #b8a7ff !important;
+  text-shadow: 0 0 12px rgba(152, 132, 255, 0.22);
+}
+
 .news-timeline a > span {
   color: #d7e4e8;
   font-size: 0.9rem;
@@ -2415,7 +2447,7 @@ tbody th {
 
 .footer-grid {
   display: grid;
-  grid-template-columns: 1.1fr 1fr auto;
+  grid-template-columns: 1fr auto;
   align-items: start;
   gap: 2rem;
 }
@@ -2429,16 +2461,6 @@ tbody th {
 .footer-note,
 .footer-meta {
   margin-bottom: 0;
-  font-size: 0.95rem;
-}
-
-.site-footer nav {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.8rem 1.2rem;
-}
-
-.site-footer nav a {
   font-size: 0.95rem;
 }
 
