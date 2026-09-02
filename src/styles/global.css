@@ -785,6 +785,10 @@ h3 {
   grid-template-columns: repeat(2, minmax(240px, 310px));
 }
 
+.home-sponsor-tribute--dsl2 .home-sponsor-tier--silver .home-sponsor-grid {
+  grid-template-columns: repeat(2, minmax(0, 180px));
+}
+
 .home-sponsor-tier--diamond .home-sponsor-card:only-child {
   width: 100%;
   max-width: 310px;

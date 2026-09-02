@@ -32,4 +32,9 @@ export const dsl2Sponsors: ReadonlyArray<{
     name: "KaKaRu",
     avatar: "/assets/sponsors/dsl2/KaKaRu.webp",
   },
+  {
+    tier: "silver",
+    name: "nianqing",
+    avatar: "/assets/sponsors/dsl2/nianqing.webp",
+  },
 ];

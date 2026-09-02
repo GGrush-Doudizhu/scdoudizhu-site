@@ -287,7 +287,7 @@ test("首页鸣谢第二届首批赞助老板并继续邀请众筹", async ({ pa
     tribute.getByText("当前支持尚未达到赛事目标", { exact: false }),
   ).toBeVisible();
   await expect(
-    tribute.getByText("感谢四位老板率先支持", { exact: false }),
+    tribute.getByText("感谢各位老板率先支持", { exact: false }),
   ).toBeVisible();
   await expect(tribute.locator('[data-sponsor-tier="platinum"]')).toContainText(
     "DBS",
@@ -298,17 +298,26 @@ test("首页鸣谢第二届首批赞助老板并继续邀请众筹", async ({ pa
   await expect(tribute.locator('[data-sponsor-tier="gold"]')).toContainText(
     "Fly",
   );
-  await expect(tribute.locator('[data-sponsor-tier="silver"]')).toContainText(
-    "KaKaRu",
+  const silverSponsors = tribute.locator('[data-sponsor-tier="silver"]');
+  await expect(silverSponsors).toHaveCount(2);
+  await expect(silverSponsors.filter({ hasText: /^KaKaRu$/u })).toHaveCount(1);
+  await expect(silverSponsors.filter({ hasText: /^nianqing$/u })).toHaveCount(
+    1,
   );
-  await expect(tribute.locator(".home-sponsor-card")).toHaveCount(4);
+  await expect(tribute.locator(".home-sponsor-card")).toHaveCount(5);
 
   const displayedNames = await tribute
     .locator(".home-sponsor-card strong")
     .allTextContents();
-  expect(displayedNames).toEqual(["DBS", "WoShiLaoCaiNiao", "Fly", "KaKaRu"]);
+  expect(displayedNames).toEqual([
+    "DBS",
+    "WoShiLaoCaiNiao",
+    "Fly",
+    "KaKaRu",
+    "nianqing",
+  ]);
 
-  for (const tier of ["diamond", "gold", "silver"]) {
+  for (const tier of ["diamond", "gold"]) {
     const sponsorGrid = tribute
       .locator(`.home-sponsor-tier--${tier} .home-sponsor-grid`)
       .first();

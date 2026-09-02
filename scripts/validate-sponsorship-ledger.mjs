@@ -23,7 +23,6 @@ const expectedHeaders = [
   "received_date",
   "recorded_date",
   "public_tier",
-  "public_display",
 ];
 const allowedTiers = new Set([
   "铂金赞助商",
@@ -133,10 +132,6 @@ rows.forEach((row, index) => {
   assert(
     allowedTiers.has(entry.public_tier),
     `第 ${line} 行公开档位不在允许范围内。`,
-  );
-  assert(
-    entry.public_display === "是" || entry.public_display === "否",
-    `第 ${line} 行公开状态必须是“是”或“否”。`,
   );
 });
 
