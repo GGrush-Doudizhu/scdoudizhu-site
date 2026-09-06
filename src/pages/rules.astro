@@ -3,6 +3,7 @@ import PageHero from "../components/PageHero.astro";
 import PointsTables from "../components/PointsTables.astro";
 import WeeklyPattern from "../components/WeeklyPattern.astro";
 import { season } from "../data/season";
+import disconnectPolicy from "../data/disconnect-policy.json";
 import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
@@ -131,10 +132,8 @@ import BaseLayout from "../layouts/BaseLayout.astro";
           <h2 id="disconnect-rule-title">掉线判罚规则</h2>
         </div>
         <ul>
-          <li>发生掉线时，掉线方无条件判负。</li>
-          <li>掉线者扣除 20 点积分，积分允许扣至负数。</li>
-          <li>其余 7 名玩家仍按照本盘正常胜负结算积分。</li>
-          <li>同一周内第 2 次掉线后，本周禁止再次参赛；下周恢复参赛资格。</li>
+          {disconnectPolicy.rules.map((rule) => <li>{rule}</li>)}
+          <li>{disconnectPolicy.excludedMatchdays["2026-09-04"]}</li>
         </ul>
       </article>
       <p class="privacy-line">

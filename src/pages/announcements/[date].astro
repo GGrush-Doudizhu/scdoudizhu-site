@@ -1,6 +1,7 @@
 ---
 import PageHero from "../../components/PageHero.astro";
 import matchReports from "../../data/match-reports.json";
+import disconnectPolicy from "../../data/disconnect-policy.json";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 
 type MatchDay = (typeof matchReports.matchDays)[number];
@@ -42,6 +43,15 @@ const heroImage =
   <section class="section match-report-overview">
     <div class="container report-container">
       <a class="back-link" href="/announcements/">← 返回赛事新闻</a>
+
+      {
+        day.notice && (
+          <aside class="disconnect-rule" aria-label="平台故障特别说明">
+            <h2>KK 平台故障特别说明</h2>
+            <p>{day.notice}</p>
+          </aside>
+        )
+      }
 
       <aside class="match-sponsor-thanks" aria-label="赞助商鸣谢">
         <div>
@@ -97,10 +107,38 @@ const heroImage =
         <h2>每人当日积分变动</h2>
         <p>
           地主胜 / 负为 +12 / +3，农民胜 / 负为 +8 / +2；房主与主播各
-          +10、统计员 +5，兼职工作分合计最高 +15；文字标记为“掉线”的选手该盘按
-          −20 分结算。
+          +10、统计员 +5，兼职工作分合计最高 +15。
+        </p>
+        <p>
+          {disconnectPolicy.rules[1]}同一周、同一赛区第二次掉线该盘记 −15
+          分，并禁赛至当周周日；另一赛区可正常参赛。<a
+            href="/rules/#disconnect-rule-title">查看掉线规则</a
+          >
         </p>
       </div>
+      {
+        day.disconnectEvents.length > 0 && (
+          <aside
+            class="disconnect-rule"
+            aria-labelledby="daily-disconnect-title"
+          >
+            <h3 id="daily-disconnect-title">当日掉线核算</h3>
+            <ul>
+              {day.disconnectEvents.map((event) => (
+                <li>
+                  第 {event.gameNumber} 盘（{event.time}）· {event.displayName}
+                  ：
+                  {event.status === "platform-exempt"
+                    ? "平台故障排除，0 分；不计次数、不消耗每周豁免，不触发禁赛。"
+                    : event.status === "weekly-exempt"
+                      ? `${day.platform}赛区当周首次掉线，豁免扣分，该盘 0 分。`
+                      : `${day.platform}赛区当周第 ${event.occurrence} 次掉线，扣 15 分；本赛区禁赛至 ${event.suspensionThrough}，另一赛区资格不受影响。`}
+                </li>
+              ))}
+            </ul>
+          </aside>
+        )
+      }
       <div class="table-wrap report-points-table-wrap">
         <table class="report-points-table">
           <thead>

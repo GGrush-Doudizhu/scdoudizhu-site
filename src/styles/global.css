@@ -1116,6 +1116,10 @@ tbody th {
   color: #ff8c80;
 }
 
+.report-container > .disconnect-rule {
+  margin-bottom: 1.5rem;
+}
+
 .privacy-line {
   margin: 1.2rem 0 0;
   padding: 1rem 1.2rem;

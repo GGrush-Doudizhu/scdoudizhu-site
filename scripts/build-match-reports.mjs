@@ -2,6 +2,11 @@ import { mkdir, readdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { format } from "prettier";
+import {
+  createDisconnectTracker,
+  disconnectPolicy,
+  pointsFor,
+} from "./lib/match-scoring.mjs";
 
 const projectRoot = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
@@ -29,7 +34,7 @@ const fullStandingsOutputPath = path.join(
 );
 const checkOnly = process.argv.includes("--check");
 
-const publishedAt = "2026-09-02T22:02:00+08:00";
+const publishedAt = "2026-09-06T14:12:00+08:00";
 const publicStandingLimit = 25;
 const workPointCap = 15;
 const workRoleRules = {
@@ -70,13 +75,6 @@ function parseSameNameCsv(text) {
     return aliasTargets.get(trimmed) ?? trimmed;
   }
   return { groups, canonicalName };
-}
-
-function pointsFor(force, won, disconnected) {
-  if (disconnected) return -20;
-  if (force === 1) return won ? 12 : 3;
-  if (force === 2 || force === 3) return won ? 8 : 2;
-  throw new Error(`无法识别的 force/team：${force}`);
 }
 
 function roleForForce(force, forceCount) {
@@ -147,6 +145,10 @@ function initialPlayerTotal(displayName) {
     wins: 0,
     losses: 0,
     disconnects: 0,
+    countedDisconnects: 0,
+    weeklyExemptDisconnects: 0,
+    platformExemptDisconnects: 0,
+    disconnectPenaltyPoints: 0,
     landlordGames: 0,
     landlordWins: 0,
     richFarmerGames: 0,
@@ -219,6 +221,10 @@ function standingsCsv(entries) {
     ["losses", "负"],
     ["winRate", "总胜率"],
     ["disconnects", "掉线"],
+    ["countedDisconnects", "计入规则的掉线"],
+    ["weeklyExemptDisconnects", "每周首次豁免"],
+    ["platformExemptDisconnects", "平台故障排除"],
+    ["disconnectPenaltyPoints", "掉线扣分合计"],
     ["landlordGames", "地主盘数"],
     ["landlordWins", "地主胜场"],
     ["landlordWinRate", "地主胜率"],
@@ -259,6 +265,7 @@ async function buildData() {
   const publicMatchDays = [];
   const playerTotals = new Map();
   const observedNames = new Map();
+  const disconnectTracker = createDisconnectTracker();
 
   for (const compactDate of matchdayDirectories) {
     const sourcePath = path.join(
@@ -272,6 +279,11 @@ async function buildData() {
       `${sourcePath} 数据为空。`,
     );
     const [metadata, ...rawGames] = source;
+    const date = isoDate(compactDate);
+    const dateValue = new Date(`${date}T12:00:00+08:00`);
+    const platform = platformForDate(dateValue);
+    const disconnectEvents = [];
+    const suspendedAppearances = [];
     assert(Array.isArray(metadata.host), `${sourcePath} 缺少 host 数组。`);
     assert(
       Array.isArray(metadata.streamer),
@@ -319,11 +331,27 @@ async function buildData() {
             players: rawTeam.players.map((rawPlayer) => {
               const displayName = rememberName(rawPlayer.name);
               const disconnected = rawPlayer.exitEvent === "掉线";
-              const points = pointsFor(
-                rawTeam.team,
-                rawTeam.winner,
-                disconnected,
-              );
+              if (disconnectTracker.isSuspended(displayName, date, platform)) {
+                suspendedAppearances.push({
+                  displayName,
+                  gameNumber: index + 1,
+                  time: timeLabel(rawGame.fileName),
+                });
+              }
+              const disconnect = disconnected
+                ? disconnectTracker.record(displayName, date, platform)
+                : null;
+              const points = disconnect
+                ? disconnect.points
+                : pointsFor(rawTeam.team, rawTeam.winner);
+              if (disconnect) {
+                disconnectEvents.push({
+                  displayName,
+                  gameNumber: index + 1,
+                  time: timeLabel(rawGame.fileName),
+                  ...disconnect,
+                });
+              }
               participants.add(displayName);
               addMatchPoints(pointChanges, playerTotals, displayName, points);
               const total =
@@ -333,6 +361,14 @@ async function buildData() {
               if (disconnected) {
                 total.disconnects += 1;
                 total.losses += 1;
+                if (disconnect.status === "platform-exempt") {
+                  total.platformExemptDisconnects += 1;
+                } else {
+                  total.countedDisconnects += 1;
+                  if (disconnect.status === "weekly-exempt") {
+                    total.weeklyExemptDisconnects += 1;
+                  } else total.disconnectPenaltyPoints += points;
+                }
               } else if (rawTeam.winner) {
                 total.wins += 1;
                 if (role === "地主") total.landlordWins += 1;
@@ -350,6 +386,7 @@ async function buildData() {
                 race: rawPlayer.race,
                 exitEvent: rawPlayer.exitEvent ?? null,
                 disconnected,
+                disconnect,
                 points,
               };
             }),
@@ -365,6 +402,11 @@ async function buildData() {
           forces,
         };
       });
+
+    assert(
+      suspendedAppearances.length === 0,
+      `${date} ${platform} 发现当周本赛区禁赛期间出场，请先核实赛事记录：${JSON.stringify(suspendedAppearances)}`,
+    );
 
     const staffRoles = new Map();
     const registerStaffRole = (displayName, roleKey) => {
@@ -383,13 +425,10 @@ async function buildData() {
         b.total - a.total ||
         a.displayName.localeCompare(b.displayName, "zh-CN"),
     );
-    const date = isoDate(compactDate);
-    const dateValue = new Date(`${date}T12:00:00+08:00`);
     const weekday = new Intl.DateTimeFormat("zh-CN", {
       weekday: "long",
       timeZone: "Asia/Singapore",
     }).format(dateValue);
-    const platform = platformForDate(dateValue);
     const commonDay = {
       matchdayNumber: masterMatchDays.length + 1,
       slug: date,
@@ -402,6 +441,8 @@ async function buildData() {
       }).format(dateValue),
       weekday,
       platform,
+      notice: disconnectPolicy.excludedMatchdays[date] ?? null,
+      disconnectEvents,
       staff: { hosts, streamers, statistician },
       summary: {
         matchCount: games.length,
@@ -424,6 +465,8 @@ async function buildData() {
         totalDuration: durationLabel(totalDurationSeconds),
       },
       games,
+      sourceNote: metadata.note ?? null,
+      suspendedAppearances,
     });
     publicMatchDays.push({
       ...commonDay,
@@ -482,13 +525,13 @@ async function buildData() {
       })),
   };
   const reports = {
-    schemaVersion: 2,
+    schemaVersion: 3,
     season: "dsl2",
     sourceRange: `${firstDate}-${lastDate}`,
     matchDays: publicMatchDays.toReversed(),
   };
   const masterData = {
-    schemaVersion: 1,
+    schemaVersion: 2,
     season: "dsl2",
     timezone: "Asia/Singapore",
     sourceRange: `${firstDate}-${lastDate}`,
@@ -505,8 +548,8 @@ async function buildData() {
         landlordLoss: 3,
         farmerWin: 8,
         farmerLoss: 2,
-        disconnect: -20,
       },
+      disconnect: disconnectPolicy,
       work: {
         host: 10,
         streamer: 10,

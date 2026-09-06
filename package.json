@@ -16,6 +16,7 @@
     "validate:sponsors": "node scripts/validate-sponsorship-ledger.mjs",
     "build:match-reports": "node scripts/build-match-reports.mjs",
     "check:match-reports": "node scripts/build-match-reports.mjs --check",
+    "test:scoring": "node --test scripts/test-match-scoring.mjs",
     "build:preview-standings": "node scripts/build-preview-standings.mjs",
     "check:preview-standings": "node scripts/build-preview-standings.mjs --check",
     "optimize:images": "node scripts/optimize-images.mjs",
@@ -24,7 +25,7 @@
     "capture": "node scripts/capture-preview.mjs",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "verify": "pnpm run validate:data && pnpm run validate:sponsors && pnpm run check && pnpm run format:check && pnpm run build"
+    "verify": "pnpm run test:scoring && pnpm run validate:data && pnpm run validate:sponsors && pnpm run check && pnpm run format:check && pnpm run build"
   },
   "dependencies": {
     "@astrojs/sitemap": "3.7.3",

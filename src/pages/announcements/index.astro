@@ -104,6 +104,7 @@ const timelineItems = [
                   名选手参赛；地主方 {day.summary.landlordWins} 胜，农民方
                   {day.summary.farmerWins} 胜。
                 </p>
+                {day.notice && <p class="privacy-line">{day.notice}</p>}
                 <div class="news-staff-preview" aria-label="当日赛事工作人员">
                   <span>房主：{day.staff.hosts.join("、")}</span>
                   <span>主播：{day.staff.streamers.join("、")}</span>
