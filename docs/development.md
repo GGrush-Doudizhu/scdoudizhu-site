@@ -71,6 +71,7 @@ pnpm run test:e2e
 
 ## 相关维护文档
 
+- [AI agent 比赛日更新执行指令](matchday-update-agent.md)
 - [产品需求](product-requirements.md)
 - [技术架构](architecture.md)
 - [实施路线](roadmap.md)
