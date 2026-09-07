@@ -30,7 +30,7 @@
       },
       "summary": {
         "matchCount": 7,
-        "participantCount": 17,
+        "participantCount": 16,
         "landlordWins": 3,
         "farmerWins": 4
       },
@@ -58,6 +58,14 @@
           "total": 31,
           "contributions": [],
           "workPointsCapped": false
+        },
+        {
+          "displayName": "do''do",
+          "matchPoints": 14,
+          "workPoints": 15,
+          "total": 29,
+          "contributions": ["房主", "主播"],
+          "workPointsCapped": true
         },
         {
           "displayName": "KaKaRu",
@@ -90,14 +98,6 @@
           "total": 26,
           "contributions": [],
           "workPointsCapped": false
-        },
-        {
-          "displayName": "do''do",
-          "matchPoints": 10,
-          "workPoints": 15,
-          "total": 25,
-          "contributions": ["房主", "主播"],
-          "workPointsCapped": true
         },
         {
           "displayName": "文永宁",
@@ -145,14 +145,6 @@
           "workPoints": 5,
           "total": 5,
           "contributions": ["赛事数据统计员"],
-          "workPointsCapped": false
-        },
-        {
-          "displayName": "beinan",
-          "matchPoints": 4,
-          "workPoints": 0,
-          "total": 4,
-          "contributions": [],
           "workPointsCapped": false
         },
         {
@@ -281,7 +273,7 @@
                 { "displayName": "KaKaRu", "disconnected": false },
                 { "displayName": "stefsunli", "disconnected": false },
                 { "displayName": "IKILllIII", "disconnected": false },
-                { "displayName": "beinan", "disconnected": false }
+                { "displayName": "do''do", "disconnected": false }
               ]
             }
           ]
@@ -316,7 +308,7 @@
                 { "displayName": "白胖", "disconnected": false },
                 { "displayName": "KaKaRu", "disconnected": false },
                 { "displayName": "stefsunli", "disconnected": false },
-                { "displayName": "beinan", "disconnected": false }
+                { "displayName": "do''do", "disconnected": false }
               ]
             }
           ]

@@ -384,6 +384,10 @@ test("积分榜展示第二届前九个比赛日累计积分与完整前二十�
   await expect(
     page.locator('.standings-table tbody tr[data-rank="1"]'),
   ).toContainText("总场数 50 · 胜率 54%");
+  const mergedPlayer = page.locator('.standings-table tbody tr[data-rank="3"]');
+  await expect(mergedPlayer).toContainText("do''do");
+  await expect(mergedPlayer).toContainText("209");
+  await expect(mergedPlayer).toContainText("总场数 27 · 胜率 44.4%");
   await expect(
     page.locator('.standings-table tbody tr[data-rank="5"]'),
   ).toContainText(/总场数 \d+ · 胜率 \d+(?:\.\d)?%/u);
@@ -457,7 +461,25 @@ test("新闻页提供九个比赛日赛报及完整人员、积分和逐盘赛�
     "2026年9月7日比赛数据赛报",
   );
   await expect(page.locator(".report-game-card")).toHaveCount(7);
-  await expect(page.locator(".report-points-table tbody tr")).toHaveCount(18);
+  await expect(page.locator(".report-points-table tbody tr")).toHaveCount(17);
+  const mergedDailyPoints = page
+    .locator(".report-points-table tbody tr")
+    .filter({
+      has: page.getByRole("rowheader", { name: "do''do", exact: true }),
+    });
+  await expect(mergedDailyPoints).toContainText("+14");
+  await expect(mergedDailyPoints).toContainText("+15");
+  await expect(mergedDailyPoints).toContainText("+29");
+  await expect(page.locator("main")).not.toContainText("beinan");
+  await expect(page.locator(".report-game-card").nth(2)).toContainText(
+    "do''do",
+  );
+  await expect(page.locator(".report-game-card").nth(3)).toContainText(
+    "do''do",
+  );
+  await expect(
+    page.getByRole("complementary", { name: "当日掉线核算" }),
+  ).toContainText("豆豆：KK赛区当周首次掉线，豁免扣分，该盘 0 分");
   await expect(page.locator(".report-staff-grid")).toContainText("do''do");
   await expect(page.locator(".report-staff-grid")).toContainText("lansoov");
   await expect(page.locator(".report-staff-grid")).toContainText("GGrush");

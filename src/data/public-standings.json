@@ -3,7 +3,7 @@
   "season": "dsl2",
   "exportId": "dsl2-match-data-20260824-20260907",
   "standingsAsOf": "2026-09-07T22:25:00+08:00",
-  "publishedAt": "2026-09-08T00:50:00+08:00",
+  "publishedAt": "2026-09-08T01:15:14+08:00",
   "entries": [
     {
       "rank": 1,
@@ -23,6 +23,14 @@
     },
     {
       "rank": 3,
+      "displayName": "do''do",
+      "points": 209,
+      "tier": "星耀",
+      "gamesPlayed": 27,
+      "winRate": 0.444444
+    },
+    {
+      "rank": 4,
       "displayName": "年轻",
       "points": 206,
       "tier": "星耀",
@@ -30,20 +38,12 @@
       "winRate": 0.567568
     },
     {
-      "rank": 4,
+      "rank": 5,
       "displayName": "fly",
       "points": 206,
       "tier": "星耀",
       "gamesPlayed": 31,
       "winRate": 0.483871
-    },
-    {
-      "rank": 5,
-      "displayName": "do''do",
-      "points": 205,
-      "tier": "星耀",
-      "gamesPlayed": 25,
-      "winRate": 0.48
     },
     { "rank": 6, "displayName": "IKILllIII", "points": 188, "tier": "钻石" },
     { "rank": 7, "displayName": "豆豆", "points": 153, "tier": "钻石" },
