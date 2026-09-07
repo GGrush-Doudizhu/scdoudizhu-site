@@ -358,7 +358,7 @@ test("首页鸣谢第二届首批赞助老板并继续邀请众筹", async ({ pa
   }
 });
 
-test("积分榜展示第二届前八个比赛日累计积分与完整前二十五名", async ({
+test("积分榜展示第二届前九个比赛日累计积分与完整前二十五名", async ({
   page,
 }) => {
   await page.goto("/standings/");
@@ -369,21 +369,21 @@ test("积分榜展示第二届前八个比赛日累计积分与完整前二十�
     "lansoov",
   );
   await expect(page.locator(".standings-table tbody tr").first()).toContainText(
-    "350",
+    "408",
   );
   await expect(
     page.getByText("公开积分榜只展示铂金及铂金以上的选手", {
       exact: false,
     }),
   ).toBeVisible();
-  await expect(page.getByText("统计截至：2026年9月5日")).toBeVisible();
+  await expect(page.getByText("统计截至：2026年9月7日")).toBeVisible();
   await expect(page.locator(".podium-record")).toHaveCount(0);
   await expect(page.locator(".podium")).not.toContainText("总场数");
   await expect(page.locator(".podium")).not.toContainText("胜率");
   await expect(page.locator(".standing-elite-stats")).toHaveCount(5);
   await expect(
     page.locator('.standings-table tbody tr[data-rank="1"]'),
-  ).toContainText("总场数 43 · 胜率 55.8%");
+  ).toContainText("总场数 50 · 胜率 54%");
   await expect(
     page.locator('.standings-table tbody tr[data-rank="5"]'),
   ).toContainText(/总场数 \d+ · 胜率 \d+(?:\.\d)?%/u);
@@ -409,7 +409,7 @@ test("积分榜展示第二届前八个比赛日累计积分与完整前二十�
   expect(new Set(tierShapes).size).toBe(7);
 });
 
-test("新闻页提供八个比赛日赛报及完整人员、积分和逐盘赛果", async ({ page }) => {
+test("新闻页提供九个比赛日赛报及完整人员、积分和逐盘赛果", async ({ page }) => {
   await page.goto("/announcements/");
   const firstNewsCard = page.locator(".news-list > .news-card").first();
   await expect(firstNewsCard).toHaveClass(/news-card--scheme/u);
@@ -418,32 +418,31 @@ test("新闻页提供八个比赛日赛报及完整人员、积分和逐盘赛�
     firstNewsCard.getByRole("link", { name: "阅读完整赛事方案" }),
   ).toHaveAttribute("href", "/news/dsl2-league-plan.html");
   const timelineLinks = page.locator(".news-timeline a");
-  await expect(timelineLinks).toHaveCount(9);
+  await expect(timelineLinks).toHaveCount(10);
   await expect(timelineLinks.first()).toHaveAttribute("href", "#news-scheme");
-  await expect(timelineLinks.nth(1)).toContainText("2026年9月5日比赛数据赛报");
+  await expect(timelineLinks.nth(1)).toContainText("2026年9月7日比赛数据赛报");
   await expect(timelineLinks.nth(1)).toHaveAttribute(
     "href",
-    "#news-2026-09-05",
+    "#news-2026-09-07",
   );
   await timelineLinks.nth(1).click();
-  await expect(page).toHaveURL(/#news-2026-09-05$/u);
-  await expect(page.locator("#news-2026-09-05")).toBeInViewport();
+  await expect(page).toHaveURL(/#news-2026-09-07$/u);
+  await expect(page.locator("#news-2026-09-07")).toBeInViewport();
   const reportCards = page.locator(".news-card--match-report");
-  await expect(reportCards).toHaveCount(8);
-  await expect(page.locator(".news-staff-thanks")).toHaveCount(8);
+  await expect(reportCards).toHaveCount(9);
+  await expect(page.locator(".news-staff-thanks")).toHaveCount(9);
   await expect(reportCards.first()).toContainText(
     "感谢以上赛事工作人员的辛苦付出",
   );
   await expect(reportCards.first()).toContainText(
-    /2026年9月5日\s+比赛数据赛报/u,
+    /2026年9月7日\s+比赛数据赛报/u,
   );
-  await expect(reportCards.first()).toContainText("星期六");
-  await expect(reportCards.first()).toContainText("韩服赛区");
-  await expect(reportCards.first()).toContainText("房主：fly、do''do");
+  await expect(reportCards.first()).toContainText("星期一");
+  await expect(reportCards.first()).toContainText("KK赛区");
+  await expect(reportCards.first()).toContainText("房主：do''do");
   await expect(reportCards.first()).toContainText("主播：do''do、lansoov");
   await expect(reportCards.first()).toContainText("统计：GGrush");
-  await expect(reportCards.nth(1)).toContainText("KK赛区");
-  await expect(reportCards.nth(1)).toContainText("不消耗豁免机会");
+  await expect(reportCards.nth(1)).toContainText("韩服赛区");
   const districtMetaColors = await page
     .locator(".news-timeline-meta--kk, .news-timeline-meta--korea")
     .evaluateAll((items) => items.map((item) => getComputedStyle(item).color));
@@ -452,6 +451,19 @@ test("新闻页提供八个比赛日赛报及完整人员、积分和逐盘赛�
     cards.slice(0, 2).map((card) => getComputedStyle(card).backgroundImage),
   );
   expect(districtBackgrounds[0]).not.toBe(districtBackgrounds[1]);
+
+  await page.goto("/announcements/2026-09-07/");
+  await expect(page.getByRole("heading", { level: 1 })).toContainText(
+    "2026年9月7日比赛数据赛报",
+  );
+  await expect(page.locator(".report-game-card")).toHaveCount(7);
+  await expect(page.locator(".report-points-table tbody tr")).toHaveCount(18);
+  await expect(page.locator(".report-staff-grid")).toContainText("do''do");
+  await expect(page.locator(".report-staff-grid")).toContainText("lansoov");
+  await expect(page.locator(".report-staff-grid")).toContainText("GGrush");
+  await expect(
+    page.getByText("兼职封顶", { exact: false }).first(),
+  ).toBeVisible();
 
   await page.goto("/announcements/2026-09-05/");
   await expect(page.getByRole("heading", { level: 1 })).toContainText(
