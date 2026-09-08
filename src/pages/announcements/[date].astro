@@ -145,8 +145,8 @@ const heroImage =
             <tr>
               <th scope="col">选手</th>
               <th scope="col" class="numeric">对局积分</th>
+              <th scope="col" class="numeric">每日变动</th>
               <th scope="col">赛事工作积分</th>
-              <th scope="col" class="numeric">当日变动</th>
             </tr>
           </thead>
           <tbody>
@@ -155,11 +155,6 @@ const heroImage =
                 <tr>
                   <th scope="row">{change.displayName}</th>
                   <td class="numeric">{signedPoints(change.matchPoints)}</td>
-                  <td>
-                    {change.contributions.length > 0
-                      ? `${change.contributions.join("、")}${change.workPointsCapped ? "（兼职封顶）" : ""} ${signedPoints(change.workPoints)}`
-                      : "—"}
-                  </td>
                   <td
                     class:list={[
                       "numeric",
@@ -168,6 +163,11 @@ const heroImage =
                     ]}
                   >
                     {signedPoints(change.total)}
+                  </td>
+                  <td>
+                    {change.contributions.length > 0
+                      ? `${change.contributions.join("、")}${change.workPointsCapped ? "（兼职封顶）" : ""} ${signedPoints(change.workPoints)}`
+                      : "—"}
                   </td>
                 </tr>
               ))

@@ -3,7 +3,7 @@
   "season": "dsl2",
   "exportId": "dsl2-match-data-20260824-20260907",
   "standingsAsOf": "2026-09-07T22:25:00+08:00",
-  "publishedAt": "2026-09-08T01:15:14+08:00",
+  "publishedAt": "2026-09-08T09:44:40+08:00",
   "entries": [
     {
       "rank": 1,
@@ -23,6 +23,14 @@
     },
     {
       "rank": 3,
+      "displayName": "fly",
+      "points": 230,
+      "tier": "星耀",
+      "gamesPlayed": 33,
+      "winRate": 0.515152
+    },
+    {
+      "rank": 4,
       "displayName": "do''do",
       "points": 209,
       "tier": "星耀",
@@ -30,20 +38,12 @@
       "winRate": 0.444444
     },
     {
-      "rank": 4,
+      "rank": 5,
       "displayName": "年轻",
       "points": 206,
       "tier": "星耀",
       "gamesPlayed": 37,
       "winRate": 0.567568
-    },
-    {
-      "rank": 5,
-      "displayName": "fly",
-      "points": 206,
-      "tier": "星耀",
-      "gamesPlayed": 31,
-      "winRate": 0.483871
     },
     { "rank": 6, "displayName": "IKILllIII", "points": 188, "tier": "钻石" },
     { "rank": 7, "displayName": "豆豆", "points": 153, "tier": "钻石" },
@@ -58,17 +58,12 @@
     { "rank": 16, "displayName": "shougong", "points": 86, "tier": "铂金" },
     { "rank": 17, "displayName": "怕瓦落地", "points": 76, "tier": "铂金" },
     { "rank": 18, "displayName": "FFS-no.1", "points": 70, "tier": "铂金" },
-    { "rank": 19, "displayName": "FFS-Open-1", "points": 57, "tier": "铂金" },
-    { "rank": 20, "displayName": "FoR_TVSPZ", "points": 53, "tier": "铂金" },
-    { "rank": 21, "displayName": "金豆", "points": 43, "tier": "铂金" },
-    { "rank": 22, "displayName": "老全", "points": 39, "tier": "铂金" },
-    {
-      "rank": 23,
-      "displayName": "FFS_Stefsunli",
-      "points": 38,
-      "tier": "铂金"
-    },
+    { "rank": 19, "displayName": "stefsunli", "points": 66, "tier": "铂金" },
+    { "rank": 20, "displayName": "FFS-Open-1", "points": 57, "tier": "铂金" },
+    { "rank": 21, "displayName": "FoR_TVSPZ", "points": 53, "tier": "铂金" },
+    { "rank": 22, "displayName": "金豆", "points": 43, "tier": "铂金" },
+    { "rank": 23, "displayName": "老全", "points": 39, "tier": "铂金" },
     { "rank": 24, "displayName": "Super555", "points": 31, "tier": "铂金" },
-    { "rank": 25, "displayName": "stefsunli", "points": 28, "tier": "铂金" }
+    { "rank": 25, "displayName": "白胖", "points": 26, "tier": "铂金" }
   ]
 }

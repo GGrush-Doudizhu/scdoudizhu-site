@@ -4,6 +4,7 @@ import { expect, test } from "@playwright/test";
 
 import { dsl1Sponsors } from "../src/data/dsl1-sponsors";
 import { dsl2Sponsors } from "../src/data/dsl2-sponsors";
+import matchReports from "../src/data/match-reports.json" with { type: "json" };
 
 const pages = [
   { path: "/", heading: "星际斗地主联赛" },
@@ -385,9 +386,22 @@ test("积分榜展示第二届前九个比赛日累计积分与完整前二十�
     page.locator('.standings-table tbody tr[data-rank="1"]'),
   ).toContainText("总场数 50 · 胜率 54%");
   const mergedPlayer = page.locator('.standings-table tbody tr[data-rank="3"]');
-  await expect(mergedPlayer).toContainText("do''do");
-  await expect(mergedPlayer).toContainText("209");
-  await expect(mergedPlayer).toContainText("总场数 27 · 胜率 44.4%");
+  await expect(mergedPlayer).toContainText("fly");
+  await expect(mergedPlayer).toContainText("230");
+  await expect(mergedPlayer).toContainText("总场数 33 · 胜率 51.5%");
+  await expect(
+    page.locator('.standings-table tbody tr[data-rank="4"]'),
+  ).toContainText("do''do");
+  const mergedStefsunli = page.locator(
+    '.standings-table tbody tr[data-rank="19"]',
+  );
+  await expect(
+    mergedStefsunli.getByRole("cell", { name: "66", exact: true }),
+  ).toBeVisible();
+  await expect(mergedStefsunli).toContainText("stefsunli");
+  await expect(
+    page.locator('.standings-table tbody tr[data-rank="25"]'),
+  ).toContainText("白胖");
   await expect(
     page.locator('.standings-table tbody tr[data-rank="5"]'),
   ).toContainText(/总场数 \d+ · 胜率 \d+(?:\.\d)?%/u);
@@ -461,15 +475,21 @@ test("新闻页提供九个比赛日赛报及完整人员、积分和逐盘赛�
     "2026年9月7日比赛数据赛报",
   );
   await expect(page.locator(".report-game-card")).toHaveCount(7);
-  await expect(page.locator(".report-points-table tbody tr")).toHaveCount(17);
+  await expect(page.locator(".report-points-table tbody tr")).toHaveCount(16);
   const mergedDailyPoints = page
     .locator(".report-points-table tbody tr")
     .filter({
       has: page.getByRole("rowheader", { name: "do''do", exact: true }),
     });
-  await expect(mergedDailyPoints).toContainText("+14");
-  await expect(mergedDailyPoints).toContainText("+15");
-  await expect(mergedDailyPoints).toContainText("+29");
+  await expect(mergedDailyPoints.locator("td")).toHaveText([
+    "+14",
+    "+29",
+    "房主、主播（兼职封顶） +15",
+  ]);
+  const mergedFlyPoints = page
+    .locator(".report-points-table tbody tr")
+    .filter({ has: page.getByRole("rowheader", { name: "fly", exact: true }) });
+  await expect(mergedFlyPoints.locator("td")).toHaveText(["+44", "+44", "—"]);
   await expect(page.locator("main")).not.toContainText("beinan");
   await expect(page.locator(".report-game-card").nth(2)).toContainText(
     "do''do",
@@ -582,6 +602,18 @@ test("新闻页提供九个比赛日赛报及完整人员、积分和逐盘赛�
     page.getByRole("complementary", { name: "当日掉线核算" }),
   ).toContainText("逗地主羞大圣：KK赛区当周首次掉线，豁免扣分，该盘 0 分");
   await expect(page.getByText("掉线", { exact: true })).toBeVisible();
+
+  for (const day of matchReports.matchDays) {
+    await page.goto(`/announcements/${day.slug}/`);
+    await expect(page.locator(".report-points-table thead th")).toHaveText([
+      "选手",
+      "对局积分",
+      "每日变动",
+      "赛事工作积分",
+    ]);
+    await expect(page.locator("main")).not.toContainText("文永宁");
+    await expect(page.locator("main")).not.toContainText("FFS_Stefsunli");
+  }
 });
 
 test("赞助鸣谢页完整复用第一届与第二届赞助名单且移除旧奖励内容", async ({
