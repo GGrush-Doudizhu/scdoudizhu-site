@@ -7,6 +7,7 @@ import {
   disconnectPolicy,
   pointsFor,
   resolveHostPoints,
+  resolveWorkPointOverrides,
 } from "./lib/match-scoring.mjs";
 
 const projectRoot = path.resolve(
@@ -35,7 +36,7 @@ const fullStandingsOutputPath = path.join(
 );
 const checkOnly = process.argv.includes("--check");
 
-const publishedAt = "2026-09-09T23:29:37+08:00";
+const publishedAt = "2026-09-09T23:59:56+08:00";
 const publicStandingLimit = 25;
 const workPointCap = 15;
 const workRoleRules = {
@@ -182,6 +183,7 @@ function addWorkPoints(
   displayName,
   roleKeys,
   hostPoints = 10,
+  workOverride,
 ) {
   const contributions = roleKeys.map((roleKey) => workRoleRules[roleKey].label);
   const uncappedPoints = roleKeys.reduce(
@@ -189,14 +191,15 @@ function addWorkPoints(
       sum + (roleKey === "host" ? hostPoints : workRoleRules[roleKey].points),
     0,
   );
-  const points = Math.min(uncappedPoints, workPointCap);
-  const capped = uncappedPoints > workPointCap;
+  const points = workOverride?.points ?? Math.min(uncappedPoints, workPointCap);
+  const capped = !workOverride && uncappedPoints > workPointCap;
   const change =
     pointChanges.get(displayName) ?? initialPointChange(displayName);
   change.workPoints += points;
   change.total += points;
   change.contributions = contributions;
   change.workPointsCapped = capped;
+  if (workOverride) change.workPointsOverrideReason = workOverride.reason;
   pointChanges.set(displayName, change);
   const total =
     playerTotals.get(displayName) ?? initialPlayerTotal(displayName);
@@ -311,6 +314,7 @@ async function buildData() {
     };
     const hosts = uniqueNames(metadata.host.map(rememberName));
     const hostPoints = resolveHostPoints(metadata, canonicalName);
+    const workOverrides = resolveWorkPointOverrides(metadata, canonicalName);
     const streamers = uniqueNames(metadata.streamer.map(rememberName));
     const statistician = rememberName(metadata.statistician);
     const pointChanges = new Map();
@@ -433,6 +437,7 @@ async function buildData() {
         displayName,
         roleKeys,
         hostPoints.get(displayName),
+        workOverrides.get(displayName),
       );
 
     const sortedPointChanges = [...pointChanges.values()].sort(

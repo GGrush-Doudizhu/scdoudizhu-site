@@ -72,6 +72,15 @@
           "workPointsCapped": false
         },
         {
+          "displayName": "FFS-Open-1",
+          "matchPoints": 0,
+          "workPoints": 20,
+          "total": 20,
+          "contributions": ["房主", "主播"],
+          "workPointsCapped": false,
+          "workPointsOverrideReason": "本日直播有解说，给予特别加分"
+        },
+        {
           "displayName": "fly",
           "matchPoints": 20,
           "workPoints": 0,
@@ -112,14 +121,6 @@
           "workPointsCapped": false
         },
         {
-          "displayName": "FFS-Open-1",
-          "matchPoints": 0,
-          "workPoints": 15,
-          "total": 15,
-          "contributions": ["房主", "主播"],
-          "workPointsCapped": true
-        },
-        {
           "displayName": "FoR_TVSPZ",
           "matchPoints": 12,
           "workPoints": 0,
@@ -128,7 +129,7 @@
           "workPointsCapped": false
         },
         {
-          "displayName": "shovgong",
+          "displayName": "shougong",
           "matchPoints": 12,
           "workPoints": 0,
           "total": 12,
@@ -180,7 +181,7 @@
               "role": "地主",
               "won": true,
               "players": [
-                { "displayName": "shovgong", "disconnected": false },
+                { "displayName": "shougong", "disconnected": false },
                 { "displayName": "FoR_TVSPZ", "disconnected": false },
                 { "displayName": "五社", "disconnected": false }
               ]

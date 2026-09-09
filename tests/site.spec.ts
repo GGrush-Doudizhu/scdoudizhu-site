@@ -405,12 +405,22 @@ test("积分榜展示第二届前十个比赛日累计积分与完整前二十�
     page.locator('.standings-table tbody tr[data-rank="4"]'),
   ).toContainText("do''do");
   const mergedStefsunli = page.locator(
-    '.standings-table tbody tr[data-rank="19"]',
+    '.standings-table tbody tr[data-rank="20"]',
   );
   await expect(
     mergedStefsunli.getByRole("cell", { name: "76", exact: true }),
   ).toBeVisible();
   await expect(mergedStefsunli).toContainText("stefsunli");
+  for (const [rank, name, points] of [
+    [16, "shougong", "98"],
+    [18, "FFS-Open-1", "77"],
+  ] as const) {
+    const row = page.locator(`.standings-table tbody tr[data-rank="${rank}"]`);
+    await expect(row).toContainText(name);
+    await expect(
+      row.getByRole("cell", { name: points, exact: true }),
+    ).toBeVisible();
+  }
   await expect(
     page.locator('.standings-table tbody tr[data-rank="25"]'),
   ).toContainText("白胖");
@@ -457,16 +467,23 @@ test("第十比赛日展示五盘赛果、十四人及房主分配和首次掉�
   await expect(staff).toContainText("GGrush");
   for (const [name, cells] of [
     ["IKILllIII", ["+31", "+45", "房主、主播 +14"]],
-    ["FFS-Open-1", ["0", "+15", "房主、主播（兼职封顶） +15"]],
+    ["FFS-Open-1", ["0", "+20", "房主、主播（特别核定） +20"]],
     ["do''do", ["+18", "+28", "主播 +10"]],
     ["年轻", ["+5", "+5", "—"]],
     ["GGrush", ["0", "+5", "赛事数据统计员 +5"]],
+    ["shougong", ["+12", "+12", "—"]],
   ] as const) {
     const row = page
       .locator(".report-points-table tbody tr")
       .filter({ has: page.getByRole("rowheader", { name, exact: true }) });
     await expect(row.locator("td")).toHaveText([...cells]);
   }
+  await expect(
+    page.getByRole("complementary", { name: "赛事工作积分特别说明" }),
+  ).toContainText(
+    "FFS-Open-1：本日直播有解说，给予特别加分；本日赛事工作积分特别核定为 +20 分。",
+  );
+  await expect(page.locator("main")).not.toContainText("shovgong");
   await expect(
     page.getByRole("complementary", { name: "当日掉线核算" }),
   ).toContainText("年轻：韩服赛区当周首次掉线，豁免扣分，该盘 0 分");

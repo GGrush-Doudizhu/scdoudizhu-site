@@ -5,6 +5,7 @@ import {
   createDisconnectTracker,
   pointsFor,
   resolveHostPoints,
+  resolveWorkPointOverrides,
   weekForDate,
 } from "./lib/match-scoring.mjs";
 
@@ -47,7 +48,47 @@ test("host allocations resolve aliases and reject invalid or duplicate awards", 
   }
 });
 
-test("September 9 preserves allocated host points, cap and Korean weekly waiver", async () => {
+test("special work totals require staff identity, a reason and an unambiguous award", () => {
+  const canonical = (name) => (name === "open" ? "FFS-Open-1" : name);
+  const metadata = {
+    host: ["open"],
+    streamer: ["FFS-Open-1"],
+    statistician: "GGrush",
+  };
+  const award = { name: "open", points: 20, reason: "直播解说特别加分" };
+  assert.equal(resolveWorkPointOverrides(metadata, canonical).size, 0);
+  assert.deepEqual(
+    [
+      ...resolveWorkPointOverrides(
+        { ...metadata, workPointOverrides: [award] },
+        canonical,
+      ),
+    ],
+    [["FFS-Open-1", { points: 20, reason: award.reason }]],
+  );
+  for (const workPointOverrides of [
+    null,
+    {},
+    [null],
+    [{ ...award, name: "other" }],
+    [{ ...award, reason: " " }],
+    [{ ...award, points: -1 }],
+    [{ ...award, points: 1.5 }],
+    [{ ...award, points: "20" }],
+    [award, { ...award, name: "FFS-Open-1" }],
+  ]) {
+    assert.throws(
+      () =>
+        resolveWorkPointOverrides(
+          { ...metadata, workPointOverrides },
+          canonical,
+        ),
+      /workPointOverrides/,
+    );
+  }
+});
+
+test("September 9 preserves special work total, identity merge and Korean weekly waiver", async () => {
   const reports = JSON.parse(
     await readFile(
       new URL("../src/data/match-reports.json", import.meta.url),
@@ -62,7 +103,7 @@ test("September 9 preserves allocated host points, cap and Korean weekly waiver"
     farmerWins: 3,
   });
   for (const [name, match, work, capped] of [
-    ["FFS-Open-1", 0, 15, true],
+    ["FFS-Open-1", 0, 20, false],
     ["IKILllIII", 31, 14, false],
     ["do''do", 18, 10, false],
     ["年轻", 5, 0, false],
@@ -73,6 +114,16 @@ test("September 9 preserves allocated host points, cap and Korean weekly waiver"
       [match, work, match + work, capped],
     );
   }
+  assert.equal(
+    day.pointChanges.find((p) => p.displayName === "FFS-Open-1")
+      .workPointsOverrideReason,
+    "本日直播有解说，给予特别加分",
+  );
+  assert.equal(
+    day.pointChanges.find((p) => p.displayName === "shougong").matchPoints,
+    12,
+  );
+  assert.ok(!JSON.stringify(day).includes("shovgong"));
   assert.deepEqual(day.disconnectEvents, [
     {
       displayName: "年轻",

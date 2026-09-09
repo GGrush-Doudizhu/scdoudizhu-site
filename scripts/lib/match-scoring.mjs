@@ -2,6 +2,44 @@ import disconnectPolicy from "../../src/data/disconnect-policy.json" with { type
 
 export { disconnectPolicy };
 
+// Explicit daily work totals approved by the administrator, with a public reason.
+// These replace the normal capped work award only for the named staff member.
+export function resolveWorkPointOverrides(metadata, canonicalName) {
+  const overrides = new Map();
+  if (metadata.workPointOverrides === undefined) return overrides;
+  if (!Array.isArray(metadata.workPointOverrides)) {
+    throw new Error("workPointOverrides 必须是特别核定记录数组。");
+  }
+  const staff = new Set(
+    [...metadata.host, ...metadata.streamer, metadata.statistician].map(
+      canonicalName,
+    ),
+  );
+  for (const award of metadata.workPointOverrides) {
+    if (
+      !award ||
+      typeof award.name !== "string" ||
+      !award.name.trim() ||
+      !Number.isSafeInteger(award.points) ||
+      award.points < 0 ||
+      typeof award.reason !== "string" ||
+      !award.reason.trim()
+    ) {
+      throw new Error(
+        "workPointOverrides 必须包含有效姓名、非负整数积分和核定原因。",
+      );
+    }
+    const name = canonicalName(award.name);
+    if (!staff.has(name) || overrides.has(name)) {
+      throw new Error(
+        `workPointOverrides 非当日工作人员或归并后重复：${award.name}`,
+      );
+    }
+    overrides.set(name, { points: award.points, reason: award.reason.trim() });
+  }
+  return overrides;
+}
+
 // Optional administrator-confirmed host allocations, keyed by source name.
 // Resolve identities before applying an allocation or the daily work cap.
 export function resolveHostPoints(metadata, canonicalName) {
