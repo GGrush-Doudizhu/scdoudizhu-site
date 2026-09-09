@@ -2,6 +2,35 @@ import disconnectPolicy from "../../src/data/disconnect-policy.json" with { type
 
 export { disconnectPolicy };
 
+// Optional administrator-confirmed host allocations, keyed by source name.
+// Resolve identities before applying an allocation or the daily work cap.
+export function resolveHostPoints(metadata, canonicalName) {
+  const awards = new Map();
+  if (metadata.hostPoints === undefined) return awards;
+  if (
+    !metadata.hostPoints ||
+    Array.isArray(metadata.hostPoints) ||
+    typeof metadata.hostPoints !== "object"
+  ) {
+    throw new Error("hostPoints 必须是房主名称到积分的对象。");
+  }
+  const hosts = new Set(metadata.host.map(canonicalName));
+  for (const [sourceName, points] of Object.entries(metadata.hostPoints)) {
+    const name = canonicalName(sourceName);
+    if (
+      !hosts.has(name) ||
+      awards.has(name) ||
+      !Number.isInteger(points) ||
+      points < 0 ||
+      points > 10
+    ) {
+      throw new Error(`hostPoints 分配无效或归并后重复：${sourceName}`);
+    }
+    awards.set(name, points);
+  }
+  return awards;
+}
+
 export function weekForDate(date) {
   const monday = new Date(`${date}T00:00:00Z`);
   monday.setUTCDate(monday.getUTCDate() - ((monday.getUTCDay() + 6) % 7));

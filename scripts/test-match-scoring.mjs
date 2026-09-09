@@ -4,8 +4,88 @@ import { readFile } from "node:fs/promises";
 import {
   createDisconnectTracker,
   pointsFor,
+  resolveHostPoints,
   weekForDate,
 } from "./lib/match-scoring.mjs";
+
+test("host allocations resolve aliases and reject invalid or duplicate awards", () => {
+  const canonical = (name) => (name === "open" ? "FFS-Open-1" : name);
+  assert.deepEqual([...resolveHostPoints({ host: ["open"] }, canonical)], []);
+  assert.deepEqual(
+    [
+      ...resolveHostPoints(
+        { host: ["open"], hostPoints: { "FFS-Open-1": 6 } },
+        canonical,
+      ),
+    ],
+    [["FFS-Open-1", 6]],
+  );
+  assert.deepEqual(
+    [
+      ...resolveHostPoints(
+        { host: ["open"], hostPoints: { open: 0 } },
+        canonical,
+      ),
+    ],
+    [["FFS-Open-1", 0]],
+  );
+  for (const hostPoints of [
+    null,
+    [],
+    6,
+    { other: 4 },
+    { open: -1 },
+    { open: 11 },
+    { open: 1.5 },
+    { open: "6" },
+    { open: 6, "FFS-Open-1": 6 },
+  ]) {
+    assert.throws(
+      () => resolveHostPoints({ host: ["open"], hostPoints }, canonical),
+      /hostPoints/,
+    );
+  }
+});
+
+test("September 9 preserves allocated host points, cap and Korean weekly waiver", async () => {
+  const reports = JSON.parse(
+    await readFile(
+      new URL("../src/data/match-reports.json", import.meta.url),
+      "utf8",
+    ),
+  );
+  const day = reports.matchDays.find((day) => day.date === "2026-09-09");
+  assert.deepEqual(day.summary, {
+    matchCount: 5,
+    participantCount: 14,
+    landlordWins: 2,
+    farmerWins: 3,
+  });
+  for (const [name, match, work, capped] of [
+    ["FFS-Open-1", 0, 15, true],
+    ["IKILllIII", 31, 14, false],
+    ["do''do", 18, 10, false],
+    ["年轻", 5, 0, false],
+  ]) {
+    const row = day.pointChanges.find((p) => p.displayName === name);
+    assert.deepEqual(
+      [row.matchPoints, row.workPoints, row.total, row.workPointsCapped],
+      [match, work, match + work, capped],
+    );
+  }
+  assert.deepEqual(day.disconnectEvents, [
+    {
+      displayName: "年轻",
+      gameNumber: 3,
+      time: "21:12",
+      status: "weekly-exempt",
+      weekStart: "2026-09-07",
+      occurrence: 1,
+      points: 0,
+      suspensionThrough: null,
+    },
+  ]);
+});
 
 test("normal landlord and farmer results retain the original scoring", () => {
   assert.deepEqual([pointsFor(1, true), pointsFor(1, false)], [12, 3]);

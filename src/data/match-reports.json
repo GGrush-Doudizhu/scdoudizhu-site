@@ -1,8 +1,351 @@
 {
   "schemaVersion": 3,
   "season": "dsl2",
-  "sourceRange": "20260824-20260907",
+  "sourceRange": "20260824-20260909",
   "matchDays": [
+    {
+      "matchdayNumber": 10,
+      "slug": "2026-09-09",
+      "date": "2026-09-09",
+      "dateLabel": "2026年9月9日",
+      "weekday": "星期三",
+      "platform": "韩服",
+      "notice": null,
+      "disconnectEvents": [
+        {
+          "displayName": "年轻",
+          "gameNumber": 3,
+          "time": "21:12",
+          "status": "weekly-exempt",
+          "weekStart": "2026-09-07",
+          "occurrence": 1,
+          "points": 0,
+          "suspensionThrough": null
+        }
+      ],
+      "staff": {
+        "hosts": ["FFS-Open-1", "IKILllIII"],
+        "streamers": ["FFS-Open-1", "IKILllIII", "do''do"],
+        "statistician": "GGrush",
+        "hostPointAwards": [
+          { "displayName": "FFS-Open-1", "points": 6 },
+          { "displayName": "IKILllIII", "points": 4 }
+        ]
+      },
+      "summary": {
+        "matchCount": 5,
+        "participantCount": 14,
+        "landlordWins": 2,
+        "farmerWins": 3
+      },
+      "pointChanges": [
+        {
+          "displayName": "IKILllIII",
+          "matchPoints": 31,
+          "workPoints": 14,
+          "total": 45,
+          "contributions": ["房主", "主播"],
+          "workPointsCapped": false
+        },
+        {
+          "displayName": "do''do",
+          "matchPoints": 18,
+          "workPoints": 10,
+          "total": 28,
+          "contributions": ["主播"],
+          "workPointsCapped": false
+        },
+        {
+          "displayName": "Super555",
+          "matchPoints": 28,
+          "workPoints": 0,
+          "total": 28,
+          "contributions": [],
+          "workPointsCapped": false
+        },
+        {
+          "displayName": "FFS-no.1",
+          "matchPoints": 26,
+          "workPoints": 0,
+          "total": 26,
+          "contributions": [],
+          "workPointsCapped": false
+        },
+        {
+          "displayName": "fly",
+          "matchPoints": 20,
+          "workPoints": 0,
+          "total": 20,
+          "contributions": [],
+          "workPointsCapped": false
+        },
+        {
+          "displayName": "KaKaRu",
+          "matchPoints": 20,
+          "workPoints": 0,
+          "total": 20,
+          "contributions": [],
+          "workPointsCapped": false
+        },
+        {
+          "displayName": "FFS-DBS",
+          "matchPoints": 18,
+          "workPoints": 0,
+          "total": 18,
+          "contributions": [],
+          "workPointsCapped": false
+        },
+        {
+          "displayName": "五社",
+          "matchPoints": 17,
+          "workPoints": 0,
+          "total": 17,
+          "contributions": [],
+          "workPointsCapped": false
+        },
+        {
+          "displayName": "ctrl+Q++Q",
+          "matchPoints": 16,
+          "workPoints": 0,
+          "total": 16,
+          "contributions": [],
+          "workPointsCapped": false
+        },
+        {
+          "displayName": "FFS-Open-1",
+          "matchPoints": 0,
+          "workPoints": 15,
+          "total": 15,
+          "contributions": ["房主", "主播"],
+          "workPointsCapped": true
+        },
+        {
+          "displayName": "FoR_TVSPZ",
+          "matchPoints": 12,
+          "workPoints": 0,
+          "total": 12,
+          "contributions": [],
+          "workPointsCapped": false
+        },
+        {
+          "displayName": "shovgong",
+          "matchPoints": 12,
+          "workPoints": 0,
+          "total": 12,
+          "contributions": [],
+          "workPointsCapped": false
+        },
+        {
+          "displayName": "stefsunli",
+          "matchPoints": 10,
+          "workPoints": 0,
+          "total": 10,
+          "contributions": [],
+          "workPointsCapped": false
+        },
+        {
+          "displayName": "年轻",
+          "matchPoints": 5,
+          "workPoints": 0,
+          "total": 5,
+          "contributions": [],
+          "workPointsCapped": false
+        },
+        {
+          "displayName": "GGrush",
+          "matchPoints": 0,
+          "workPoints": 5,
+          "total": 5,
+          "contributions": ["赛事数据统计员"],
+          "workPointsCapped": false
+        },
+        {
+          "displayName": "VGer_Whc",
+          "matchPoints": 3,
+          "workPoints": 0,
+          "total": 3,
+          "contributions": [],
+          "workPointsCapped": false
+        }
+      ],
+      "games": [
+        {
+          "number": 1,
+          "time": "20:35",
+          "duration": "30:14",
+          "map": "斗地主Doudizhu 5.7",
+          "forces": [
+            {
+              "force": 1,
+              "role": "地主",
+              "won": true,
+              "players": [
+                { "displayName": "shovgong", "disconnected": false },
+                { "displayName": "FoR_TVSPZ", "disconnected": false },
+                { "displayName": "五社", "disconnected": false }
+              ]
+            },
+            {
+              "force": 2,
+              "role": "富农",
+              "won": false,
+              "players": [{ "displayName": "Super555", "disconnected": false }]
+            },
+            {
+              "force": 3,
+              "role": "贫农",
+              "won": false,
+              "players": [
+                { "displayName": "fly", "disconnected": false },
+                { "displayName": "年轻", "disconnected": false },
+                { "displayName": "KaKaRu", "disconnected": false },
+                { "displayName": "FFS-DBS", "disconnected": false }
+              ]
+            }
+          ]
+        },
+        {
+          "number": 2,
+          "time": "20:46",
+          "duration": "07:30",
+          "map": "斗地主Doudizhu 5.7",
+          "forces": [
+            {
+              "force": 1,
+              "role": "地主",
+              "won": false,
+              "players": [
+                { "displayName": "fly", "disconnected": false },
+                { "displayName": "IKILllIII", "disconnected": false },
+                { "displayName": "年轻", "disconnected": false }
+              ]
+            },
+            {
+              "force": 2,
+              "role": "富农",
+              "won": true,
+              "players": [{ "displayName": "Super555", "disconnected": false }]
+            },
+            {
+              "force": 3,
+              "role": "贫农",
+              "won": true,
+              "players": [
+                { "displayName": "FFS-DBS", "disconnected": false },
+                { "displayName": "KaKaRu", "disconnected": false },
+                { "displayName": "FFS-no.1", "disconnected": false },
+                { "displayName": "ctrl+Q++Q", "disconnected": false }
+              ]
+            }
+          ]
+        },
+        {
+          "number": 3,
+          "time": "21:12",
+          "duration": "19:48",
+          "map": "斗地主Doudizhu 5.7",
+          "forces": [
+            {
+              "force": 1,
+              "role": "地主",
+              "won": false,
+              "players": [
+                { "displayName": "年轻", "disconnected": true },
+                { "displayName": "do''do", "disconnected": false },
+                { "displayName": "fly", "disconnected": false }
+              ]
+            },
+            {
+              "force": 2,
+              "role": "富农",
+              "won": true,
+              "players": [{ "displayName": "Super555", "disconnected": false }]
+            },
+            {
+              "force": 3,
+              "role": "贫农",
+              "won": true,
+              "players": [
+                { "displayName": "FFS-DBS", "disconnected": false },
+                { "displayName": "FFS-no.1", "disconnected": false },
+                { "displayName": "IKILllIII", "disconnected": false },
+                { "displayName": "stefsunli", "disconnected": false }
+              ]
+            }
+          ]
+        },
+        {
+          "number": 4,
+          "time": "21:37",
+          "duration": "22:46",
+          "map": "斗地主Doudizhu 5.7",
+          "forces": [
+            {
+              "force": 1,
+              "role": "地主",
+              "won": true,
+              "players": [
+                { "displayName": "fly", "disconnected": false },
+                { "displayName": "do''do", "disconnected": false },
+                { "displayName": "IKILllIII", "disconnected": false }
+              ]
+            },
+            {
+              "force": 2,
+              "role": "富农",
+              "won": false,
+              "players": [{ "displayName": "Super555", "disconnected": false }]
+            },
+            {
+              "force": 3,
+              "role": "贫农",
+              "won": false,
+              "players": [
+                { "displayName": "KaKaRu", "disconnected": false },
+                { "displayName": "stefsunli", "disconnected": false },
+                { "displayName": "五社", "disconnected": false },
+                { "displayName": "FFS-no.1", "disconnected": false }
+              ]
+            }
+          ]
+        },
+        {
+          "number": 5,
+          "time": "22:03",
+          "duration": "23:15",
+          "map": "斗地主Doudizhu 5.7",
+          "forces": [
+            {
+              "force": 1,
+              "role": "地主",
+              "won": false,
+              "players": [
+                { "displayName": "VGer_Whc", "disconnected": false },
+                { "displayName": "五社", "disconnected": false },
+                { "displayName": "do''do", "disconnected": false }
+              ]
+            },
+            {
+              "force": 2,
+              "role": "富农",
+              "won": true,
+              "players": [{ "displayName": "Super555", "disconnected": false }]
+            },
+            {
+              "force": 3,
+              "role": "贫农",
+              "won": true,
+              "players": [
+                { "displayName": "FFS-no.1", "disconnected": false },
+                { "displayName": "KaKaRu", "disconnected": false },
+                { "displayName": "IKILllIII", "disconnected": false },
+                { "displayName": "ctrl+Q++Q", "disconnected": false }
+              ]
+            }
+          ]
+        }
+      ]
+    },
     {
       "matchdayNumber": 9,
       "slug": "2026-09-07",

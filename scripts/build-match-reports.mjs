@@ -6,6 +6,7 @@ import {
   createDisconnectTracker,
   disconnectPolicy,
   pointsFor,
+  resolveHostPoints,
 } from "./lib/match-scoring.mjs";
 
 const projectRoot = path.resolve(
@@ -34,7 +35,7 @@ const fullStandingsOutputPath = path.join(
 );
 const checkOnly = process.argv.includes("--check");
 
-const publishedAt = "2026-09-08T09:44:40+08:00";
+const publishedAt = "2026-09-09T23:29:37+08:00";
 const publicStandingLimit = 25;
 const workPointCap = 15;
 const workRoleRules = {
@@ -175,10 +176,17 @@ function addMatchPoints(pointChanges, playerTotals, displayName, points) {
   playerTotals.set(displayName, total);
 }
 
-function addWorkPoints(pointChanges, playerTotals, displayName, roleKeys) {
+function addWorkPoints(
+  pointChanges,
+  playerTotals,
+  displayName,
+  roleKeys,
+  hostPoints = 10,
+) {
   const contributions = roleKeys.map((roleKey) => workRoleRules[roleKey].label);
   const uncappedPoints = roleKeys.reduce(
-    (sum, roleKey) => sum + workRoleRules[roleKey].points,
+    (sum, roleKey) =>
+      sum + (roleKey === "host" ? hostPoints : workRoleRules[roleKey].points),
     0,
   );
   const points = Math.min(uncappedPoints, workPointCap);
@@ -302,6 +310,7 @@ async function buildData() {
       return displayName;
     };
     const hosts = uniqueNames(metadata.host.map(rememberName));
+    const hostPoints = resolveHostPoints(metadata, canonicalName);
     const streamers = uniqueNames(metadata.streamer.map(rememberName));
     const statistician = rememberName(metadata.statistician);
     const pointChanges = new Map();
@@ -418,7 +427,13 @@ async function buildData() {
     streamers.forEach((name) => registerStaffRole(name, "streamer"));
     registerStaffRole(statistician, "statistician");
     for (const [displayName, roleKeys] of staffRoles)
-      addWorkPoints(pointChanges, playerTotals, displayName, roleKeys);
+      addWorkPoints(
+        pointChanges,
+        playerTotals,
+        displayName,
+        roleKeys,
+        hostPoints.get(displayName),
+      );
 
     const sortedPointChanges = [...pointChanges.values()].sort(
       (a, b) =>
@@ -443,7 +458,19 @@ async function buildData() {
       platform,
       notice: disconnectPolicy.excludedMatchdays[date] ?? null,
       disconnectEvents,
-      staff: { hosts, streamers, statistician },
+      staff: {
+        hosts,
+        streamers,
+        statistician,
+        ...(hostPoints.size
+          ? {
+              hostPointAwards: hosts.map((displayName) => ({
+                displayName,
+                points: hostPoints.get(displayName) ?? 10,
+              })),
+            }
+          : {}),
+      },
       summary: {
         matchCount: games.length,
         participantCount: participants.size,

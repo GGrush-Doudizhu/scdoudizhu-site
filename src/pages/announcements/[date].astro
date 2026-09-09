@@ -18,6 +18,8 @@ interface Props {
 }
 
 const { day } = Astro.props;
+const hostPointAwards =
+  "hostPointAwards" in day.staff ? day.staff.hostPointAwards : undefined;
 
 const signedPoints = (points: number) =>
   points > 0 ? `+${points}` : points.toString();
@@ -69,7 +71,15 @@ const heroImage =
         <article>
           <span>房主</span>
           <strong>{day.staff.hosts.join("、")}</strong>
-          <small>每人当晚固定 +10 分</small>
+          <small
+            >{
+              hostPointAwards
+                ? hostPointAwards
+                    .map((award) => `${award.displayName} +${award.points} 分`)
+                    .join("、")
+                : "每人当晚固定 +10 分"
+            }</small
+          >
         </article>
         <article>
           <span>主播</span>
@@ -107,7 +117,9 @@ const heroImage =
         <h2>每人当日积分变动</h2>
         <p>
           地主胜 / 负为 +12 / +3，农民胜 / 负为 +8 / +2；房主与主播各
-          +10、统计员 +5，兼职工作分合计最高 +15。
+          +10、统计员 +5，兼职工作分合计最高 +15。{
+            hostPointAwards ? "本日房主分按上方赛事工作记录分配。" : ""
+          }
         </p>
         <p>
           {disconnectPolicy.rules[1]}同一周、同一赛区第二次掉线该盘记 −15

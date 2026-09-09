@@ -359,7 +359,7 @@ test("首页鸣谢第二届首批赞助老板并继续邀请众筹", async ({ pa
   }
 });
 
-test("积分榜展示第二届前九个比赛日累计积分与完整前二十五名", async ({
+test("积分榜展示第二届前十个比赛日累计积分与完整前二十五名", async ({
   page,
 }) => {
   await page.goto("/standings/");
@@ -377,7 +377,7 @@ test("积分榜展示第二届前九个比赛日累计积分与完整前二十�
       exact: false,
     }),
   ).toBeVisible();
-  await expect(page.getByText("统计截至：2026年9月7日")).toBeVisible();
+  await expect(page.getByText("统计截至：2026年9月9日")).toBeVisible();
   await expect(page.locator(".podium-record")).toHaveCount(0);
   await expect(page.locator(".podium")).not.toContainText("总场数");
   await expect(page.locator(".podium")).not.toContainText("胜率");
@@ -385,10 +385,22 @@ test("积分榜展示第二届前九个比赛日累计积分与完整前二十�
   await expect(
     page.locator('.standings-table tbody tr[data-rank="1"]'),
   ).toContainText("总场数 50 · 胜率 54%");
+  for (const [rank, name, points, record] of [
+    [2, "GGrush", "331", "总场数 36 · 胜率 66.7%"],
+    [4, "do''do", "237", "总场数 30 · 胜率 43.3%"],
+    [5, "IKILllIII", "233", "总场数 24 · 胜率 75%"],
+  ] as const) {
+    const row = page.locator(`.standings-table tbody tr[data-rank="${rank}"]`);
+    await expect(row).toContainText(name);
+    await expect(
+      row.getByRole("cell", { name: points, exact: true }),
+    ).toBeVisible();
+    await expect(row).toContainText(record);
+  }
   const mergedPlayer = page.locator('.standings-table tbody tr[data-rank="3"]');
   await expect(mergedPlayer).toContainText("fly");
-  await expect(mergedPlayer).toContainText("230");
-  await expect(mergedPlayer).toContainText("总场数 33 · 胜率 51.5%");
+  await expect(mergedPlayer).toContainText("250");
+  await expect(mergedPlayer).toContainText("总场数 37 · 胜率 48.6%");
   await expect(
     page.locator('.standings-table tbody tr[data-rank="4"]'),
   ).toContainText("do''do");
@@ -396,7 +408,7 @@ test("积分榜展示第二届前九个比赛日累计积分与完整前二十�
     '.standings-table tbody tr[data-rank="19"]',
   );
   await expect(
-    mergedStefsunli.getByRole("cell", { name: "66", exact: true }),
+    mergedStefsunli.getByRole("cell", { name: "76", exact: true }),
   ).toBeVisible();
   await expect(mergedStefsunli).toContainText("stefsunli");
   await expect(
@@ -427,7 +439,49 @@ test("积分榜展示第二届前九个比赛日累计积分与完整前二十�
   expect(new Set(tierShapes).size).toBe(7);
 });
 
-test("新闻页提供九个比赛日赛报及完整人员、积分和逐盘赛果", async ({ page }) => {
+test("第十比赛日展示五盘赛果、十四人及房主分配和首次掉线", async ({ page }) => {
+  await page.goto("/announcements/2026-09-09/");
+  await expect(page.getByRole("heading", { level: 1 })).toContainText(
+    "2026年9月9日比赛数据赛报",
+  );
+  await expect(page.locator(".report-summary-grid strong")).toHaveText([
+    "5",
+    "14",
+    "2",
+    "3",
+  ]);
+  await expect(page.locator(".report-game-card")).toHaveCount(5);
+  await expect(page.locator(".report-points-table tbody tr")).toHaveCount(16);
+  const staff = page.locator(".report-staff-grid");
+  await expect(staff).toContainText("FFS-Open-1 +6 分、IKILllIII +4 分");
+  await expect(staff).toContainText("GGrush");
+  for (const [name, cells] of [
+    ["IKILllIII", ["+31", "+45", "房主、主播 +14"]],
+    ["FFS-Open-1", ["0", "+15", "房主、主播（兼职封顶） +15"]],
+    ["do''do", ["+18", "+28", "主播 +10"]],
+    ["年轻", ["+5", "+5", "—"]],
+    ["GGrush", ["0", "+5", "赛事数据统计员 +5"]],
+  ] as const) {
+    const row = page
+      .locator(".report-points-table tbody tr")
+      .filter({ has: page.getByRole("rowheader", { name, exact: true }) });
+    await expect(row.locator("td")).toHaveText([...cells]);
+  }
+  await expect(
+    page.getByRole("complementary", { name: "当日掉线核算" }),
+  ).toContainText("年轻：韩服赛区当周首次掉线，豁免扣分，该盘 0 分");
+  const game = page.locator(".report-game-card").nth(2);
+  for (const text of ["21:12", "地主", "富农", "贫农", "年轻", "掉线"])
+    await expect(game).toContainText(text);
+  await expect(page.locator("main")).not.toContainText("Nightmare3");
+  expect(
+    await page.evaluate(
+      () => document.documentElement.scrollWidth - innerWidth,
+    ),
+  ).toBeLessThanOrEqual(1);
+});
+
+test("新闻页提供十个比赛日赛报及完整人员、积分和逐盘赛果", async ({ page }) => {
   await page.goto("/announcements/");
   const firstNewsCard = page.locator(".news-list > .news-card").first();
   await expect(firstNewsCard).toHaveClass(/news-card--scheme/u);
@@ -436,31 +490,35 @@ test("新闻页提供九个比赛日赛报及完整人员、积分和逐盘赛�
     firstNewsCard.getByRole("link", { name: "阅读完整赛事方案" }),
   ).toHaveAttribute("href", "/news/dsl2-league-plan.html");
   const timelineLinks = page.locator(".news-timeline a");
-  await expect(timelineLinks).toHaveCount(10);
+  await expect(timelineLinks).toHaveCount(11);
   await expect(timelineLinks.first()).toHaveAttribute("href", "#news-scheme");
-  await expect(timelineLinks.nth(1)).toContainText("2026年9月7日比赛数据赛报");
+  await expect(timelineLinks.nth(1)).toContainText("2026年9月9日比赛数据赛报");
   await expect(timelineLinks.nth(1)).toHaveAttribute(
     "href",
-    "#news-2026-09-07",
+    "#news-2026-09-09",
   );
   await timelineLinks.nth(1).click();
-  await expect(page).toHaveURL(/#news-2026-09-07$/u);
-  await expect(page.locator("#news-2026-09-07")).toBeInViewport();
+  await expect(page).toHaveURL(/#news-2026-09-09$/u);
+  await expect(page.locator("#news-2026-09-09")).toBeInViewport();
   const reportCards = page.locator(".news-card--match-report");
-  await expect(reportCards).toHaveCount(9);
-  await expect(page.locator(".news-staff-thanks")).toHaveCount(9);
+  await expect(reportCards).toHaveCount(10);
+  await expect(page.locator(".news-staff-thanks")).toHaveCount(10);
   await expect(reportCards.first()).toContainText(
     "感谢以上赛事工作人员的辛苦付出",
   );
   await expect(reportCards.first()).toContainText(
-    /2026年9月7日\s+比赛数据赛报/u,
+    /2026年9月9日\s+比赛数据赛报/u,
   );
-  await expect(reportCards.first()).toContainText("星期一");
-  await expect(reportCards.first()).toContainText("KK赛区");
-  await expect(reportCards.first()).toContainText("房主：do''do");
-  await expect(reportCards.first()).toContainText("主播：do''do、lansoov");
+  await expect(reportCards.first()).toContainText("星期三");
+  await expect(reportCards.first()).toContainText("韩服赛区");
+  await expect(reportCards.first()).toContainText(
+    "房主：FFS-Open-1、IKILllIII",
+  );
+  await expect(reportCards.first()).toContainText(
+    "主播：FFS-Open-1、IKILllIII、do''do",
+  );
   await expect(reportCards.first()).toContainText("统计：GGrush");
-  await expect(reportCards.nth(1)).toContainText("韩服赛区");
+  await expect(reportCards.nth(1)).toContainText("KK赛区");
   const districtMetaColors = await page
     .locator(".news-timeline-meta--kk, .news-timeline-meta--korea")
     .evaluateAll((items) => items.map((item) => getComputedStyle(item).color));
