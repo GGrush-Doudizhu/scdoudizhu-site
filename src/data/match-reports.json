@@ -1,8 +1,557 @@
 {
   "schemaVersion": 3,
   "season": "dsl2",
-  "sourceRange": "20260824-20260909",
+  "sourceRange": "20260824-20260911",
   "matchDays": [
+    {
+      "matchdayNumber": 11,
+      "slug": "2026-09-11",
+      "date": "2026-09-11",
+      "dateLabel": "2026年9月11日",
+      "weekday": "星期五",
+      "platform": "KK",
+      "notice": null,
+      "disconnectEvents": [
+        {
+          "displayName": "DR.Yang",
+          "gameNumber": 7,
+          "time": "21:30",
+          "status": "weekly-exempt",
+          "weekStart": "2026-09-07",
+          "occurrence": 1,
+          "points": 0,
+          "suspensionThrough": null
+        }
+      ],
+      "staff": {
+        "hosts": ["GGrush"],
+        "streamers": ["GGrush"],
+        "statistician": "GGrush"
+      },
+      "summary": {
+        "matchCount": 9,
+        "participantCount": 23,
+        "landlordWins": 2,
+        "farmerWins": 7
+      },
+      "pointChanges": [
+        {
+          "displayName": "GGrush",
+          "matchPoints": 70,
+          "workPoints": 15,
+          "total": 85,
+          "contributions": ["房主", "主播", "赛事数据统计员"],
+          "workPointsCapped": true
+        },
+        {
+          "displayName": "do''do",
+          "matchPoints": 33,
+          "workPoints": 0,
+          "total": 33,
+          "contributions": [],
+          "workPointsCapped": false
+        },
+        {
+          "displayName": "mehdiren",
+          "matchPoints": 31,
+          "workPoints": 0,
+          "total": 31,
+          "contributions": [],
+          "workPointsCapped": false
+        },
+        {
+          "displayName": "102",
+          "matchPoints": 27,
+          "workPoints": 0,
+          "total": 27,
+          "contributions": [],
+          "workPointsCapped": false
+        },
+        {
+          "displayName": "豆豆",
+          "matchPoints": 26,
+          "workPoints": 0,
+          "total": 26,
+          "contributions": [],
+          "workPointsCapped": false
+        },
+        {
+          "displayName": "剑圣",
+          "matchPoints": 24,
+          "workPoints": 0,
+          "total": 24,
+          "contributions": [],
+          "workPointsCapped": false
+        },
+        {
+          "displayName": "江江达好",
+          "matchPoints": 24,
+          "workPoints": 0,
+          "total": 24,
+          "contributions": [],
+          "workPointsCapped": false
+        },
+        {
+          "displayName": "DR.Yang",
+          "matchPoints": 24,
+          "workPoints": 0,
+          "total": 24,
+          "contributions": [],
+          "workPointsCapped": false
+        },
+        {
+          "displayName": "KaKaRu",
+          "matchPoints": 24,
+          "workPoints": 0,
+          "total": 24,
+          "contributions": [],
+          "workPointsCapped": false
+        },
+        {
+          "displayName": "VGer_Whc",
+          "matchPoints": 24,
+          "workPoints": 0,
+          "total": 24,
+          "contributions": [],
+          "workPointsCapped": false
+        },
+        {
+          "displayName": "逗地主 剑圣  激情对战 战到最后一兵",
+          "matchPoints": 20,
+          "workPoints": 0,
+          "total": 20,
+          "contributions": [],
+          "workPointsCapped": false
+        },
+        {
+          "displayName": "总裁",
+          "matchPoints": 17,
+          "workPoints": 0,
+          "total": 17,
+          "contributions": [],
+          "workPointsCapped": false
+        },
+        {
+          "displayName": "白胖",
+          "matchPoints": 16,
+          "workPoints": 0,
+          "total": 16,
+          "contributions": [],
+          "workPointsCapped": false
+        },
+        {
+          "displayName": "mascot520",
+          "matchPoints": 12,
+          "workPoints": 0,
+          "total": 12,
+          "contributions": [],
+          "workPointsCapped": false
+        },
+        {
+          "displayName": "paijipao",
+          "matchPoints": 12,
+          "workPoints": 0,
+          "total": 12,
+          "contributions": [],
+          "workPointsCapped": false
+        },
+        {
+          "displayName": "lucky2023",
+          "matchPoints": 11,
+          "workPoints": 0,
+          "total": 11,
+          "contributions": [],
+          "workPointsCapped": false
+        },
+        {
+          "displayName": "贝琴音",
+          "matchPoints": 8,
+          "workPoints": 0,
+          "total": 8,
+          "contributions": [],
+          "workPointsCapped": false
+        },
+        {
+          "displayName": "逗地主Stefsunli",
+          "matchPoints": 8,
+          "workPoints": 0,
+          "total": 8,
+          "contributions": [],
+          "workPointsCapped": false
+        },
+        {
+          "displayName": "小飞哥",
+          "matchPoints": 8,
+          "workPoints": 0,
+          "total": 8,
+          "contributions": [],
+          "workPointsCapped": false
+        },
+        {
+          "displayName": "lansoov",
+          "matchPoints": 6,
+          "workPoints": 0,
+          "total": 6,
+          "contributions": [],
+          "workPointsCapped": false
+        },
+        {
+          "displayName": "靳元明",
+          "matchPoints": 3,
+          "workPoints": 0,
+          "total": 3,
+          "contributions": [],
+          "workPointsCapped": false
+        },
+        {
+          "displayName": "勇哥（老头版）",
+          "matchPoints": 3,
+          "workPoints": 0,
+          "total": 3,
+          "contributions": [],
+          "workPointsCapped": false
+        },
+        {
+          "displayName": "离异俩娃归了她",
+          "matchPoints": 2,
+          "workPoints": 0,
+          "total": 2,
+          "contributions": [],
+          "workPointsCapped": false
+        }
+      ],
+      "games": [
+        {
+          "number": 1,
+          "time": "19:26",
+          "duration": "08:52",
+          "map": "斗地主Doudizhu 5.7",
+          "forces": [
+            {
+              "force": 1,
+              "role": "地主",
+              "won": false,
+              "players": [
+                { "displayName": "lansoov", "disconnected": false },
+                { "displayName": "总裁", "disconnected": false },
+                { "displayName": "do''do", "disconnected": false }
+              ]
+            },
+            {
+              "force": 2,
+              "role": "富农",
+              "won": true,
+              "players": [{ "displayName": "GGrush", "disconnected": false }]
+            },
+            {
+              "force": 3,
+              "role": "贫农",
+              "won": true,
+              "players": [
+                { "displayName": "剑圣", "disconnected": false },
+                { "displayName": "KaKaRu", "disconnected": false },
+                { "displayName": "江江达好", "disconnected": false },
+                { "displayName": "白胖", "disconnected": false }
+              ]
+            }
+          ]
+        },
+        {
+          "number": 2,
+          "time": "19:40",
+          "duration": "12:25",
+          "map": "斗地主Doudizhu 5.7",
+          "forces": [
+            {
+              "force": 1,
+              "role": "地主",
+              "won": false,
+              "players": [
+                { "displayName": "lansoov", "disconnected": false },
+                { "displayName": "mehdiren", "disconnected": false },
+                { "displayName": "do''do", "disconnected": false }
+              ]
+            },
+            {
+              "force": 2,
+              "role": "富农",
+              "won": true,
+              "players": [{ "displayName": "GGrush", "disconnected": false }]
+            },
+            {
+              "force": 3,
+              "role": "贫农",
+              "won": true,
+              "players": [
+                { "displayName": "KaKaRu", "disconnected": false },
+                { "displayName": "江江达好", "disconnected": false },
+                { "displayName": "剑圣", "disconnected": false },
+                { "displayName": "白胖", "disconnected": false }
+              ]
+            }
+          ]
+        },
+        {
+          "number": 3,
+          "time": "19:52",
+          "duration": "08:54",
+          "map": "斗地主Doudizhu 5.7",
+          "forces": [
+            {
+              "force": 1,
+              "role": "地主",
+              "won": false,
+              "players": [
+                { "displayName": "总裁", "disconnected": false },
+                { "displayName": "靳元明", "disconnected": false },
+                { "displayName": "do''do", "disconnected": false }
+              ]
+            },
+            {
+              "force": 2,
+              "role": "富农",
+              "won": true,
+              "players": [{ "displayName": "GGrush", "disconnected": false }]
+            },
+            {
+              "force": 3,
+              "role": "贫农",
+              "won": true,
+              "players": [
+                { "displayName": "江江达好", "disconnected": false },
+                { "displayName": "KaKaRu", "disconnected": false },
+                { "displayName": "剑圣", "disconnected": false },
+                { "displayName": "贝琴音", "disconnected": false }
+              ]
+            }
+          ]
+        },
+        {
+          "number": 4,
+          "time": "20:15",
+          "duration": "19:32",
+          "map": "斗地主Doudizhu 5.7",
+          "forces": [
+            {
+              "force": 1,
+              "role": "地主",
+              "won": false,
+              "players": [
+                { "displayName": "do''do", "disconnected": false },
+                { "displayName": "总裁", "disconnected": false },
+                { "displayName": "GGrush", "disconnected": false }
+              ]
+            },
+            {
+              "force": 2,
+              "role": "富农",
+              "won": true,
+              "players": [{ "displayName": "mascot520", "disconnected": false }]
+            },
+            {
+              "force": 3,
+              "role": "贫农",
+              "won": true,
+              "players": [
+                {
+                  "displayName": "逗地主 剑圣  激情对战 战到最后一兵",
+                  "disconnected": false
+                },
+                { "displayName": "DR.Yang", "disconnected": false },
+                { "displayName": "102", "disconnected": false },
+                { "displayName": "mehdiren", "disconnected": false }
+              ]
+            }
+          ]
+        },
+        {
+          "number": 5,
+          "time": "20:35",
+          "duration": "18:43",
+          "map": "斗地主Doudizhu 5.7",
+          "forces": [
+            {
+              "force": 1,
+              "role": "地主",
+              "won": false,
+              "players": [
+                { "displayName": "102", "disconnected": false },
+                { "displayName": "豆豆", "disconnected": false },
+                { "displayName": "do''do", "disconnected": false }
+              ]
+            },
+            {
+              "force": 2,
+              "role": "富农",
+              "won": true,
+              "players": [{ "displayName": "总裁", "disconnected": false }]
+            },
+            {
+              "force": 3,
+              "role": "贫农",
+              "won": true,
+              "players": [
+                { "displayName": "GGrush", "disconnected": false },
+                { "displayName": "DR.Yang", "disconnected": false },
+                {
+                  "displayName": "逗地主 剑圣  激情对战 战到最后一兵",
+                  "disconnected": false
+                },
+                { "displayName": "mehdiren", "disconnected": false }
+              ]
+            }
+          ]
+        },
+        {
+          "number": 6,
+          "time": "20:52",
+          "duration": "13:34",
+          "map": "斗地主Doudizhu 5.7",
+          "forces": [
+            {
+              "force": 1,
+              "role": "地主",
+              "won": true,
+              "players": [
+                { "displayName": "VGer_Whc", "disconnected": false },
+                { "displayName": "GGrush", "disconnected": false },
+                { "displayName": "豆豆", "disconnected": false }
+              ]
+            },
+            {
+              "force": 2,
+              "role": "富农",
+              "won": false,
+              "players": [
+                { "displayName": "离异俩娃归了她", "disconnected": false }
+              ]
+            },
+            {
+              "force": 3,
+              "role": "贫农",
+              "won": false,
+              "players": [
+                { "displayName": "mehdiren", "disconnected": false },
+                {
+                  "displayName": "逗地主 剑圣  激情对战 战到最后一兵",
+                  "disconnected": false
+                },
+                { "displayName": "paijipao", "disconnected": false },
+                { "displayName": "mascot520", "disconnected": false }
+              ]
+            }
+          ]
+        },
+        {
+          "number": 7,
+          "time": "21:30",
+          "duration": "34:21",
+          "map": "斗地主Doudizhu 5.7",
+          "forces": [
+            {
+              "force": 1,
+              "role": "地主",
+              "won": true,
+              "players": [
+                { "displayName": "VGer_Whc", "disconnected": false },
+                { "displayName": "GGrush", "disconnected": false },
+                { "displayName": "do''do", "disconnected": false }
+              ]
+            },
+            {
+              "force": 2,
+              "role": "富农",
+              "won": false,
+              "players": [{ "displayName": "paijipao", "disconnected": false }]
+            },
+            {
+              "force": 3,
+              "role": "贫农",
+              "won": false,
+              "players": [
+                { "displayName": "mascot520", "disconnected": false },
+                {
+                  "displayName": "逗地主 剑圣  激情对战 战到最后一兵",
+                  "disconnected": false
+                },
+                { "displayName": "DR.Yang", "disconnected": true },
+                { "displayName": "mehdiren", "disconnected": false }
+              ]
+            }
+          ]
+        },
+        {
+          "number": 8,
+          "time": "21:54",
+          "duration": "20:31",
+          "map": "斗地主Doudizhu 5.7",
+          "forces": [
+            {
+              "force": 1,
+              "role": "地主",
+              "won": false,
+              "players": [
+                { "displayName": "do''do", "disconnected": false },
+                { "displayName": "豆豆", "disconnected": false },
+                { "displayName": "勇哥（老头版）", "disconnected": false }
+              ]
+            },
+            {
+              "force": 2,
+              "role": "富农",
+              "won": true,
+              "players": [{ "displayName": "lucky2023", "disconnected": false }]
+            },
+            {
+              "force": 3,
+              "role": "贫农",
+              "won": true,
+              "players": [
+                { "displayName": "GGrush", "disconnected": false },
+                { "displayName": "mehdiren", "disconnected": false },
+                { "displayName": "DR.Yang", "disconnected": false },
+                { "displayName": "102", "disconnected": false }
+              ]
+            }
+          ]
+        },
+        {
+          "number": 9,
+          "time": "22:15",
+          "duration": "19:47",
+          "map": "斗地主Doudizhu 5.7",
+          "forces": [
+            {
+              "force": 1,
+              "role": "地主",
+              "won": false,
+              "players": [
+                { "displayName": "GGrush", "disconnected": false },
+                { "displayName": "do''do", "disconnected": false },
+                { "displayName": "lucky2023", "disconnected": false }
+              ]
+            },
+            {
+              "force": 2,
+              "role": "富农",
+              "won": true,
+              "players": [{ "displayName": "paijipao", "disconnected": false }]
+            },
+            {
+              "force": 3,
+              "role": "贫农",
+              "won": true,
+              "players": [
+                { "displayName": "逗地主Stefsunli", "disconnected": false },
+                { "displayName": "豆豆", "disconnected": false },
+                { "displayName": "102", "disconnected": false },
+                { "displayName": "小飞哥", "disconnected": false }
+              ]
+            }
+          ]
+        }
+      ]
+    },
     {
       "matchdayNumber": 10,
       "slug": "2026-09-09",

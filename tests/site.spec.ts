@@ -365,8 +365,8 @@ test("积分榜同分同名次，完整展示白银及以上含并列选手", as
   await expect(page.locator(".podium-card")).toHaveCount(3);
   await expect(
     page.locator(".standings-table tbody tr[data-rank]"),
-  ).toHaveCount(43);
-  await expect(page.locator(".standings-table tbody tr")).toHaveCount(44);
+  ).toHaveCount(40);
+  await expect(page.locator(".standings-table tbody tr")).toHaveCount(41);
   const bronzeSummary = page.locator(".standings-summary-row");
   await expect(bronzeSummary.locator("td, th")).toHaveText([
     "41+",
@@ -378,25 +378,25 @@ test("积分榜同分同名次，完整展示白银及以上含并列选手", as
     "standings-summary-row",
   );
   await expect(page.locator(".standings-table tbody tr").first()).toContainText(
-    "lansoov",
+    "GGrush",
   );
   await expect(page.locator(".standings-table tbody tr").first()).toContainText(
-    "408",
+    "416",
   );
   await expect(page.locator(".standings-section .privacy-line")).toHaveText(
     "同分同名次、同段位，后续名次跳号。展示白银及以上选手（含并列），王者和星耀另展示总场数与胜率。",
   );
-  await expect(page.getByText("统计截至：2026年9月9日")).toBeVisible();
+  await expect(page.getByText("统计截至：2026年9月11日")).toBeVisible();
   await expect(page.locator(".podium-record")).toHaveCount(0);
   await expect(page.locator(".podium")).not.toContainText("总场数");
   await expect(page.locator(".podium")).not.toContainText("胜率");
   await expect(page.locator(".standing-elite-stats")).toHaveCount(5);
   await expect(
     page.locator('.standings-table tbody tr[data-rank="1"]'),
-  ).toContainText("总场数 50 · 胜率 54%");
+  ).toContainText("总场数 45 · 胜率 68.9%");
   for (const [rank, name, points, record] of [
-    [2, "GGrush", "331", "总场数 36 · 胜率 66.7%"],
-    [4, "do''do", "237", "总场数 30 · 胜率 43.3%"],
+    [2, "lansoov", "414", "总场数 52 · 胜率 51.9%"],
+    [3, "do''do", "270", "总场数 38 · 胜率 36.8%"],
     [5, "IKILllIII", "233", "总场数 24 · 胜率 75%"],
   ] as const) {
     const row = page.locator(`.standings-table tbody tr[data-rank="${rank}"]`);
@@ -406,12 +406,12 @@ test("积分榜同分同名次，完整展示白银及以上含并列选手", as
     ).toBeVisible();
     await expect(row).toContainText(record);
   }
-  const mergedPlayer = page.locator('.standings-table tbody tr[data-rank="3"]');
+  const mergedPlayer = page.locator('.standings-table tbody tr[data-rank="4"]');
   await expect(mergedPlayer).toContainText("fly");
   await expect(mergedPlayer).toContainText("250");
   await expect(mergedPlayer).toContainText("总场数 37 · 胜率 48.6%");
   await expect(
-    page.locator('.standings-table tbody tr[data-rank="4"]'),
+    page.locator('.standings-table tbody tr[data-rank="3"]'),
   ).toContainText("do''do");
   const mergedStefsunli = page.locator(".standings-table tbody tr").filter({
     has: page.getByRole("rowheader", { name: "stefsunli", exact: true }),
@@ -422,8 +422,8 @@ test("积分榜同分同名次，完整展示白银及以上含并列选手", as
   ).toBeVisible();
   await expect(mergedStefsunli).toContainText("stefsunli");
   for (const [rank, name, points] of [
-    [7, "豆豆", "170"],
-    [13, "DR.Yang", "120"],
+    [7, "豆豆", "196"],
+    [12, "DR.Yang", "144"],
     [16, "shougong", "98"],
     [18, "FFS-Open-1", "77"],
   ] as const) {
@@ -439,10 +439,10 @@ test("积分榜同分同名次，完整展示白银及以上含并列选手", as
   for (const [tier, first, last, count] of [
     ["王者", 1, 1, 1],
     ["星耀", 2, 5, 4],
-    ["钻石", 6, 10, 5],
-    ["铂金", 11, 19, 10],
-    ["黄金", 21, 30, 11],
-    ["白银", 32, 39, 12],
+    ["钻石", 6, 10, 6],
+    ["铂金", 12, 19, 9],
+    ["黄金", 21, 30, 10],
+    ["白银", 31, 37, 10],
   ] as const) {
     await expect(
       page.locator(`.standings-table tbody tr[data-tier="${tier}"]`),
@@ -455,16 +455,18 @@ test("积分榜同分同名次，完整展示白银及以上含并列选手", as
   }
   for (const [rank, name, points, tier] of [
     [19, "怕瓦落地", "76", "铂金"],
-    [27, "破光师", "20", "黄金"],
-    [27, "Quake", "20", "黄金"],
-    [29, "叉子别", "15", "黄金"],
-    [30, "digua", "14", "黄金"],
-    [30, "mehdiren", "14", "黄金"],
-    [39, "^sAvior^-Yi-", "8", "白银"],
-    [39, "7788", "8", "白银"],
-    [39, "阿斯蒂芬", "8", "白银"],
-    [39, "消息来源可靠吗", "8", "白银"],
-    [39, "lalala.bobo", "8", "白银"],
+    [10, "lucky2023", "153", "钻石"],
+    [10, "VGer_Whc", "153", "钻石"],
+    [31, "破光师", "20", "白银"],
+    [31, "Quake", "20", "白银"],
+    [35, "叉子别", "15", "白银"],
+    [36, "digua", "14", "白银"],
+    [23, "mehdiren", "45", "黄金"],
+    [34, "总裁", "17", "白银"],
+    [37, "66", "12", "白银"],
+    [37, "吃猫的鱼", "12", "白银"],
+    [37, "吴小吴大战白骨精", "12", "白银"],
+    [37, "mascot520", "12", "白银"],
   ] as const) {
     const row = page
       .locator(".standings-table tbody tr")
@@ -484,6 +486,19 @@ test("积分榜同分同名次，完整展示白银及以上含并列选手", as
   ).toHaveCount(0);
   await expect(page.locator(".standings-table")).not.toContainText("路西法");
   await expect(page.locator(".standings-table")).not.toContainText("G600");
+  for (const name of [
+    "^sAvior^-Yi-",
+    "7788",
+    "阿斯蒂芬",
+    "消息来源可靠吗",
+    "lalala.bobo",
+  ]) {
+    await expect(
+      page
+        .locator(".standings-table")
+        .getByRole("rowheader", { name, exact: true }),
+    ).toHaveCount(0);
+  }
   await expect(page.locator(".tier-emblem p")).toHaveText([
     "第 1 名",
     "第 2—5 名",
@@ -569,7 +584,56 @@ test("第十比赛日展示五盘赛果、十四人及房主分配和首次掉�
   ).toBeLessThanOrEqual(1);
 });
 
-test("新闻页提供十个比赛日赛报及完整人员、积分和逐盘赛果", async ({ page }) => {
+test("第十一比赛日展示九盘赛果、二十三人、工作积分封顶及 KK 首次掉线", async ({
+  page,
+}) => {
+  await page.goto("/announcements/2026-09-11/");
+  await expect(page.getByRole("heading", { level: 1 })).toContainText(
+    "2026年9月11日比赛数据赛报",
+  );
+  await expect(page.locator(".report-summary-grid strong")).toHaveText([
+    "9",
+    "23",
+    "2",
+    "7",
+  ]);
+  await expect(page.locator(".report-game-card")).toHaveCount(9);
+  await expect(page.locator(".report-points-table tbody tr")).toHaveCount(23);
+  await expect(page.locator(".report-staff-grid")).toContainText("GGrush");
+  for (const [name, cells] of [
+    ["GGrush", ["+70", "+85", "房主、主播、赛事数据统计员（兼职封顶） +15"]],
+    ["do''do", ["+33", "+33", "—"]],
+    ["DR.Yang", ["+24", "+24", "—"]],
+    ["总裁", ["+17", "+17", "—"]],
+    ["lansoov", ["+6", "+6", "—"]],
+    ["KaKaRu", ["+24", "+24", "—"]],
+  ] as const) {
+    const row = page
+      .locator(".report-points-table tbody tr")
+      .filter({ has: page.getByRole("rowheader", { name, exact: true }) });
+    await expect(row.locator("td")).toHaveText([...cells]);
+  }
+  await expect(
+    page.getByRole("complementary", { name: "当日掉线核算" }),
+  ).toContainText("DR.Yang：KK赛区当周首次掉线，豁免扣分，该盘 0 分");
+  for (const text of ["21:30", "DR.Yang", "掉线"])
+    await expect(page.locator(".report-game-card").nth(6)).toContainText(text);
+  await expect(page.locator(".report-game-card").first()).toContainText(
+    "19:26",
+  );
+  await expect(page.locator(".report-game-card").last()).toContainText("22:15");
+  for (const alias of ["总裁爸爸", "beinan", "逗地主比赛作者房", "阿笨猫"])
+    await expect(page.locator("main")).not.toContainText(alias);
+  expect(
+    await page.evaluate(
+      () => document.documentElement.scrollWidth - innerWidth,
+    ),
+  ).toBeLessThanOrEqual(1);
+});
+
+test("新闻页提供十一个比赛日赛报及完整人员、积分和逐盘赛果", async ({
+  page,
+}) => {
   await page.goto("/announcements/");
   const firstNewsCard = page.locator(".news-list > .news-card").first();
   await expect(firstNewsCard).toHaveClass(/news-card--scheme/u);
@@ -578,35 +642,31 @@ test("新闻页提供十个比赛日赛报及完整人员、积分和逐盘赛�
     firstNewsCard.getByRole("link", { name: "阅读完整赛事方案" }),
   ).toHaveAttribute("href", "/news/dsl2-league-plan.html");
   const timelineLinks = page.locator(".news-timeline a");
-  await expect(timelineLinks).toHaveCount(11);
+  await expect(timelineLinks).toHaveCount(12);
   await expect(timelineLinks.first()).toHaveAttribute("href", "#news-scheme");
-  await expect(timelineLinks.nth(1)).toContainText("2026年9月9日比赛数据赛报");
+  await expect(timelineLinks.nth(1)).toContainText("2026年9月11日比赛数据赛报");
   await expect(timelineLinks.nth(1)).toHaveAttribute(
     "href",
-    "#news-2026-09-09",
+    "#news-2026-09-11",
   );
   await timelineLinks.nth(1).click();
-  await expect(page).toHaveURL(/#news-2026-09-09$/u);
-  await expect(page.locator("#news-2026-09-09")).toBeInViewport();
+  await expect(page).toHaveURL(/#news-2026-09-11$/u);
+  await expect(page.locator("#news-2026-09-11")).toBeInViewport();
   const reportCards = page.locator(".news-card--match-report");
-  await expect(reportCards).toHaveCount(10);
-  await expect(page.locator(".news-staff-thanks")).toHaveCount(10);
+  await expect(reportCards).toHaveCount(11);
+  await expect(page.locator(".news-staff-thanks")).toHaveCount(11);
   await expect(reportCards.first()).toContainText(
     "感谢以上赛事工作人员的辛苦付出",
   );
   await expect(reportCards.first()).toContainText(
-    /2026年9月9日\s+比赛数据赛报/u,
+    /2026年9月11日\s+比赛数据赛报/u,
   );
-  await expect(reportCards.first()).toContainText("星期三");
-  await expect(reportCards.first()).toContainText("韩服赛区");
-  await expect(reportCards.first()).toContainText(
-    "房主：FFS-Open-1、IKILllIII",
-  );
-  await expect(reportCards.first()).toContainText(
-    "主播：FFS-Open-1、IKILllIII、do''do",
-  );
+  await expect(reportCards.first()).toContainText("星期五");
+  await expect(reportCards.first()).toContainText("KK赛区");
+  await expect(reportCards.first()).toContainText("房主：GGrush");
+  await expect(reportCards.first()).toContainText("主播：GGrush");
   await expect(reportCards.first()).toContainText("统计：GGrush");
-  await expect(reportCards.nth(1)).toContainText("KK赛区");
+  await expect(reportCards.nth(1)).toContainText("韩服赛区");
   const districtMetaColors = await page
     .locator(".news-timeline-meta--kk, .news-timeline-meta--korea")
     .evaluateAll((items) => items.map((item) => getComputedStyle(item).color));
