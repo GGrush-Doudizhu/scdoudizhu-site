@@ -32,7 +32,7 @@ export const publicStandingsSchema = z
     exportId: z.string().trim().min(1).max(80),
     standingsAsOf: z.iso.datetime({ offset: true }).nullable(),
     publishedAt: z.iso.datetime({ offset: true }).nullable(),
-    entries: z.array(entrySchema).max(standingsVisibility.publicStandingLimit),
+    entries: z.array(entrySchema),
   })
   .strict()
   .superRefine((data, context) => {
@@ -60,7 +60,7 @@ export const publicStandingsSchema = z
       if (entry.rank > standingsVisibility.publicStandingLimit) {
         context.addIssue({
           code: "custom",
-          message: "公开积分榜只展示白银及以上的前 40 名选手。",
+          message: "公开积分榜只展示名次不大于 40 的选手（含并列）。",
           path: ["entries", index, "rank"],
         });
       }
@@ -95,10 +95,20 @@ export const publicStandingsSchema = z
         });
       }
 
-      if (entry.rank !== index + 1) {
+      const previous = data.entries[index - 1];
+      if (previous && entry.points > previous.points) {
         context.addIssue({
           code: "custom",
-          message: "完整积分榜名次必须从 1 开始连续排列。",
+          message: "积分榜必须按总积分降序排列。",
+          path: ["entries", index, "points"],
+        });
+      }
+      const expectedRank =
+        previous?.points === entry.points ? previous.rank : index + 1;
+      if (entry.rank !== expectedRank) {
+        context.addIssue({
+          code: "custom",
+          message: "同分必须同名次，后续名次按已占人数跳号。",
           path: ["entries", index, "rank"],
         });
       }

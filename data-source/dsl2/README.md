@@ -20,9 +20,9 @@ pnpm run build:match-reports
 
 不要直接手工修改本目录的两个最新版生成文件。`pnpm run check:match-reports` 会检查它们、公开赛报和公开积分榜是否仍与原始数据一致。
 
-公开积分榜仅展示白银及以上的前 40 名选手，青铜选手保留在本地完整榜中。入榜选手公开名次、主名称、积分、段位，前五名额外公开总场数和总胜率；其余统计明细仍仅保留在本目录。
+公开积分榜仅展示白银及以上的前 40 名选手（含全部并列选手，人数可超过 40），青铜选手保留在本地完整榜中。入榜选手公开名次、主名称、积分、段位，前五名（含并列）额外公开总场数和总胜率；其余统计明细仍仅保留在本目录。
 
-段位配置统一保存在 `src/data/standing-tiers.json`：王者第 1 名，星耀第 2–5 名，钻石第 6–10 名，铂金第 11–20 名，黄金第 21–30 名，白银第 31–40 名，青铜第 41 名及以后。公开范围配置保存在 `src/data/standings-visibility.json`；总数据的 `scoringRules.publicStandingLimit` 为 40，前 40 名的 `publiclyListed` 为 `true`，第 41 名及以后为 `false`。
+段位配置统一保存在 `src/data/standing-tiers.json`：王者第 1 名，星耀第 2–5 名，钻石第 6–10 名，铂金第 11–20 名，黄金第 21–30 名，白银第 31–40 名，青铜第 41 名及以后。公开范围配置保存在 `src/data/standings-visibility.json`；总数据的 `scoringRules.rankingMethod` 为 `competition`：同分同名次，后续名次按已占人数跳号；组内中文名称排序仅控制展示顺序。全部段位按并列名次确定。`scoringRules.publicStandingLimit` 为 40，表示名次边界而非人数上限，前 40 名的 `publiclyListed` 为 `true`，第 41 名及以后为 `false`。
 
 ## 掉线核算
 

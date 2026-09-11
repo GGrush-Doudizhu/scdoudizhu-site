@@ -10,15 +10,15 @@ interface Props {
 
 const { limit, compact = false } = Astro.props;
 const rows = limit
-  ? publicStandings.entries.slice(0, limit)
+  ? publicStandings.entries.filter((entry) => entry.rank <= limit)
   : publicStandings.entries;
-const leaders = publicStandings.entries.slice(0, 3);
+const leaders = publicStandings.entries.filter((entry) => entry.rank <= 3);
 const isPreview = publicStandings.exportId.startsWith("dsl1-preview-");
 const showBronzeSummary =
   !compact &&
   !limit &&
   !isPreview &&
-  rows.at(-1)?.rank === standingsVisibility.publicStandingLimit;
+  rows.length >= standingsVisibility.publicStandingLimit;
 
 const dateFormatter = new Intl.DateTimeFormat("zh-CN", {
   year: "numeric",
@@ -31,7 +31,9 @@ const standingsAsOf = publicStandings.standingsAsOf
   ? dateFormatter.format(new Date(publicStandings.standingsAsOf))
   : null;
 
-const podiumOrder = [leaders[1], leaders[0], leaders[2]].filter(Boolean);
+const podiumOrder = [2, 1, 3].flatMap((rank) =>
+  leaders.filter((entry) => entry.rank === rank),
+);
 const percentFormatter = new Intl.NumberFormat("zh-CN", {
   style: "percent",
   maximumFractionDigits: 1,

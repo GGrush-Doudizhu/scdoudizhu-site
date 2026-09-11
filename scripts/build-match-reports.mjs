@@ -38,7 +38,7 @@ const fullStandingsOutputPath = path.join(
 );
 const checkOnly = process.argv.includes("--check");
 
-const publishedAt = "2026-09-11T14:40:01+08:00";
+const publishedAt = "2026-09-11T15:23:34+08:00";
 const workPointCap = 15;
 const workRoleRules = {
   host: { label: "房主", points: 10 },
@@ -523,22 +523,29 @@ async function buildData() {
   const lastDate = matchdayDirectories.at(-1);
   const lastGames = publicMatchDays.at(-1).games;
   const standingsAsOf = `${isoDate(lastDate)}T${lastGames.at(-1).time}:00+08:00`;
+  let competitionRank = 0;
   const fullStandings = [...playerTotals.values()]
     .sort(
       (a, b) =>
         b.points - a.points ||
         a.displayName.localeCompare(b.displayName, "zh-CN"),
     )
-    .map((entry, index) => ({
-      rank: index + 1,
-      ...entry,
-      winRate: winRate(entry.wins, entry.gamesPlayed),
-      landlordWinRate: winRate(entry.landlordWins, entry.landlordGames),
-      richFarmerWinRate: winRate(entry.richFarmerWins, entry.richFarmerGames),
-      poorFarmerWinRate: winRate(entry.poorFarmerWins, entry.poorFarmerGames),
-      tier: tierForRank(index + 1),
-      publiclyListed: index < standingsVisibility.publicStandingLimit,
-    }));
+    .map((entry, index, sorted) => {
+      if (index === 0 || entry.points !== sorted[index - 1].points) {
+        competitionRank = index + 1;
+      }
+      return {
+        rank: competitionRank,
+        ...entry,
+        winRate: winRate(entry.wins, entry.gamesPlayed),
+        landlordWinRate: winRate(entry.landlordWins, entry.landlordGames),
+        richFarmerWinRate: winRate(entry.richFarmerWins, entry.richFarmerGames),
+        poorFarmerWinRate: winRate(entry.poorFarmerWins, entry.poorFarmerGames),
+        tier: tierForRank(competitionRank),
+        publiclyListed:
+          competitionRank <= standingsVisibility.publicStandingLimit,
+      };
+    });
   const publicStandings = {
     schemaVersion: 1,
     season: "dsl2",
@@ -587,6 +594,7 @@ async function buildData() {
         statistician: 5,
         perPersonPerMatchdayCap: workPointCap,
       },
+      rankingMethod: "competition",
       publicStandingLimit: standingsVisibility.publicStandingLimit,
       tiers: standingTiers,
     },

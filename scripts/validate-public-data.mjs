@@ -100,10 +100,6 @@ assert(
   "exportId 不能为空。",
 );
 assert(Array.isArray(standings.entries), "entries 必须是数组。");
-assert(
-  standings.entries.length <= standingsVisibility.publicStandingLimit,
-  "公开积分榜只展示白银及以上的前 40 名选手。",
-);
 
 if (standings.entries.length > 0) {
   assert(
@@ -129,7 +125,21 @@ standings.entries.forEach((entry, index) => {
     Number.isInteger(entry.rank) && entry.rank > 0,
     `${location}.rank 必须是正整数。`,
   );
-  assert(entry.rank === index + 1, `${location}.rank 必须从 1 开始连续排列。`);
+  assert(
+    entry.rank <= standingsVisibility.publicStandingLimit,
+    `${location}.rank 超出白银及以上公开名次范围。`,
+  );
+  const previous = standings.entries[index - 1];
+  assert(
+    !previous || entry.points <= previous.points,
+    `${location}.points 必须按降序排列。`,
+  );
+  const expectedRank =
+    previous?.points === entry.points ? previous.rank : index + 1;
+  assert(
+    entry.rank === expectedRank,
+    `${location}.rank 必须同分同名次，后续名次按已占人数跳号。`,
+  );
   assert(
     typeof entry.displayName === "string" &&
       entry.displayName.trim().length > 0,
@@ -194,12 +204,16 @@ if (standings.exportId.startsWith("dsl2-match-data-")) {
       ([nameA, pointsA], [nameB, pointsB]) =>
         pointsB - pointsA || nameA.localeCompare(nameB, "zh-CN"),
     )
-    .slice(0, standingsVisibility.publicStandingLimit);
+    .filter(
+      ([, points], _index, sorted) =>
+        sorted.findIndex(([, score]) => score === points) <
+        standingsVisibility.publicStandingLimit,
+    );
   assert(
     JSON.stringify(
       standings.entries.map(({ displayName, points }) => [displayName, points]),
     ) === JSON.stringify(expectedEntries),
-    "公开积分榜必须完整覆盖全部赛报累计排名中的前 40 名，积分及排序须与每日增分一致。",
+    "公开积分榜必须完整覆盖全部赛报累计排名中的前 40 名（含全部同分选手），积分及排序须与每日增分一致。",
   );
 }
 

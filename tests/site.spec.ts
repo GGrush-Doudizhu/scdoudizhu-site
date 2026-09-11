@@ -359,14 +359,14 @@ test("首页鸣谢第二届首批赞助老板并继续邀请众筹", async ({ pa
   }
 });
 
-test("积分榜展示第二届白银及以上前四十名并保留七档说明", async ({ page }) => {
+test("积分榜同分同名次，完整展示白银及以上含并列选手", async ({ page }) => {
   await page.goto("/standings/");
   await expect(page.getByText("榜单效果预览")).toHaveCount(0);
   await expect(page.locator(".podium-card")).toHaveCount(3);
   await expect(
     page.locator(".standings-table tbody tr[data-rank]"),
-  ).toHaveCount(40);
-  await expect(page.locator(".standings-table tbody tr")).toHaveCount(41);
+  ).toHaveCount(43);
+  await expect(page.locator(".standings-table tbody tr")).toHaveCount(44);
   const bronzeSummary = page.locator(".standings-summary-row");
   await expect(bronzeSummary.locator("td, th")).toHaveText([
     "41+",
@@ -415,9 +415,10 @@ test("积分榜展示第二届白银及以上前四十名并保留七档说明",
   await expect(
     page.locator('.standings-table tbody tr[data-rank="4"]'),
   ).toContainText("do''do");
-  const mergedStefsunli = page.locator(
-    '.standings-table tbody tr[data-rank="20"]',
-  );
+  const mergedStefsunli = page.locator(".standings-table tbody tr").filter({
+    has: page.getByRole("rowheader", { name: "stefsunli", exact: true }),
+  });
+  await expect(mergedStefsunli).toHaveAttribute("data-rank", "19");
   await expect(
     mergedStefsunli.getByRole("cell", { name: "76", exact: true }),
   ).toBeVisible();
@@ -437,29 +438,41 @@ test("积分榜展示第二届白银及以上前四十名并保留七档说明",
   await expect(
     page.locator('.standings-table tbody tr[data-rank="25"]'),
   ).toContainText("白胖");
-  for (const [tier, first, last] of [
-    ["王者", 1, 1],
-    ["星耀", 2, 5],
-    ["钻石", 6, 10],
-    ["铂金", 11, 20],
-    ["黄金", 21, 30],
-    ["白银", 31, 40],
+  for (const [tier, first, last, count] of [
+    ["王者", 1, 1, 1],
+    ["星耀", 2, 5, 4],
+    ["钻石", 6, 10, 5],
+    ["铂金", 11, 19, 10],
+    ["黄金", 21, 30, 11],
+    ["白银", 32, 39, 12],
   ] as const) {
     await expect(
       page.locator(`.standings-table tbody tr[data-tier="${tier}"]`),
-    ).toHaveCount(last - first + 1);
+    ).toHaveCount(count);
     for (const rank of [first, last]) {
       await expect(
-        page.locator(`.standings-table tbody tr[data-rank="${rank}"]`),
+        page.locator(`.standings-table tbody tr[data-rank="${rank}"]`).first(),
       ).toHaveAttribute("data-tier", tier);
     }
   }
-  for (const [rank, name, points] of [
-    [30, "digua", "14"],
-    [31, "mehdiren", "14"],
-    [40, "7788", "8"],
+  for (const [rank, name, points, tier] of [
+    [19, "怕瓦落地", "76", "铂金"],
+    [27, "破光师", "20", "黄金"],
+    [27, "Quake", "20", "黄金"],
+    [29, "叉子别", "15", "黄金"],
+    [30, "digua", "14", "黄金"],
+    [30, "mehdiren", "14", "黄金"],
+    [39, "^sAvior^-Yi-", "8", "白银"],
+    [39, "7788", "8", "白银"],
+    [39, "阿斯蒂芬", "8", "白银"],
+    [39, "消息来源可靠吗", "8", "白银"],
+    [39, "lalala.bobo", "8", "白银"],
   ] as const) {
-    const row = page.locator(`.standings-table tbody tr[data-rank="${rank}"]`);
+    const row = page
+      .locator(".standings-table tbody tr")
+      .filter({ has: page.getByRole("rowheader", { name, exact: true }) });
+    await expect(row).toHaveAttribute("data-rank", String(rank));
+    await expect(row).toHaveAttribute("data-tier", tier);
     await expect(row.getByRole("rowheader")).toHaveText(name);
     await expect(
       row.getByRole("cell", { name: points, exact: true }),
@@ -471,7 +484,7 @@ test("积分榜展示第二届白银及以上前四十名并保留七档说明",
   await expect(
     page.locator('.standings-table tbody tr[data-rank="41"]'),
   ).toHaveCount(0);
-  await expect(page.locator(".standings-table")).not.toContainText("阿斯蒂芬");
+  await expect(page.locator(".standings-table")).not.toContainText("路西法");
   await expect(page.locator(".standings-table")).not.toContainText("G600");
   await expect(page.locator(".tier-emblem p")).toHaveText([
     "第 1 名",
