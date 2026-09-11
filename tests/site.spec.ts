@@ -363,7 +363,20 @@ test("积分榜展示第二届白银及以上前四十名并保留七档说明",
   await page.goto("/standings/");
   await expect(page.getByText("榜单效果预览")).toHaveCount(0);
   await expect(page.locator(".podium-card")).toHaveCount(3);
-  await expect(page.locator(".standings-table tbody tr")).toHaveCount(40);
+  await expect(
+    page.locator(".standings-table tbody tr[data-rank]"),
+  ).toHaveCount(40);
+  await expect(page.locator(".standings-table tbody tr")).toHaveCount(41);
+  const bronzeSummary = page.locator(".standings-summary-row");
+  await expect(bronzeSummary.locator("td, th")).toHaveText([
+    "41+",
+    "其他所有青铜选手",
+    "不公开展示",
+    /^\s*▲\s*青铜\s*$/u,
+  ]);
+  await expect(page.locator(".standings-table tbody tr").last()).toHaveClass(
+    "standings-summary-row",
+  );
   await expect(page.locator(".standings-table tbody tr").first()).toContainText(
     "lansoov",
   );

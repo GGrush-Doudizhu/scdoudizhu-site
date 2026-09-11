@@ -1277,6 +1277,11 @@ tbody th {
   background: rgba(86, 212, 231, 0.05);
 }
 
+.standings-summary-points {
+  color: var(--muted);
+  text-align: right;
+}
+
 .standings-table tbody tr[data-rank="1"],
 .standings-table tbody tr[data-rank="2"],
 .standings-table tbody tr[data-rank="3"] {

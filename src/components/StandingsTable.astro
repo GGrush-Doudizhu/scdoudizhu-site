@@ -1,5 +1,6 @@
 ---
 import { publicStandings } from "../schemas/public-standings";
+import standingsVisibility from "../data/standings-visibility.json";
 import TierCrest from "./TierCrest.astro";
 
 interface Props {
@@ -13,6 +14,11 @@ const rows = limit
   : publicStandings.entries;
 const leaders = publicStandings.entries.slice(0, 3);
 const isPreview = publicStandings.exportId.startsWith("dsl1-preview-");
+const showBronzeSummary =
+  !compact &&
+  !limit &&
+  !isPreview &&
+  rows.at(-1)?.rank === standingsVisibility.publicStandingLimit;
 
 const dateFormatter = new Intl.DateTimeFormat("zh-CN", {
   year: "numeric",
@@ -109,6 +115,20 @@ const percentFormatter = new Intl.NumberFormat("zh-CN", {
                   </td>
                 </tr>
               ))}
+              {showBronzeSummary && (
+                <tr class="standings-summary-row">
+                  <td class="rank-cell">
+                    <span>{standingsVisibility.publicStandingLimit + 1}+</span>
+                  </td>
+                  <th scope="row" class="standing-player">
+                    <span>其他所有青铜选手</span>
+                  </th>
+                  <td class="standings-summary-points">不公开展示</td>
+                  <td>
+                    <TierCrest tier="青铜" />
+                  </td>
+                </tr>
+              )}
             </tbody>
           </table>
         </div>
