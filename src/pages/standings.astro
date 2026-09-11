@@ -20,7 +20,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     <div class="container">
       <StandingsTable />
       <p class="privacy-line">
-        公开积分榜只展示铂金及铂金以上的选手，并且只展示积分，不展示个人胜负记录
+        积分榜展示全部段位选手的名次、积分与段位；王者和星耀选手额外展示总场数与总胜率。
       </p>
     </div>
   </section>
@@ -48,7 +48,9 @@ import BaseLayout from "../layouts/BaseLayout.astro";
           ))
         }
       </div>
-      <p class="tier-note">原则上黄金及以上选手方能获得进入季后赛的资格</p>
+      <p class="tier-note">
+        原则上黄金及以上（常规赛前 30 名）选手方能获得进入季后赛的资格
+      </p>
     </div>
   </section>
 </BaseLayout>

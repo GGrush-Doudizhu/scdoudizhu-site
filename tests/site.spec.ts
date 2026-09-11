@@ -359,13 +359,13 @@ test("首页鸣谢第二届首批赞助老板并继续邀请众筹", async ({ pa
   }
 });
 
-test("积分榜展示第二届前十个比赛日累计积分与完整前二十五名", async ({
+test("积分榜展示第二届前十个比赛日全部五十名选手与七档段位", async ({
   page,
 }) => {
   await page.goto("/standings/");
   await expect(page.getByText("榜单效果预览")).toHaveCount(0);
   await expect(page.locator(".podium-card")).toHaveCount(3);
-  await expect(page.locator(".standings-table tbody tr")).toHaveCount(25);
+  await expect(page.locator(".standings-table tbody tr")).toHaveCount(50);
   await expect(page.locator(".standings-table tbody tr").first()).toContainText(
     "lansoov",
   );
@@ -373,7 +373,7 @@ test("积分榜展示第二届前十个比赛日累计积分与完整前二十�
     "408",
   );
   await expect(
-    page.getByText("公开积分榜只展示铂金及铂金以上的选手", {
+    page.getByText("积分榜展示全部段位选手的名次、积分与段位", {
       exact: false,
     }),
   ).toBeVisible();
@@ -426,6 +426,47 @@ test("积分榜展示第二届前十个比赛日累计积分与完整前二十�
   await expect(
     page.locator('.standings-table tbody tr[data-rank="25"]'),
   ).toContainText("白胖");
+  for (const [tier, first, last] of [
+    ["王者", 1, 1],
+    ["星耀", 2, 5],
+    ["钻石", 6, 10],
+    ["铂金", 11, 20],
+    ["黄金", 21, 30],
+    ["白银", 31, 40],
+    ["青铜", 41, 50],
+  ] as const) {
+    await expect(
+      page.locator(`.standings-table tbody tr[data-tier="${tier}"]`),
+    ).toHaveCount(last - first + 1);
+    for (const rank of [first, last]) {
+      await expect(
+        page.locator(`.standings-table tbody tr[data-rank="${rank}"]`),
+      ).toHaveAttribute("data-tier", tier);
+    }
+  }
+  for (const [rank, name, points] of [
+    [30, "digua", "14"],
+    [31, "mehdiren", "14"],
+    [40, "7788", "8"],
+    [41, "阿斯蒂芬", "8"],
+    [50, "G600", "2"],
+  ] as const) {
+    const row = page.locator(`.standings-table tbody tr[data-rank="${rank}"]`);
+    await expect(row.getByRole("rowheader")).toHaveText(name);
+    await expect(
+      row.getByRole("cell", { name: points, exact: true }),
+    ).toBeVisible();
+  }
+  await expect(page.locator(".tier-emblem p")).toHaveText([
+    "第 1 名",
+    "第 2—5 名",
+    "第 6—10 名",
+    "第 11—20 名",
+    "第 21—30 名",
+    "第 31—40 名",
+    "第 41 名及以后",
+  ]);
+  await expect(page.locator(".tier-note")).toContainText("常规赛前 30 名");
   await expect(
     page.locator('.standings-table tbody tr[data-rank="5"]'),
   ).toContainText(/总场数 \d+ · 胜率 \d+(?:\.\d)?%/u);
@@ -843,6 +884,18 @@ test("新闻中的赛事方案可直接阅读且奖金已经同步", async ({ re
   expect(html).toContain("不消耗每周豁免");
   expect(html).not.toContain("第 3 次掉线后");
   expect(html).not.toContain("+2 分 / 盘");
+  for (const range of [
+    "第 6—10 名",
+    "第 11—20 名",
+    "第 21—30 名",
+    "第 31—40 名",
+    "第 41 名及以后",
+  ]) {
+    expect(html).toContain(range);
+  }
+  expect(html).toContain("积分榜展示全部段位选手");
+  expect(html).toContain("常规赛前 30 名");
+  expect(html).not.toContain("分界线待定");
   expect(html).not.toContain("<span>第五名 50 元</span>");
   expect(html).not.toContain("暂未建设完毕");
 

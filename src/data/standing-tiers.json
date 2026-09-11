@@ -1,0 +1,9 @@
+[
+  { "name": "王者", "maxRank": 1, "range": "第 1 名" },
+  { "name": "星耀", "maxRank": 5, "range": "第 2—5 名" },
+  { "name": "钻石", "maxRank": 10, "range": "第 6—10 名" },
+  { "name": "铂金", "maxRank": 20, "range": "第 11—20 名" },
+  { "name": "黄金", "maxRank": 30, "range": "第 21—30 名" },
+  { "name": "白银", "maxRank": 40, "range": "第 31—40 名" },
+  { "name": "青铜", "maxRank": null, "range": "第 41 名及以后" }
+]

@@ -1,6 +1,7 @@
 import { z } from "zod";
 
-import rawStandings from "../data/public-standings.json";
+import rawStandings from "../data/public-standings.json" with { type: "json" };
+import standingTiers from "../data/standing-tiers.json" with { type: "json" };
 
 const tierSchema = z.enum([
   "王者",
@@ -30,7 +31,7 @@ export const publicStandingsSchema = z
     exportId: z.string().trim().min(1).max(80),
     standingsAsOf: z.iso.datetime({ offset: true }).nullable(),
     publishedAt: z.iso.datetime({ offset: true }).nullable(),
-    entries: z.array(entrySchema).max(25),
+    entries: z.array(entrySchema),
   })
   .strict()
   .superRefine((data, context) => {
@@ -43,7 +44,6 @@ export const publicStandingsSchema = z
     }
 
     const names = new Set<string>();
-    let previousRank = 0;
 
     data.entries.forEach((entry, index) => {
       const normalizedName = entry.displayName.toLocaleLowerCase("zh-CN");
@@ -56,18 +56,13 @@ export const publicStandingsSchema = z
       }
       names.add(normalizedName);
 
-      const expectedTier =
-        entry.rank === 1
-          ? "王者"
-          : entry.rank <= 5
-            ? "星耀"
-            : entry.rank <= 15
-              ? "钻石"
-              : "铂金";
+      const expectedTier = standingTiers.find(
+        (tier) => tier.maxRank === null || entry.rank <= tier.maxRank,
+      )?.name;
       if (entry.tier !== expectedTier) {
         context.addIssue({
           code: "custom",
-          message: "公开积分榜段位必须符合铂金及以上的名次分档。",
+          message: "公开积分榜段位必须符合七档名次划分。",
           path: ["entries", index, "tier"],
         });
       }
@@ -91,14 +86,13 @@ export const publicStandingsSchema = z
         });
       }
 
-      if (entry.rank < previousRank) {
+      if (entry.rank !== index + 1) {
         context.addIssue({
           code: "custom",
-          message: "积分榜必须按名次升序排列。",
+          message: "完整积分榜名次必须从 1 开始连续排列。",
           path: ["entries", index, "rank"],
         });
       }
-      previousRank = entry.rank;
     });
   });
 

@@ -2,6 +2,7 @@ import { mkdir, readdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { format } from "prettier";
+import standingTiers from "../src/data/standing-tiers.json" with { type: "json" };
 import {
   createDisconnectTracker,
   disconnectPolicy,
@@ -36,8 +37,7 @@ const fullStandingsOutputPath = path.join(
 );
 const checkOnly = process.argv.includes("--check");
 
-const publishedAt = "2026-09-11T14:04:03+08:00";
-const publicStandingLimit = 25;
+const publishedAt = "2026-09-11T14:26:31+08:00";
 const workPointCap = 15;
 const workRoleRules = {
   host: { label: "房主", points: 10 },
@@ -87,11 +87,9 @@ function roleForForce(force, forceCount) {
 }
 
 function tierForRank(rank) {
-  if (rank === 1) return "王者";
-  if (rank <= 5) return "星耀";
-  if (rank <= 15) return "钻石";
-  if (rank <= publicStandingLimit) return "铂金";
-  return null;
+  return standingTiers.find(
+    (tier) => tier.maxRank === null || rank <= tier.maxRank,
+  ).name;
 }
 
 function platformForDate(dateValue) {
@@ -538,7 +536,7 @@ async function buildData() {
       richFarmerWinRate: winRate(entry.richFarmerWins, entry.richFarmerGames),
       poorFarmerWinRate: winRate(entry.poorFarmerWins, entry.poorFarmerGames),
       tier: tierForRank(index + 1),
-      publiclyListed: index < publicStandingLimit,
+      publiclyListed: true,
     }));
   const publicStandings = {
     schemaVersion: 1,
@@ -546,15 +544,15 @@ async function buildData() {
     exportId: `dsl2-match-data-${firstDate}-${lastDate}`,
     standingsAsOf,
     publishedAt,
-    entries: fullStandings
-      .filter((entry) => entry.publiclyListed)
-      .map(({ rank, displayName, points, tier, gamesPlayed, winRate }) => ({
+    entries: fullStandings.map(
+      ({ rank, displayName, points, tier, gamesPlayed, winRate }) => ({
         rank,
         displayName,
         points,
         tier,
         ...(rank <= 5 ? { gamesPlayed, winRate } : {}),
-      })),
+      }),
+    ),
   };
   const reports = {
     schemaVersion: 3,
@@ -588,7 +586,8 @@ async function buildData() {
         statistician: 5,
         perPersonPerMatchdayCap: workPointCap,
       },
-      publicStandingLimit,
+      publicStandingLimit: null,
+      tiers: standingTiers,
     },
     identityGroups,
     observedIdentities: [...observedNames.entries()]

@@ -1,6 +1,7 @@
 import { readdir, readFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import standingTiers from "../src/data/standing-tiers.json" with { type: "json" };
 
 const projectRoot = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
@@ -98,10 +99,6 @@ assert(
   "exportId 不能为空。",
 );
 assert(Array.isArray(standings.entries), "entries 必须是数组。");
-assert(
-  standings.entries.length <= 25,
-  "公开积分榜只允许展示铂金及铂金以上的前 25 名选手。",
-);
 
 if (standings.entries.length > 0) {
   assert(
@@ -115,7 +112,6 @@ if (standings.entries.length > 0) {
 }
 
 const normalizedNames = new Set();
-let previousRank = 0;
 
 standings.entries.forEach((entry, index) => {
   const location = `entries[${index}]`;
@@ -128,8 +124,7 @@ standings.entries.forEach((entry, index) => {
     Number.isInteger(entry.rank) && entry.rank > 0,
     `${location}.rank 必须是正整数。`,
   );
-  assert(entry.rank >= previousRank, `${location}.rank 必须按升序排列。`);
-  previousRank = entry.rank;
+  assert(entry.rank === index + 1, `${location}.rank 必须从 1 开始连续排列。`);
   assert(
     typeof entry.displayName === "string" &&
       entry.displayName.trim().length > 0,
@@ -145,17 +140,12 @@ standings.entries.forEach((entry, index) => {
   );
   assert(Number.isInteger(entry.points), `${location}.points 必须是整数。`);
   assert(allowedTiers.has(entry.tier), `${location}.tier 不是允许的段位。`);
-  const expectedTier =
-    entry.rank === 1
-      ? "王者"
-      : entry.rank <= 5
-        ? "星耀"
-        : entry.rank <= 15
-          ? "钻石"
-          : "铂金";
+  const expectedTier = standingTiers.find(
+    (tier) => tier.maxRank === null || entry.rank <= tier.maxRank,
+  )?.name;
   assert(
     entry.tier === expectedTier,
-    `${location}.tier 与铂金及以上的名次分档不一致。`,
+    `${location}.tier 与七档名次划分不一致。`,
   );
   if (entry.rank <= 5) {
     assert(
@@ -177,6 +167,34 @@ standings.entries.forEach((entry, index) => {
   );
   normalizedNames.add(normalizedName);
 });
+
+if (standings.exportId.startsWith("dsl2-match-data-")) {
+  const reports = JSON.parse(
+    await readFile(
+      path.join(projectRoot, "src/data/match-reports.json"),
+      "utf8",
+    ),
+  );
+  const totals = new Map();
+  for (const day of reports.matchDays) {
+    for (const player of day.pointChanges) {
+      totals.set(
+        player.displayName,
+        (totals.get(player.displayName) ?? 0) + player.total,
+      );
+    }
+  }
+  const expectedEntries = [...totals.entries()].sort(
+    ([nameA, pointsA], [nameB, pointsB]) =>
+      pointsB - pointsA || nameA.localeCompare(nameB, "zh-CN"),
+  );
+  assert(
+    JSON.stringify(
+      standings.entries.map(({ displayName, points }) => [displayName, points]),
+    ) === JSON.stringify(expectedEntries),
+    "公开积分榜必须包含全部赛报中的选手，累计积分及排序须与每日增分一致。",
+  );
+}
 
 await scanForbiddenFiles(path.join(projectRoot, "src"));
 await scanForbiddenFiles(path.join(projectRoot, "public")).catch((error) => {
