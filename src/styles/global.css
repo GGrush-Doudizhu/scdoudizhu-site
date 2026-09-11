@@ -1282,6 +1282,11 @@ tbody th {
   text-align: right;
 }
 
+.standings-summary-row .standing-player,
+.standings-summary-points {
+  word-break: keep-all;
+}
+
 .standings-table tbody tr[data-rank="1"],
 .standings-table tbody tr[data-rank="2"],
 .standings-table tbody tr[data-rank="3"] {
