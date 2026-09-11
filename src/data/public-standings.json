@@ -3,7 +3,7 @@
   "season": "dsl2",
   "exportId": "dsl2-match-data-20260824-20260909",
   "standingsAsOf": "2026-09-09T22:03:00+08:00",
-  "publishedAt": "2026-09-11T14:26:31+08:00",
+  "publishedAt": "2026-09-11T14:40:01+08:00",
   "entries": [
     {
       "rank": 1,
@@ -84,21 +84,6 @@
     { "rank": 37, "displayName": "逗地主羞大圣", "points": 10, "tier": "白银" },
     { "rank": 38, "displayName": "zhendeniu", "points": 10, "tier": "白银" },
     { "rank": 39, "displayName": "^sAvior^-Yi-", "points": 8, "tier": "白银" },
-    { "rank": 40, "displayName": "7788", "points": 8, "tier": "白银" },
-    { "rank": 41, "displayName": "阿斯蒂芬", "points": 8, "tier": "青铜" },
-    {
-      "rank": 42,
-      "displayName": "消息来源可靠吗",
-      "points": 8,
-      "tier": "青铜"
-    },
-    { "rank": 43, "displayName": "lalala.bobo", "points": 8, "tier": "青铜" },
-    { "rank": 44, "displayName": "路西法", "points": 6, "tier": "青铜" },
-    { "rank": 45, "displayName": "朝歌", "points": 5, "tier": "青铜" },
-    { "rank": 46, "displayName": "SCV", "points": 3, "tier": "青铜" },
-    { "rank": 47, "displayName": "888", "points": 2, "tier": "青铜" },
-    { "rank": 48, "displayName": "小狂徒", "points": 2, "tier": "青铜" },
-    { "rank": 49, "displayName": "bbb", "points": 2, "tier": "青铜" },
-    { "rank": 50, "displayName": "G600", "points": 2, "tier": "青铜" }
+    { "rank": 40, "displayName": "7788", "points": 8, "tier": "白银" }
   ]
 }

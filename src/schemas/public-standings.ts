@@ -2,6 +2,7 @@ import { z } from "zod";
 
 import rawStandings from "../data/public-standings.json" with { type: "json" };
 import standingTiers from "../data/standing-tiers.json" with { type: "json" };
+import standingsVisibility from "../data/standings-visibility.json" with { type: "json" };
 
 const tierSchema = z.enum([
   "王者",
@@ -31,7 +32,7 @@ export const publicStandingsSchema = z
     exportId: z.string().trim().min(1).max(80),
     standingsAsOf: z.iso.datetime({ offset: true }).nullable(),
     publishedAt: z.iso.datetime({ offset: true }).nullable(),
-    entries: z.array(entrySchema),
+    entries: z.array(entrySchema).max(standingsVisibility.publicStandingLimit),
   })
   .strict()
   .superRefine((data, context) => {
@@ -55,6 +56,14 @@ export const publicStandingsSchema = z
         });
       }
       names.add(normalizedName);
+
+      if (entry.rank > standingsVisibility.publicStandingLimit) {
+        context.addIssue({
+          code: "custom",
+          message: "公开积分榜只展示白银及以上的前 40 名选手。",
+          path: ["entries", index, "rank"],
+        });
+      }
 
       const expectedTier = standingTiers.find(
         (tier) => tier.maxRank === null || entry.rank <= tier.maxRank,

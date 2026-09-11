@@ -2,6 +2,7 @@ import { readdir, readFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import standingTiers from "../src/data/standing-tiers.json" with { type: "json" };
+import standingsVisibility from "../src/data/standings-visibility.json" with { type: "json" };
 
 const projectRoot = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
@@ -99,6 +100,10 @@ assert(
   "exportId 不能为空。",
 );
 assert(Array.isArray(standings.entries), "entries 必须是数组。");
+assert(
+  standings.entries.length <= standingsVisibility.publicStandingLimit,
+  "公开积分榜只展示白银及以上的前 40 名选手。",
+);
 
 if (standings.entries.length > 0) {
   assert(
@@ -184,15 +189,17 @@ if (standings.exportId.startsWith("dsl2-match-data-")) {
       );
     }
   }
-  const expectedEntries = [...totals.entries()].sort(
-    ([nameA, pointsA], [nameB, pointsB]) =>
-      pointsB - pointsA || nameA.localeCompare(nameB, "zh-CN"),
-  );
+  const expectedEntries = [...totals.entries()]
+    .sort(
+      ([nameA, pointsA], [nameB, pointsB]) =>
+        pointsB - pointsA || nameA.localeCompare(nameB, "zh-CN"),
+    )
+    .slice(0, standingsVisibility.publicStandingLimit);
   assert(
     JSON.stringify(
       standings.entries.map(({ displayName, points }) => [displayName, points]),
     ) === JSON.stringify(expectedEntries),
-    "公开积分榜必须包含全部赛报中的选手，累计积分及排序须与每日增分一致。",
+    "公开积分榜必须完整覆盖全部赛报累计排名中的前 40 名，积分及排序须与每日增分一致。",
   );
 }
 

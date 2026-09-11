@@ -3,6 +3,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { format } from "prettier";
 import standingTiers from "../src/data/standing-tiers.json" with { type: "json" };
+import standingsVisibility from "../src/data/standings-visibility.json" with { type: "json" };
 import {
   createDisconnectTracker,
   disconnectPolicy,
@@ -37,7 +38,7 @@ const fullStandingsOutputPath = path.join(
 );
 const checkOnly = process.argv.includes("--check");
 
-const publishedAt = "2026-09-11T14:26:31+08:00";
+const publishedAt = "2026-09-11T14:40:01+08:00";
 const workPointCap = 15;
 const workRoleRules = {
   host: { label: "房主", points: 10 },
@@ -536,7 +537,7 @@ async function buildData() {
       richFarmerWinRate: winRate(entry.richFarmerWins, entry.richFarmerGames),
       poorFarmerWinRate: winRate(entry.poorFarmerWins, entry.poorFarmerGames),
       tier: tierForRank(index + 1),
-      publiclyListed: true,
+      publiclyListed: index < standingsVisibility.publicStandingLimit,
     }));
   const publicStandings = {
     schemaVersion: 1,
@@ -544,15 +545,15 @@ async function buildData() {
     exportId: `dsl2-match-data-${firstDate}-${lastDate}`,
     standingsAsOf,
     publishedAt,
-    entries: fullStandings.map(
-      ({ rank, displayName, points, tier, gamesPlayed, winRate }) => ({
+    entries: fullStandings
+      .filter((entry) => entry.publiclyListed)
+      .map(({ rank, displayName, points, tier, gamesPlayed, winRate }) => ({
         rank,
         displayName,
         points,
         tier,
         ...(rank <= 5 ? { gamesPlayed, winRate } : {}),
-      }),
-    ),
+      })),
   };
   const reports = {
     schemaVersion: 3,
@@ -586,7 +587,7 @@ async function buildData() {
         statistician: 5,
         perPersonPerMatchdayCap: workPointCap,
       },
-      publicStandingLimit: null,
+      publicStandingLimit: standingsVisibility.publicStandingLimit,
       tiers: standingTiers,
     },
     identityGroups,

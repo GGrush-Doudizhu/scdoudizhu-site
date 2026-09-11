@@ -359,13 +359,11 @@ test("首页鸣谢第二届首批赞助老板并继续邀请众筹", async ({ pa
   }
 });
 
-test("积分榜展示第二届前十个比赛日全部五十名选手与七档段位", async ({
-  page,
-}) => {
+test("积分榜展示第二届白银及以上前四十名并保留七档说明", async ({ page }) => {
   await page.goto("/standings/");
   await expect(page.getByText("榜单效果预览")).toHaveCount(0);
   await expect(page.locator(".podium-card")).toHaveCount(3);
-  await expect(page.locator(".standings-table tbody tr")).toHaveCount(50);
+  await expect(page.locator(".standings-table tbody tr")).toHaveCount(40);
   await expect(page.locator(".standings-table tbody tr").first()).toContainText(
     "lansoov",
   );
@@ -373,7 +371,7 @@ test("积分榜展示第二届前十个比赛日全部五十名选手与七档�
     "408",
   );
   await expect(
-    page.getByText("积分榜展示全部段位选手的名次、积分与段位", {
+    page.getByText("积分榜展示白银及以上选手的名次、积分与段位", {
       exact: false,
     }),
   ).toBeVisible();
@@ -433,7 +431,6 @@ test("积分榜展示第二届前十个比赛日全部五十名选手与七档�
     ["铂金", 11, 20],
     ["黄金", 21, 30],
     ["白银", 31, 40],
-    ["青铜", 41, 50],
   ] as const) {
     await expect(
       page.locator(`.standings-table tbody tr[data-tier="${tier}"]`),
@@ -448,8 +445,6 @@ test("积分榜展示第二届前十个比赛日全部五十名选手与七档�
     [30, "digua", "14"],
     [31, "mehdiren", "14"],
     [40, "7788", "8"],
-    [41, "阿斯蒂芬", "8"],
-    [50, "G600", "2"],
   ] as const) {
     const row = page.locator(`.standings-table tbody tr[data-rank="${rank}"]`);
     await expect(row.getByRole("rowheader")).toHaveText(name);
@@ -457,6 +452,14 @@ test("积分榜展示第二届前十个比赛日全部五十名选手与七档�
       row.getByRole("cell", { name: points, exact: true }),
     ).toBeVisible();
   }
+  await expect(
+    page.locator('.standings-table tbody tr[data-tier="青铜"]'),
+  ).toHaveCount(0);
+  await expect(
+    page.locator('.standings-table tbody tr[data-rank="41"]'),
+  ).toHaveCount(0);
+  await expect(page.locator(".standings-table")).not.toContainText("阿斯蒂芬");
+  await expect(page.locator(".standings-table")).not.toContainText("G600");
   await expect(page.locator(".tier-emblem p")).toHaveText([
     "第 1 名",
     "第 2—5 名",
@@ -893,7 +896,7 @@ test("新闻中的赛事方案可直接阅读且奖金已经同步", async ({ re
   ]) {
     expect(html).toContain(range);
   }
-  expect(html).toContain("积分榜展示全部段位选手");
+  expect(html).toContain("积分榜展示白银及以上选手");
   expect(html).toContain("常规赛前 30 名");
   expect(html).not.toContain("分界线待定");
   expect(html).not.toContain("<span>第五名 50 元</span>");
