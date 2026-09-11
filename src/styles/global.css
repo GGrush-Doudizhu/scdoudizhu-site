@@ -1313,17 +1313,12 @@ tbody th {
   display: grid;
   width: 34px;
   height: 34px;
-  border: 1px solid var(--line-strong);
+  border: 1px solid var(--tier-accent);
   border-radius: 6px;
-  color: var(--muted);
+  color: #071016;
+  background: var(--tier-accent);
   font-weight: 900;
   place-items: center;
-}
-
-.standings-table tr[data-rank="1"] .rank-cell span {
-  border-color: var(--gold);
-  color: #071016;
-  background: var(--gold);
 }
 
 [data-tier="王者"] {

@@ -383,11 +383,9 @@ test("积分榜同分同名次，完整展示白银及以上含并列选手", as
   await expect(page.locator(".standings-table tbody tr").first()).toContainText(
     "408",
   );
-  await expect(
-    page.getByText("积分榜展示白银及以上选手的名次、积分与段位", {
-      exact: false,
-    }),
-  ).toBeVisible();
+  await expect(page.locator(".standings-section .privacy-line")).toHaveText(
+    "同分同名次、同段位，后续名次跳号。展示白银及以上选手（含并列），王者和星耀另展示总场数与胜率。",
+  );
   await expect(page.getByText("统计截至：2026年9月9日")).toBeVisible();
   await expect(page.locator(".podium-record")).toHaveCount(0);
   await expect(page.locator(".podium")).not.toContainText("总场数");
