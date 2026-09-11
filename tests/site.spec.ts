@@ -412,6 +412,8 @@ test("积分榜展示第二届前十个比赛日累计积分与完整前二十�
   ).toBeVisible();
   await expect(mergedStefsunli).toContainText("stefsunli");
   for (const [rank, name, points] of [
+    [7, "豆豆", "170"],
+    [13, "DR.Yang", "120"],
     [16, "shougong", "98"],
     [18, "FFS-Open-1", "77"],
   ] as const) {
@@ -472,6 +474,7 @@ test("第十比赛日展示五盘赛果、十四人及房主分配和首次掉�
     ["年轻", ["+5", "+5", "—"]],
     ["GGrush", ["0", "+5", "赛事数据统计员 +5"]],
     ["shougong", ["+12", "+12", "—"]],
+    ["DR.Yang", ["+18", "+18", "—"]],
   ] as const) {
     const row = page
       .locator(".report-points-table tbody tr")
@@ -632,12 +635,20 @@ test("新闻页提供十个比赛日赛报及完整人员、积分和逐盘赛�
   await expect(page.getByText("录像总时长")).toHaveCount(0);
   await expect(page.locator(".report-points-table thead th")).toHaveCount(4);
   await expect(page.getByText("开播加分", { exact: true })).toHaveCount(0);
-  await expect(page.locator(".report-points-table tbody tr")).toHaveCount(28);
+  await expect(page.locator(".report-points-table tbody tr")).toHaveCount(27);
   await expect(page.locator(".report-staff-grid")).toContainText("叉子别");
   const addedStreamer = page.locator(".report-points-table tbody tr").filter({
     has: page.getByRole("rowheader", { name: "叉子别", exact: true }),
   });
-  await expect(addedStreamer).toContainText("主播 +10");
+  await expect(addedStreamer.locator("td")).toHaveText([
+    "+2",
+    "+12",
+    "主播 +10",
+  ]);
+  const renamedPlayer = page.locator(".report-points-table tbody tr").filter({
+    has: page.getByRole("rowheader", { name: "digua", exact: true }),
+  });
+  await expect(renamedPlayer.locator("td")).toHaveText(["+14", "+14", "—"]);
   await expect(
     page.getByRole("complementary", { name: "当日掉线核算" }),
   ).toContainText("fly：KK赛区当周首次掉线，豁免扣分，该盘 0 分");
@@ -678,6 +689,12 @@ test("新闻页提供十个比赛日赛报及完整人员、积分和逐盘赛�
   ).toContainText("逗地主羞大圣：KK赛区当周首次掉线，豁免扣分，该盘 0 分");
   await expect(page.getByText("掉线", { exact: true })).toBeVisible();
 
+  await page.goto("/announcements/2026-08-29/");
+  const mergedDoudou = page.locator(".report-points-table tbody tr").filter({
+    has: page.getByRole("rowheader", { name: "豆豆", exact: true }),
+  });
+  await expect(mergedDoudou.locator("td")).toHaveText(["+17", "+17", "—"]);
+
   for (const day of matchReports.matchDays) {
     await page.goto(`/announcements/${day.slug}/`);
     await expect(page.locator(".report-points-table thead th")).toHaveText([
@@ -688,6 +705,12 @@ test("新闻页提供十个比赛日赛报及完整人员、积分和逐盘赛�
     ]);
     await expect(page.locator("main")).not.toContainText("文永宁");
     await expect(page.locator("main")).not.toContainText("FFS_Stefsunli");
+    for (const alias of ["FFS-DBS", "Gggggggggggggga", "rpg玩家"]) {
+      await expect(page.locator("main")).not.toContainText(alias);
+    }
+    await expect(
+      page.getByRole("rowheader", { name: "叉子", exact: true }),
+    ).toHaveCount(0);
   }
 });
 

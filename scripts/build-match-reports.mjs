@@ -36,7 +36,7 @@ const fullStandingsOutputPath = path.join(
 );
 const checkOnly = process.argv.includes("--check");
 
-const publishedAt = "2026-09-09T23:59:56+08:00";
+const publishedAt = "2026-09-11T14:04:03+08:00";
 const publicStandingLimit = 25;
 const workPointCap = 15;
 const workRoleRules = {

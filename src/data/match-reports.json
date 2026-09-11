@@ -97,7 +97,7 @@
           "workPointsCapped": false
         },
         {
-          "displayName": "FFS-DBS",
+          "displayName": "DR.Yang",
           "matchPoints": 18,
           "workPoints": 0,
           "total": 18,
@@ -200,7 +200,7 @@
                 { "displayName": "fly", "disconnected": false },
                 { "displayName": "年轻", "disconnected": false },
                 { "displayName": "KaKaRu", "disconnected": false },
-                { "displayName": "FFS-DBS", "disconnected": false }
+                { "displayName": "DR.Yang", "disconnected": false }
               ]
             }
           ]
@@ -232,7 +232,7 @@
               "role": "贫农",
               "won": true,
               "players": [
-                { "displayName": "FFS-DBS", "disconnected": false },
+                { "displayName": "DR.Yang", "disconnected": false },
                 { "displayName": "KaKaRu", "disconnected": false },
                 { "displayName": "FFS-no.1", "disconnected": false },
                 { "displayName": "ctrl+Q++Q", "disconnected": false }
@@ -267,7 +267,7 @@
               "role": "贫农",
               "won": true,
               "players": [
-                { "displayName": "FFS-DBS", "disconnected": false },
+                { "displayName": "DR.Yang", "disconnected": false },
                 { "displayName": "FFS-no.1", "disconnected": false },
                 { "displayName": "IKILllIII", "disconnected": false },
                 { "displayName": "stefsunli", "disconnected": false }
@@ -2288,7 +2288,7 @@
           "workPointsCapped": false
         },
         {
-          "displayName": "Gggggggggggggga",
+          "displayName": "豆豆",
           "matchPoints": 17,
           "workPoints": 0,
           "total": 17,
@@ -2350,7 +2350,7 @@
               "players": [
                 { "displayName": "五社", "disconnected": false },
                 { "displayName": "lucky2023", "disconnected": false },
-                { "displayName": "Gggggggggggggga", "disconnected": false }
+                { "displayName": "豆豆", "disconnected": false }
               ]
             },
             {
@@ -2394,9 +2394,7 @@
               "force": 2,
               "role": "富农",
               "won": false,
-              "players": [
-                { "displayName": "Gggggggggggggga", "disconnected": false }
-              ]
+              "players": [{ "displayName": "豆豆", "disconnected": false }]
             },
             {
               "force": 3,
@@ -2493,7 +2491,7 @@
               "won": true,
               "players": [
                 { "displayName": "lansoov", "disconnected": false },
-                { "displayName": "Gggggggggggggga", "disconnected": false },
+                { "displayName": "豆豆", "disconnected": false },
                 { "displayName": "五社", "disconnected": false }
               ]
             },
@@ -3507,7 +3505,7 @@
           "workPointsCapped": false
         },
         {
-          "displayName": "mehdiren",
+          "displayName": "digua",
           "matchPoints": 14,
           "workPoints": 0,
           "total": 14,
@@ -3515,7 +3513,7 @@
           "workPointsCapped": false
         },
         {
-          "displayName": "rpg玩家",
+          "displayName": "mehdiren",
           "matchPoints": 14,
           "workPoints": 0,
           "total": 14,
@@ -3528,6 +3526,14 @@
           "workPoints": 0,
           "total": 14,
           "contributions": [],
+          "workPointsCapped": false
+        },
+        {
+          "displayName": "叉子别",
+          "matchPoints": 2,
+          "workPoints": 10,
+          "total": 12,
+          "contributions": ["主播"],
           "workPointsCapped": false
         },
         {
@@ -3544,14 +3550,6 @@
           "workPoints": 0,
           "total": 12,
           "contributions": [],
-          "workPointsCapped": false
-        },
-        {
-          "displayName": "叉子别",
-          "matchPoints": 0,
-          "workPoints": 10,
-          "total": 10,
-          "contributions": ["主播"],
           "workPointsCapped": false
         },
         {
@@ -3588,14 +3586,6 @@
         },
         {
           "displayName": "888",
-          "matchPoints": 2,
-          "workPoints": 0,
-          "total": 2,
-          "contributions": [],
-          "workPointsCapped": false
-        },
-        {
-          "displayName": "叉子",
           "matchPoints": 2,
           "workPoints": 0,
           "total": 2,
@@ -3787,7 +3777,7 @@
               "role": "贫农",
               "won": true,
               "players": [
-                { "displayName": "rpg玩家", "disconnected": false },
+                { "displayName": "digua", "disconnected": false },
                 { "displayName": "mehdiren", "disconnected": false },
                 { "displayName": "Quake", "disconnected": false },
                 { "displayName": "do''do", "disconnected": false }
@@ -3858,7 +3848,7 @@
               "won": false,
               "players": [
                 { "displayName": "Quake", "disconnected": false },
-                { "displayName": "rpg玩家", "disconnected": false },
+                { "displayName": "digua", "disconnected": false },
                 { "displayName": "mehdiren", "disconnected": false },
                 { "displayName": "do''do", "disconnected": false }
               ]
@@ -3893,7 +3883,7 @@
               "won": false,
               "players": [
                 { "displayName": "do''do", "disconnected": false },
-                { "displayName": "rpg玩家", "disconnected": false },
+                { "displayName": "digua", "disconnected": false },
                 { "displayName": "888", "disconnected": false },
                 { "displayName": "bbb", "disconnected": false }
               ]
@@ -3962,7 +3952,7 @@
               "role": "贫农",
               "won": false,
               "players": [
-                { "displayName": "叉子", "disconnected": false },
+                { "displayName": "叉子别", "disconnected": false },
                 { "displayName": "feifeiht", "disconnected": false },
                 { "displayName": "五社", "disconnected": false },
                 { "displayName": "FFS-no.1", "disconnected": false }
@@ -4102,7 +4092,7 @@
               "role": "贫农",
               "won": false,
               "players": [
-                { "displayName": "rpg玩家", "disconnected": false },
+                { "displayName": "digua", "disconnected": false },
                 { "displayName": "mehdiren", "disconnected": false },
                 { "displayName": "DR.Yang", "disconnected": false },
                 { "displayName": "G600", "disconnected": false }
