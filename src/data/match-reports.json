@@ -30,7 +30,7 @@
       },
       "summary": {
         "matchCount": 9,
-        "participantCount": 23,
+        "participantCount": 21,
         "landlordWins": 2,
         "farmerWins": 7
       },
@@ -42,6 +42,22 @@
           "total": 85,
           "contributions": ["房主", "主播", "赛事数据统计员"],
           "workPointsCapped": true
+        },
+        {
+          "displayName": "剑圣",
+          "matchPoints": 44,
+          "workPoints": 0,
+          "total": 44,
+          "contributions": [],
+          "workPointsCapped": false
+        },
+        {
+          "displayName": "mascot520",
+          "matchPoints": 36,
+          "workPoints": 0,
+          "total": 36,
+          "contributions": [],
+          "workPointsCapped": false
         },
         {
           "displayName": "do''do",
@@ -76,22 +92,6 @@
           "workPointsCapped": false
         },
         {
-          "displayName": "剑圣",
-          "matchPoints": 24,
-          "workPoints": 0,
-          "total": 24,
-          "contributions": [],
-          "workPointsCapped": false
-        },
-        {
-          "displayName": "江江达好",
-          "matchPoints": 24,
-          "workPoints": 0,
-          "total": 24,
-          "contributions": [],
-          "workPointsCapped": false
-        },
-        {
           "displayName": "DR.Yang",
           "matchPoints": 24,
           "workPoints": 0,
@@ -116,14 +116,6 @@
           "workPointsCapped": false
         },
         {
-          "displayName": "逗地主 剑圣  激情对战 战到最后一兵",
-          "matchPoints": 20,
-          "workPoints": 0,
-          "total": 20,
-          "contributions": [],
-          "workPointsCapped": false
-        },
-        {
           "displayName": "总裁",
           "matchPoints": 17,
           "workPoints": 0,
@@ -136,14 +128,6 @@
           "matchPoints": 16,
           "workPoints": 0,
           "total": 16,
-          "contributions": [],
-          "workPointsCapped": false
-        },
-        {
-          "displayName": "mascot520",
-          "matchPoints": 12,
-          "workPoints": 0,
-          "total": 12,
           "contributions": [],
           "workPointsCapped": false
         },
@@ -250,7 +234,7 @@
               "players": [
                 { "displayName": "剑圣", "disconnected": false },
                 { "displayName": "KaKaRu", "disconnected": false },
-                { "displayName": "江江达好", "disconnected": false },
+                { "displayName": "mascot520", "disconnected": false },
                 { "displayName": "白胖", "disconnected": false }
               ]
             }
@@ -284,7 +268,7 @@
               "won": true,
               "players": [
                 { "displayName": "KaKaRu", "disconnected": false },
-                { "displayName": "江江达好", "disconnected": false },
+                { "displayName": "mascot520", "disconnected": false },
                 { "displayName": "剑圣", "disconnected": false },
                 { "displayName": "白胖", "disconnected": false }
               ]
@@ -318,7 +302,7 @@
               "role": "贫农",
               "won": true,
               "players": [
-                { "displayName": "江江达好", "disconnected": false },
+                { "displayName": "mascot520", "disconnected": false },
                 { "displayName": "KaKaRu", "disconnected": false },
                 { "displayName": "剑圣", "disconnected": false },
                 { "displayName": "贝琴音", "disconnected": false }
@@ -353,10 +337,7 @@
               "role": "贫农",
               "won": true,
               "players": [
-                {
-                  "displayName": "逗地主 剑圣  激情对战 战到最后一兵",
-                  "disconnected": false
-                },
+                { "displayName": "剑圣", "disconnected": false },
                 { "displayName": "DR.Yang", "disconnected": false },
                 { "displayName": "102", "disconnected": false },
                 { "displayName": "mehdiren", "disconnected": false }
@@ -393,10 +374,7 @@
               "players": [
                 { "displayName": "GGrush", "disconnected": false },
                 { "displayName": "DR.Yang", "disconnected": false },
-                {
-                  "displayName": "逗地主 剑圣  激情对战 战到最后一兵",
-                  "disconnected": false
-                },
+                { "displayName": "剑圣", "disconnected": false },
                 { "displayName": "mehdiren", "disconnected": false }
               ]
             }
@@ -432,10 +410,7 @@
               "won": false,
               "players": [
                 { "displayName": "mehdiren", "disconnected": false },
-                {
-                  "displayName": "逗地主 剑圣  激情对战 战到最后一兵",
-                  "disconnected": false
-                },
+                { "displayName": "剑圣", "disconnected": false },
                 { "displayName": "paijipao", "disconnected": false },
                 { "displayName": "mascot520", "disconnected": false }
               ]
@@ -470,10 +445,7 @@
               "won": false,
               "players": [
                 { "displayName": "mascot520", "disconnected": false },
-                {
-                  "displayName": "逗地主 剑圣  激情对战 战到最后一兵",
-                  "disconnected": false
-                },
+                { "displayName": "剑圣", "disconnected": false },
                 { "displayName": "DR.Yang", "disconnected": true },
                 { "displayName": "mehdiren", "disconnected": false }
               ]

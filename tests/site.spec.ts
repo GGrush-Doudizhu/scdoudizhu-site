@@ -365,8 +365,8 @@ test("积分榜同分同名次，完整展示白银及以上含并列选手", as
   await expect(page.locator(".podium-card")).toHaveCount(3);
   await expect(
     page.locator(".standings-table tbody tr[data-rank]"),
-  ).toHaveCount(40);
-  await expect(page.locator(".standings-table tbody tr")).toHaveCount(41);
+  ).toHaveCount(41);
+  await expect(page.locator(".standings-table tbody tr")).toHaveCount(42);
   const bronzeSummary = page.locator(".standings-summary-row");
   await expect(bronzeSummary.locator("td, th")).toHaveText([
     "41+",
@@ -434,7 +434,7 @@ test("积分榜同分同名次，完整展示白银及以上含并列选手", as
     ).toBeVisible();
   }
   await expect(
-    page.locator('.standings-table tbody tr[data-rank="25"]'),
+    page.locator('.standings-table tbody tr[data-rank="26"]'),
   ).toContainText("白胖");
   for (const [tier, first, last, count] of [
     ["王者", 1, 1, 1],
@@ -442,7 +442,7 @@ test("积分榜同分同名次，完整展示白银及以上含并列选手", as
     ["钻石", 6, 10, 6],
     ["铂金", 12, 19, 9],
     ["黄金", 21, 30, 10],
-    ["白银", 31, 37, 10],
+    ["白银", 31, 39, 11],
   ] as const) {
     await expect(
       page.locator(`.standings-table tbody tr[data-tier="${tier}"]`),
@@ -459,14 +459,18 @@ test("积分榜同分同名次，完整展示白银及以上含并列选手", as
     [10, "VGer_Whc", "153", "钻石"],
     [31, "破光师", "20", "白银"],
     [31, "Quake", "20", "白银"],
-    [35, "叉子别", "15", "白银"],
-    [36, "digua", "14", "白银"],
+    [34, "叉子别", "15", "白银"],
+    [35, "digua", "14", "白银"],
     [23, "mehdiren", "45", "黄金"],
-    [34, "总裁", "17", "白银"],
-    [37, "66", "12", "白银"],
-    [37, "吃猫的鱼", "12", "白银"],
-    [37, "吴小吴大战白骨精", "12", "白银"],
-    [37, "mascot520", "12", "白银"],
+    [33, "总裁", "17", "白银"],
+    [36, "66", "12", "白银"],
+    [36, "吃猫的鱼", "12", "白银"],
+    [36, "吴小吴大战白骨精", "12", "白银"],
+    [24, "剑圣", "44", "黄金"],
+    [29, "mascot520", "36", "黄金"],
+    [39, "斗 第 主", "10", "白银"],
+    [39, "逗地主羞大圣", "10", "白银"],
+    [39, "zhendeniu", "10", "白银"],
   ] as const) {
     const row = page
       .locator(".standings-table tbody tr")
@@ -584,7 +588,7 @@ test("第十比赛日展示五盘赛果、十四人及房主分配和首次掉�
   ).toBeLessThanOrEqual(1);
 });
 
-test("第十一比赛日展示九盘赛果、二十三人、工作积分封顶及 KK 首次掉线", async ({
+test("第十一比赛日展示九盘赛果、归并后二十一人、工作积分封顶及 KK 首次掉线", async ({
   page,
 }) => {
   await page.goto("/announcements/2026-09-11/");
@@ -593,12 +597,12 @@ test("第十一比赛日展示九盘赛果、二十三人、工作积分封顶�
   );
   await expect(page.locator(".report-summary-grid strong")).toHaveText([
     "9",
-    "23",
+    "21",
     "2",
     "7",
   ]);
   await expect(page.locator(".report-game-card")).toHaveCount(9);
-  await expect(page.locator(".report-points-table tbody tr")).toHaveCount(23);
+  await expect(page.locator(".report-points-table tbody tr")).toHaveCount(21);
   await expect(page.locator(".report-staff-grid")).toContainText("GGrush");
   for (const [name, cells] of [
     ["GGrush", ["+70", "+85", "房主、主播、赛事数据统计员（兼职封顶） +15"]],
@@ -607,6 +611,8 @@ test("第十一比赛日展示九盘赛果、二十三人、工作积分封顶�
     ["总裁", ["+17", "+17", "—"]],
     ["lansoov", ["+6", "+6", "—"]],
     ["KaKaRu", ["+24", "+24", "—"]],
+    ["剑圣", ["+44", "+44", "—"]],
+    ["mascot520", ["+36", "+36", "—"]],
   ] as const) {
     const row = page
       .locator(".report-points-table tbody tr")
@@ -622,8 +628,21 @@ test("第十一比赛日展示九盘赛果、二十三人、工作积分封顶�
     "19:26",
   );
   await expect(page.locator(".report-game-card").last()).toContainText("22:15");
-  for (const alias of ["总裁爸爸", "beinan", "逗地主比赛作者房", "阿笨猫"])
+  for (const alias of [
+    "总裁爸爸",
+    "beinan",
+    "逗地主比赛作者房",
+    "阿笨猫",
+    "江江达好",
+    "激情对战",
+  ])
     await expect(page.locator("main")).not.toContainText(alias);
+  await expect(
+    page.locator(".report-game-card").getByText("剑圣", { exact: true }),
+  ).toHaveCount(7);
+  await expect(
+    page.locator(".report-game-card").getByText("mascot520", { exact: true }),
+  ).toHaveCount(6);
   expect(
     await page.evaluate(
       () => document.documentElement.scrollWidth - innerWidth,

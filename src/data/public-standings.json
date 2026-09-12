@@ -3,7 +3,7 @@
   "season": "dsl2",
   "exportId": "dsl2-match-data-20260824-20260911",
   "standingsAsOf": "2026-09-11T22:15:00+08:00",
-  "publishedAt": "2026-09-11T22:25:34+08:00",
+  "publishedAt": "2026-09-12T12:05:49+08:00",
   "entries": [
     {
       "rank": 1,
@@ -63,32 +63,28 @@
     { "rank": 21, "displayName": "FoR_TVSPZ", "points": 65, "tier": "黄金" },
     { "rank": 22, "displayName": "Super555", "points": 59, "tier": "黄金" },
     { "rank": 23, "displayName": "mehdiren", "points": 45, "tier": "黄金" },
-    { "rank": 24, "displayName": "金豆", "points": 43, "tier": "黄金" },
-    { "rank": 25, "displayName": "白胖", "points": 42, "tier": "黄金" },
-    { "rank": 26, "displayName": "老全", "points": 39, "tier": "黄金" },
-    { "rank": 27, "displayName": "102", "points": 37, "tier": "黄金" },
-    { "rank": 28, "displayName": "剑圣", "points": 24, "tier": "黄金" },
-    { "rank": 28, "displayName": "江江达好", "points": 24, "tier": "黄金" },
+    { "rank": 24, "displayName": "剑圣", "points": 44, "tier": "黄金" },
+    { "rank": 25, "displayName": "金豆", "points": 43, "tier": "黄金" },
+    { "rank": 26, "displayName": "白胖", "points": 42, "tier": "黄金" },
+    { "rank": 27, "displayName": "老全", "points": 39, "tier": "黄金" },
+    { "rank": 28, "displayName": "102", "points": 37, "tier": "黄金" },
+    { "rank": 29, "displayName": "mascot520", "points": 36, "tier": "黄金" },
     { "rank": 30, "displayName": "魔鬼北北", "points": 23, "tier": "黄金" },
-    {
-      "rank": 31,
-      "displayName": "逗地主 剑圣  激情对战 战到最后一兵",
-      "points": 20,
-      "tier": "白银"
-    },
     { "rank": 31, "displayName": "破光师", "points": 20, "tier": "白银" },
     { "rank": 31, "displayName": "Quake", "points": 20, "tier": "白银" },
-    { "rank": 34, "displayName": "总裁", "points": 17, "tier": "白银" },
-    { "rank": 35, "displayName": "叉子别", "points": 15, "tier": "白银" },
-    { "rank": 36, "displayName": "digua", "points": 14, "tier": "白银" },
-    { "rank": 37, "displayName": "66", "points": 12, "tier": "白银" },
-    { "rank": 37, "displayName": "吃猫的鱼", "points": 12, "tier": "白银" },
+    { "rank": 33, "displayName": "总裁", "points": 17, "tier": "白银" },
+    { "rank": 34, "displayName": "叉子别", "points": 15, "tier": "白银" },
+    { "rank": 35, "displayName": "digua", "points": 14, "tier": "白银" },
+    { "rank": 36, "displayName": "66", "points": 12, "tier": "白银" },
+    { "rank": 36, "displayName": "吃猫的鱼", "points": 12, "tier": "白银" },
     {
-      "rank": 37,
+      "rank": 36,
       "displayName": "吴小吴大战白骨精",
       "points": 12,
       "tier": "白银"
     },
-    { "rank": 37, "displayName": "mascot520", "points": 12, "tier": "白银" }
+    { "rank": 39, "displayName": "斗 第 主", "points": 10, "tier": "白银" },
+    { "rank": 39, "displayName": "逗地主羞大圣", "points": 10, "tier": "白银" },
+    { "rank": 39, "displayName": "zhendeniu", "points": 10, "tier": "白银" }
   ]
 }
