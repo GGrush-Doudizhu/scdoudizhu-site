@@ -365,8 +365,8 @@ test("积分榜同分同名次，完整展示白银及以上含并列选手", as
   await expect(page.locator(".podium-card")).toHaveCount(3);
   await expect(
     page.locator(".standings-table tbody tr[data-rank]"),
-  ).toHaveCount(40);
-  await expect(page.locator(".standings-table tbody tr")).toHaveCount(41);
+  ).toHaveCount(43);
+  await expect(page.locator(".standings-table tbody tr")).toHaveCount(44);
   const bronzeSummary = page.locator(".standings-summary-row");
   await expect(bronzeSummary.locator("td, th")).toHaveText([
     "41+",
@@ -417,9 +417,9 @@ test("积分榜同分同名次，完整展示白银及以上含并列选手", as
   const mergedStefsunli = page.locator(".standings-table tbody tr").filter({
     has: page.getByRole("rowheader", { name: "stefsunli", exact: true }),
   });
-  await expect(mergedStefsunli).toHaveAttribute("data-rank", "19");
+  await expect(mergedStefsunli).toHaveAttribute("data-rank", "17");
   await expect(
-    mergedStefsunli.getByRole("cell", { name: "100", exact: true }),
+    mergedStefsunli.getByRole("cell", { name: "118", exact: true }),
   ).toBeVisible();
   await expect(mergedStefsunli).toContainText("stefsunli");
   for (const [rank, name, points] of [
@@ -443,7 +443,7 @@ test("积分榜同分同名次，完整展示白银及以上含并列选手", as
     ["钻石", 6, 10, 5],
     ["铂金", 11, 20, 10],
     ["黄金", 21, 30, 10],
-    ["白银", 31, 39, 10],
+    ["白银", 31, 40, 13],
   ] as const) {
     await expect(
       page.locator(`.standings-table tbody tr[data-tier="${tier}"]`),
@@ -464,16 +464,19 @@ test("积分榜同分同名次，完整展示白银及以上含并列选手", as
     [36, "digua", "18", "白银"],
     [26, "mehdiren", "43", "黄金"],
     [26, "金豆", "43", "黄金"],
-    [38, "总裁", "17", "白银"],
+    [37, "总裁", "17", "白银"],
     [23, "剑圣", "54", "黄金"],
     [31, "mascot520", "34", "白银"],
     [26, "GAT-X102", "43", "黄金"],
     [29, "老全", "39", "黄金"],
     [7, "五社", "228", "钻石"],
     [7, "KaKaRu", "228", "钻石"],
-    [36, "逗地主Stefsunli", "18", "白银"],
-    [39, "柳凝莲", "14", "白银"],
-    [39, "G600", "14", "白银"],
+    [40, "66", "12", "白银"],
+    [40, "吃猫的鱼", "12", "白银"],
+    [40, "抖地主jy02626922", "12", "白银"],
+    [40, "吴小吴大战白骨精", "12", "白银"],
+    [38, "柳凝莲", "14", "白银"],
+    [38, "G600", "14", "白银"],
   ] as const) {
     const row = page
       .locator(".standings-table tbody tr")

@@ -3,7 +3,7 @@
   "season": "dsl2",
   "exportId": "dsl2-match-data-20260824-20260914",
   "standingsAsOf": "2026-09-14T22:50:00+08:00",
-  "publishedAt": "2026-09-15T23:14:17+08:00",
+  "publishedAt": "2026-09-15T23:28:54+08:00",
   "entries": [
     {
       "rank": 1,
@@ -56,9 +56,9 @@
     { "rank": 14, "displayName": "DR.Yang", "points": 158, "tier": "铂金" },
     { "rank": 15, "displayName": "shougong", "points": 150, "tier": "铂金" },
     { "rank": 16, "displayName": "怕瓦落地", "points": 136, "tier": "铂金" },
-    { "rank": 17, "displayName": "FFS-no.1", "points": 110, "tier": "铂金" },
-    { "rank": 18, "displayName": "ctrl+Q++Q", "points": 102, "tier": "铂金" },
-    { "rank": 19, "displayName": "stefsunli", "points": 100, "tier": "铂金" },
+    { "rank": 17, "displayName": "stefsunli", "points": 118, "tier": "铂金" },
+    { "rank": 18, "displayName": "FFS-no.1", "points": 110, "tier": "铂金" },
+    { "rank": 19, "displayName": "ctrl+Q++Q", "points": 102, "tier": "铂金" },
     { "rank": 20, "displayName": "FFS-Open-1", "points": 77, "tier": "铂金" },
     { "rank": 21, "displayName": "FoR_TVSPZ", "points": 65, "tier": "黄金" },
     { "rank": 22, "displayName": "Super555", "points": 59, "tier": "黄金" },
@@ -75,15 +75,23 @@
     { "rank": 33, "displayName": "魔鬼北北", "points": 23, "tier": "白银" },
     { "rank": 34, "displayName": "破光师", "points": 20, "tier": "白银" },
     { "rank": 34, "displayName": "Quake", "points": 20, "tier": "白银" },
+    { "rank": 36, "displayName": "digua", "points": 18, "tier": "白银" },
+    { "rank": 37, "displayName": "总裁", "points": 17, "tier": "白银" },
+    { "rank": 38, "displayName": "柳凝莲", "points": 14, "tier": "白银" },
+    { "rank": 38, "displayName": "G600", "points": 14, "tier": "白银" },
+    { "rank": 40, "displayName": "66", "points": 12, "tier": "白银" },
+    { "rank": 40, "displayName": "吃猫的鱼", "points": 12, "tier": "白银" },
     {
-      "rank": 36,
-      "displayName": "逗地主Stefsunli",
-      "points": 18,
+      "rank": 40,
+      "displayName": "抖地主jy02626922",
+      "points": 12,
       "tier": "白银"
     },
-    { "rank": 36, "displayName": "digua", "points": 18, "tier": "白银" },
-    { "rank": 38, "displayName": "总裁", "points": 17, "tier": "白银" },
-    { "rank": 39, "displayName": "柳凝莲", "points": 14, "tier": "白银" },
-    { "rank": 39, "displayName": "G600", "points": 14, "tier": "白银" }
+    {
+      "rank": 40,
+      "displayName": "吴小吴大战白骨精",
+      "points": 12,
+      "tier": "白银"
+    }
   ]
 }

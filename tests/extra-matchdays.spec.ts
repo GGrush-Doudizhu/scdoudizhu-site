@@ -1,5 +1,27 @@
 import { expect, test } from "@playwright/test";
 
+test("逗地主Stefsunli 的两日赛果归并为 stefsunli", async ({ page }) => {
+  for (const [date, points, count] of [
+    ["2026-09-11", "+8", 1],
+    ["2026-09-14", "+10", 2],
+  ] as const) {
+    await page.goto(`/announcements/${date}/`);
+    const row = page.locator(".report-points-table tbody tr").filter({
+      has: page.getByRole("rowheader", { name: "stefsunli", exact: true }),
+    });
+    await expect(row.locator("th,td")).toHaveText([
+      "stefsunli",
+      points,
+      points,
+      "—",
+    ]);
+    await expect(
+      page.locator(".report-game-card").getByText("stefsunli", { exact: true }),
+    ).toHaveCount(count);
+    await expect(page.locator("main")).not.toContainText("逗地主Stefsunli");
+  }
+});
+
 test("102 历史赛果统一归并为 GAT-X102 并保留临时加赛负分", async ({ page }) => {
   for (const [date, points, appearances] of [
     ["2026-08-31", "+10", 2],

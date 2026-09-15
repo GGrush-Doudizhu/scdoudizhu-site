@@ -138,14 +138,6 @@
           "workPointsCapped": false
         },
         {
-          "displayName": "逗地主Stefsunli",
-          "matchPoints": 10,
-          "workPoints": 0,
-          "total": 10,
-          "contributions": [],
-          "workPointsCapped": false
-        },
-        {
           "displayName": "剑圣",
           "matchPoints": 10,
           "workPoints": 0,
@@ -155,6 +147,14 @@
         },
         {
           "displayName": "怕瓦落地",
+          "matchPoints": 10,
+          "workPoints": 0,
+          "total": 10,
+          "contributions": [],
+          "workPointsCapped": false
+        },
+        {
+          "displayName": "stefsunli",
           "matchPoints": 10,
           "workPoints": 0,
           "total": 10,
@@ -377,7 +377,7 @@
               "players": [
                 { "displayName": "fly", "disconnected": false },
                 { "displayName": "叉子别", "disconnected": false },
-                { "displayName": "逗地主Stefsunli", "disconnected": false },
+                { "displayName": "stefsunli", "disconnected": false },
                 { "displayName": "KaKaRu", "disconnected": false }
               ]
             }
@@ -413,7 +413,7 @@
                 { "displayName": "KaKaRu", "disconnected": false },
                 { "displayName": "fly", "disconnected": false },
                 { "displayName": "lansoov", "disconnected": false },
-                { "displayName": "逗地主Stefsunli", "disconnected": false }
+                { "displayName": "stefsunli", "disconnected": false }
               ]
             }
           ]
@@ -1653,7 +1653,7 @@
           "workPointsCapped": false
         },
         {
-          "displayName": "逗地主Stefsunli",
+          "displayName": "小飞哥",
           "matchPoints": 8,
           "workPoints": 0,
           "total": 8,
@@ -1661,7 +1661,7 @@
           "workPointsCapped": false
         },
         {
-          "displayName": "小飞哥",
+          "displayName": "stefsunli",
           "matchPoints": 8,
           "workPoints": 0,
           "total": 8,
@@ -2011,7 +2011,7 @@
               "role": "贫农",
               "won": true,
               "players": [
-                { "displayName": "逗地主Stefsunli", "disconnected": false },
+                { "displayName": "stefsunli", "disconnected": false },
                 { "displayName": "豆豆", "disconnected": false },
                 { "displayName": "GAT-X102", "disconnected": false },
                 { "displayName": "小飞哥", "disconnected": false }
