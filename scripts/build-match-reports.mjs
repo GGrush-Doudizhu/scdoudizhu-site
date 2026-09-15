@@ -7,7 +7,10 @@ import standingsVisibility from "../src/data/standings-visibility.json" with { t
 import {
   createDisconnectTracker,
   disconnectPolicy,
+  defaultMatchPoints,
+  platformForDate,
   pointsFor,
+  resolveMatchPointOverrides,
   resolveHostPoints,
   resolveWorkPointOverrides,
 } from "./lib/match-scoring.mjs";
@@ -38,7 +41,7 @@ const fullStandingsOutputPath = path.join(
 );
 const checkOnly = process.argv.includes("--check");
 
-const publishedAt = "2026-09-12T12:05:49+08:00";
+const publishedAt = "2026-09-15T14:46:49+08:00";
 const workPointCap = 15;
 const workRoleRules = {
   host: { label: "房主", points: 10 },
@@ -91,13 +94,6 @@ function tierForRank(rank) {
   return standingTiers.find(
     (tier) => tier.maxRank === null || rank <= tier.maxRank,
   ).name;
-}
-
-function platformForDate(dateValue) {
-  const weekday = dateValue.getUTCDay();
-  if (weekday === 1 || weekday === 5) return "KK";
-  if (weekday === 3 || weekday === 6) return "韩服";
-  throw new Error(`比赛日不在周一、三、五、六：${dateValue.toISOString()}`);
 }
 
 function isoDate(compactDate) {
@@ -291,7 +287,8 @@ async function buildData() {
     const [metadata, ...rawGames] = source;
     const date = isoDate(compactDate);
     const dateValue = new Date(`${date}T12:00:00+08:00`);
-    const platform = platformForDate(dateValue);
+    const platform = platformForDate(dateValue, metadata);
+    const matchPointOverrides = resolveMatchPointOverrides(metadata);
     const disconnectEvents = [];
     const suspendedAppearances = [];
     assert(Array.isArray(metadata.host), `${sourcePath} 缺少 host 数组。`);
@@ -355,7 +352,11 @@ async function buildData() {
                 : null;
               const points = disconnect
                 ? disconnect.points
-                : pointsFor(rawTeam.team, rawTeam.winner);
+                : pointsFor(
+                    rawTeam.team,
+                    rawTeam.winner,
+                    matchPointOverrides ?? defaultMatchPoints,
+                  );
               if (disconnect) {
                 disconnectEvents.push({
                   displayName,
@@ -460,6 +461,7 @@ async function buildData() {
       }).format(dateValue),
       weekday,
       platform,
+      ...(matchPointOverrides ? { matchPointOverrides } : {}),
       notice: disconnectPolicy.excludedMatchdays[date] ?? null,
       disconnectEvents,
       staff: {
@@ -581,12 +583,7 @@ async function buildData() {
       identityFile: "match-data/same_name.csv",
     },
     scoringRules: {
-      match: {
-        landlordWin: 12,
-        landlordLoss: 3,
-        farmerWin: 8,
-        farmerLoss: 2,
-      },
+      match: defaultMatchPoints,
       disconnect: disconnectPolicy,
       work: {
         host: 10,

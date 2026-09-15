@@ -2,6 +2,49 @@ import disconnectPolicy from "../../src/data/disconnect-policy.json" with { type
 
 export { disconnectPolicy };
 
+export const defaultMatchPoints = Object.freeze({
+  landlordWin: 12,
+  landlordLoss: 3,
+  farmerWin: 8,
+  farmerLoss: 2,
+});
+
+// Explicit structured rules transcribed from the administrator's daily note.
+export function resolveMatchPointOverrides(metadata) {
+  const override = metadata.matchPointOverrides;
+  if (override === undefined) return null;
+  if (
+    !override ||
+    Array.isArray(override) ||
+    typeof override.reason !== "string" ||
+    !override.reason.trim() ||
+    Object.keys(defaultMatchPoints).some(
+      (key) => !Number.isSafeInteger(override[key]),
+    ) ||
+    Object.keys(override).some(
+      (key) => key !== "reason" && !Object.hasOwn(defaultMatchPoints, key),
+    )
+  ) {
+    throw new Error("matchPointOverrides 必须包含四项整数积分和特别计分原因。");
+  }
+  return { ...override, reason: override.reason.trim() };
+}
+
+export function platformForDate(dateValue, metadata = {}) {
+  if (metadata.platform !== undefined) {
+    if (!["KK", "韩服"].includes(metadata.platform)) {
+      throw new Error("platform 必须为 KK 或韩服。");
+    }
+    return metadata.platform;
+  }
+  const weekday = dateValue.getUTCDay();
+  if (weekday === 1 || weekday === 5) return "KK";
+  if (weekday === 3 || weekday === 6) return "韩服";
+  throw new Error(
+    `比赛日不在周一、三、五、六且未指定 platform：${dateValue.toISOString()}`,
+  );
+}
+
 // Explicit daily work totals approved by the administrator, with a public reason.
 // These replace the normal capped work award only for the named staff member.
 export function resolveWorkPointOverrides(metadata, canonicalName) {
@@ -80,9 +123,10 @@ export function weekForDate(date) {
   };
 }
 
-export function pointsFor(force, won) {
-  if (force === 1) return won ? 12 : 3;
-  if (force === 2 || force === 3) return won ? 8 : 2;
+export function pointsFor(force, won, rules = defaultMatchPoints) {
+  if (force === 1) return won ? rules.landlordWin : rules.landlordLoss;
+  if (force === 2 || force === 3)
+    return won ? rules.farmerWin : rules.farmerLoss;
   throw new Error(`无法识别的 force/team：${force}`);
 }
 

@@ -4,10 +4,115 @@ import { readFile } from "node:fs/promises";
 import {
   createDisconnectTracker,
   pointsFor,
+  platformForDate,
+  resolveMatchPointOverrides,
   resolveHostPoints,
   resolveWorkPointOverrides,
   weekForDate,
 } from "./lib/match-scoring.mjs";
+
+test("extra matchday requires an explicit district and applies only its own scoring", () => {
+  const sunday = new Date("2026-09-13T12:00:00+08:00");
+  assert.throws(() => platformForDate(sunday), /platform/);
+  assert.throws(
+    () => platformForDate(sunday, { platform: "unknown" }),
+    /platform/,
+  );
+  assert.equal(platformForDate(sunday, { platform: "韩服" }), "韩服");
+  assert.equal(platformForDate(new Date("2026-09-12T12:00:00+08:00")), "韩服");
+  const override = {
+    landlordWin: 12,
+    landlordLoss: -6,
+    farmerWin: 8,
+    farmerLoss: -4,
+    reason: "临时加赛",
+  };
+  const rules = resolveMatchPointOverrides({ matchPointOverrides: override });
+  assert.deepEqual(
+    [pointsFor(1, true, rules), pointsFor(1, false, rules)],
+    [12, -6],
+  );
+  for (const force of [2, 3])
+    assert.deepEqual(
+      [pointsFor(force, true, rules), pointsFor(force, false, rules)],
+      [8, -4],
+    );
+  assert.deepEqual([pointsFor(1, false), pointsFor(2, false)], [3, 2]);
+  assert.equal(resolveMatchPointOverrides({}), null);
+  for (const invalid of [
+    null,
+    [],
+    {},
+    { ...override, reason: " " },
+    { ...override, farmerLoss: "-4" },
+    { ...override, landlordLoss: 1.5 },
+    { ...override, extra: 1 },
+  ]) {
+    assert.throws(
+      () => resolveMatchPointOverrides({ matchPointOverrides: invalid }),
+      /matchPointOverrides/,
+    );
+  }
+});
+
+test("September 12 and 13 preserve normal scoring, negative losses and capped staff awards", async () => {
+  const reports = JSON.parse(
+    await readFile(
+      new URL("../src/data/match-reports.json", import.meta.url),
+      "utf8",
+    ),
+  );
+  for (const [
+    date,
+    matches,
+    players,
+    landlords,
+    farmers,
+    matchTotal,
+    workTotal,
+  ] of [
+    ["2026-09-12", 11, 19, 6, 5, 521, 15],
+    ["2026-09-13", 7, 16, 5, 2, 124, 20],
+  ]) {
+    const day = reports.matchDays.find((day) => day.date === date);
+    assert.deepEqual(day.summary, {
+      matchCount: matches,
+      participantCount: players,
+      landlordWins: landlords,
+      farmerWins: farmers,
+    });
+    assert.equal(day.platform, "韩服");
+    assert.equal(
+      day.pointChanges.reduce((sum, p) => sum + p.matchPoints, 0),
+      matchTotal,
+    );
+    assert.equal(
+      day.pointChanges.reduce((sum, p) => sum + p.workPoints, 0),
+      workTotal,
+    );
+    assert.deepEqual(day.disconnectEvents, []);
+    assert.equal(Boolean(day.matchPointOverrides), date === "2026-09-13");
+  }
+  const day = reports.matchDays.find((day) => day.date === "2026-09-13");
+  assert.deepEqual(
+    [day.matchPointOverrides.landlordLoss, day.matchPointOverrides.farmerLoss],
+    [-6, -4],
+  );
+  for (const [name, match, work] of [
+    ["IKILllIII", 8, 15],
+    ["GGrush", 0, 5],
+    ["feifeiht", 38, 0],
+    ["mehdiren", -8, 0],
+    ["YiDeFuRen", -6, 0],
+    ["do''do", 0, 0],
+  ]) {
+    const p = day.pointChanges.find((p) => p.displayName === name);
+    assert.deepEqual(
+      [p.matchPoints, p.workPoints, p.total],
+      [match, work, match + work],
+    );
+  }
+});
 
 test("host allocations resolve aliases and reject invalid or duplicate awards", () => {
   const canonical = (name) => (name === "open" ? "FFS-Open-1" : name);

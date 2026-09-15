@@ -24,6 +24,14 @@ pnpm run build:match-reports
 
 段位配置统一保存在 `src/data/standing-tiers.json`：王者第 1 名，星耀第 2–5 名，钻石第 6–10 名，铂金第 11–20 名，黄金第 21–30 名，白银第 31–40 名，青铜第 41 名及以后。公开范围配置保存在 `src/data/standings-visibility.json`；总数据的 `scoringRules.rankingMethod` 为 `competition`：同分同名次，后续名次按已占人数跳号；组内中文名称排序仅控制展示顺序。全部段位按并列名次确定。`scoringRules.publicStandingLimit` 为 40，表示名次边界而非人数上限，前 40 名的 `publiclyListed` 为 `true`，第 41 名及以后为 `false`。
 
+## 临时加赛与当日特别计分
+
+原始 JSON 首项可用 `platform: "KK" | "韩服"` 指定已确认的临时赛区；缺省时仍按周一、五 KK，周三、六韩服推导。非正常比赛日必须明确提供赛区。
+
+管理员 `note` 中明确的特殊对局计分应在备份后录入首项 `matchPointOverrides`，包含四个整数 `landlordWin`、`landlordLoss`、`farmerWin`、`farmerLoss` 和公开说明 `reason`，并保留原始 `note`。该配置只影响当前 JSON 对应比赛日；工作积分与掉线规则仍独立执行。总数据及公开赛报的对应比赛日保留该配置，赛报根据实际配置展示规则。
+
+2026-09-13 为韩服周日临时加赛，地主胜 +12、负 −6，农民胜 +8、负 −4。其他比赛日继续使用正常计分。生成器不会自动解释自然语言备注，更新时必须检查 `note`。
+
 ## 掉线核算
 
 掉线规则配置保存在 `src/data/disconnect-policy.json`。生成器从首个比赛日起，按比赛日期、录像文件名时间排序，先通过 `same_name.csv` 归并昵称，再按「选手主名称 + 赛区 + 周一日期」累计掉线次数。每周按 UTC+8 的周一至周日计算。
