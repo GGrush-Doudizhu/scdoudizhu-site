@@ -11,6 +11,67 @@ import {
   weekForDate,
 } from "./lib/match-scoring.mjs";
 
+test("September 14 starts a new KK week, preserves four exemptions and normal scoring", async () => {
+  const reports = JSON.parse(
+    await readFile(
+      new URL("../src/data/match-reports.json", import.meta.url),
+      "utf8",
+    ),
+  );
+  const day = reports.matchDays.find((day) => day.date === "2026-09-14");
+  assert.deepEqual(day.summary, {
+    matchCount: 8,
+    participantCount: 21,
+    landlordWins: 5,
+    farmerWins: 3,
+  });
+  assert.equal(day.platform, "KK");
+  assert.equal(day.matchPointOverrides, undefined);
+  assert.equal(
+    day.pointChanges.reduce((sum, p) => sum + p.matchPoints, 0),
+    368,
+  );
+  assert.equal(
+    day.pointChanges.reduce((sum, p) => sum + p.workPoints, 0),
+    20,
+  );
+  assert.deepEqual(
+    day.disconnectEvents.map((e) => [
+      e.displayName,
+      e.gameNumber,
+      e.weekStart,
+      e.occurrence,
+      e.status,
+      e.points,
+      e.suspensionThrough,
+    ]),
+    [
+      ["白胖", 2, "2026-09-14", 1, "weekly-exempt", 0, null],
+      ["剑圣", 5, "2026-09-14", 1, "weekly-exempt", 0, null],
+      ["老全", 7, "2026-09-14", 1, "weekly-exempt", 0, null],
+      ["Quake", 8, "2026-09-14", 1, "weekly-exempt", 0, null],
+    ],
+  );
+  for (const [name, match, work] of [
+    ["do''do", 57, 15],
+    ["GGrush", 0, 5],
+    ["KaKaRu", 28, 0],
+    ["五社", 69, 0],
+    ["白胖", 8, 0],
+    ["剑圣", 10, 0],
+    ["老全", 0, 0],
+    ["Quake", 0, 0],
+  ]) {
+    const p = day.pointChanges.find((p) => p.displayName === name);
+    assert.deepEqual(
+      [p.matchPoints, p.workPoints, p.total],
+      [match, work, match + work],
+    );
+  }
+  assert.equal(day.games.at(-1).duration, "1:18:22");
+  assert.equal(day.games[0].forces[2].players.at(-1).displayName, "KaKaRu");
+});
+
 test("extra matchday requires an explicit district and applies only its own scoring", () => {
   const sunday = new Date("2026-09-13T12:00:00+08:00");
   assert.throws(() => platformForDate(sunday), /platform/);
