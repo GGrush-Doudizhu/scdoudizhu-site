@@ -1051,7 +1051,7 @@
           "workPointsCapped": false
         },
         {
-          "displayName": "102",
+          "displayName": "GAT-X102",
           "matchPoints": 27,
           "workPoints": 0,
           "total": 27,
@@ -1314,7 +1314,7 @@
               "players": [
                 { "displayName": "剑圣", "disconnected": false },
                 { "displayName": "DR.Yang", "disconnected": false },
-                { "displayName": "102", "disconnected": false },
+                { "displayName": "GAT-X102", "disconnected": false },
                 { "displayName": "mehdiren", "disconnected": false }
               ]
             }
@@ -1331,7 +1331,7 @@
               "role": "地主",
               "won": false,
               "players": [
-                { "displayName": "102", "disconnected": false },
+                { "displayName": "GAT-X102", "disconnected": false },
                 { "displayName": "豆豆", "disconnected": false },
                 { "displayName": "do''do", "disconnected": false }
               ]
@@ -1457,7 +1457,7 @@
                 { "displayName": "GGrush", "disconnected": false },
                 { "displayName": "mehdiren", "disconnected": false },
                 { "displayName": "DR.Yang", "disconnected": false },
-                { "displayName": "102", "disconnected": false }
+                { "displayName": "GAT-X102", "disconnected": false }
               ]
             }
           ]
@@ -1491,7 +1491,7 @@
               "players": [
                 { "displayName": "逗地主Stefsunli", "disconnected": false },
                 { "displayName": "豆豆", "disconnected": false },
-                { "displayName": "102", "disconnected": false },
+                { "displayName": "GAT-X102", "disconnected": false },
                 { "displayName": "小飞哥", "disconnected": false }
               ]
             }
@@ -3426,7 +3426,7 @@
           "workPointsCapped": false
         },
         {
-          "displayName": "102",
+          "displayName": "GAT-X102",
           "matchPoints": 10,
           "workPoints": 0,
           "total": 10,
@@ -3663,7 +3663,7 @@
               "players": [
                 { "displayName": "年轻", "disconnected": false },
                 { "displayName": "KaKaRu", "disconnected": false },
-                { "displayName": "102", "disconnected": false },
+                { "displayName": "GAT-X102", "disconnected": false },
                 { "displayName": "豆豆", "disconnected": false }
               ]
             }
@@ -3699,7 +3699,7 @@
                 { "displayName": "豆豆", "disconnected": false },
                 { "displayName": "DR.Yang", "disconnected": false },
                 { "displayName": "年轻", "disconnected": false },
-                { "displayName": "102", "disconnected": false }
+                { "displayName": "GAT-X102", "disconnected": false }
               ]
             }
           ]

@@ -3,7 +3,7 @@
   "season": "dsl2",
   "exportId": "dsl2-match-data-20260824-20260913",
   "standingsAsOf": "2026-09-13T22:54:00+08:00",
-  "publishedAt": "2026-09-15T14:46:49+08:00",
+  "publishedAt": "2026-09-15T16:55:00+08:00",
   "entries": [
     {
       "rank": 1,
@@ -66,8 +66,8 @@
     { "rank": 24, "displayName": "金豆", "points": 43, "tier": "黄金" },
     { "rank": 24, "displayName": "mehdiren", "points": 43, "tier": "黄金" },
     { "rank": 26, "displayName": "白胖", "points": 42, "tier": "黄金" },
-    { "rank": 27, "displayName": "老全", "points": 39, "tier": "黄金" },
-    { "rank": 28, "displayName": "102", "points": 37, "tier": "黄金" },
+    { "rank": 27, "displayName": "GAT-X102", "points": 41, "tier": "黄金" },
+    { "rank": 28, "displayName": "老全", "points": 39, "tier": "黄金" },
     { "rank": 29, "displayName": "LawyerChen", "points": 36, "tier": "黄金" },
     { "rank": 30, "displayName": "mascot520", "points": 34, "tier": "黄金" },
     { "rank": 31, "displayName": "YiDeFuRen", "points": 27, "tier": "白银" },

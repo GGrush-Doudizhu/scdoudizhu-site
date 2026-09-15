@@ -1,5 +1,34 @@
 import { expect, test } from "@playwright/test";
 
+test("102 历史赛果统一归并为 GAT-X102 并保留临时加赛负分", async ({ page }) => {
+  for (const [date, points, appearances] of [
+    ["2026-08-31", "+10", 2],
+    ["2026-09-11", "+27", 4],
+    ["2026-09-12", "+12", 3],
+    ["2026-09-13", "-8", 2],
+  ] as const) {
+    await page.goto(`/announcements/${date}/`);
+    const row = page.locator(".report-points-table tbody tr").filter({
+      has: page.getByRole("rowheader", { name: "GAT-X102", exact: true }),
+    });
+    await expect(row.locator("th,td")).toHaveText([
+      "GAT-X102",
+      points,
+      points,
+      "—",
+    ]);
+    await expect(
+      page.getByRole("rowheader", { name: "102", exact: true }),
+    ).toHaveCount(0);
+    await expect(
+      page.locator(".report-game-card").getByText("GAT-X102", { exact: true }),
+    ).toHaveCount(appearances);
+    await expect(
+      page.locator(".report-game-card").getByText("102", { exact: true }),
+    ).toHaveCount(0);
+  }
+});
+
 for (const [date, count, participants, rows] of [
   ["2026-09-12", 11, 19, 19],
   ["2026-09-13", 7, 16, 17],
