@@ -70,13 +70,15 @@ const heroImage =
         specialMatchRules && (
           <aside class="disconnect-rule" aria-label="临时加赛特别计分说明">
             <h2>临时加赛特别计分说明</h2>
-            <p>{specialMatchRules.reason}</p>
-            <p>
-              本日地主胜 / 负为 {signedPoints(matchPoints.landlordWin)} /{" "}
-              {signedPoints(matchPoints.landlordLoss)}，农民胜 / 负为{" "}
-              {signedPoints(matchPoints.farmerWin)} /{" "}
-              {signedPoints(matchPoints.farmerLoss)}。
-            </p>
+            <div>
+              <p>{specialMatchRules.reason}</p>
+              <p>
+                本日地主胜 / 负为 {signedPoints(matchPoints.landlordWin)} /{" "}
+                {signedPoints(matchPoints.landlordLoss)}，农民胜 / 负为{" "}
+                {signedPoints(matchPoints.farmerWin)} /{" "}
+                {signedPoints(matchPoints.farmerLoss)}。
+              </p>
+            </div>
           </aside>
         )
       }
