@@ -335,10 +335,25 @@ async function buildData() {
         `${sourcePath} 缺少点播人。`,
       );
       const participants = new Set();
+      for (const game of rawGames) {
+        const playedOn = game.playedOn ?? date;
+        assert(
+          /^\d{4}-\d{2}-\d{2}$/u.test(playedOn) &&
+            !Number.isNaN(Date.parse(playedOn)) &&
+            new Date(playedOn).toISOString().slice(0, 10) === playedOn &&
+            playedOn <= date,
+          `${sourcePath} playedOn 必须为不晚于活动归档日的有效日期。`,
+        );
+      }
       const games = rawGames
-        .toSorted((a, b) => a.fileName.localeCompare(b.fileName))
+        .toSorted(
+          (a, b) =>
+            (a.playedOn ?? date).localeCompare(b.playedOn ?? date) ||
+            a.fileName.localeCompare(b.fileName),
+        )
         .map((game, index) => ({
           number: index + 1,
+          date: game.playedOn ?? date,
           time: timeLabel(game.fileName),
           duration: game.duration,
           map: mapName(game.fileName),
@@ -356,15 +371,24 @@ async function buildData() {
       const landlordWins = games.filter(
         (game) => game.forces.find((force) => force.force === 1).won,
       ).length;
+      const eventDateFormatter = new Intl.DateTimeFormat("zh-CN", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        timeZone: "Asia/Singapore",
+      });
+      const startDateLabel = eventDateFormatter.format(
+        new Date(`${games[0].date}T12:00:00+08:00`),
+      );
+      const endDateLabel = eventDateFormatter.format(dateValue);
       specialEvents.push({
         slug: date,
         date,
-        dateLabel: new Intl.DateTimeFormat("zh-CN", {
-          year: "numeric",
-          month: "long",
-          day: "numeric",
-          timeZone: "Asia/Singapore",
-        }).format(dateValue),
+        dateLabel:
+          games[0].date === date
+            ? endDateLabel
+            : `${startDateLabel}—${endDateLabel}`,
+        scheduleNote: metadata.scheduleNote ?? null,
         competition: "exhibition",
         commissionedBy: metadata.commissionedBy.trim(),
         title: `${metadata.commissionedBy.trim()} 老板点播赛`,

@@ -115,13 +115,14 @@ const timelineItems = [
                     {entry.day.dateLabel} {entry.day.title}
                   </h2>
                   <p>
-                    感谢 {entry.day.commissionedBy} 老板点播本场比赛！当晚共进行{" "}
+                    感谢 {entry.day.commissionedBy} 老板点播本场比赛！活动共进行{" "}
                     {entry.day.summary.matchCount} 盘，
                     {entry.day.summary.participantCount} 名选手参与；地主方{" "}
                     {entry.day.summary.landlordWins} 胜，农民方{" "}
                     {entry.day.summary.farmerWins} 胜。
                   </p>
                   <p class="privacy-line">{entry.day.notice}</p>
+                  {entry.day.scheduleNote && <p>{entry.day.scheduleNote}</p>}
                   <a
                     class="button button--primary"
                     href={`/announcements/special/${entry.day.slug}/`}

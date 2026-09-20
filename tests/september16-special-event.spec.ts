@@ -33,6 +33,17 @@ test("9月16日计入第十五比赛日，点播赛完全排除常规赛", () =>
   });
   expect(event).not.toHaveProperty("pointChanges");
   expect(event).not.toHaveProperty("matchdayNumber");
+  expect(
+    event.games.map((game) => [game.number, game.date, game.time]),
+  ).toEqual([
+    [1, "2026-09-18", "20:59"],
+    [2, "2026-09-18", "21:17"],
+    [3, "2026-09-19", "19:39"],
+    [4, "2026-09-19", "19:52"],
+    [5, "2026-09-19", "20:02"],
+    [6, "2026-09-19", "20:23"],
+    [7, "2026-09-19", "20:31"],
+  ]);
 });
 
 test("9月16日赛报展示六盘与正确的工作人员积分", async ({ page }) => {
@@ -91,9 +102,22 @@ test("老板点播赛从新闻可达，展示七盘且没有常规赛积分表",
   await expect(
     page
       .locator(".report-game-card")
-      .last()
+      .nth(1)
       .getByRole("region", { name: "地主胜", exact: true }),
   ).toBeVisible();
+  await expect(
+    page.getByRole("complementary", { name: "活动日期与暂停说明" }),
+  ).toContainText("因游戏服务器故障暂停");
+  await expect(page.locator(".report-game-card header strong")).toHaveText([
+    "2026-09-18 · 20:59",
+    "2026-09-18 · 21:17",
+    "2026-09-19 · 19:39",
+    "2026-09-19 · 19:52",
+    "2026-09-19 · 20:02",
+    "2026-09-19 · 20:23",
+    "2026-09-19 · 20:31",
+  ]);
+  await expect(page.locator("main")).not.toContainText("农民方连胜前六盘");
   expect(
     await page.evaluate(
       () => document.documentElement.scrollWidth - innerWidth,

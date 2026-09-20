@@ -31,6 +31,16 @@ const { event } = Astro.props;
       <aside class="disconnect-rule" aria-label="点播赛说明">
         <h2>特别活动说明</h2><p>{event.notice}</p>
       </aside>
+      {
+        event.scheduleNote && (
+          <aside class="disconnect-rule" aria-label="活动日期与暂停说明">
+            <>
+              <h2>活动日期与暂停说明</h2>
+              <p>{event.scheduleNote}</p>
+            </>
+          </aside>
+        )
+      }
       <div class="report-section-heading">
         <p class="eyebrow">点播赛回顾</p>
         <h2>感谢 {event.commissionedBy} 老板点播</h2>
@@ -43,9 +53,9 @@ const { event } = Astro.props;
           event.date === "2026-09-19" && (
             <p>
               本场地主阵容由 J-Y-T-ChunNan、J-Y-T-IF 与 J-Y-T-Xiaoming
-              组成，shougong
-              担任富农，其他选手轮换出任贫农。农民方连胜前六盘，地主方在第七盘获胜；最终地主方
-              1 胜、农民方 6 胜。
+              组成，shougong 担任富农，其他选手轮换出任贫农。9 月 18
+              日首盘农民方获胜，第二盘地主方获胜；9 月 19
+              日续赛的五盘均由农民方获胜。最终地主方 1 胜、农民方 6 胜。
             </p>
           )
         }
@@ -74,7 +84,7 @@ const { event } = Astro.props;
       <div class="report-section-heading">
         <p class="eyebrow">逐盘赛果</p><h2>
           {event.summary.matchCount} 盘点播赛记录
-        </h2><p>下列时间来自录像文件名。</p>
+        </h2><p>按实际比赛日期排序；下列时间来自录像文件名。</p>
       </div>
       <div class="report-games-list">
         {
@@ -85,7 +95,9 @@ const { event } = Astro.props;
                   <div>
                     <>
                       <span class="game-number">第 {game.number} 盘</span>
-                      <strong>{game.time}</strong>
+                      <strong>
+                        {game.date} · {game.time}
+                      </strong>
                     </>
                   </div>
                   <p>{game.map}</p>
