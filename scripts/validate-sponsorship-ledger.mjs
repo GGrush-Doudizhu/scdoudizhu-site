@@ -14,7 +14,6 @@ const sponsorSchema = z.strictObject({
   avatar: z.string().regex(/^\/assets\/sponsors\/dsl2\/[\w.-]+\.webp$/u),
 });
 const ledgerSchema = z.strictObject({
-  currency: z.literal("CNY"),
   transactions: z
     .array(
       z.strictObject({

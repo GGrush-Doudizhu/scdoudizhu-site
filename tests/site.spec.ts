@@ -299,6 +299,9 @@ test("首页鸣谢第二届首批赞助老板并继续邀请众筹", async ({ pa
   await expect(
     tribute.locator(".home-sponsor-tier--diamond .home-sponsor-card"),
   ).toHaveCount(0);
+  await expect(
+    tribute.locator(".home-sponsor-tier--diamond .home-sponsor-vacancy"),
+  ).toHaveText("虚位以待，欢迎支持赞助");
   await expect(tribute.locator('[data-sponsor-tier="gold"]')).toContainText(
     "Fly",
   );
@@ -321,8 +324,8 @@ test("首页鸣谢第二届首批赞助老板并继续邀请众筹", async ({ pa
     "WoShiLaoCaiNiao",
     "Fly",
     "shougong",
-    "KaKaRu",
     "nianqing",
+    "KaKaRu",
   ]);
 
   for (const tier of ["gold"]) {
@@ -890,7 +893,7 @@ test("赞助鸣谢页完整复用第一届与第二届赞助名单且移除旧�
   );
   await expect(
     secondLeague.locator('[data-sponsor-tier="silver"] strong'),
-  ).toHaveText(["shougong", "KaKaRu", "nianqing"]);
+  ).toHaveText(["shougong", "nianqing", "KaKaRu"]);
   await expect(
     secondLeague.getByRole("img", { name: "shougong 的头像" }),
   ).toHaveAttribute("src", "/assets/sponsors/dsl2/shougong.webp");
@@ -903,6 +906,9 @@ test("赞助鸣谢页完整复用第一届与第二届赞助名单且移除旧�
   await expect(
     secondLeague.locator(".home-sponsor-tier--diamond .home-sponsor-card"),
   ).toHaveCount(0);
+  await expect(
+    secondLeague.locator(".home-sponsor-tier--diamond .home-sponsor-vacancy"),
+  ).toHaveText("虚位以待，欢迎支持赞助");
   await expect(
     page.locator("#sponsor-thanks").getByText("DBS", { exact: true }),
   ).toHaveCount(0);
