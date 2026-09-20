@@ -70,6 +70,11 @@ test("老板点播赛从新闻可达，展示七盘且没有常规赛积分表",
   await expect(page.getByRole("heading", { level: 1 })).toHaveText(
     "WoShiLaoCaiNiao 老板点播赛",
   );
+  expect(
+    await page
+      .getByRole("heading", { level: 1 })
+      .evaluate((heading) => heading.scrollWidth - heading.clientWidth),
+  ).toBeLessThanOrEqual(1);
   await expect(page.locator(".report-summary-grid strong")).toHaveText([
     "7",
     "11",
