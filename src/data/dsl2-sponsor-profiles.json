@@ -1,0 +1,32 @@
+[
+  {
+    "tier": "platinum",
+    "name": "DR.Yang",
+    "avatar": "/assets/sponsors/dsl2/DBS.webp"
+  },
+  {
+    "tier": "platinum",
+    "name": "WoShiLaoCaiNiao",
+    "avatar": "/assets/sponsors/dsl2/WoShiLaoCaiNiao.webp"
+  },
+  {
+    "tier": "gold",
+    "name": "Fly",
+    "avatar": "/assets/sponsors/dsl2/Fly.webp"
+  },
+  {
+    "tier": "silver",
+    "name": "shougong",
+    "avatar": "/assets/sponsors/dsl2/shougong.webp"
+  },
+  {
+    "tier": "silver",
+    "name": "KaKaRu",
+    "avatar": "/assets/sponsors/dsl2/KaKaRu.webp"
+  },
+  {
+    "tier": "silver",
+    "name": "nianqing",
+    "avatar": "/assets/sponsors/dsl2/nianqing.webp"
+  }
+]

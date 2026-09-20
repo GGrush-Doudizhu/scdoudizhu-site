@@ -16,7 +16,7 @@ export const dsl1Sponsors: ReadonlyArray<{
   {
     rank: 1,
     tier: "platinum",
-    name: "DBS",
+    name: "DR.Yang",
     avatar: "/assets/sponsors/dsl1/DBS.webp",
   },
   {

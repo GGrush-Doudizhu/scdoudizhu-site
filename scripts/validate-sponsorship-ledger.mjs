@@ -1,140 +1,92 @@
-import { readFile } from "node:fs/promises";
+import assert from "node:assert/strict";
+import { readFile, access } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { z } from "zod";
 
 const projectRoot = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
   "..",
 );
-const ledgerPath = path.join(
-  projectRoot,
-  "data-source",
-  "dsl2-sponsors",
-  "sponsorship-ledger.csv",
-);
-
-const expectedHeaders = [
-  "transaction_id",
-  "sponsor_name",
-  "amount_cny",
-  "currency",
-  "purpose",
-  "status",
-  "received_date",
-  "recorded_date",
-  "public_tier",
-];
-const allowedTiers = new Set([
-  "铂金赞助商",
-  "钻石赞助商",
-  "黄金赞助商",
-  "白银赞助商",
-]);
-
-function assert(condition, message) {
-  if (!condition) throw new Error(message);
-}
-
-function parseCsv(text) {
-  const rows = [];
-  let row = [];
-  let field = "";
-  let quoted = false;
-
-  for (let index = 0; index < text.length; index += 1) {
-    const character = text[index];
-
-    if (quoted) {
-      if (character === '"' && text[index + 1] === '"') {
-        field += '"';
-        index += 1;
-      } else if (character === '"') {
-        quoted = false;
-      } else {
-        field += character;
-      }
-      continue;
-    }
-
-    if (character === '"') {
-      quoted = true;
-    } else if (character === ",") {
-      row.push(field);
-      field = "";
-    } else if (character === "\n") {
-      row.push(field);
-      if (row.some((value) => value.length > 0)) rows.push(row);
-      row = [];
-      field = "";
-    } else if (character !== "\r") {
-      field += character;
-    }
-  }
-
-  if (field.length > 0 || row.length > 0) {
-    row.push(field);
-    rows.push(row);
-  }
-
-  assert(!quoted, "赞助流水 CSV 存在未闭合的引号。");
-  return rows;
-}
-
-const rawText = (await readFile(ledgerPath, "utf8")).replace(/^\uFEFF/u, "");
-const [headers, ...rows] = parseCsv(rawText);
-
-assert(
-  JSON.stringify(headers) === JSON.stringify(expectedHeaders),
-  `赞助流水字段不符合约定。实际字段：${headers?.join(", ") ?? "无"}`,
-);
-assert(rows.length > 0, "赞助流水不能为空。");
-
-const transactionIds = new Set();
-const sponsors = new Set();
-let totalCents = 0;
-
-rows.forEach((row, index) => {
-  const line = index + 2;
-  assert(row.length === headers.length, `第 ${line} 行字段数量不正确。`);
-  const entry = Object.fromEntries(
-    headers.map((header, column) => [header, row[column]]),
-  );
-
-  assert(entry.transaction_id.trim(), `第 ${line} 行缺少流水编号。`);
-  assert(
-    !transactionIds.has(entry.transaction_id),
-    `流水编号 ${entry.transaction_id} 重复。`,
-  );
-  transactionIds.add(entry.transaction_id);
-
-  assert(entry.sponsor_name.trim(), `第 ${line} 行缺少赞助者昵称。`);
-  sponsors.add(entry.sponsor_name.trim());
-  assert(
-    /^\d+\.\d{2}$/u.test(entry.amount_cny),
-    `第 ${line} 行金额必须是保留两位小数的正数。`,
-  );
-  const [yuan, cents] = entry.amount_cny.split(".").map(Number);
-  const amountCents = yuan * 100 + cents;
-  assert(amountCents > 0, `第 ${line} 行金额必须大于零。`);
-  totalCents += amountCents;
-
-  assert(entry.currency === "CNY", `第 ${line} 行币种必须是 CNY。`);
-  assert(entry.purpose.trim(), `第 ${line} 行缺少赞助用途。`);
-  assert(entry.status === "已收到", `第 ${line} 行状态必须是“已收到”。`);
-  assert(
-    !entry.received_date || /^\d{4}-\d{2}-\d{2}$/u.test(entry.received_date),
-    `第 ${line} 行到账日期格式必须是 YYYY-MM-DD 或留空。`,
-  );
-  assert(
-    /^\d{4}-\d{2}-\d{2}$/u.test(entry.recorded_date),
-    `第 ${line} 行建档日期格式必须是 YYYY-MM-DD。`,
-  );
-  assert(
-    allowedTiers.has(entry.public_tier),
-    `第 ${line} 行公开档位不在允许范围内。`,
-  );
+const sponsorSchema = z.strictObject({
+  name: z.string().trim().min(1),
+  tier: z.enum(["platinum", "diamond", "gold", "silver"]),
+  avatar: z.string().regex(/^\/assets\/sponsors\/dsl2\/[\w.-]+\.webp$/u),
+});
+const ledgerSchema = z.strictObject({
+  currency: z.literal("CNY"),
+  transactions: z
+    .array(
+      z.strictObject({
+        sponsor: z.string().min(1),
+        amount: z
+          .number()
+          .positive()
+          .refine(
+            (amount) =>
+              Number.isSafeInteger(Math.round(amount * 100)) &&
+              Math.abs(amount * 100 - Math.round(amount * 100)) < 1e-8,
+            "金额最多保留两位小数，且必须能安全转换为分。",
+          ),
+        purpose: z.string().trim().min(1),
+        status: z.literal("已收到"),
+        received_date: z.iso.date().nullable(),
+        recorded_date: z.iso.date().nullable(),
+      }),
+    )
+    .min(1),
 });
 
+const sponsors = z
+  .array(sponsorSchema)
+  .min(1)
+  .parse(
+    JSON.parse(
+      await readFile(
+        path.join(projectRoot, "src/data/dsl2-sponsor-profiles.json"),
+        "utf8",
+      ),
+    ),
+  );
+const ledger = ledgerSchema.parse(
+  JSON.parse(
+    await readFile(
+      path.join(
+        projectRoot,
+        "data-source/dsl2-sponsors/sponsorship-ledger.json",
+      ),
+      "utf8",
+    ),
+  ),
+);
+const sponsorNames = new Set(sponsors.map((sponsor) => sponsor.name));
+assert.equal(sponsorNames.size, sponsors.length, "赞助商昵称不能重复。");
+const totals = new Map(sponsors.map((sponsor) => [sponsor.name, 0]));
+for (const [index, entry] of ledger.transactions.entries()) {
+  assert(
+    sponsorNames.has(entry.sponsor),
+    `第 ${index + 1} 笔流水引用了未知赞助商：${entry.sponsor}`,
+  );
+  if (entry.received_date && entry.recorded_date) {
+    assert(
+      entry.received_date <= entry.recorded_date,
+      `第 ${index + 1} 笔流水的建档日期早于到账日期。`,
+    );
+  }
+  totals.set(
+    entry.sponsor,
+    totals.get(entry.sponsor) + Math.round(entry.amount * 100),
+  );
+}
+let totalCents = 0;
+for (const sponsor of sponsors) {
+  await access(path.join(projectRoot, "public", sponsor.avatar));
+  const cents = totals.get(sponsor.name);
+  assert(cents > 0, `赞助商 ${sponsor.name} 缺少到账流水。`);
+  totalCents += cents;
+  assert(Number.isSafeInteger(totalCents), "赞助总额超出安全整数范围。");
+  console.log(`${sponsor.name}：${(cents / 100).toFixed(2)} 元`);
+}
 console.log(
-  `赞助流水验证通过：${rows.length} 笔，${sponsors.size} 位赞助者，总额 ${(totalCents / 100).toFixed(2)} 元。`,
+  `赞助流水验证通过：${ledger.transactions.length} 笔，${sponsors.length} 位赞助者，总额 ${(totalCents / 100).toFixed(2)} 元。`,
 );

@@ -1,3 +1,5 @@
+import sponsors from "./dsl2-sponsor-profiles.json" with { type: "json" };
+
 export const dsl2SponsorTiers = [
   { id: "platinum", name: "铂金赞助商" },
   { id: "diamond", name: "钻石赞助商" },
@@ -11,30 +13,8 @@ export const dsl2Sponsors: ReadonlyArray<{
   tier: Dsl2SponsorTier;
   name: string;
   avatar: string;
-}> = [
-  {
-    tier: "platinum",
-    name: "DBS",
-    avatar: "/assets/sponsors/dsl2/DBS.webp",
-  },
-  {
-    tier: "diamond",
-    name: "WoShiLaoCaiNiao",
-    avatar: "/assets/sponsors/dsl2/WoShiLaoCaiNiao.webp",
-  },
-  {
-    tier: "gold",
-    name: "Fly",
-    avatar: "/assets/sponsors/dsl2/Fly.webp",
-  },
-  {
-    tier: "silver",
-    name: "KaKaRu",
-    avatar: "/assets/sponsors/dsl2/KaKaRu.webp",
-  },
-  {
-    tier: "silver",
-    name: "nianqing",
-    avatar: "/assets/sponsors/dsl2/nianqing.webp",
-  },
-];
+}> = sponsors.map((sponsor) => {
+  const tier = dsl2SponsorTiers.find((entry) => entry.id === sponsor.tier);
+  if (!tier) throw new Error(`未知赞助等级：${sponsor.tier}`);
+  return { ...sponsor, tier: tier.id };
+});

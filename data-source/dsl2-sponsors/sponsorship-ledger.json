@@ -1,0 +1,77 @@
+{
+  "currency": "CNY",
+  "transactions": [
+    {
+      "sponsor": "DR.Yang",
+      "amount": 200,
+      "purpose": "专用于网站域名续费",
+      "status": "已收到",
+      "received_date": null,
+      "recorded_date": "2026-08-24"
+    },
+    {
+      "sponsor": "WoShiLaoCaiNiao",
+      "amount": 1000,
+      "purpose": "专用于老鸟杯，DSL预热",
+      "status": "已收到",
+      "received_date": null,
+      "recorded_date": "2026-08-24"
+    },
+    {
+      "sponsor": "DR.Yang",
+      "amount": 1500,
+      "purpose": "用于DSL",
+      "status": "已收到",
+      "received_date": null,
+      "recorded_date": "2026-08-24"
+    },
+    {
+      "sponsor": "Fly",
+      "amount": 500,
+      "purpose": "用于DSL",
+      "status": "已收到",
+      "received_date": null,
+      "recorded_date": "2026-08-24"
+    },
+    {
+      "sponsor": "KaKaRu",
+      "amount": 18.88,
+      "purpose": "用于作者辛苦费",
+      "status": "已收到",
+      "received_date": null,
+      "recorded_date": "2026-08-24"
+    },
+    {
+      "sponsor": "nianqing",
+      "amount": 18.88,
+      "purpose": "用于作者辛苦费",
+      "status": "已收到",
+      "received_date": "2026-09-01",
+      "recorded_date": "2026-09-02"
+    },
+    {
+      "sponsor": "WoShiLaoCaiNiao",
+      "amount": 1000,
+      "purpose": "用于DSL",
+      "status": "已收到",
+      "received_date": "2026-09-18",
+      "recorded_date": null
+    },
+    {
+      "sponsor": "shougong",
+      "amount": 90,
+      "purpose": "作者工作支持",
+      "status": "已收到",
+      "received_date": "2026-09-20",
+      "recorded_date": "2026-09-20"
+    },
+    {
+      "sponsor": "nianqing",
+      "amount": 28.88,
+      "purpose": "用于作者辛苦费",
+      "status": "已收到",
+      "received_date": "2026-09-20",
+      "recorded_date": "2026-09-20"
+    }
+  ]
+}

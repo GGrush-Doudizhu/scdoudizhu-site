@@ -781,12 +781,16 @@ h3 {
   grid-template-columns: minmax(280px, 360px);
 }
 
+.home-sponsor-tribute--dsl2 .home-sponsor-tier--platinum .home-sponsor-grid {
+  grid-template-columns: repeat(2, minmax(0, 360px));
+}
+
 .home-sponsor-tier--diamond .home-sponsor-grid {
   grid-template-columns: repeat(2, minmax(240px, 310px));
 }
 
 .home-sponsor-tribute--dsl2 .home-sponsor-tier--silver .home-sponsor-grid {
-  grid-template-columns: repeat(2, minmax(0, 180px));
+  grid-template-columns: repeat(3, minmax(0, 180px));
 }
 
 .home-sponsor-tier--diamond .home-sponsor-card:only-child {
@@ -2627,7 +2631,8 @@ tbody th {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
-  .home-sponsor-tier--platinum .home-sponsor-grid {
+  .home-sponsor-tier--platinum .home-sponsor-grid,
+  .home-sponsor-tribute--dsl2 .home-sponsor-tier--platinum .home-sponsor-grid {
     grid-template-columns: minmax(0, 1fr);
   }
 
