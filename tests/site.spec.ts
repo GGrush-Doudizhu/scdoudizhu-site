@@ -306,7 +306,7 @@ test("首页鸣谢第二届首批赞助老板并继续邀请众筹", async ({ pa
     "Fly",
   );
   const silverSponsors = tribute.locator('[data-sponsor-tier="silver"]');
-  await expect(silverSponsors).toHaveCount(3);
+  await expect(silverSponsors).toHaveCount(4);
   await expect(silverSponsors.filter({ hasText: /^KaKaRu$/u })).toHaveCount(1);
   await expect(silverSponsors.filter({ hasText: /^nianqing$/u })).toHaveCount(
     1,
@@ -314,7 +314,10 @@ test("首页鸣谢第二届首批赞助老板并继续邀请众筹", async ({ pa
   await expect(silverSponsors.filter({ hasText: /^shougong$/u })).toHaveCount(
     1,
   );
-  await expect(tribute.locator(".home-sponsor-card")).toHaveCount(6);
+  await expect(silverSponsors.filter({ hasText: /^stefsunli$/u })).toHaveCount(
+    1,
+  );
+  await expect(tribute.locator(".home-sponsor-card")).toHaveCount(7);
 
   const displayedNames = await tribute
     .locator(".home-sponsor-card strong")
@@ -323,6 +326,7 @@ test("首页鸣谢第二届首批赞助老板并继续邀请众筹", async ({ pa
     "DR.Yang",
     "WoShiLaoCaiNiao",
     "Fly",
+    "stefsunli",
     "shougong",
     "nianqing",
     "KaKaRu",
@@ -893,7 +897,10 @@ test("赞助鸣谢页完整复用第一届与第二届赞助名单且移除旧�
   );
   await expect(
     secondLeague.locator('[data-sponsor-tier="silver"] strong'),
-  ).toHaveText(["shougong", "nianqing", "KaKaRu"]);
+  ).toHaveText(["stefsunli", "shougong", "nianqing", "KaKaRu"]);
+  await expect(
+    secondLeague.getByRole("img", { name: "stefsunli 的头像" }),
+  ).toHaveAttribute("src", "/assets/sponsors/dsl2/stefsunli.webp");
   await expect(
     secondLeague.getByRole("img", { name: "shougong 的头像" }),
   ).toHaveAttribute("src", "/assets/sponsors/dsl2/shougong.webp");

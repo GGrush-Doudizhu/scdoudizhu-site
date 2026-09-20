@@ -118,10 +118,11 @@
 - 用户放置目录：`D:\scdoudizhu-dsl2\public\assets\sponsors\dsl2`
 - 当前网站目录：`public/assets/sponsors/dsl2`
 - 加入日期：2026-08-24
-- 当前公开范围：铂金赞助商 DR.Yang（原昵称 DBS）、WoShiLaoCaiNiao，黄金赞助商 Fly，以及白银赞助商 KaKaRu、nianqing、shougong 的昵称、头像与赞助等级。公开名单统一维护于 `src/data/dsl2-sponsor-profiles.json`。
+- 当前公开范围：铂金赞助商 DR.Yang（原昵称 DBS）、WoShiLaoCaiNiao，黄金赞助商 Fly，以及白银赞助商 stefsunli、shougong、nianqing、KaKaRu 的昵称、头像与赞助等级。公开名单统一维护于 `src/data/dsl2-sponsor-profiles.json`。
 - 公开边界：赞助金额仅用于主办方确认赞助等级，不在网站组件、公开数据文件或页面文案中保存和展示。
 - 图片处理：用户提供的 DBS JPG 与 WoShiLaoCaiNiao PNG 均在新仓库内统一生成 192×192 WebP，确认衍生图后移除公开目录中的原格式文件。
 - 2026-09-20：使用用户提供的 shougong JPG 头像生成 192×192 WebP，保留原图内容，加入第二届白银赞助商名单。
+- 2026-09-20：使用用户提供的 stefsunli JPG 头像生成 192×192 WebP，加入第二届白银赞助商首位。
 
 ## 尚未复制的资料
 
