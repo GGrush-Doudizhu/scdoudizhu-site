@@ -41,7 +41,7 @@ const fullStandingsOutputPath = path.join(
 );
 const checkOnly = process.argv.includes("--check");
 
-const publishedAt = "2026-09-15T23:28:54+08:00";
+const publishedAt = "2026-09-20T20:20:37+08:00";
 const workPointCap = 15;
 const workRoleRules = {
   host: { label: "房主", points: 10 },
@@ -269,6 +269,7 @@ async function buildData() {
 
   const masterMatchDays = [];
   const publicMatchDays = [];
+  const specialEvents = [];
   const playerTotals = new Map();
   const observedNames = new Map();
   const disconnectTracker = createDisconnectTracker();
@@ -285,8 +286,100 @@ async function buildData() {
       `${sourcePath} 数据为空。`,
     );
     const [metadata, ...rawGames] = source;
+    const replayNames = new Set();
+    for (const game of rawGames) {
+      assert(
+        typeof game.fileName === "string" && !replayNames.has(game.fileName),
+        `${sourcePath} 录像名称缺失或重复。`,
+      );
+      replayNames.add(game.fileName);
+      const teams = game.teams?.toSorted((a, b) => a.team - b.team);
+      assert(
+        teams && [2, 3].includes(teams.length),
+        `${sourcePath} 阵营数量无效。`,
+      );
+      const sizes = teams.length === 3 ? [3, 1, 4] : [2, 6];
+      assert(
+        teams.every(
+          (team, index) =>
+            team.team === index + 1 &&
+            team.players?.length === sizes[index] &&
+            typeof team.winner === "boolean" &&
+            (index === 0 || team.winner !== teams[0].winner),
+        ),
+        `${sourcePath} 阵容或赛果无效。`,
+      );
+      const names = teams.flatMap((team) =>
+        team.players.map((player) => {
+          assert(
+            typeof player.name === "string" && player.name.trim(),
+            `${sourcePath} 选手名称为空。`,
+          );
+          return canonicalName(player.name);
+        }),
+      );
+      assert(new Set(names).size === 8, `${sourcePath} 同盘出现重复身份。`);
+    }
     const date = isoDate(compactDate);
     const dateValue = new Date(`${date}T12:00:00+08:00`);
+    assert(
+      metadata.competition === undefined ||
+        ["regular", "exhibition"].includes(metadata.competition),
+      `${sourcePath} competition 必须为 regular 或 exhibition。`,
+    );
+    // Exhibition games never enter regular-season scoring or identity tracking.
+    if (metadata.competition === "exhibition") {
+      assert(
+        typeof metadata.commissionedBy === "string" &&
+          metadata.commissionedBy.trim(),
+        `${sourcePath} 缺少点播人。`,
+      );
+      const participants = new Set();
+      const games = rawGames
+        .toSorted((a, b) => a.fileName.localeCompare(b.fileName))
+        .map((game, index) => ({
+          number: index + 1,
+          time: timeLabel(game.fileName),
+          duration: game.duration,
+          map: mapName(game.fileName),
+          forces: game.teams.map((team) => ({
+            force: team.team,
+            role: roleForForce(team.team, game.teams.length),
+            won: team.winner,
+            players: team.players.map((player) => {
+              const displayName = canonicalName(player.name);
+              participants.add(displayName);
+              return { displayName, disconnected: player.exitEvent === "掉线" };
+            }),
+          })),
+        }));
+      const landlordWins = games.filter(
+        (game) => game.forces.find((force) => force.force === 1).won,
+      ).length;
+      specialEvents.push({
+        slug: date,
+        date,
+        dateLabel: new Intl.DateTimeFormat("zh-CN", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+          timeZone: "Asia/Singapore",
+        }).format(dateValue),
+        competition: "exhibition",
+        commissionedBy: metadata.commissionedBy.trim(),
+        title: `${metadata.commissionedBy.trim()} 老板点播赛`,
+        notice:
+          "本场为老板点播的特别活动，不计入 DSL 常规赛，不计积分、参赛场次、胜率及掉线统计。",
+        summary: {
+          matchCount: games.length,
+          participantCount: participants.size,
+          landlordWins,
+          farmerWins: games.length - landlordWins,
+        },
+        games,
+      });
+      continue;
+    }
     const platform = platformForDate(dateValue, metadata);
     const matchPointOverrides = resolveMatchPointOverrides(metadata);
     const disconnectEvents = [];
@@ -521,8 +614,9 @@ async function buildData() {
     });
   }
 
-  const firstDate = matchdayDirectories.at(0);
-  const lastDate = matchdayDirectories.at(-1);
+  assert(masterMatchDays.length > 0, "没有可统计的常规赛比赛日。");
+  const firstDate = masterMatchDays.at(0).date.replaceAll("-", "");
+  const lastDate = masterMatchDays.at(-1).date.replaceAll("-", "");
   const lastGames = publicMatchDays.at(-1).games;
   const standingsAsOf = `${isoDate(lastDate)}T${lastGames.at(-1).time}:00+08:00`;
   let competitionRank = 0;
@@ -569,6 +663,7 @@ async function buildData() {
     season: "dsl2",
     sourceRange: `${firstDate}-${lastDate}`,
     matchDays: publicMatchDays.toReversed(),
+    specialEvents: specialEvents.toReversed(),
   };
   const masterData = {
     schemaVersion: 2,
@@ -577,9 +672,11 @@ async function buildData() {
     sourceRange: `${firstDate}-${lastDate}`,
     standingsAsOf,
     generatedFrom: {
-      matchdayFiles: matchdayDirectories.map((date) =>
-        path.posix.join("match-data", date, `${date}.json`),
-      ),
+      matchdayFiles: masterMatchDays.map((day) => day.sourceFile),
+      specialEventFiles: specialEvents.map((event) => {
+        const date = event.date.replaceAll("-", "");
+        return path.posix.join("match-data", date, `${date}.json`);
+      }),
       identityFile: "match-data/same_name.csv",
     },
     scoringRules: {

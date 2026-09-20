@@ -32,6 +32,14 @@ pnpm run build:match-reports
 
 2026-09-13 为韩服周日临时加赛，地主胜 +12、负 −6，农民胜 +8、负 −4。其他比赛日继续使用正常计分。生成器不会自动解释自然语言备注，更新时必须检查 `note`。
 
+## 不计分的老板点播活动
+
+管理员明确要求只发布新闻、不计入 DSL 常规赛时，在该日原始 JSON 首项设置 `competition: "exhibition"` 和 `commissionedBy`（点播老板名称），保留原始 `note` 与全部赛果。此类活动无需提供常规赛工作人员字段。
+
+生成器先核验阵容与赛果，再将活动写入公开赛报的 `specialEvents`，由新闻页和 `/announcements/special/YYYY-MM-DD/` 展示。活动不会进入 `matchDays`、比赛日编号、比赛积分、工作积分、场次、胜率或掉线累计，也不会推进常规赛统计截止时间。管理数据的 `generatedFrom.specialEventFiles` 单独保留来源路径。缺省 `competition` 或指定 `regular` 的日期仍按常规赛处理。
+
+2026-09-19 为 WoShiLaoCaiNiao 老板点播活动，共 7 盘，仅发布新闻；当前常规赛统计截止 2026-09-16。活动新闻如需撰写特定对阵回顾，应核对该日原始赛果。
+
 ## 掉线核算
 
 掉线规则配置保存在 `src/data/disconnect-policy.json`。生成器从首个比赛日起，按比赛日期、录像文件名时间排序，先通过 `same_name.csv` 归并昵称，再按「选手主名称 + 赛区 + 周一日期」累计掉线次数。每周按 UTC+8 的周一至周日计算。

@@ -1,0 +1,129 @@
+---
+import PageHero from "../../../components/PageHero.astro";
+import matchReports from "../../../data/match-reports.json";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+
+export function getStaticPaths() {
+  return matchReports.specialEvents.map((event) => ({
+    params: { date: event.slug },
+    props: { event },
+  }));
+}
+interface Props {
+  event: (typeof matchReports.specialEvents)[number];
+}
+const { event } = Astro.props;
+---
+
+<BaseLayout
+  title={`${event.dateLabel} ${event.title}`}
+  description={`${event.title}活动回顾与逐盘赛果。${event.notice}`}
+>
+  <PageHero
+    eyebrow="特别活动 · 老板点播"
+    title={event.title}
+    description={`${event.dateLabel} · ${event.summary.matchCount} 盘对决 · 不计 DSL 常规赛积分`}
+    image="/news/assets/sc-protoss-carrier"
+  />
+  <section class="section match-report-overview">
+    <div class="container report-container">
+      <a class="back-link" href="/announcements/">← 返回赛事新闻</a>
+      <aside class="disconnect-rule" aria-label="点播赛说明">
+        <h2>特别活动说明</h2><p>{event.notice}</p>
+      </aside>
+      <div class="report-section-heading">
+        <p class="eyebrow">点播赛回顾</p>
+        <h2>感谢 {event.commissionedBy} 老板点播</h2>
+        <p>
+          {event.dateLabel}，应 {event.commissionedBy} 老板点播，{
+            event.summary.participantCount
+          } 位选手参与了这场特别活动，共完成 {event.summary.matchCount} 盘斗地主对决。
+        </p>
+        {
+          event.date === "2026-09-19" && (
+            <p>
+              本场地主阵容由 J-Y-T-ChunNan、J-Y-T-IF 与 J-Y-T-Xiaoming
+              组成，shougong
+              担任富农，其他选手轮换出任贫农。农民方连胜前六盘，地主方在第七盘获胜；最终地主方
+              1 胜、农民方 6 胜。
+            </p>
+          )
+        }
+        <p>
+          以下保留本场逐盘阵容与胜负，供大家回顾这场点播活动。感谢老板的支持，也感谢所有参与选手！
+        </p>
+      </div>
+      <div class="report-summary-grid" aria-label="点播赛数据摘要">
+        <article>
+          <strong>{event.summary.matchCount}</strong><span>活动盘数</span>
+        </article>
+        <article>
+          <strong>{event.summary.participantCount}</strong><span>参与选手</span>
+        </article>
+        <article>
+          <strong>{event.summary.landlordWins}</strong><span>地主方获胜</span>
+        </article>
+        <article>
+          <strong>{event.summary.farmerWins}</strong><span>农民方获胜</span>
+        </article>
+      </div>
+    </div>
+  </section>
+  <section class="section report-games-section">
+    <div class="container report-container">
+      <div class="report-section-heading">
+        <p class="eyebrow">逐盘赛果</p><h2>
+          {event.summary.matchCount} 盘点播赛记录
+        </h2><p>下列时间来自录像文件名。</p>
+      </div>
+      <div class="report-games-list">
+        {
+          event.games.map((game) => (
+            <article class="report-game-card">
+              <header>
+                <>
+                  <div>
+                    <>
+                      <span class="game-number">第 {game.number} 盘</span>
+                      <strong>{game.time}</strong>
+                    </>
+                  </div>
+                  <p>{game.map}</p>
+                  <span>用时 {game.duration}</span>
+                </>
+              </header>
+              <div class="force-results">
+                {game.forces.map((force) => (
+                  <section
+                    class:list={[
+                      "force-result",
+                      force.won ? "force-result--won" : "force-result--lost",
+                    ]}
+                    aria-label={`${force.role}${force.won ? "胜" : "负"}`}
+                  >
+                    <div class="force-result-heading">
+                      <span>{force.role}</span>
+                      <strong>{force.won ? "胜" : "负"}</strong>
+                    </div>
+                    <ul>
+                      {force.players.map((player) => (
+                        <li
+                          class:list={{
+                            "player-disconnected": player.disconnected,
+                          }}
+                        >
+                          {player.displayName}
+                          {player.disconnected && <span>掉线</span>}
+                        </li>
+                      ))}
+                    </ul>
+                  </section>
+                ))}
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</BaseLayout>

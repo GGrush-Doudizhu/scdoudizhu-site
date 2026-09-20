@@ -1,8 +1,363 @@
 {
   "schemaVersion": 3,
   "season": "dsl2",
-  "sourceRange": "20260824-20260914",
+  "sourceRange": "20260824-20260916",
   "matchDays": [
+    {
+      "matchdayNumber": 15,
+      "slug": "2026-09-16",
+      "date": "2026-09-16",
+      "dateLabel": "2026年9月16日",
+      "weekday": "星期三",
+      "platform": "韩服",
+      "notice": null,
+      "disconnectEvents": [],
+      "staff": {
+        "hosts": ["ctrl+Q++Q"],
+        "streamers": ["ctrl+Q++Q", "lansoov", "do''do"],
+        "statistician": "GGrush"
+      },
+      "summary": {
+        "matchCount": 6,
+        "participantCount": 14,
+        "landlordWins": 2,
+        "farmerWins": 4
+      },
+      "pointChanges": [
+        {
+          "displayName": "lansoov",
+          "matchPoints": 46,
+          "workPoints": 10,
+          "total": 56,
+          "contributions": ["主播"],
+          "workPointsCapped": false
+        },
+        {
+          "displayName": "ctrl+Q++Q",
+          "matchPoints": 34,
+          "workPoints": 15,
+          "total": 49,
+          "contributions": ["房主", "主播"],
+          "workPointsCapped": true
+        },
+        {
+          "displayName": "SupeRocK",
+          "matchPoints": 38,
+          "workPoints": 0,
+          "total": 38,
+          "contributions": [],
+          "workPointsCapped": false
+        },
+        {
+          "displayName": "YiDeFuRen",
+          "matchPoints": 30,
+          "workPoints": 0,
+          "total": 30,
+          "contributions": [],
+          "workPointsCapped": false
+        },
+        {
+          "displayName": "KaKaRu",
+          "matchPoints": 28,
+          "workPoints": 0,
+          "total": 28,
+          "contributions": [],
+          "workPointsCapped": false
+        },
+        {
+          "displayName": "豆豆",
+          "matchPoints": 23,
+          "workPoints": 0,
+          "total": 23,
+          "contributions": [],
+          "workPointsCapped": false
+        },
+        {
+          "displayName": "do''do",
+          "matchPoints": 11,
+          "workPoints": 10,
+          "total": 21,
+          "contributions": ["主播"],
+          "workPointsCapped": false
+        },
+        {
+          "displayName": "lucky2023",
+          "matchPoints": 20,
+          "workPoints": 0,
+          "total": 20,
+          "contributions": [],
+          "workPointsCapped": false
+        },
+        {
+          "displayName": "年轻",
+          "matchPoints": 13,
+          "workPoints": 0,
+          "total": 13,
+          "contributions": [],
+          "workPointsCapped": false
+        },
+        {
+          "displayName": "stefsunli",
+          "matchPoints": 12,
+          "workPoints": 0,
+          "total": 12,
+          "contributions": [],
+          "workPointsCapped": false
+        },
+        {
+          "displayName": "paijipao",
+          "matchPoints": 11,
+          "workPoints": 0,
+          "total": 11,
+          "contributions": [],
+          "workPointsCapped": false
+        },
+        {
+          "displayName": "shougong",
+          "matchPoints": 11,
+          "workPoints": 0,
+          "total": 11,
+          "contributions": [],
+          "workPointsCapped": false
+        },
+        {
+          "displayName": "mascot520",
+          "matchPoints": 8,
+          "workPoints": 0,
+          "total": 8,
+          "contributions": [],
+          "workPointsCapped": false
+        },
+        {
+          "displayName": "GGrush",
+          "matchPoints": 0,
+          "workPoints": 5,
+          "total": 5,
+          "contributions": ["赛事数据统计员"],
+          "workPointsCapped": false
+        },
+        {
+          "displayName": "五社",
+          "matchPoints": 3,
+          "workPoints": 0,
+          "total": 3,
+          "contributions": [],
+          "workPointsCapped": false
+        }
+      ],
+      "games": [
+        {
+          "number": 1,
+          "time": "20:42",
+          "duration": "45:31",
+          "map": "斗地主Doudizhu 5.7",
+          "forces": [
+            {
+              "force": 1,
+              "role": "地主",
+              "won": false,
+              "players": [
+                { "displayName": "五社", "disconnected": false },
+                { "displayName": "shougong", "disconnected": false },
+                { "displayName": "do''do", "disconnected": false }
+              ]
+            },
+            {
+              "force": 2,
+              "role": "富农",
+              "won": true,
+              "players": [{ "displayName": "lansoov", "disconnected": false }]
+            },
+            {
+              "force": 3,
+              "role": "贫农",
+              "won": true,
+              "players": [
+                { "displayName": "mascot520", "disconnected": false },
+                { "displayName": "KaKaRu", "disconnected": false },
+                { "displayName": "ctrl+Q++Q", "disconnected": false },
+                { "displayName": "年轻", "disconnected": false }
+              ]
+            }
+          ]
+        },
+        {
+          "number": 2,
+          "time": "21:01",
+          "duration": "14:57",
+          "map": "斗地主Doudizhu 5.7",
+          "forces": [
+            {
+              "force": 1,
+              "role": "地主",
+              "won": false,
+              "players": [
+                { "displayName": "do''do", "disconnected": false },
+                { "displayName": "SupeRocK", "disconnected": false },
+                { "displayName": "lansoov", "disconnected": false }
+              ]
+            },
+            {
+              "force": 2,
+              "role": "富农",
+              "won": true,
+              "players": [{ "displayName": "shougong", "disconnected": false }]
+            },
+            {
+              "force": 3,
+              "role": "贫农",
+              "won": true,
+              "players": [
+                { "displayName": "ctrl+Q++Q", "disconnected": false },
+                { "displayName": "豆豆", "disconnected": false },
+                { "displayName": "lucky2023", "disconnected": false },
+                { "displayName": "KaKaRu", "disconnected": false }
+              ]
+            }
+          ]
+        },
+        {
+          "number": 3,
+          "time": "21:15",
+          "duration": "12:24",
+          "map": "斗地主Doudizhu 5.7",
+          "forces": [
+            {
+              "force": 1,
+              "role": "地主",
+              "won": true,
+              "players": [
+                { "displayName": "YiDeFuRen", "disconnected": false },
+                { "displayName": "lansoov", "disconnected": false },
+                { "displayName": "SupeRocK", "disconnected": false }
+              ]
+            },
+            {
+              "force": 2,
+              "role": "富农",
+              "won": false,
+              "players": [{ "displayName": "年轻", "disconnected": false }]
+            },
+            {
+              "force": 3,
+              "role": "贫农",
+              "won": false,
+              "players": [
+                { "displayName": "KaKaRu", "disconnected": false },
+                { "displayName": "lucky2023", "disconnected": false },
+                { "displayName": "ctrl+Q++Q", "disconnected": false },
+                { "displayName": "stefsunli", "disconnected": false }
+              ]
+            }
+          ]
+        },
+        {
+          "number": 4,
+          "time": "21:32",
+          "duration": "13:39",
+          "map": "斗地主Doudizhu 5.7",
+          "forces": [
+            {
+              "force": 1,
+              "role": "地主",
+              "won": true,
+              "players": [
+                { "displayName": "lansoov", "disconnected": false },
+                { "displayName": "SupeRocK", "disconnected": false },
+                { "displayName": "豆豆", "disconnected": false }
+              ]
+            },
+            {
+              "force": 2,
+              "role": "富农",
+              "won": false,
+              "players": [{ "displayName": "YiDeFuRen", "disconnected": false }]
+            },
+            {
+              "force": 3,
+              "role": "贫农",
+              "won": false,
+              "players": [
+                { "displayName": "KaKaRu", "disconnected": false },
+                { "displayName": "do''do", "disconnected": false },
+                { "displayName": "stefsunli", "disconnected": false },
+                { "displayName": "lucky2023", "disconnected": false }
+              ]
+            }
+          ]
+        },
+        {
+          "number": 5,
+          "time": "21:43",
+          "duration": "09:17",
+          "map": "斗地主Doudizhu 5.7",
+          "forces": [
+            {
+              "force": 1,
+              "role": "地主",
+              "won": false,
+              "players": [
+                { "displayName": "do''do", "disconnected": false },
+                { "displayName": "豆豆", "disconnected": false },
+                { "displayName": "SupeRocK", "disconnected": false }
+              ]
+            },
+            {
+              "force": 2,
+              "role": "富农",
+              "won": true,
+              "players": [{ "displayName": "paijipao", "disconnected": false }]
+            },
+            {
+              "force": 3,
+              "role": "贫农",
+              "won": true,
+              "players": [
+                { "displayName": "lansoov", "disconnected": false },
+                { "displayName": "stefsunli", "disconnected": false },
+                { "displayName": "YiDeFuRen", "disconnected": false },
+                { "displayName": "ctrl+Q++Q", "disconnected": false }
+              ]
+            }
+          ]
+        },
+        {
+          "number": 6,
+          "time": "22:02",
+          "duration": "18:21",
+          "map": "斗地主Doudizhu 5.7",
+          "forces": [
+            {
+              "force": 1,
+              "role": "地主",
+              "won": false,
+              "players": [
+                { "displayName": "lansoov", "disconnected": false },
+                { "displayName": "paijipao", "disconnected": false },
+                { "displayName": "年轻", "disconnected": false }
+              ]
+            },
+            {
+              "force": 2,
+              "role": "富农",
+              "won": true,
+              "players": [{ "displayName": "SupeRocK", "disconnected": false }]
+            },
+            {
+              "force": 3,
+              "role": "贫农",
+              "won": true,
+              "players": [
+                { "displayName": "YiDeFuRen", "disconnected": false },
+                { "displayName": "KaKaRu", "disconnected": false },
+                { "displayName": "ctrl+Q++Q", "disconnected": false },
+                { "displayName": "lucky2023", "disconnected": false }
+              ]
+            }
+          ]
+        }
+      ]
+    },
     {
       "matchdayNumber": 14,
       "slug": "2026-09-14",
@@ -6114,6 +6469,270 @@
                 { "displayName": "mehdiren", "disconnected": false },
                 { "displayName": "DR.Yang", "disconnected": false },
                 { "displayName": "G600", "disconnected": false }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "specialEvents": [
+    {
+      "slug": "2026-09-19",
+      "date": "2026-09-19",
+      "dateLabel": "2026年9月19日",
+      "competition": "exhibition",
+      "commissionedBy": "WoShiLaoCaiNiao",
+      "title": "WoShiLaoCaiNiao 老板点播赛",
+      "notice": "本场为老板点播的特别活动，不计入 DSL 常规赛，不计积分、参赛场次、胜率及掉线统计。",
+      "summary": {
+        "matchCount": 7,
+        "participantCount": 11,
+        "landlordWins": 1,
+        "farmerWins": 6
+      },
+      "games": [
+        {
+          "number": 1,
+          "time": "19:39",
+          "duration": "08:59",
+          "map": "斗地主Doudizhu 5.7",
+          "forces": [
+            {
+              "force": 1,
+              "role": "地主",
+              "won": false,
+              "players": [
+                { "displayName": "J-Y-T-ChunNan", "disconnected": false },
+                { "displayName": "J-Y-T-IF", "disconnected": false },
+                { "displayName": "J-Y-T-Xiaoming", "disconnected": false }
+              ]
+            },
+            {
+              "force": 2,
+              "role": "富农",
+              "won": true,
+              "players": [{ "displayName": "shougong", "disconnected": false }]
+            },
+            {
+              "force": 3,
+              "role": "贫农",
+              "won": true,
+              "players": [
+                { "displayName": "52Okill", "disconnected": false },
+                { "displayName": "GGrush", "disconnected": false },
+                { "displayName": "IKILllIII", "disconnected": false },
+                { "displayName": "paijipao", "disconnected": false }
+              ]
+            }
+          ]
+        },
+        {
+          "number": 2,
+          "time": "19:52",
+          "duration": "11:17",
+          "map": "斗地主Doudizhu 5.7",
+          "forces": [
+            {
+              "force": 1,
+              "role": "地主",
+              "won": false,
+              "players": [
+                { "displayName": "J-Y-T-ChunNan", "disconnected": false },
+                { "displayName": "J-Y-T-IF", "disconnected": false },
+                { "displayName": "J-Y-T-Xiaoming", "disconnected": false }
+              ]
+            },
+            {
+              "force": 2,
+              "role": "富农",
+              "won": true,
+              "players": [{ "displayName": "shougong", "disconnected": false }]
+            },
+            {
+              "force": 3,
+              "role": "贫农",
+              "won": true,
+              "players": [
+                { "displayName": "IKILllIII", "disconnected": false },
+                { "displayName": "SupeRocK", "disconnected": false },
+                { "displayName": "52Okill", "disconnected": false },
+                { "displayName": "paijipao", "disconnected": false }
+              ]
+            }
+          ]
+        },
+        {
+          "number": 3,
+          "time": "20:02",
+          "duration": "07:49",
+          "map": "斗地主Doudizhu 5.7",
+          "forces": [
+            {
+              "force": 1,
+              "role": "地主",
+              "won": false,
+              "players": [
+                { "displayName": "J-Y-T-ChunNan", "disconnected": false },
+                { "displayName": "J-Y-T-IF", "disconnected": false },
+                { "displayName": "J-Y-T-Xiaoming", "disconnected": false }
+              ]
+            },
+            {
+              "force": 2,
+              "role": "富农",
+              "won": true,
+              "players": [{ "displayName": "shougong", "disconnected": false }]
+            },
+            {
+              "force": 3,
+              "role": "贫农",
+              "won": true,
+              "players": [
+                { "displayName": "SupeRocK", "disconnected": false },
+                { "displayName": "52Okill", "disconnected": false },
+                { "displayName": "GGrush", "disconnected": false },
+                { "displayName": "paijipao", "disconnected": false }
+              ]
+            }
+          ]
+        },
+        {
+          "number": 4,
+          "time": "20:23",
+          "duration": "13:31",
+          "map": "斗地主Doudizhu 5.7",
+          "forces": [
+            {
+              "force": 1,
+              "role": "地主",
+              "won": false,
+              "players": [
+                { "displayName": "J-Y-T-ChunNan", "disconnected": false },
+                { "displayName": "J-Y-T-Xiaoming", "disconnected": false },
+                { "displayName": "J-Y-T-IF", "disconnected": false }
+              ]
+            },
+            {
+              "force": 2,
+              "role": "富农",
+              "won": true,
+              "players": [{ "displayName": "shougong", "disconnected": false }]
+            },
+            {
+              "force": 3,
+              "role": "贫农",
+              "won": true,
+              "players": [
+                { "displayName": "IKILllIII", "disconnected": false },
+                { "displayName": "paijipao", "disconnected": false },
+                { "displayName": "GGrush", "disconnected": false },
+                { "displayName": "52Okill", "disconnected": false }
+              ]
+            }
+          ]
+        },
+        {
+          "number": 5,
+          "time": "20:31",
+          "duration": "06:44",
+          "map": "斗地主Doudizhu 5.7",
+          "forces": [
+            {
+              "force": 1,
+              "role": "地主",
+              "won": false,
+              "players": [
+                { "displayName": "J-Y-T-IF", "disconnected": false },
+                { "displayName": "J-Y-T-Xiaoming", "disconnected": false },
+                { "displayName": "J-Y-T-ChunNan", "disconnected": false }
+              ]
+            },
+            {
+              "force": 2,
+              "role": "富农",
+              "won": true,
+              "players": [{ "displayName": "shougong", "disconnected": false }]
+            },
+            {
+              "force": 3,
+              "role": "贫农",
+              "won": true,
+              "players": [
+                { "displayName": "paijipao", "disconnected": false },
+                { "displayName": "IKILllIII", "disconnected": false },
+                { "displayName": "52Okill", "disconnected": false },
+                { "displayName": "GGrush", "disconnected": false }
+              ]
+            }
+          ]
+        },
+        {
+          "number": 6,
+          "time": "20:59",
+          "duration": "08:22",
+          "map": "斗地主Doudizhu 5.7",
+          "forces": [
+            {
+              "force": 1,
+              "role": "地主",
+              "won": false,
+              "players": [
+                { "displayName": "J-Y-T-Xiaoming", "disconnected": false },
+                { "displayName": "J-Y-T-ChunNan", "disconnected": false },
+                { "displayName": "J-Y-T-IF", "disconnected": false }
+              ]
+            },
+            {
+              "force": 2,
+              "role": "富农",
+              "won": true,
+              "players": [{ "displayName": "shougong", "disconnected": false }]
+            },
+            {
+              "force": 3,
+              "role": "贫农",
+              "won": true,
+              "players": [
+                { "displayName": "FoR_TVSPZ", "disconnected": false },
+                { "displayName": "lansoov", "disconnected": false },
+                { "displayName": "paijipao", "disconnected": false },
+                { "displayName": "IKILllIII", "disconnected": false }
+              ]
+            }
+          ]
+        },
+        {
+          "number": 7,
+          "time": "21:17",
+          "duration": "16:54",
+          "map": "斗地主Doudizhu 5.7",
+          "forces": [
+            {
+              "force": 1,
+              "role": "地主",
+              "won": true,
+              "players": [
+                { "displayName": "J-Y-T-ChunNan", "disconnected": false },
+                { "displayName": "J-Y-T-IF", "disconnected": false },
+                { "displayName": "J-Y-T-Xiaoming", "disconnected": false }
+              ]
+            },
+            {
+              "force": 2,
+              "role": "富农",
+              "won": false,
+              "players": [{ "displayName": "shougong", "disconnected": false }]
+            },
+            {
+              "force": 3,
+              "role": "贫农",
+              "won": false,
+              "players": [
+                { "displayName": "IKILllIII", "disconnected": false },
+                { "displayName": "paijipao", "disconnected": false },
+                { "displayName": "lansoov", "disconnected": false },
+                { "displayName": "FoR_TVSPZ", "disconnected": false }
               ]
             }
           ]

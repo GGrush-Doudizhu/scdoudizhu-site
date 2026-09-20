@@ -5,6 +5,13 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 
 const schemeUrl = "/news/dsl2-league-plan.html";
 const schemeTitle = "第二届 DSL 斗地主星际联赛方案发布";
+const newsEntries = [
+  ...matchReports.matchDays.map((day) => ({ kind: "regular" as const, day })),
+  ...matchReports.specialEvents.map((day) => ({
+    kind: "special" as const,
+    day,
+  })),
+].sort((a, b) => b.day.date.localeCompare(a.day.date));
 const timelineItems = [
   {
     id: "news-scheme",
@@ -13,12 +20,23 @@ const timelineItems = [
     title: schemeTitle,
     district: null,
   },
-  ...matchReports.matchDays.map((day) => ({
-    id: `news-${day.slug}`,
-    date: day.date.slice(5).replace("-", "."),
-    meta: `${day.platform}赛区 · ${day.weekday}`,
-    title: `${day.dateLabel}比赛数据赛报`,
-    district: day.platform === "KK" ? "kk" : "korea",
+  ...newsEntries.map((entry) => ({
+    id: `news-${entry.day.slug}`,
+    date: entry.day.date.slice(5).replace("-", "."),
+    meta:
+      entry.kind === "special"
+        ? "特别活动 · 老板点播"
+        : `${entry.day.platform}赛区 · ${entry.day.weekday}`,
+    title:
+      entry.kind === "special"
+        ? entry.day.title
+        : `${entry.day.dateLabel}比赛数据赛报`,
+    district:
+      entry.kind === "special"
+        ? null
+        : entry.day.platform === "KK"
+          ? "kk"
+          : "korea",
   })),
 ];
 ---
@@ -79,50 +97,92 @@ const timelineItems = [
         </article>
 
         {
-          matchReports.matchDays.map((day) => (
-            <article
-              id={`news-${day.slug}`}
-              class:list={[
-                "news-card",
-                "news-card--match-report",
-                day.platform === "KK" ? "news-card--kk" : "news-card--korea",
-              ]}
-            >
-              <div class="news-date">
-                <span>{day.date.slice(0, 4)}</span>
-                <strong>{day.date.slice(5).replace("-", ".")}</strong>
-                <small>{day.weekday}</small>
-              </div>
-              <div>
-                <p class="eyebrow">
-                  {day.platform}赛区 · 常规赛 · 第 {day.matchdayNumber} 比赛日
-                </p>
-                <h2>{day.dateLabel} 比赛数据赛报</h2>
-                <p>
-                  当日共进行 {day.summary.matchCount} 盘，
-                  {day.summary.participantCount}
-                  名选手参赛；地主方 {day.summary.landlordWins} 胜，农民方
-                  {day.summary.farmerWins} 胜。
-                </p>
-                {day.notice && <p class="privacy-line">{day.notice}</p>}
-                <div class="news-staff-preview" aria-label="当日赛事工作人员">
-                  <span>房主：{day.staff.hosts.join("、")}</span>
-                  <span>主播：{day.staff.streamers.join("、")}</span>
-                  <span>统计：{day.staff.statistician}</span>
+          newsEntries.map((entry) =>
+            entry.kind === "special" ? (
+              <article
+                id={`news-${entry.day.slug}`}
+                class="news-card news-card--special-event"
+              >
+                <div class="news-date">
+                  <>
+                    <span>{entry.day.date.slice(0, 4)}</span>
+                    <strong>{entry.day.date.slice(5).replace("-", ".")}</strong>
+                  </>
                 </div>
-                <p class="news-staff-thanks">
-                  <span aria-hidden="true">✦</span>{" "}
-                  感谢以上赛事工作人员的辛苦付出
-                </p>
-                <a
-                  class="button button--primary"
-                  href={`/announcements/${day.slug}/`}
+                <div>
+                  <p class="eyebrow">特别活动 · 老板点播</p>
+                  <h2>
+                    {entry.day.dateLabel} {entry.day.title}
+                  </h2>
+                  <p>
+                    感谢 {entry.day.commissionedBy} 老板点播本场比赛！当晚共进行{" "}
+                    {entry.day.summary.matchCount} 盘，
+                    {entry.day.summary.participantCount} 名选手参与；地主方{" "}
+                    {entry.day.summary.landlordWins} 胜，农民方{" "}
+                    {entry.day.summary.farmerWins} 胜。
+                  </p>
+                  <p class="privacy-line">{entry.day.notice}</p>
+                  <a
+                    class="button button--primary"
+                    href={`/announcements/special/${entry.day.slug}/`}
+                  >
+                    阅读点播赛新闻与逐盘赛果
+                  </a>
+                </div>
+              </article>
+            ) : (
+              ((day) => (
+                <article
+                  id={`news-${day.slug}`}
+                  class:list={[
+                    "news-card",
+                    "news-card--match-report",
+                    day.platform === "KK"
+                      ? "news-card--kk"
+                      : "news-card--korea",
+                  ]}
                 >
-                  查看积分变动与逐盘赛果
-                </a>
-              </div>
-            </article>
-          ))
+                  <div class="news-date">
+                    <span>{day.date.slice(0, 4)}</span>
+                    <strong>{day.date.slice(5).replace("-", ".")}</strong>
+                    <small>{day.weekday}</small>
+                  </div>
+                  <div>
+                    <p class="eyebrow">
+                      {day.platform}赛区 · 常规赛 · 第 {day.matchdayNumber}{" "}
+                      比赛日
+                    </p>
+                    <h2>{day.dateLabel} 比赛数据赛报</h2>
+                    <p>
+                      当日共进行 {day.summary.matchCount} 盘，
+                      {day.summary.participantCount}
+                      名选手参赛；地主方 {day.summary.landlordWins} 胜，农民方
+                      {day.summary.farmerWins} 胜。
+                    </p>
+                    {day.notice && <p class="privacy-line">{day.notice}</p>}
+                    <div
+                      class="news-staff-preview"
+                      aria-label="当日赛事工作人员"
+                    >
+                      <span>房主：{day.staff.hosts.join("、")}</span>
+                      <span>主播：{day.staff.streamers.join("、")}</span>
+                      <span>统计：{day.staff.statistician}</span>
+                    </div>
+                    <p class="news-staff-thanks">
+                      <span aria-hidden="true">✦</span>{" "}
+                      感谢以上赛事工作人员的辛苦付出
+                    </p>
+                    <a
+                      class="button button--primary"
+                      href={`/announcements/${day.slug}/`}
+                    >
+                      查看积分变动与逐盘赛果
+                    </a>
+                  </div>
+                </article>
+              ))(entry.day)
+            ),
+          )
         }
       </div>
     </div>
