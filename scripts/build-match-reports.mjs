@@ -41,7 +41,7 @@ const fullStandingsOutputPath = path.join(
 );
 const checkOnly = process.argv.includes("--check");
 
-const publishedAt = "2026-09-20T20:20:37+08:00";
+const publishedAt = "2026-10-01T11:30:41+08:00";
 const workPointCap = 15;
 const workRoleRules = {
   host: { label: "房主", points: 10 },
@@ -262,7 +262,9 @@ async function buildData() {
     withFileTypes: true,
   });
   const matchdayDirectories = directoryEntries
-    .filter((entry) => entry.isDirectory() && /^\d{8}$/u.test(entry.name))
+    .filter(
+      (entry) => entry.isDirectory() && /^\d{8}(?:\D.*)?$/u.test(entry.name),
+    )
     .map((entry) => entry.name)
     .sort();
   assert(matchdayDirectories.length > 0, "match-data 中没有比赛日目录。");
@@ -270,16 +272,26 @@ async function buildData() {
   const masterMatchDays = [];
   const publicMatchDays = [];
   const specialEvents = [];
+  const specialEventFiles = [];
   const playerTotals = new Map();
   const observedNames = new Map();
   const disconnectTracker = createDisconnectTracker();
 
-  for (const compactDate of matchdayDirectories) {
-    const sourcePath = path.join(
-      matchDataRoot,
-      compactDate,
-      `${compactDate}.json`,
+  for (const directoryName of matchdayDirectories) {
+    const compactDate = directoryName.slice(0, 8);
+    const jsonFiles = (
+      await readdir(path.join(matchDataRoot, directoryName))
+    ).filter((name) => name.endsWith(".json"));
+    assert(
+      jsonFiles.length === 1,
+      `${directoryName} 必须包含唯一的比赛 JSON。`,
     );
+    const sourceFile = path.posix.join(
+      "match-data",
+      directoryName,
+      jsonFiles[0],
+    );
+    const sourcePath = path.join(projectRoot, sourceFile);
     const source = JSON.parse(await readFile(sourcePath, "utf8"));
     assert(
       Array.isArray(source) && source.length > 1,
@@ -402,20 +414,37 @@ async function buildData() {
         },
         games,
       });
+      specialEventFiles.push(sourceFile);
       continue;
     }
     const platform = platformForDate(dateValue, metadata);
     const matchPointOverrides = resolveMatchPointOverrides(metadata);
     const disconnectEvents = [];
     const suspendedAppearances = [];
-    assert(Array.isArray(metadata.host), `${sourcePath} 缺少 host 数组。`);
     assert(
-      Array.isArray(metadata.streamer),
+      metadata.recordStaff === undefined ||
+        typeof metadata.recordStaff === "boolean",
+      `${sourcePath} recordStaff 必须是布尔值。`,
+    );
+    const recordStaff = metadata.recordStaff !== false;
+    assert(
+      !masterMatchDays.some((day) => day.date === date),
+      `${sourcePath} 常规赛日期重复。`,
+    );
+    assert(
+      !recordStaff || Array.isArray(metadata.host),
+      `${sourcePath} 缺少 host 数组。`,
+    );
+    assert(
+      !recordStaff || Array.isArray(metadata.streamer),
       `${sourcePath} 缺少 streamer 数组。`,
     );
     assert(
-      typeof metadata.statistician === "string",
-      `${sourcePath} 缺少 statistician。`,
+      !recordStaff ||
+        metadata.statistician == null ||
+        (typeof metadata.statistician === "string" &&
+          metadata.statistician.trim()),
+      `${sourcePath} statistician 必须是有效名称或留空。`,
     );
 
     const rememberName = (sourceName) => {
@@ -425,11 +454,22 @@ async function buildData() {
       observedNames.set(displayName, aliases);
       return displayName;
     };
-    const hosts = uniqueNames(metadata.host.map(rememberName));
-    const hostPoints = resolveHostPoints(metadata, canonicalName);
-    const workOverrides = resolveWorkPointOverrides(metadata, canonicalName);
-    const streamers = uniqueNames(metadata.streamer.map(rememberName));
-    const statistician = rememberName(metadata.statistician);
+    const hosts = recordStaff
+      ? uniqueNames(metadata.host.map(rememberName))
+      : [];
+    const hostPoints = recordStaff
+      ? resolveHostPoints(metadata, canonicalName)
+      : new Map();
+    const workOverrides = recordStaff
+      ? resolveWorkPointOverrides(metadata, canonicalName)
+      : new Map();
+    const streamers = recordStaff
+      ? uniqueNames(metadata.streamer.map(rememberName))
+      : [];
+    const statistician =
+      recordStaff && metadata.statistician
+        ? rememberName(metadata.statistician)
+        : null;
     const pointChanges = new Map();
     const participants = new Set();
     let totalDurationSeconds = 0;
@@ -546,7 +586,7 @@ async function buildData() {
     };
     hosts.forEach((name) => registerStaffRole(name, "host"));
     streamers.forEach((name) => registerStaffRole(name, "streamer"));
-    registerStaffRole(statistician, "statistician");
+    if (statistician) registerStaffRole(statistician, "statistician");
     for (const [displayName, roleKeys] of staffRoles)
       addWorkPoints(
         pointChanges,
@@ -581,19 +621,21 @@ async function buildData() {
       ...(matchPointOverrides ? { matchPointOverrides } : {}),
       notice: disconnectPolicy.excludedMatchdays[date] ?? null,
       disconnectEvents,
-      staff: {
-        hosts,
-        streamers,
-        statistician,
-        ...(hostPoints.size
-          ? {
-              hostPointAwards: hosts.map((displayName) => ({
-                displayName,
-                points: hostPoints.get(displayName) ?? 10,
-              })),
-            }
-          : {}),
-      },
+      staff: recordStaff
+        ? {
+            hosts,
+            streamers,
+            statistician,
+            ...(hostPoints.size
+              ? {
+                  hostPointAwards: hosts.map((displayName) => ({
+                    displayName,
+                    points: hostPoints.get(displayName) ?? 10,
+                  })),
+                }
+              : {}),
+          }
+        : null,
       summary: {
         matchCount: games.length,
         participantCount: participants.size,
@@ -604,11 +646,7 @@ async function buildData() {
     };
     masterMatchDays.push({
       ...commonDay,
-      sourceFile: path.posix.join(
-        "match-data",
-        compactDate,
-        `${compactDate}.json`,
-      ),
+      sourceFile,
       summary: {
         ...commonDay.summary,
         totalDurationSeconds,
@@ -697,10 +735,7 @@ async function buildData() {
     standingsAsOf,
     generatedFrom: {
       matchdayFiles: masterMatchDays.map((day) => day.sourceFile),
-      specialEventFiles: specialEvents.map((event) => {
-        const date = event.date.replaceAll("-", "");
-        return path.posix.join("match-data", date, `${date}.json`);
-      }),
+      specialEventFiles,
       identityFile: "match-data/same_name.csv",
     },
     scoringRules: {

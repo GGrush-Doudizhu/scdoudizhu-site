@@ -1,27 +1,28 @@
 import { expect, test } from "@playwright/test";
 import reports from "../src/data/match-reports.json" with { type: "json" };
-import standings from "../src/data/public-standings.json" with { type: "json" };
 
 test("9月16日计入第十五比赛日，点播赛完全排除常规赛", () => {
-  expect(reports.matchDays).toHaveLength(15);
-  expect(
-    reports.matchDays.reduce((sum, day) => sum + day.summary.matchCount, 0),
-  ).toBe(112);
-  expect(reports.matchDays.some((day) => day.date === "2026-09-19")).toBe(
-    false,
+  const historicalDays = reports.matchDays.filter(
+    (day) => day.date <= "2026-09-16",
   );
-  expect(standings.standingsAsOf).toBe("2026-09-16T22:02:00+08:00");
+  expect(historicalDays).toHaveLength(15);
   expect(
-    standings.entries
-      .slice(0, 3)
-      .map((p) => [p.displayName, p.points, p.gamesPlayed]),
-  ).toEqual([
-    ["lansoov", 538, 71],
-    ["GGrush", 521, 55],
-    ["do''do", 408, 60],
-  ]);
+    historicalDays.reduce((sum, day) => sum + day.summary.matchCount, 0),
+  ).toBe(112);
+  const historicalTotals = new Map<string, number>();
+  for (const day of historicalDays) {
+    for (const player of day.pointChanges) {
+      historicalTotals.set(
+        player.displayName,
+        (historicalTotals.get(player.displayName) ?? 0) + player.total,
+      );
+    }
+  }
+  expect(historicalTotals.get("lansoov")).toBe(538);
+  expect(historicalTotals.get("GGrush")).toBe(521);
+  expect(historicalTotals.get("do''do")).toBe(408);
   expect(
-    standings.entries.some((p) => p.displayName.startsWith("J-Y-T-")),
+    [...historicalTotals.keys()].some((name) => name.startsWith("J-Y-T-")),
   ).toBe(false);
   const event = reports.specialEvents[0];
   expect(event.commissionedBy).toBe("WoShiLaoCaiNiao");
@@ -73,10 +74,9 @@ test("老板点播赛从新闻可达，展示七盘且没有常规赛积分表",
   const card = page.locator(".news-card--special-event");
   await expect(card).toContainText("WoShiLaoCaiNiao 老板点播赛");
   await expect(card).toContainText("不计入 DSL 常规赛");
-  await expect(page.locator(".news-timeline a").nth(1)).toHaveAttribute(
-    "href",
-    "#news-2026-09-19",
-  );
+  await expect(
+    page.locator('.news-timeline a[href="#news-special-2026-09-19"]'),
+  ).toHaveAttribute("href", "#news-special-2026-09-19");
   await card.getByRole("link").click();
   await expect(page.getByRole("heading", { level: 1 })).toHaveText(
     "WoShiLaoCaiNiao 老板点播赛",

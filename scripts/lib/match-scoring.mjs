@@ -54,9 +54,11 @@ export function resolveWorkPointOverrides(metadata, canonicalName) {
     throw new Error("workPointOverrides 必须是特别核定记录数组。");
   }
   const staff = new Set(
-    [...metadata.host, ...metadata.streamer, metadata.statistician].map(
-      canonicalName,
-    ),
+    [
+      ...metadata.host,
+      ...metadata.streamer,
+      ...(metadata.statistician ? [metadata.statistician] : []),
+    ].map(canonicalName),
   );
   for (const award of metadata.workPointOverrides) {
     if (

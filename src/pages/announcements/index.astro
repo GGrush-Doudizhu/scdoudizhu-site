@@ -21,7 +21,7 @@ const timelineItems = [
     district: null,
   },
   ...newsEntries.map((entry) => ({
-    id: `news-${entry.day.slug}`,
+    id: `news-${entry.kind === "special" ? "special-" : ""}${entry.day.slug}`,
     date: entry.day.date.slice(5).replace("-", "."),
     meta:
       entry.kind === "special"
@@ -100,7 +100,7 @@ const timelineItems = [
           newsEntries.map((entry) =>
             entry.kind === "special" ? (
               <article
-                id={`news-${entry.day.slug}`}
+                id={`news-special-${entry.day.slug}`}
                 class="news-card news-card--special-event"
               >
                 <div class="news-date">
@@ -161,18 +161,28 @@ const timelineItems = [
                       {day.summary.farmerWins} 胜。
                     </p>
                     {day.notice && <p class="privacy-line">{day.notice}</p>}
-                    <div
-                      class="news-staff-preview"
-                      aria-label="当日赛事工作人员"
-                    >
-                      <span>房主：{day.staff.hosts.join("、")}</span>
-                      <span>主播：{day.staff.streamers.join("、")}</span>
-                      <span>统计：{day.staff.statistician}</span>
-                    </div>
-                    <p class="news-staff-thanks">
-                      <span aria-hidden="true">✦</span>{" "}
-                      感谢以上赛事工作人员的辛苦付出
-                    </p>
+                    {day.staff && (
+                      <>
+                        <div
+                          class="news-staff-preview"
+                          aria-label="当日赛事工作人员"
+                        >
+                          {day.staff.hosts.length > 0 && (
+                            <span>房主：{day.staff.hosts.join("、")}</span>
+                          )}
+                          {day.staff.streamers.length > 0 && (
+                            <span>主播：{day.staff.streamers.join("、")}</span>
+                          )}
+                          {day.staff.statistician && (
+                            <span>统计：{day.staff.statistician}</span>
+                          )}
+                        </div>
+                        <p class="news-staff-thanks">
+                          <span aria-hidden="true">✦</span>{" "}
+                          感谢以上赛事工作人员的辛苦付出
+                        </p>
+                      </>
+                    )}
                     <a
                       class="button button--primary"
                       href={`/announcements/${day.slug}/`}
