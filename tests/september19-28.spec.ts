@@ -97,7 +97,7 @@ for (const [date, , games, participants, landlordWins, farmerWins] of days) {
       const staffAwards =
         date === "2026-09-19"
           ? [
-              ["QQ", "房主 +10"],
+              ["ctrl+Q++Q", "房主 +10"],
               ["DR.Yang", "主播 +10"],
             ]
           : [
@@ -132,6 +132,7 @@ for (const [date, , games, participants, landlordWins, farmerWins] of days) {
       const row = page.locator(".report-points-table tbody tr").filter({
         has: page.getByRole("rowheader", { name: "笑笑", exact: true }),
       });
+
       await expect(row.locator("th,td")).toHaveText(["笑笑", "0", "0"]);
     }
     expect(
@@ -142,3 +143,41 @@ for (const [date, , games, participants, landlordWins, farmerWins] of days) {
     expect(errors).toEqual([]);
   });
 }
+
+test("更新姓名归并后累计成绩合并，第40名并列完整公开", () => {
+  for (const [name, rank, points] of [
+    ["IKILllIII", 6, 362],
+    ["lucky2023", 12, 251],
+    ["ctrl+Q++Q", 14, 195],
+    ["叉子别", 25, 77],
+    ["jy02626922", 31, 55],
+    ["剑圣", 32, 54],
+    ["G600", 33, 51],
+  ] as const) {
+    const player = standings.entries.find((p) => p.displayName === name);
+    expect(player).toMatchObject({ rank, points });
+  }
+  expect(standings.entries).toHaveLength(41);
+  expect(
+    standings.entries
+      .filter((p) => p.rank === 40)
+      .map((p) => [p.displayName, p.points, p.tier]),
+  ).toEqual([
+    ["星际争霸新生", 26, "白银"],
+    ["Super_555", 26, "白银"],
+  ]);
+  expect(
+    standings.entries.some((p) =>
+      ["QQ", "G.600", "luckyy2023", "嘴哥逗地主", "抖地主jy02626922"].includes(
+        p.displayName,
+      ),
+    ),
+  ).toBe(false);
+  const september19 = reports.matchDays.find(
+    (day) => day.date === "2026-09-19",
+  )!;
+  expect(september19.staff?.hosts).toEqual(["ctrl+Q++Q"]);
+  expect(
+    september19.pointChanges.find((p) => p.displayName === "ctrl+Q++Q"),
+  ).toMatchObject({ matchPoints: 0, workPoints: 10, total: 10 });
+});

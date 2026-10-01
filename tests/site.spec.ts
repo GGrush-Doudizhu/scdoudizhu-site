@@ -379,8 +379,8 @@ test("积分榜同分同名次，完整展示白银及以上含并列选手", as
   await expect(page.getByText("榜单效果预览")).toHaveCount(0);
   await expect(page.locator(".podium-card")).toHaveCount(3);
   const rows = page.locator(".standings-table tbody tr[data-rank]");
-  await expect(rows).toHaveCount(40);
-  await expect(page.locator(".standings-table tbody tr")).toHaveCount(41);
+  await expect(rows).toHaveCount(41);
+  await expect(page.locator(".standings-table tbody tr")).toHaveCount(42);
   const bronzeSummary = page.locator(".standings-summary-row");
   await expect(bronzeSummary.locator("td, th")).toHaveText([
     "41+",
@@ -426,7 +426,7 @@ test("积分榜同分同名次，完整展示白银及以上含并列选手", as
     ["钻石", 6, 10, 5],
     ["铂金", 11, 20, 10],
     ["黄金", 21, 30, 10],
-    ["白银", 31, 40, 10],
+    ["白银", 31, 40, 11],
   ] as const) {
     await expect(
       page.locator(`.standings-table tbody tr[data-tier="${tier}"]`),
@@ -438,10 +438,10 @@ test("积分榜同分同名次，完整展示白银及以上含并列选手", as
     }
   }
   await expect(
-    page.locator('.standings-table tbody tr[data-rank="31"]'),
+    page.locator('.standings-table tbody tr[data-rank="40"]'),
   ).toHaveCount(2);
   await expect(
-    page.locator('.standings-table tbody tr[data-rank="32"]'),
+    page.locator('.standings-table tbody tr[data-rank="42"]'),
   ).toHaveCount(0);
   await expect(
     page.locator('.standings-table tbody tr[data-tier="青铜"]'),
@@ -455,8 +455,9 @@ test("积分榜同分同名次，完整展示白银及以上含并列选手", as
     "7788",
     "阿斯蒂芬",
     "lalala.bobo",
-    "G600",
-    "Super_555",
+    "G.600",
+    "luckyy2023",
+    "嘴哥逗地主",
   ]) {
     await expect(
       page
